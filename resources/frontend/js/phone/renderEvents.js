@@ -139,6 +139,7 @@ function saveSettingsTrigger() {
         timeZone: timezone.value,
         dateFormat: dateformat.value,
         timeFormat: use12hClock.value,
+        offsetShow: showoffset.value,
         //displayOrder: timeFirst.value 
     };
     if (popupDiv.style.display === "none") {
@@ -193,16 +194,25 @@ function SettingsEvent() {
                     <option value="DD/MM/YYYY">DD/MM/YYYY</option>
                     <option value="DD.MM.YYYY">DD.MM.YYYY</option>
                     <option value="YYYY-MM-DD">YYYY-MM-DD</option>
+                    <option value="MMMM DD, YYYY">MMMM DD, YYYY</option>
+                    <option value="DD MMMM YYYY">DD MMMM YYYY</option>
+                    
                 </select>
             </div>
             <div id="use12hClockDiv">
-                <label for="use12hClock">12h or 24h clock</label>
+                <label for="use12hClock">12h or 24h clock:</label>
                 <select id="use12hClock">
                     <option value="12Hour">12Hour</option>
                     <option value="24Hour">24Hour</option>
                 </select>
             </div>
-            
+            <div id="offsetDiv">
+                <label for="showoffset">Use Time Offset:</label>
+                <select id="showoffset">
+                    <option value="on">Yes</option>
+                    <option value="off">No</option>
+                </select>
+            </div>            
             <br>
             <button class="ok" onclick="saveSettingsTrigger()">Save</button>
     `;
@@ -223,11 +233,13 @@ function SettingsEvent() {
     const timezone = document.getElementById('timezone').value;
     const dateformat = (document.getElementById('dateformat').value);
     const use12hClock = document.getElementById('use12hClock').value;
+    const showoffset = document.getElementById('showoffset').value;
     //const timeFirst = document.getElementById('timeFirst').value;
 
     setSettingSelectedValue('timezone', `${(loadSettings().timeZone)}`);
     setSettingSelectedValue('dateformat', `${(loadSettings().dateFormat)}`);
     setSettingSelectedValue('use12hClock', `${(loadSettings().timeFormat)}`);
+    setSettingSelectedValue('showoffset', `${(loadSettings().offsetShow)}`);
     //setSettingSelectedValue('timeFirst', `${(loadSettings().displayOrder)}`);
 
     if (popupDiv.style.display === "none") {

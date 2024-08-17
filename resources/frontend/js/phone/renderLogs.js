@@ -92,9 +92,8 @@ function showLogs(index, From, conversations) {  // All Data comes from renderCo
 
     // Create Output data for History
     conversationSorted.forEach(historyLog => {
-
         // Check if a new day has begun and add a date marker
-        const currentDate = processTimestamp(historyLog.Timestamp).date;
+        const currentDate = processTimestamp(historyLog.Timestamp).dateShowOffset;
         if (lastDate !== currentDate) {
             const dateMarker = document.createElement('div');
             dateMarker.classList.add('date-marker');
@@ -120,7 +119,7 @@ function showLogs(index, From, conversations) {  // All Data comes from renderCo
             if (historyLog.CallStart != null) {
                 callDurationContainer.textContent = `Call duration: ${callDuration}`;
                 callDurationContainer.classList.add('call-status');
-                callTimeContainer.textContent = `${fixedDate.time} ${fixedDate.timeZone}`;
+                callTimeContainer.textContent = `${fixedDate.timeShowOffset} ${fixedDate.timeZone}`;
                 callTimeContainer.classList.add('time');
 
                 if (parseInt(simOwner.Number) === parseInt(historyLog.From)) {
@@ -141,7 +140,7 @@ function showLogs(index, From, conversations) {  // All Data comes from renderCo
             if (historyLog.CallStart === null) {
                 callDurationContainer.textContent = `Call could not be established!`;
                 callDurationContainer.classList.add('call-status');
-                callTimeContainer.textContent = `${fixedDate.time} ${fixedDate.timeZone}`;
+                callTimeContainer.textContent = `${fixedDate.timeShowOffset} ${fixedDate.timeZone}`;
                 callTimeContainer.classList.add('time');
                 if (parseInt(simOwner.Number) === parseInt(historyLog.From)) {
                     callBetween.textContent = `Incoming call`;
@@ -173,7 +172,7 @@ function showLogs(index, From, conversations) {  // All Data comes from renderCo
             const timestampDiv = document.createElement('div');
             fixedDate = processTimestamp(historyLog.Timestamp);
             timestampDiv.classList.add('timestamp');
-            timestampDiv.textContent = `${fixedDate.time} ${fixedDate.timeZone}`;
+            timestampDiv.textContent = `${fixedDate.timeShowOffset} ${fixedDate.timeZone}`;
 
             const numberDiv = document.createElement('div');
             numberDiv.classList.add('number');
