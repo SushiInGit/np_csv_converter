@@ -31,7 +31,7 @@ th {
 }
 
 td {
-    text-align: left;
+    text-align: center;
 }
 
 table tr:nth-child(even) {
