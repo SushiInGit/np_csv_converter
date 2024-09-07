@@ -136,19 +136,37 @@ function copyTableToClipboard() {
         return;
     }
     var table = document.querySelector("#phoneRecords");
-    var range = document.createRange();
-    range.selectNode(table);
-    window.getSelection().removeAllRanges();
-    window.getSelection().addRange(range);
+    var rows = table.querySelectorAll("tr");
+    var tableText = "";
+
+    rows.forEach(function (row, rowIndex) {
+        if (rowIndex === 0) return;
+        var cells = row.querySelectorAll("td");
+        var rowText = [];
+        cells.forEach(function (cell, cellIndex) {
+            if (cellIndex === 0) return;
+            rowText.push(cell.innerText);
+        });
+
+        if (rowText.length > 0) {
+            tableText += rowText.join("\t") + "\n";
+        }
+    });
+
+    var tempTextArea = document.createElement("textarea");
+    tempTextArea.value = tableText.trim();
+    document.body.appendChild(tempTextArea);
+    tempTextArea.select();
     try {
-        var successful = document.execCommand("copy");
-        var msg = successful ? "successful" : "unsuccessful";
-        alert("Copy table command was " + msg);
+        var successful = document.execCommand("copy")
+        var msg = successful ? "successful" : "unsuccessful"
+        alert("Copy table command was " + msg)
     } catch (err) {
-        alert("Unable to copy", err);
+        alert("Unable to copy", err)
     }
-    window.getSelection().removeAllRanges();
+    document.body.removeChild(tempTextArea);
 }
+
 
 
 function checkFileSelected() {
