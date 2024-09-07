@@ -157,3 +157,11 @@ a:hover::after {
 #imagePreview:hover {
     box-shadow: 0 0 20px 7px rgba(212, 165, 255, 1); 
 }
+
+footer {
+  text-align: center;
+  padding: 3px;
+  margin-bottom: 20px;
+  background-color: #333;
+  color: white;
+}
