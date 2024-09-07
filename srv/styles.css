@@ -160,7 +160,9 @@ a:hover::after {
 
 footer {
   text-align: center;
+  font-size: 10px;
   padding: 3px;
+  margin-top: 20px;
   margin-bottom: 20px;
   background-color: #333;
   color: white;
