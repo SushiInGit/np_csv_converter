@@ -11,34 +11,60 @@ document.querySelector('#excelFile').addEventListener('change', function (event)
     file = event.target.files[0];
     readFile();
 });
+document.querySelector('#sheet').addEventListener('change', readFile);
 
 document.querySelector('#timezone').addEventListener('change', fillTable);
 document.querySelector('#use12hClock').addEventListener('change', fillTable);
 document.querySelector('#timeFirst').addEventListener('change', fillTable);
 document.querySelector('#dateformat').addEventListener('change', fillTable);
+document.querySelector('#timezoneOffset').addEventListener('change', fillTable);
 document.querySelector('#copyTable').addEventListener('click', copyTableToClipboard);
 
 function readFile() {
+    if (!file) return;
+
     var reader = new FileReader();
+    var selectedSheet = parseInt(document.querySelector("#sheet").value);
+
     reader.onload = function (e) {
         var workbook = new ExcelJS.Workbook();
+        itemsArr = [];
+
         workbook.xlsx.load(e.target.result).then(function () {
-            var worksheet = workbook.getWorksheet(1);
+            var maxSheets = workbook.worksheets.length;
+            document.querySelector('#sheet').max = maxSheets;
+
+            if (selectedSheet > maxSheets) {
+                document.querySelector('#sheet').value = maxSheets;
+                selectedSheet = maxSheets;
+            }
+
+            var worksheet = workbook.getWorksheet(selectedSheet);
+
             worksheet.eachRow(function (row, rowNumber) {
                 if (rowNumber == 1) {
                     columnNames = row.values;
-                } else {
+                }
+                else {
                     var createArray = [];
+
                     row.values.forEach(function (value, index) {
                         createArray.push(value);
                     });
+
                     itemsArr.push(createArray);
                 }
-            });
+            })
+
             fillTable();
-        });
-    };
-    reader.readAsArrayBuffer(file);
+        })
+            .catch(function (error) {
+                alert('File is not a valid Excel file');
+                file = undefined;
+            });
+    }
+
+    reader.readAsArrayBuffer(file)
 }
 
 function fillTable() {
@@ -68,6 +94,8 @@ function fillTable() {
                 var dateformat = document.querySelector("#dateformat").value;
                 var hour12 = document.querySelector("#use12hClock").checked;
                 var timeFirst = document.querySelector("#timeFirst").checked;
+                var timezoneOffset = document.querySelector("#timezoneOffset").value;
+                date.setHours(date.getHours() + (1 * timezoneOffset));
                 var dateOptions = { timeZone: timezone, year: 'numeric', month: '2-digit', day: '2-digit' };
                 var timeOptions = { timeZone: timezone, hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: hour12 };
                 var dateFormatter = new Intl.DateTimeFormat(dateformat, dateOptions);
@@ -126,18 +154,18 @@ function copyTableToClipboard() {
 function checkFileSelected() {
     var fileInput = document.getElementById("excelFile");
     var inputMask = document.getElementById("inputMask");
-    var searchInput = document.getElementById("searchInput");
+    var fileControl = document.getElementById("fileControl");
     var copyTable = document.getElementById("copyTable");
     var toggleButton = document.getElementById("toggleButton");
 
     if (fileInput.files.length > 0) {
         inputMask.style.display = "none";
-        searchInput.style.display = "block";
+        fileControl.style.display = "grid";
         copyTable.style.display = "block";
         toggleButton.style.display = "block";
     } else {
         inputMask.style.display = "block";
-        searchInput.style.display = "none";
+        fileControl.style.display = "none";
         copyTable.style.display = "none";
         toggleButton.style.display = "none";
     }

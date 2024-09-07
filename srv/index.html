@@ -4,14 +4,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/exceljs/4.3.0/exceljs.min.js"></script>
-    <link rel="stylesheet" href="https://sushiingit.github.io/np_csv_converter/srv/styles.css">
+
+    <!-- <link rel="stylesheet" href="https://sushiingit.github.io/np_csv_converter/srv/styles.css"> -->
+    <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
     <button id="toggleButton" onclick="toggleInputMask()">Show Input Mask</button>
-    <div id="inputMask"> <br />
+    <div id="inputMask">
         <select id="timezone">
+            <option value="UTC">UTC</option>
             <option value="Europe/Berlin">Europe/Berlin (CEST)</option>
             <option value="America/New_York">America/New_York (EDT)</option>
             <option value="Asia/Tokyo">Asia/Tokyo (JST)</option>
@@ -20,13 +24,15 @@
             <option value="Europe/London">Europe/London (BST)</option>
             <option value="Asia/Kolkata">Asia/Kolkata (IST)</option>
             <option value="Africa/Johannesburg">Africa/Johannesburg (SAST)</option>
-        </select><br />
+        </select>
+        <br />
         <select id="dateformat">
             <option value="en-US">en-US</option>
             <option value="en-GB">en-GB</option>
             <option value="de-DE">de-DE</option>
             <option value="ja-JP">ja-JP</option>
-        </select><br />
+        </select>
+        <br />
         <div id="use12hClockDiv">
             <label for="use12hClock">12h clock</label>
             <input type="checkbox" id="use12hClock" />
@@ -35,11 +41,29 @@
             <label for="timeFirst">Time first</label>
             <input type="checkbox" id="timeFirst" />
         </div>
-        <input type="file" id="excelFile" accept=".xlsx,.csv" onchange="resetTable(); checkFileSelected()" /><br /> <br />
-    </div><button id="copyTable">Copy table (enables copy paste to excel)</button><br /><br />
-    <input type="text" id="searchInput" placeholder="Search..." onkeyup="searchTable()" />
-    <table id="phoneRecords"></table>
-    <script src="https://sushiingit.github.io/np_csv_converter/srv/script.js"></script>
-</body>
+        <div id="timezoneOffsetDiv">
+            <label for="timezoneOffset">Timezone offset</label>
+            <input type="number" id="timezoneOffset" min="-12" max="12" step="1" value="0">
+        </div>
+        <input type="file" id="excelFile" accept=".xlsx,.csv" onchange="resetTable(); checkFileSelected()" />
+    </div>
+
+    <button id="copyTable">Copy table (enables copy paste to excel)</button>
     
+    <br />
+
+    <div id="fileControl">
+        <input type="text" id="searchInput" placeholder="Search..." onkeyup="searchTable()" />
+        <div class="sheet">
+            <label for="sheet">Sheet</label>
+            <input type="number" id="sheet" min="1" step="1" value="1">
+        </div>
+    </div>
+    
+    <table id="phoneRecords"></table>
+
+    <!-- <script src="https://sushiingit.github.io/np_csv_converter/srv/script.js"></script> -->
+    <script src="script.js"></script>
+</body>
+
 </html>
