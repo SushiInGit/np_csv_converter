@@ -22,14 +22,12 @@ document.querySelector('#copyTable').addEventListener('click', copyTableToClipbo
 
 function readFile() {
     if (!file) return;
-
     var reader = new FileReader();
     var selectedSheet = parseInt(document.querySelector("#sheet").value);
 
     reader.onload = function (e) {
         var workbook = new ExcelJS.Workbook();
         itemsArr = [];
-
         workbook.xlsx.load(e.target.result).then(function () {
             var maxSheets = workbook.worksheets.length;
             document.querySelector('#sheet').max = maxSheets;
@@ -38,9 +36,7 @@ function readFile() {
                 document.querySelector('#sheet').value = maxSheets;
                 selectedSheet = maxSheets;
             }
-
             var worksheet = workbook.getWorksheet(selectedSheet);
-
             worksheet.eachRow(function (row, rowNumber) {
                 if (rowNumber == 1) {
                     columnNames = row.values;
@@ -51,11 +47,9 @@ function readFile() {
                     row.values.forEach(function (value, index) {
                         createArray.push(value);
                     });
-
                     itemsArr.push(createArray);
                 }
             })
-
             fillTable();
         })
             .catch(function (error) {
@@ -63,7 +57,6 @@ function readFile() {
                 file = undefined;
             });
     }
-
     reader.readAsArrayBuffer(file)
 }
 
@@ -71,18 +64,14 @@ function fillTable() {
     if (!file) return;
     var table = document.querySelector("#phoneRecords");
     table.innerHTML = '';
-
     var row = document.createElement("tr");
     row.appendChild(Object.assign(document.createElement("th"), { innerHTML: '' }));
-
     columnNames.forEach((header, i) => {
         let th = document.createElement("th");
         th.innerHTML = `${String.fromCharCode(65 + i - 1)}<br>${header}`;
         row.appendChild(th);
     });
-
     table.append(row);
-
     itemsArr.forEach((itemRow, index) => {
         row = document.createElement("tr");
         row.appendChild(Object.assign(document.createElement("td"), { innerHTML: index + 1 }));
@@ -106,7 +95,6 @@ function fillTable() {
             }
             row.appendChild(Object.assign(document.createElement("td"), { innerHTML: item }));
         });
-
         table.append(row);
     });
     checkFileSelected();
@@ -122,12 +110,22 @@ function isValidISODateString(dateString) {
 function searchTable() {
     var input = document.querySelector("#searchInput").value.toLowerCase();
     var rows = document.querySelectorAll("#phoneRecords tr");
-    rows.forEach((row, index) => {
+    var visibleRowIndex = 0;
+    rows.forEach(function(row, index) {
         if (index === 0) return;
         var rowText = row.innerText.toLowerCase();
-        row.style.display = rowText.includes(input) ? "" : "none";
+        if (rowText.includes(input)) {
+            row.style.display = ""; e
+            if (visibleRowIndex % 2 === 0) {
+                row.style.backgroundColor = "#2a2a2a"; 
+            } else {
+                row.style.backgroundColor = "#1e1e1e"; 
+            }
+            visibleRowIndex++;
+        } else {
+            row.style.display = "none"; 
+        }
     });
-    checkFileSelected();
 }
 
 function copyTableToClipboard() {
@@ -138,7 +136,6 @@ function copyTableToClipboard() {
     var table = document.querySelector("#phoneRecords");
     var rows = table.querySelectorAll("tr");
     var tableText = "";
-
     rows.forEach(function (row, rowIndex) {
         if (rowIndex === 0) return;
         var cells = row.querySelectorAll("td");
@@ -152,7 +149,6 @@ function copyTableToClipboard() {
             tableText += rowText.join("\t") + "\n";
         }
     });
-
     var tempTextArea = document.createElement("textarea");
     tempTextArea.value = tableText.trim();
     document.body.appendChild(tempTextArea);
@@ -166,8 +162,6 @@ function copyTableToClipboard() {
     }
     document.body.removeChild(tempTextArea);
 }
-
-
 
 function checkFileSelected() {
     var fileInput = document.getElementById("excelFile");
