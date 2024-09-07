@@ -14,4 +14,5 @@ Based of RY Jarnovk's Project.
 
 ### To-Do / Bug Fixes
 
-- imagePreview-css glitch at the bottem of the webpage [ Bandit Fix: *before* transform: translateY(-50%); ->  *after* transform: translateY(-80%); ]
+- imagePreview-css glitch at the bottem of the webpage\
+\[ Bandit Fix: *before* transform: translateY(-50%); ->  *after* transform: translateY(-80%); ]
