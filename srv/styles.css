@@ -144,7 +144,7 @@ a:hover::after {
 #imagePreview {
     position: absolute;
     top: 50%;
-    transform: translateY(-50%);
+    transform: translateY(-80%);
     border-radius: 5px;
     border: 1px solid #d4a5ff; 
     box-shadow: 0 0 15px 5px rgba(212, 165, 255, 0.7); 
