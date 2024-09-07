@@ -210,7 +210,52 @@ function makeLinksClickable() {
                     link = "http://" + link;
                 }
                 cell.innerHTML = `<a href="${link}" target="_blank">${link}</a>`;
+                if (/\.(jpeg|jpg|gif|png|webp|svg)$/.test(link)) {
+                    cell.querySelector("a").addEventListener("mouseover", function(event) {
+                        showImagePreview(event, link);
+                    });
+                    cell.querySelector("a").addEventListener("mousemove", function(event) {
+                        moveImagePreview(event);
+                    });
+                    cell.querySelector("a").addEventListener("mouseout", function() {
+                        hideImagePreview();
+                    });
+                }
             }
         });
     });
+}
+
+function showImagePreview(event, imageUrl) {
+    var preview = document.createElement("div");
+    preview.id = "imagePreview";
+    preview.style.position = "absolute";
+    preview.style.border = "1px solid #ccc";
+    preview.style.backgroundColor = "#222";
+    preview.style.padding = "5px";
+    preview.style.zIndex = "1000";
+
+    var img = document.createElement("img");
+    img.src = imageUrl;
+    img.style.maxWidth = "200px";
+    img.style.maxHeight = "200px";
+
+    preview.appendChild(img);
+    document.body.appendChild(preview);
+    moveImagePreview(event); 
+}
+
+function moveImagePreview(event) {
+    var preview = document.getElementById("imagePreview");
+    if (preview) {
+        preview.style.left = event.pageX + 15 + "px";
+        preview.style.top = event.pageY + 15 + "px";
+    }
+}
+
+function hideImagePreview() {
+    var preview = document.getElementById("imagePreview");
+    if (preview) {
+        preview.remove();
+    }
 }
