@@ -1,10 +1,14 @@
-html, body {
+html,
+body {
+    --color: #f1f1f1;
+    --background-color: #222;
+
     font-family: Arial, Helvetica, sans-serif;
-    background-color: #222; 
-    color: #f1f1f1; 
+    background-color: var(--background-color);
+    color: var(--color);
 }
 
-body > * {
+body>* {
     margin-bottom: 6px;
 }
 
@@ -13,74 +17,98 @@ table {
     max-width: 100%;
     width: 100%;
     border-collapse: collapse;
+
+    tr {
+        &:nth-child(even) {
+            background-color: #2a2a2a;
+        }
+
+        &:nth-child(odd) {
+            background-color: #1e1e1e;
+        }
+
+        &:hover {
+            background-color: #555;
+        }
+    }
+
+    th,
+    td {
+        max-width: 25vw;
+        padding: 5px 10px;
+        border: 1px solid #444;
+    }
+
+    th {
+        text-align: center;
+        background-color: #333;
+
+        &::first-letter {
+            text-transform: uppercase;
+        }
+    }
+
+    td {
+        text-align: center;
+    }
 }
 
-th::first-letter {
-    text-transform: uppercase;
-}
-
-th, td {
-    max-width: 25vw;
-    padding: 5px 10px;
-    border: 1px solid #444; 
-}
-
-th {
-    text-align: center;
-    background-color: #333; /
-}
-
-td {
-    text-align: center;
-}
-
-table tr:nth-child(even) {
-    background-color: #2a2a2a;
-}
-
-table tr:nth-child(odd) {
-    background-color: #1e1e1e;
-}
-
-table tr:hover {
-    background-color: #555; 
-}
-
-#searchInput {
-    width: 100%; 
-    padding: 10px;
-    margin-top: 10px;
-    background-color: #333; 
-    color: #fff; 
-    border: 1px solid #555; 
-    box-sizing: border-box;
-}
-
-#toggleButton, #copyTable{
+#toggleButton,
+#copyTable {
     margin-bottom: 10px;
     cursor: pointer;
     padding: 5px;
     background-color: #444;
-    color: white;
-    border: none;
-}
-    
-#timezone, #dateformat, #excelFile, #use12hClockDiv, #timeFirstDiv {
-    width: 300px;
-    margin-bottom: 10px;
-    cursor: pointer;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    background-color: #444;
-    color: white;
+    color: var(--color);
     border: none;
 }
 
-#inputMask{
+#inputMask {
     margin-bottom: 10px;
     cursor: pointer;
     padding: 5px;
     background-color: #2a2a2a;
-    color: white;
     border: none;
+
+    & > * {
+        width: 300px;
+        margin-bottom: 10px;
+        cursor: pointer;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        background-color: #444;
+        color: var(--color);
+        border: none;
+
+        &:last-child {
+            margin-bottom: 0px;
+        }
+    }
+}
+
+#fileControl {
+    background-color: #2a2a2a;
+    border: none;
+    display: grid;
+    grid-template-columns: 4fr 1fr;
+    padding: 5px;
+
+    & > * {
+        padding-top: 5px;
+        padding-bottom: 5px;
+        background-color: #444;
+        color: var(--color);
+        border: none;
+    }
+
+    #searchInput {
+        width: 100%;
+        background-color: #333;
+        border: 1px solid #555;
+        box-sizing: border-box;
+    }
+
+    .sheet {
+        padding-left: 6px;
+    }
 }
