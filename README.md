@@ -2,4 +2,4 @@
 
 Fun Project from SushiInHell
 
-Based of RY Jarnovk Project
+Based of RY Jarnovk's Project.
