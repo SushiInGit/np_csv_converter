@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://sushiingit.github.io/np_csv_converter/script.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/exceljs/4.3.0/exceljs.min.js"></script>
     <link rel="stylesheet" href="https://sushiingit.github.io/np_csv_converter/styles.css">
 </head>
-<body>
-    <button id="toggleButton" onclick="toggleInputMask()">Show Input Mask</button> 
 
+<body>
+    <button id="toggleButton" onclick="toggleInputMask()">Show Input Mask</button>
     <div id="inputMask"> <br />
         <select id="timezone">
             <option value="Europe/Berlin">Europe/Berlin (CEST)</option>
@@ -21,7 +21,6 @@
             <option value="Asia/Kolkata">Asia/Kolkata (IST)</option>
             <option value="Africa/Johannesburg">Africa/Johannesburg (SAST)</option>
         </select>
-
         <br />
 
         <select id="dateformat">
@@ -29,24 +28,20 @@
             <option value="en-GB">en-GB</option>
             <option value="de-DE">de-DE</option>
             <option value="ja-JP">ja-JP</option>
-        </select>
-
-        <br />
+        </select><br />
         <div id="use12hClockDiv">
-        <label for="use12hClock">12h clock</label>
-        <input type="checkbox" id="use12hClock" />
+            <label for="use12hClock">12h clock</label>
+            <input type="checkbox" id="use12hClock" />
         </div>
         <div id="timeFirstDiv">
-        <label for="timeFirst">Time first</label>
-        <input type="checkbox" id="timeFirst" />
+            <label for="timeFirst">Time first</label>
+            <input type="checkbox" id="timeFirst" />
         </div>
-        <input type="file" id="excelFile" accept=".xlsx,.csv" onchange="resetTable(); checkFileSelected()" />
-        <br /> <br />
-
-       
-    
+        <input type="file" id="excelFile" accept=".xlsx,.csv" onchange="resetTable(); checkFileSelected()" /><br /> <br />
     </div><button id="copyTable">Copy table (enables copy paste to excel)</button><br /><br />
     <input type="text" id="searchInput" placeholder="Search..." onkeyup="searchTable()" />
     <table id="phoneRecords"></table>
+    <script src="https://sushiingit.github.io/np_csv_converter/script.js"></script>
 </body>
+    
 </html>
