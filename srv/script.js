@@ -98,6 +98,7 @@ function fillTable() {
         table.append(row);
     });
     checkFileSelected();
+    makeLinksClickable();
 }
 
 function isValidISODateString(dateString) {
@@ -195,3 +196,21 @@ function toggleInputMask() {
     }
 }
 checkFileSelected();
+
+function makeLinksClickable() {
+    var rows = document.querySelectorAll("#phoneRecords tr");
+    rows.forEach(function(row, index) {
+        if (index === 0) return;
+        row.querySelectorAll("td").forEach(function(cell) {
+            var cellText = cell.innerText;
+            var urlPattern = /(https?:\/\/[^\s]+|www\.[^\s]+)/g;
+            if (urlPattern.test(cellText)) {
+                var link = cellText.match(urlPattern)[0]; 
+                if (!link.startsWith("http")) {
+                    link = "http://" + link;
+                }
+                cell.innerHTML = `<a href="${link}" target="_blank">${link}</a>`;
+            }
+        });
+    });
+}
