@@ -52,8 +52,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 const file = items[i].getAsFile();
                 if (file.type === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet') {
                     // alert(`Excel-File "${file.name}" uploaded from clipboard.`);
-
-                    file = file;
                     handleFileUpload(file);
                 }
             }
