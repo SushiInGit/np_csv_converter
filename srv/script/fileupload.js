@@ -173,7 +173,9 @@ function fillTable() {
                     _columnNames[itemIndex] = _columnNames[itemIndex].split(`<br/><i name="dateFormat"`)[0];
                 }
 
-                _columnNames[itemIndex] = _columnNames[itemIndex] + `<br/><i name="dateFormat" style="font-size: 75%;">${document.querySelector("#dateformat option:checked").innerHTML} </i>`;
+                _columnNames[itemIndex] = timeFirst
+                    ? _columnNames[itemIndex] + `<br/><i name="dateFormat" style="font-size: 75%;">HH:MM:SS ${document.querySelector("#dateformat option:checked").innerHTML}</i>`
+                    : _columnNames[itemIndex] + `<br/><i name="dateFormat" style="font-size: 75%;">${document.querySelector("#dateformat option:checked").innerHTML} HH:MM:SS</i>`;
             }
 
             row.appendChild(Object.assign(document.createElement("td"), { innerHTML: item }));
