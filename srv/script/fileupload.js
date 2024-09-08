@@ -2,6 +2,12 @@ var _file;
 var _columnNames = [];
 var _itemsArr = [];
 
+document.querySelector('#timezone').addEventListener('change', fillTable);
+document.querySelector('#use12hClock').addEventListener('change', fillTable);
+document.querySelector('#timeFirst').addEventListener('change', fillTable);
+document.querySelector('#dateformat').addEventListener('change', fillTable);
+document.querySelector('#timezoneOffset').addEventListener('change', fillTable);
+
 document.addEventListener('DOMContentLoaded', () => {
 
     const fileUploadBtn = document.getElementById('fileUploadPopup');
@@ -147,6 +153,13 @@ function fillTable() {
         table.append(row);
     });
     makeLinksClickable();
+}
+
+function resetTable() {
+    var table = document.querySelector("#phoneRecords");
+    table.innerHTML = '';
+    columnNames = [];
+    itemsArr = [];
 }
 
 function isValidISODateString(dateString) {
