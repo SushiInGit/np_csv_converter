@@ -185,7 +185,14 @@ a:hover::after {
     padding-top: 5px;
     padding-bottom: 5px;
 }
-
+#dropZoneError {
+    text-align: center;
+    font-size: 16px;
+    padding: 3px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    color: #ff1a1a;
+}
 
 footer {
     text-align: center;
@@ -218,7 +225,7 @@ footer {
     top: 50%;
     transform: translateY(-80%);
     border-radius: 5px;
-    border: 1px solid #d4a5ff;
+    border: 1px solid #ffa5a5;
     box-shadow: 0 0 15px 5px rgba(212, 165, 255, 0.7);
     background-color: #222;
     z-index: 1000;

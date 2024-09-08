@@ -9,10 +9,10 @@ document.querySelector('#dateformat').addEventListener('change', fillTable);
 document.querySelector('#timezoneOffset').addEventListener('change', fillTable);
 
 document.addEventListener('DOMContentLoaded', () => {
-
     const fileUploadBtn = document.getElementById('fileUploadPopup');
     const fileUploadModal = document.getElementById('fileUploadModal');
     const closeFileUpload = document.getElementById('closeFileUpload');
+    const dropZoneError = document.getElementById('dropZoneError');
     const dropZone = document.getElementById('dropZone');
     const fileInput = document.getElementById('fileInput');
 
@@ -21,6 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     fileUploadBtn.addEventListener('click', () => {
         fileUploadModal.style.display = 'flex';
+        dropZoneError.style.display = 'none';
     });
 
     closeFileUpload.addEventListener('click', () => {
@@ -65,7 +66,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-function handleFileUpload(files) {
+function handleFileUpload(files) {    
     var file = !!files[0] ? files[0] : files;
 
     if (file && file.type === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet') {
@@ -73,6 +74,10 @@ function handleFileUpload(files) {
 
         readFile();
         fileUploadModal.style.display = 'none';
+    }else{
+        dropZoneError.style.display = 'flex';
+        modalcontent.style.border = '1px solid #ff1a1a';
+        modalcontent.style.boxShadow = '0 0 15px 5px rgba(252, 20, 20, 0.7)';
     }
 }
 
@@ -236,7 +241,6 @@ function hideImagePreview() {
 
 document.addEventListener("keydown", function (event) {
     if (event.key === "Escape") {
-        document.getElementById("settingsModal").style.display = "none";
         document.getElementById("fileUploadModal").style.display = "none";
     }
 });

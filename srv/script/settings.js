@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const saveduse12hClock = localStorage.getItem('use12hClock') === 'true';
         const savedtimeFirst = localStorage.getItem('timeFirst') === 'true';
         const savedtimezoneOffset = localStorage.getItem('timezoneOffset');
-        
+
         if(debugSettings === true){console.log(`## Settings Loading ##`);}
 
         // First Boot
@@ -89,4 +89,10 @@ document.addEventListener('DOMContentLoaded', () => {
     closeSettings.addEventListener('click', () => {
         settingsModal.style.display = 'none';
     });
+});
+
+document.addEventListener("keydown", function (event) {
+    if (event.key === "Escape") {
+        document.getElementById("settingsModal").style.display = "none";
+    }
 });
