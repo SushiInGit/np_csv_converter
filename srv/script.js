@@ -116,7 +116,7 @@ function searchTable() {
         if (index === 0) return;
         var rowText = row.innerText.toLowerCase();
         if (rowText.includes(input)) {
-            row.style.display = ""; e
+            row.style.display = "";
             if (visibleRowIndex % 2 === 0) {
                 row.style.backgroundColor = "#2a2a2a"; 
             } else {
