@@ -17,8 +17,8 @@ document.addEventListener('DOMContentLoaded', () => {
     var fttimezone = "UTC";
     var ftdateformat = "en-US";
     var fttimezoneOffset = "0";
-    var ftuse12hClock = "false";
-    var fttimeFirst = "false";
+    var ftuse12hClock = "false"; // Unused
+    var fttimeFirst = "false"; // Unused
 
     // Init Settings
     loadSettings();
@@ -31,13 +31,20 @@ document.addEventListener('DOMContentLoaded', () => {
         const savedtimeFirst = localStorage.getItem('timeFirst') === 'true';
         const savedtimezoneOffset = localStorage.getItem('timezoneOffset');
 
-        if(debugSettings === true){console.log(`## Settings Loading ##`);}
+        // Console.Log - DEV output //
+        if (debugSettings === true) {
+            console.log(`## Settings Loading ##`);
+            console.log('Default-Setting: Timezone ' + fttimezone);
+            console.log('Default-Setting: Dataformat ' + ftdateformat);
+            console.log('Default-Setting: Offset ' + fttimezoneOffset);
+            console.log(`## ---------------- ##`);
+        }
 
-        // First Boot
-        if(savedtimezone === null){savedtimezoneLoading = fttimezone; if(debugSettings === true){console.log('Default-Setting: Timezone ' + fttimezone);}}else{savedtimezoneLoading = savedtimezone;}
-        if(saveddateformat === null){saveddateformatLoading = ftdateformat; if(debugSettings === true){console.log('Default-Setting: Dataformat ' + ftdateformat);}}else{saveddateformatLoading = saveddateformat;}
-        if(savedtimezoneOffset === null){savedtimezoneOffsetLoading = fttimezoneOffset; if(debugSettings === true){console.log('Default-Setting: Offset ' + fttimezoneOffset);}}else{savedtimezoneOffsetLoading = savedtimezoneOffset;}
-        
+        // First Boot use ft*** otherwise use saved setting
+        savedtimezoneLoading = savedtimezone === null ? fttimezone : savedtimezone
+        saveddateformatLoading = saveddateformat === null ? ftdateformat : saveddateformat;
+        savedtimezoneOffsetLoading = savedtimezoneOffset === null ? fttimezoneOffset : savedtimezoneOffset;
+
         // Pulldown
         timezoneSelect.value = savedtimezoneLoading
         dateformatSelect.value = saveddateformatLoading;
@@ -48,7 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
         timeFirstSelect.checked  = savedtimeFirst;
 
         // Console.Log - DEV output //
-        if(debugSettings === true){
+        if(debugSettings === true) {
             console.log(`## ---------------- ##`);
             console.log(`Timezone: ${timezoneSelect.value}`);
             console.log(`Dateformat: ${dateformatSelect.value}`);
