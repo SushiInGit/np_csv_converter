@@ -76,6 +76,7 @@ function handleFileUpload(files) {
         fileUploadModal.style.display = 'none';
         document.getElementById("welcomeDiv").style.display = "none";
         document.querySelector("#headTable").style.display = "flex";
+        document.getElementById('searchInput').value = '';
     }else{
         dropZoneError.style.display = 'flex';
         modalcontent.style.border = '1px solid #ff1a1a';
