@@ -14,7 +14,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const fileUploadModal = document.getElementById('fileUploadModal');
     const closeFileUpload = document.getElementById('closeFileUpload');
     const dropZoneError = document.getElementById('dropZoneError');
-    const dropZone = document.getElementById('dropZone');
+    // const dropZone = document.getElementById('dropZone');
+    const dropZones = document.querySelectorAll("#dropZone");
     const fileInput = document.getElementById('fileInput');
 
     document.querySelector('#sheet').addEventListener('change', readFile);
@@ -28,24 +29,26 @@ document.addEventListener('DOMContentLoaded', () => {
         fileUploadModal.style.display = 'none';
     });
 
-    dropZone.addEventListener('click', () => {
-        fileInput.click();
-    });
+    dropZones.forEach((_dropZone) => {
+        _dropZone.addEventListener('click', () => {
+            fileInput.click();
+        });
 
-    dropZone.addEventListener('dragover', (e) => {
-        e.preventDefault();
-        dropZone.style.backgroundColor = '#505050';
-    });
+        _dropZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            _dropZone.style.backgroundColor = '#505050';
+        });
 
-    dropZone.addEventListener('dragleave', () => {
-        dropZone.style.backgroundColor = '#404040';
-    });
+        _dropZone.addEventListener('dragleave', () => {
+            _dropZone.style.backgroundColor = '#404040';
+        });
 
-    dropZone.addEventListener('drop', (e) => {
-        e.preventDefault();
-        dropZone.style.backgroundColor = '#404040';
-        const files = e.dataTransfer.files;
-        handleFileUpload(files);
+        _dropZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            _dropZone.style.backgroundColor = '#404040';
+            const files = e.dataTransfer.files;
+            handleFileUpload(files);
+        });
     });
 
     fileInput.addEventListener('change', () => {
