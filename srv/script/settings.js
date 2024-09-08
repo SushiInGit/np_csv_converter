@@ -47,12 +47,13 @@ document.addEventListener('DOMContentLoaded', () => {
         savedtimezoneLoading = savedtimezone === null ? fttimezone : savedtimezone
         saveddateformatLoading = saveddateformat === null ? ftdateformat : saveddateformat;
         savedtimezoneOffsetLoading = savedtimezoneOffset === null ? fttimezoneOffset : savedtimezoneOffset;
-        savedtimezoneOffsetLoading = savedtimezoneOffset === null ? fttimezoneOffset : savedtimezoneOffset;
+        savedShowUTCLoading = savedShowUTC === null ? ftShowUTC : savedShowUTC;
 
         // Pulldown
         timezoneSelect.value = savedtimezoneLoading
         dateformatSelect.value = saveddateformatLoading;
         timezoneOffsetSelect.value = savedtimezoneOffsetLoading;
+        showUTCSelect.checked = savedShowUTCLoading;
 
         // Checkbox
         use12hClockSelect.checked  = saveduse12hClock;
