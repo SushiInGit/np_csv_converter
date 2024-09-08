@@ -128,22 +128,16 @@ function fillTable() {
     var table = document.querySelector("#phoneRecords");
     table.innerHTML = '';
 
-    var headerRow = document.createElement("tr");
-    headerRow.appendChild(Object.assign(document.createElement("th"), { innerHTML: '' }));
-
-    _columnNames.forEach((header, i) => {
-        let th = document.createElement("th");
-        th.innerHTML = `${String.fromCharCode(65 + i - 1)}<br>${header}`;
-        headerRow.appendChild(th);
-    });
-
-    table.append(headerRow);
-
     _itemsArr.forEach((itemRow, index) => {
         var row = document.createElement("tr");
         row.appendChild(Object.assign(document.createElement("td"), { innerHTML: index + 1 }));
 
+        var itemIndex = 0;
+
         itemRow.forEach((item) => {
+
+            itemIndex++;
+
             if (isValidISODateString(item)) {
                 var date = new Date(item);
 
@@ -171,11 +165,34 @@ function fillTable() {
 
                 if (showUTC)
                     item += " <br/> <i style=\"font-size: 65%;\">(UTC: " + formattedUTC + ")</i>";
+
+
+
+                // Add dateformat to 
+                if (_columnNames[itemIndex].includes(`<i name="dateFormat"`)) {
+                    _columnNames[itemIndex] = _columnNames[itemIndex].split(`<br/><i name="dateFormat"`)[0];
+                }
+
+                _columnNames[itemIndex] = _columnNames[itemIndex] + `<br/><i name="dateFormat" style="font-size: 75%;">${document.querySelector("#dateformat option:checked").innerHTML} </i>`;
             }
+
             row.appendChild(Object.assign(document.createElement("td"), { innerHTML: item }));
         });
+
         table.append(row);
     });
+
+    var headerRow = document.createElement("tr");
+    headerRow.appendChild(Object.assign(document.createElement("th"), { innerHTML: '' }));
+
+    _columnNames.forEach((header, i) => {
+        let th = document.createElement("th");
+        th.innerHTML = `${String.fromCharCode(65 + i - 1)}<br>${header}`;
+        headerRow.appendChild(th);
+    });
+
+    table.prepend(headerRow);
+
     makeLinksClickable();
 }
 
