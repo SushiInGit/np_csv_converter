@@ -48,7 +48,14 @@ document.addEventListener('DOMContentLoaded', () => {
         localStorage.setItem('use12hClock', use12hClockSelect.value);
         localStorage.setItem('timeFirst', timeFirstSelect.value);
         localStorage.setItem('timezoneOffset', timezoneOffsetSelect.value);
-        alert('Settings saved');
+        // Console.Log - DEV output //
+        console.log(`## Settings Saved ##`);
+        console.log(`Timezone: ${timezoneSelect.value}`);
+        console.log(`Dateformat: ${dateformatSelect.value}`);
+        console.log(`Use 12h Clock: ${use12hClockSelect.value}`);
+        console.log(`Time First: ${timeFirstSelect.value}`);
+        console.log(`Timezone Offset: ${timezoneOffsetSelect.value}`);
+        // alert('Settings saved');
         settingsModal.style.display = 'none';
     });
 });
