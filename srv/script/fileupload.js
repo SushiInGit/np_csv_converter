@@ -75,7 +75,7 @@ function handleFileUpload(files) {
         readFile();
         fileUploadModal.style.display = 'none';
         document.getElementById("welcomeDiv").style.display = "none";
-        document.querySelector("#copyTable").style.display = "flex";
+        document.querySelector("#headTable").style.display = "flex";
     }else{
         dropZoneError.style.display = 'flex';
         modalcontent.style.border = '1px solid #ff1a1a';

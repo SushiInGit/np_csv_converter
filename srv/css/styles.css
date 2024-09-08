@@ -94,14 +94,29 @@ a:hover::after {
     z-index: 1000; 
 }
 
-#copyTable{
-    top: 10px;
+.headTable {
+    margin-bottom: 25px;
+    width: 100%;
     position: relative;
+}
+.headTablesheet{ 
+    position: absolute;
+    left: 0;
+}
+.headTablecopybtn {
+    position: absolute;
+    right: 0;
+}
+#copyTable {
+    height: 15px;
+    cursor: pointer;
+    padding: 5px;
+    background-color: #444;
+    color: var(--color);
+    border: none;
     float: right;
 }
-#toggleButton,
-#copyTable {
-    margin-bottom: 10px;
+#toggleButton {
     cursor: pointer;
     padding: 5px;
     background-color: #444;

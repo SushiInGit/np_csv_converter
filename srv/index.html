@@ -93,7 +93,15 @@
                 <br />
                 If you encounter any issues during the upload process, feel free to reach out for support.</center>
             </div>
-            <button id="copyTable">Copy table (enables copy paste to excel)</button>
+            <div class="headTable" id="headTable">
+                <div class="headTablesheet">
+                    <label for="sheet">Sheet</label>
+                    <input type="number" id="sheet" min="1" step="1" value="1">
+                </div>
+                <div class="headTablecopybtn">
+                    <button id="copyTable">Copy table (enables copy paste to excel)</button>
+                </div>
+            </div>
         <!-- Table Display-->
         <table id="phoneRecords"></table>
 
