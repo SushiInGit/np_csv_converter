@@ -1,3 +1,6 @@
+document.querySelector("#copyTable").style.display = "none";
+
+
 document.querySelector('#copyTable').addEventListener('click', copyTableToClipboard);
 
 function copyTableToClipboard() {
