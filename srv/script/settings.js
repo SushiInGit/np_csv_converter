@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
     var fttimezoneOffset = "0";
     var ftuse12hClock = "false"; // Unused
     var fttimeFirst = "false"; // Unused
-    var ftShowUTC = "true";
+    var ftShowUTC = "false"; // Unused
 
     // Init Settings
     loadSettings();
@@ -39,7 +39,6 @@ document.addEventListener('DOMContentLoaded', () => {
             console.log('Default-Setting: Timezone ' + fttimezone);
             console.log('Default-Setting: Dataformat ' + ftdateformat);
             console.log('Default-Setting: Offset ' + fttimezoneOffset);
-            console.log('Default-Setting: ShowUTC ' + ftShowUTC);
             console.log(`## ---------------- ##`);
         }
 
@@ -47,13 +46,11 @@ document.addEventListener('DOMContentLoaded', () => {
         savedtimezoneLoading = savedtimezone === null ? fttimezone : savedtimezone
         saveddateformatLoading = saveddateformat === null ? ftdateformat : saveddateformat;
         savedtimezoneOffsetLoading = savedtimezoneOffset === null ? fttimezoneOffset : savedtimezoneOffset;
-        savedShowUTCLoading = savedShowUTC === null ? ftShowUTC : savedShowUTC;
 
         // Pulldown
         timezoneSelect.value = savedtimezoneLoading
         dateformatSelect.value = saveddateformatLoading;
         timezoneOffsetSelect.value = savedtimezoneOffsetLoading;
-        showUTCSelect.checked = savedShowUTCLoading;
 
         // Checkbox
         use12hClockSelect.checked  = saveduse12hClock;
