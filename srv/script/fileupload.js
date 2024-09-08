@@ -154,10 +154,7 @@ function fillTable() {
                 var timezoneOffset = document.querySelector("#timezoneOffset").value;
                 var showUTC = document.querySelector("#showUTC").checked;
 
-                var utcOptions = { timeZone: "UTC", year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' };
-
-                var utcFormatter = new Intl.DateTimeFormat([], utcOptions);
-                var formattedUTC = utcFormatter.format(date);
+                var formattedUTC = date.toISOString();
 
                 date.setHours(date.getHours() + (1 * timezoneOffset));
 
