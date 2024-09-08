@@ -241,3 +241,9 @@ function hideImagePreview() {
         preview.remove();
     }
 }
+
+document.addEventListener("keydown", function(event) {
+    if (event.key === "Escape") {
+        document.getElementById("modal").style.display = "none";
+    }
+});
