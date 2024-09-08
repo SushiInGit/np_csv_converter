@@ -1,14 +1,6 @@
-var file;
-var columnNames = [];
-var itemsArr = [];
-
 document.querySelector('#copyTable').addEventListener('click', copyTableToClipboard);
 
 function copyTableToClipboard() {
-    if (!file) {
-        alert("Nothing to copy");
-        return;
-    }
     var table = document.querySelector("#phoneRecords");
     var rows = table.querySelectorAll("tr");
     var tableText = "";
