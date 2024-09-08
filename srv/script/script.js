@@ -33,7 +33,3 @@ function copyTableToClipboard() {
     document.body.removeChild(tempTextArea);
 }
 
-
-window.onload = function() {
-    document.getElementById('searchInput').focus();
-};

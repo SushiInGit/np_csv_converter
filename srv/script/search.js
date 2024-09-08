@@ -18,3 +18,19 @@ function searchTable() {
         }
     });
 }
+
+const searchInput = document.getElementById('searchInput');
+
+window.onload = function() {
+    searchInput.focus();
+};
+
+document.addEventListener('keydown', function(event) {
+    const ignoredKeys = [
+        'Tab', 'Enter', 'Shift', 'Control', 'Alt', 'Escape', 'ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'
+    ];
+
+    if (!ignoredKeys.includes(event.key)) {
+        searchInput.focus();
+    }
+});
