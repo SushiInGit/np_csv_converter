@@ -74,9 +74,11 @@ function handleFileUpload(files) {
 
         readFile();
         fileUploadModal.style.display = 'none';
-        document.getElementById("welcomeDiv").style.display = "none";
+        document.getElementById("welcomeDIVcontainer").style.display = "none";
+        document.getElementById("head-container").style.display = "flex";
         document.querySelector("#headTable").style.display = "flex";
         document.getElementById('searchInput').value = '';
+
     }else{
         dropZoneError.style.display = 'flex';
         modalcontent.style.border = '1px solid #ff1a1a';
@@ -165,9 +167,11 @@ function fillTable() {
                 item = timeFirst ? `${formattedTime} ${formattedDate}` : `${formattedDate} ${formattedTime}`;
 
                 if (showUTC)
-                    item += `<i style="font-size: 65%; display: block;">(UTC: ${formattedUTC})</i>`;
+                    item += " <br/> <i style=\"font-size: 65%;\">(UTC: " + formattedUTC + ")</i>";
 
-                // Add dateformat to column header
+
+
+                // Add dateformat to 
                 if (_columnNames[itemIndex].includes(`<i name="dateFormat"`)) {
                     _columnNames[itemIndex] = _columnNames[itemIndex].split(`<br/><i name="dateFormat"`)[0];
                 }

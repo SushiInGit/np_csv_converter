@@ -1,3 +1,5 @@
+document.getElementById("head-container").style.display = "none";
+
 function searchTable() {
     var input = document.querySelector("#searchInput").value.toLowerCase();
     var rows = document.querySelectorAll("#phoneRecords tr");
