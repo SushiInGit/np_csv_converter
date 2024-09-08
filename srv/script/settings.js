@@ -7,8 +7,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const dateformatSelect = document.getElementById('dateformat');
     const use12hClockSelect = document.getElementById('use12hClock');
     const timeFirstSelect = document.getElementById('timeFirst');
+    const showUTCSelect = document.getElementById('showUTC');
     const timezoneOffsetSelect = document.getElementById('timezoneOffset');
-
 
     // Enable/Disable Console Debug logging
     debugSettings = false;
@@ -19,6 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
     var fttimezoneOffset = "0";
     var ftuse12hClock = "false"; // Unused
     var fttimeFirst = "false"; // Unused
+    var ftShowUTC = "true";
 
     // Init Settings
     loadSettings();
@@ -29,6 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const saveddateformat= localStorage.getItem('dateformat');
         const saveduse12hClock = localStorage.getItem('use12hClock') === 'true';
         const savedtimeFirst = localStorage.getItem('timeFirst') === 'true';
+        const savedShowUTC = localStorage.getItem('showUTC') === 'true';
         const savedtimezoneOffset = localStorage.getItem('timezoneOffset');
 
         // Console.Log - DEV output //
@@ -37,12 +39,14 @@ document.addEventListener('DOMContentLoaded', () => {
             console.log('Default-Setting: Timezone ' + fttimezone);
             console.log('Default-Setting: Dataformat ' + ftdateformat);
             console.log('Default-Setting: Offset ' + fttimezoneOffset);
+            console.log('Default-Setting: ShowUTC ' + ftShowUTC);
             console.log(`## ---------------- ##`);
         }
 
         // First Boot use ft*** otherwise use saved setting
         savedtimezoneLoading = savedtimezone === null ? fttimezone : savedtimezone
         saveddateformatLoading = saveddateformat === null ? ftdateformat : saveddateformat;
+        savedtimezoneOffsetLoading = savedtimezoneOffset === null ? fttimezoneOffset : savedtimezoneOffset;
         savedtimezoneOffsetLoading = savedtimezoneOffset === null ? fttimezoneOffset : savedtimezoneOffset;
 
         // Pulldown
@@ -53,6 +57,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Checkbox
         use12hClockSelect.checked  = saveduse12hClock;
         timeFirstSelect.checked  = savedtimeFirst;
+        showUTCSelect.checked = savedShowUTC;
 
         // Console.Log - DEV output //
         if(debugSettings === true) {
@@ -74,6 +79,7 @@ document.addEventListener('DOMContentLoaded', () => {
         localStorage.setItem('use12hClock', use12hClockSelect.checked );
         localStorage.setItem('timeFirst', timeFirstSelect.checked );
         localStorage.setItem('timezoneOffset', timezoneOffsetSelect.value);
+        localStorage.setItem('showUTC', showUTCSelect.checked);
 
         // Console.Log - DEV output // 
         if(debugSettings === true){

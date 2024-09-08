@@ -50,6 +50,10 @@
                 <label for="timezoneOffset">Timezone offset</label>
                 <input type="number" id="timezoneOffset" min="-12" max="12" step="1" value="0">
             </div>
+            <div id="showUTCDiv">
+                <label for="showUTC">Show UTC next to formatted time</label>
+                <input type="checkbox" id="showUTC" />
+            </div>
             <br />
             <button id="saveSettings" onchange="resetTable()">Save</button>
             <button id="closeSettings" onchange="resetTable()">Close</button>

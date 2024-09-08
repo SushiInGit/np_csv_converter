@@ -7,6 +7,7 @@ document.querySelector('#use12hClock').addEventListener('change', fillTable);
 document.querySelector('#timeFirst').addEventListener('change', fillTable);
 document.querySelector('#dateformat').addEventListener('change', fillTable);
 document.querySelector('#timezoneOffset').addEventListener('change', fillTable);
+document.querySelector('#showUTC').addEventListener('change', fillTable);
 
 document.addEventListener('DOMContentLoaded', () => {
     const fileUploadBtn = document.getElementById('fileUploadPopup');
@@ -15,7 +16,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const dropZoneError = document.getElementById('dropZoneError');
     const dropZone = document.getElementById('dropZone');
     const fileInput = document.getElementById('fileInput');
-
 
     document.querySelector('#sheet').addEventListener('change', readFile);
 
@@ -127,34 +127,53 @@ function readFile() {
 function fillTable() {
     var table = document.querySelector("#phoneRecords");
     table.innerHTML = '';
-    var row = document.createElement("tr");
-    row.appendChild(Object.assign(document.createElement("th"), { innerHTML: '' }));
+
+    var headerRow = document.createElement("tr");
+    headerRow.appendChild(Object.assign(document.createElement("th"), { innerHTML: '' }));
+
     _columnNames.forEach((header, i) => {
         let th = document.createElement("th");
         th.innerHTML = `${String.fromCharCode(65 + i - 1)}<br>${header}`;
-        row.appendChild(th);
+        headerRow.appendChild(th);
     });
-    table.append(row);
+
+    table.append(headerRow);
+
     _itemsArr.forEach((itemRow, index) => {
-        row = document.createElement("tr");
+        var row = document.createElement("tr");
         row.appendChild(Object.assign(document.createElement("td"), { innerHTML: index + 1 }));
 
         itemRow.forEach((item) => {
             if (isValidISODateString(item)) {
                 var date = new Date(item);
+
                 var timezone = document.querySelector("#timezone").value;
                 var dateformat = document.querySelector("#dateformat").value;
                 var hour12 = document.querySelector("#use12hClock").checked;
                 var timeFirst = document.querySelector("#timeFirst").checked;
                 var timezoneOffset = document.querySelector("#timezoneOffset").value;
+                var showUTC = document.querySelector("#showUTC").checked;
+
+                var utcOptions = { timeZone: "UTC", year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' };
+
+                var utcFormatter = new Intl.DateTimeFormat([], utcOptions);
+                var formattedUTC = utcFormatter.format(date);
+
                 date.setHours(date.getHours() + (1 * timezoneOffset));
+
                 var dateOptions = { timeZone: timezone, year: 'numeric', month: '2-digit', day: '2-digit' };
                 var timeOptions = { timeZone: timezone, hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: hour12 };
+
                 var dateFormatter = new Intl.DateTimeFormat(dateformat, dateOptions);
                 var timeFormatter = new Intl.DateTimeFormat([], timeOptions);
+
                 var formattedDate = dateFormatter.format(date);
                 var formattedTime = timeFormatter.format(date);
+
                 item = timeFirst ? `${formattedTime} ${formattedDate}` : `${formattedDate} ${formattedTime}`;
+
+                if (showUTC)
+                    item += " <br/> <i style=\"font-size: 65%;\">(UTC: " + formattedUTC + ")</i>";
             }
             row.appendChild(Object.assign(document.createElement("td"), { innerHTML: item }));
         });
