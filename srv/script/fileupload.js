@@ -79,7 +79,7 @@ function readFile() {
     reader.onload = function (e) {
         var workbook = new ExcelJS.Workbook();
         _itemsArr = [];
-        // workbook.xlsx.load(e.target.result).then(function () {
+
         workbook.xlsx.load(_file).then(function () {
             var maxSheets = workbook.worksheets.length;
             document.querySelector('#sheet').max = maxSheets;
@@ -111,7 +111,6 @@ function readFile() {
     }
     reader.readAsArrayBuffer(_file)
 }
-
 
 function fillTable() {
     var table = document.querySelector("#phoneRecords");
@@ -223,3 +222,9 @@ function hideImagePreview() {
     }
 }
 
+document.addEventListener("keydown", function (event) {
+    if (event.key === "Escape") {
+        document.getElementById("settingsModal").style.display = "none";
+        document.getElementById("fileUploadModal").style.display = "none";
+    }
+});
