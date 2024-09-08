@@ -164,11 +164,9 @@ function fillTable() {
                 item = timeFirst ? `${formattedTime} ${formattedDate}` : `${formattedDate} ${formattedTime}`;
 
                 if (showUTC)
-                    item += " <br/> <i style=\"font-size: 65%;\">(UTC: " + formattedUTC + ")</i>";
+                    item += `<i style="font-size: 65%; display: block;">(UTC: ${formattedUTC})</i>`;
 
-
-
-                // Add dateformat to 
+                // Add dateformat to column header
                 if (_columnNames[itemIndex].includes(`<i name="dateFormat"`)) {
                     _columnNames[itemIndex] = _columnNames[itemIndex].split(`<br/><i name="dateFormat"`)[0];
                 }
