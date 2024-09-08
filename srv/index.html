@@ -52,8 +52,8 @@
                 <input type="number" id="timezoneOffset" min="-12" max="12" step="1" value="0">
             </div>
             <br />
-            <button id="saveSettings">Save</button>
-            <button id="closeSettings">Close</button>
+            <button id="saveSettings" onchange="resetTable()">Save</button>
+            <button id="closeSettings" onchange="resetTable()">Close</button>
         </div>
     </div>
 
@@ -74,7 +74,7 @@
             <label for="sheet">Sheet</label>
             <input type="number" id="sheet" min="1" step="1" value="1">
             <button class="upload-button" id="fileUploadPopup" onchange="resetTable()">📂 File Upload</button>
-            <button class="settings-button" id="settingsPopup">⚙️ Settings</button>
+            <button class="settings-button" id="settingsPopup" onchange="resetTable()">⚙️ Settings</button>
         </div>
     </div>
 
@@ -88,6 +88,7 @@
     <script src="script/script.js"></script>
     <script src="script/settings.js"></script>
     <script src="script/fileupload.js"></script>
+    <script src="script/search.js"></script>
 </body>
 
 </html>

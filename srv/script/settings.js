@@ -9,53 +9,84 @@ document.addEventListener('DOMContentLoaded', () => {
     const timeFirstSelect = document.getElementById('timeFirst');
     const timezoneOffsetSelect = document.getElementById('timezoneOffset');
 
+
+    // Enable/Disable Console Debug logging
+    debugSettings = false;
+
+    // Base Value firsttime loading
+    var fttimezone = "UTC";
+    var ftdateformat = "en-US";
+    var fttimezoneOffset = "0";
+    var ftuse12hClock = "false";
+    var fttimeFirst = "false";
+
+    // Init Settings
+    loadSettings();
     
+    // Loading Settings
     function loadSettings() {
         const savedtimezone = localStorage.getItem('timezone');
         const saveddateformat= localStorage.getItem('dateformat');
-        const saveduse12hClock = localStorage.getItem('use12hClock');
-        const savedtimeFirst = localStorage.getItem('timeFirst');
+        const saveduse12hClock = localStorage.getItem('use12hClock') === 'true';
+        const savedtimeFirst = localStorage.getItem('timeFirst') === 'true';
         const savedtimezoneOffset = localStorage.getItem('timezoneOffset');
-        if (savedtimezone && saveddateformat && saveduse12hClock && savedtimeFirst && savedtimezoneOffset) {
-            timezoneSelect.value = savedtimezone;
-            dateformatSelect.value = saveddateformat;
-            use12hClockSelect.value = saveduse12hClock;
-            timeFirstSelect.value = savedtimeFirst;
-            timezoneOffsetSelect.value = savedtimezoneOffset;
-            // Console.Log - DEV output //
-            console.log(`## Settings Loading ##`);
-            console.log(`Timezone: ${savedtimezone}`);
-            console.log(`Dateformat: ${saveddateformat}`);
-            console.log(`Use 12h Clock: ${saveduse12hClock}`);
-            console.log(`Time First: ${savedtimeFirst}`);
-            console.log(`Timezone Offset: ${savedtimezoneOffset}`);
+        
+        if(debugSettings === true){console.log(`## Settings Loading ##`);}
+
+        // First Boot
+        if(savedtimezone === null){savedtimezoneLoading = fttimezone; if(debugSettings === true){console.log('Default-Setting: Timezone ' + fttimezone);}}else{savedtimezoneLoading = savedtimezone;}
+        if(saveddateformat === null){saveddateformatLoading = ftdateformat; if(debugSettings === true){console.log('Default-Setting: Dataformat ' + ftdateformat);}}else{saveddateformatLoading = saveddateformat;}
+        if(savedtimezoneOffset === null){savedtimezoneOffsetLoading = fttimezoneOffset; if(debugSettings === true){console.log('Default-Setting: Offset ' + fttimezoneOffset);}}else{savedtimezoneOffsetLoading = savedtimezoneOffset;}
+        
+        // Pulldown
+        timezoneSelect.value = savedtimezoneLoading
+        dateformatSelect.value = saveddateformatLoading;
+        timezoneOffsetSelect.value = savedtimezoneOffsetLoading;
+
+        // Checkbox
+        use12hClockSelect.checked  = saveduse12hClock;
+        timeFirstSelect.checked  = savedtimeFirst;
+
+        // Console.Log - DEV output //
+        if(debugSettings === true){
+            console.log(`## ---------------- ##`);
+            console.log(`Timezone: ${timezoneSelect.value}`);
+            console.log(`Dateformat: ${dateformatSelect.value}`);
+            console.log(`Use 12h Clock: ${use12hClockSelect.checked}`);
+            console.log(`Time First: ${timeFirstSelect.checked}`);
+            console.log(`Timezone Offset: ${timezoneOffsetSelect.value}`);  
+            console.log(`## ---------------- ##`);
         }
     }
 
-    loadSettings();
+
+    // Save Settings
+    saveSettings.addEventListener('click', () => {
+        localStorage.setItem('timezone', timezoneSelect.value);
+        localStorage.setItem('dateformat', dateformatSelect.value);
+        localStorage.setItem('use12hClock', use12hClockSelect.checked );
+        localStorage.setItem('timeFirst', timeFirstSelect.checked );
+        localStorage.setItem('timezoneOffset', timezoneOffsetSelect.value);
+
+        // Console.Log - DEV output // 
+        if(debugSettings === true){
+            console.log(`## Settings Saved ##`);
+            console.log(`Timezone: ${timezoneSelect.value}`);
+            console.log(`Dateformat: ${dateformatSelect.value}`);
+            console.log(`Use 12h Clock: ${use12hClockSelect.checked }`);
+            console.log(`Time First: ${timeFirstSelect.checked }`);
+            console.log(`Timezone Offset: ${timezoneOffsetSelect.value}`);
+            console.log(use12hClockSelect.checked);
+            console.log(timeFirstSelect.checked);
+        }
+        settingsModal.style.display = 'none';
+    });
 
     settingsBtn.addEventListener('click', () => {
         settingsModal.style.display = 'flex';
     });
 
     closeSettings.addEventListener('click', () => {
-        settingsModal.style.display = 'none';
-    });
-
-    saveSettings.addEventListener('click', () => {
-        localStorage.setItem('timezone', timezoneSelect.value);
-        localStorage.setItem('dateformat', dateformatSelect.value);
-        localStorage.setItem('use12hClock', use12hClockSelect.value);
-        localStorage.setItem('timeFirst', timeFirstSelect.value);
-        localStorage.setItem('timezoneOffset', timezoneOffsetSelect.value);
-        // Console.Log - DEV output //
-        console.log(`## Settings Saved ##`);
-        console.log(`Timezone: ${timezoneSelect.value}`);
-        console.log(`Dateformat: ${dateformatSelect.value}`);
-        console.log(`Use 12h Clock: ${use12hClockSelect.value}`);
-        console.log(`Time First: ${timeFirstSelect.value}`);
-        console.log(`Timezone Offset: ${timezoneOffsetSelect.value}`);
-        // alert('Settings saved');
         settingsModal.style.display = 'none';
     });
 });

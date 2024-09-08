@@ -72,6 +72,7 @@ function handleFileUpload(files) {
         _file = file;
 
         readFile();
+        fileUploadModal.style.display = 'none';
     }
 }
 
