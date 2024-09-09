@@ -202,6 +202,7 @@ function fillTable() {
     table.prepend(headerRow);
 
     makeLinksClickable();
+    initializeSorting();
 }
 
 function resetTable() {
