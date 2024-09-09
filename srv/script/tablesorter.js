@@ -5,21 +5,11 @@ function sortTableByColumn(table, column, asc = true) {
 	const rows = Array.from(tBody.querySelectorAll("tr"));
 
     const sortedRows = rows.sort((a, b) => {
-        // Get Row-Nr as Main sort ASC
-        const aFirstColNumber = parseFloat(a.querySelector(`td:nth-child(1)`).textContent.trim()) || 0;
-        const bFirstColNumber = parseFloat(b.querySelector(`td:nth-child(1)`).textContent.trim()) || 0;
-        const firstColumnComparison = (aFirstColNumber - bFirstColNumber) * dirModifier;
+		const aColText = a.querySelector(`td:nth-child(${column + 1})`).textContent.trim();
+		const bColText = b.querySelector(`td:nth-child(${column + 1})`).textContent.trim();
 
-        if (firstColumnComparison !== 0) {
-            return firstColumnComparison;
-        }
-
-        // 2end Sort by <thead> click
-        const aColText = a.querySelector(`td:nth-child(${column + 1})`).textContent.trim();
-        const bColText = b.querySelector(`td:nth-child(${column + 1})`).textContent.trim();
-
-         return aColText > bColText ? (1 * dirModifier) : (-1 * dirModifier);
-    });
+		return aColText > bColText ? (1 * dirModifier) : (-1 * dirModifier);
+	});
 
 	while (tBody.firstChild) {
 		tBody.removeChild(tBody.firstChild);
@@ -29,6 +19,8 @@ function sortTableByColumn(table, column, asc = true) {
 	table.querySelectorAll("th").forEach(th => th.classList.remove("th-sort-asc", "th-sort-desc"));
 	table.querySelector(`th:nth-child(${column + 1})`).classList.toggle("th-sort-asc", asc);
 	table.querySelector(`th:nth-child(${column + 1})`).classList.toggle("th-sort-desc", !asc);
+
+    searchTable(); // Cleanup for <tr> colors source: search.js
 }
 
 // click function -- Sorting 
