@@ -77,16 +77,6 @@ function modifyTableHeader() {
     resizeTableHeaderWidths();
 }
 
-function setTableHeaderWidths() {
-const thead = document.querySelector('thead');
-const ths = thead.querySelectorAll('th');
-
-ths.forEach(th => {
-    const width = th.offsetWidth;
-
-    th.style.width = `${width}px`;
-});
-}
 
 // Set Table widths on load
 function resizeTableHeaderWidths() {
