@@ -90,20 +90,20 @@ document.addEventListener('DOMContentLoaded', () => {
             console.log(use12hClockSelect.checked);
             console.log(timeFirstSelect.checked);
         }
-        settingsModal.style.display = 'none';
+        settingsModal.classList.remove("shown");
     });
 
     settingsBtn.addEventListener('click', () => {
-        settingsModal.style.display = 'flex';
+        settingsModal.classList.add("shown");
     });
 
     closeSettings.addEventListener('click', () => {
-        settingsModal.style.display = 'none';
+        settingsModal.classList.remove("shown");
     });
 });
 
 document.addEventListener("keydown", function (event) {
     if (event.key === "Escape") {
-        document.getElementById("settingsModal").style.display = "none";
+        settingsModal.classList.remove("shown");
     }
 });

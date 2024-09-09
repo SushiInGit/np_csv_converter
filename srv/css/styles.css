@@ -1,5 +1,5 @@
 html {
-    overflow-y:scroll;
+    overflow-y: scroll;
 }
 
 html,
@@ -85,7 +85,7 @@ a:hover::after {
 }
 
 .content {
-    margin-top: 10px; 
+    margin-top: 10px;
     padding: 10px;
 }
 
@@ -94,14 +94,17 @@ a:hover::after {
     width: 100%;
     position: relative;
 }
-.headTablesheet{ 
+
+.headTablesheet {
     position: absolute;
     left: 0;
 }
+
 .headTablecopybtn {
     position: absolute;
     right: 0;
 }
+
 #copyTable {
     height: 15px;
     cursor: pointer;
@@ -111,6 +114,7 @@ a:hover::after {
     border: none;
     float: right;
 }
+
 #toggleButton {
     cursor: pointer;
     padding: 5px;
@@ -118,6 +122,7 @@ a:hover::after {
     color: var(--color);
     border: none;
 }
+
 #saveSettings,
 #closeSettings,
 #closeFileUpload {
@@ -127,6 +132,7 @@ a:hover::after {
     color: var(--color);
     border: none;
 }
+
 #inputMask {
     margin-bottom: 10px;
     cursor: pointer;
@@ -203,18 +209,22 @@ a:hover::after {
     padding-top: 5px;
     padding-bottom: 5px;
 }
+
 #use12hClockDiv {
     padding-top: 5px;
     padding-bottom: 5px;
 }
+
 #timeFirstDiv {
     padding-top: 5px;
     padding-bottom: 5px;
 }
+
 #timezoneOffsetDiv {
     padding-top: 5px;
     padding-bottom: 5px;
 }
+
 #dropZoneError {
     text-align: center;
     font-size: 16px;
@@ -235,7 +245,6 @@ footer {
 }
 
 .modal {
-    display: none;
     position: fixed;
     z-index: 1;
     left: 0;
@@ -245,6 +254,16 @@ footer {
     background-color: rgba(0, 0, 0, 0.7);
     justify-content: center;
     align-items: center;
+
+    transition: opacity .3s ease-in-out;
+    opacity: 0;
+    display: flex;
+    pointer-events: none;
+
+    &.shown {
+        opacity: 1;
+        pointer-events: auto;
+    }
 }
 
 .modal-content {
@@ -304,12 +323,12 @@ footer {
 }
 
 .head-container {
-    position: fixed; 
-    bottom: 0; 
+    position: fixed;
+    bottom: 0;
     left: 0;
-    width: 100%; 
+    width: 100%;
     padding: 3px;
-    z-index: 1000; 
+    z-index: 1000;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -325,74 +344,74 @@ footer {
     box-shadow: 0 0 15px 5px rgba(212, 165, 255, 0.2);
     background-color: #222;
     width: 80%;
-}
 
-.search-container input[type="text"] {
-    background: transparent;
-    border: none;
-    outline: none;
-    color: #e0e0e0;
-    padding: 10px;
-    font-size: 18px;
-    flex: 1;
-}
+    input[type="text"] {
+        background: transparent;
+        border: none;
+        outline: none;
+        color: #e0e0e0;
+        padding: 10px;
+        font-size: 18px;
+        flex: 1;
+    }
 
-.search-container input[type="file"] {
-    display: none;
-}
+    input[type="file"] {
+        display: none;
+    }
 
-.search-container label {
-    background-color: #404040;
-    color: #a9a9a9;
-    padding: 10px 20px;
-    border-radius: 25px;
-    cursor: pointer;
-    font-size: 16px;
-    margin-left: 10px;
-    transition: background-color 0.3s ease;
-    border: 1px solid #585858;
-    box-shadow: 0 0 15px 1px #181818;
-}
+    label {
+        background-color: #404040;
+        color: #a9a9a9;
+        padding: 10px 20px;
+        border-radius: 25px;
+        cursor: pointer;
+        font-size: 16px;
+        margin-left: 10px;
+        transition: background-color 0.3s ease;
+        border: 1px solid #585858;
+        box-shadow: 0 0 15px 1px #181818;
 
-.search-container label:hover {
-    background-color: #555555;
-    border: 1px solid #7f6795ad;
-    box-shadow: 0 0 15px 5px rgba(212, 165, 255, 0.2);
-}
+        &:hover {
+            background-color: #555555;
+            border: 1px solid #7f6795ad;
+            box-shadow: 0 0 15px 5px rgba(212, 165, 255, 0.2);
+        }
+    }
 
-.search-container button {
-    background-color: #404040;
-    color: #a9a9a9;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 25px;
-    cursor: pointer;
-    font-size: 16px;
-    margin-left: 10px;
-    transition: background-color 0.3s ease;
-    border: 1px solid #585858;
-    box-shadow: 0 0 15px 1px #181818;
-}
+    button {
+        background-color: #404040;
+        color: #a9a9a9;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 25px;
+        cursor: pointer;
+        font-size: 16px;
+        margin-left: 10px;
+        transition: background-color 0.3s ease;
+        border: 1px solid #585858;
+        box-shadow: 0 0 15px 1px #181818;
 
-.search-container button:hover {
-    background-color: #555555;
-    border: 1px solid #7f6795ad;
-    box-shadow: 0 0 15px 5px rgba(212, 165, 255, 0.2);
-    margin-top: -5px;
-    margin-bottom: -5px;
+        &:hover {
+            background-color: #555555;
+            border: 1px solid #7f6795ad;
+            box-shadow: 0 0 15px 5px rgba(212, 165, 255, 0.2);
+            margin-top: -5px;
+            margin-bottom: -5px;
+        }
+    }
 }
 
 svg {
     padding-top: 2px;
     align-items: center;
     fill: #a9a9a9 !important;
-  }
+}
 
-  .welcomeDIVcontainer {
+.welcomeDIVcontainer {
     display: block;
-  }
+}
 
-  .modalwelcomeDIV {
+.modalwelcomeDIV {
     display: block;
     padding-top: 100px;
     margin: auto;
@@ -402,7 +421,7 @@ svg {
     align-items: center;
 }
 
-  .modal-contentwelcomeDIV {
+.modal-contentwelcomeDIV {
     display: block;
     margin-left: auto;
     margin-right: auto;
@@ -421,24 +440,25 @@ svg {
     margin-top: 0;
 }
 
-.table-sortable th {
-	cursor: pointer;
-}
+.table-sortable {th {
+        cursor: pointer;
+    }
 
-.table-sortable .th-sort-asc::after {
-	content: "\25b4";
-}
+    .th-sort-asc {
+        background: rgba(0, 0, 0, 0.1);
 
-.table-sortable .th-sort-desc::after {
-	content: "\25be";
-}
+        &::after {
+            content: "\25b4";
+            margin-left: 5px;
+        }
+    }
 
-.table-sortable .th-sort-asc::after,
-.table-sortable .th-sort-desc::after {
-	margin-left: 5px;
-}
+    .th-sort-desc {
+        background: rgba(0, 0, 0, 0.1);
 
-.table-sortable .th-sort-asc,
-.table-sortable .th-sort-desc {
-	background: rgba(0, 0, 0, 0.1);
+        &::after {
+            content: "\25be";
+            margin-left: 5px;
+        }
+    }
 }

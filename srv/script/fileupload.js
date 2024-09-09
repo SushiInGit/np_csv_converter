@@ -17,15 +17,23 @@ document.addEventListener('DOMContentLoaded', () => {
     const dropZones = document.querySelectorAll("#dropZone");
     const fileInput = document.getElementById('fileInput');
 
+    // Click next to any opened modal to close it
+    document.querySelectorAll(".modal").forEach((modal) => {
+        modal.addEventListener('click', (e) => {
+            if (e.target.classList.contains("shown"))
+                e.target.classList.remove("shown");
+        });
+    });
+
     document.querySelector('#sheet').addEventListener('change', readFile);
 
     fileUploadBtn.addEventListener('click', () => {
-        fileUploadModal.style.display = 'flex';
+        fileUploadModal.classList.add("shown");
         dropZoneError.style.display = 'none';
     });
 
     closeFileUpload.addEventListener('click', () => {
-        fileUploadModal.style.display = 'none';
+        fileUploadModal.classList.remove("shown");
     });
 
     dropZones.forEach((dropZone) => {
@@ -75,7 +83,8 @@ function handleFileUpload(files) {
         _file = file;
 
         readFile();
-        fileUploadModal.style.display = 'none';
+
+        fileUploadModal.classList.remove("shown");
         document.getElementById("welcomeDIVcontainer").style.display = "none";
         document.getElementById("head-container").style.display = "flex";
         document.querySelector("#headTable").style.display = "flex";
@@ -281,7 +290,6 @@ function hideImagePreview() {
 }
 
 document.addEventListener("keydown", function (event) {
-    if (event.key === "Escape") {
-        document.getElementById("fileUploadModal").style.display = "none";
-    }
+    if (event.key === "Escape")
+        fileUploadModal.classList.remove("shown");
 });
