@@ -14,7 +14,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const fileUploadModal = document.getElementById('fileUploadModal');
     const closeFileUpload = document.getElementById('closeFileUpload');
     const dropZoneError = document.getElementById('dropZoneError');
-    // const dropZone = document.getElementById('dropZone');
     const dropZones = document.querySelectorAll("#dropZone");
     const fileInput = document.getElementById('fileInput');
 
@@ -29,23 +28,23 @@ document.addEventListener('DOMContentLoaded', () => {
         fileUploadModal.style.display = 'none';
     });
 
-    dropZones.forEach((_dropZone) => {
-        _dropZone.addEventListener('click', () => {
+    dropZones.forEach((dropZone) => {
+        dropZone.addEventListener('click', () => {
             fileInput.click();
         });
 
-        _dropZone.addEventListener('dragover', (e) => {
+        dropZone.addEventListener('dragover', (e) => {
             e.preventDefault();
-            _dropZone.style.backgroundColor = '#505050';
+            dropZone.style.backgroundColor = '#505050';
         });
 
-        _dropZone.addEventListener('dragleave', () => {
-            _dropZone.style.backgroundColor = '#404040';
+        dropZone.addEventListener('dragleave', () => {
+            dropZone.style.backgroundColor = '#404040';
         });
 
-        _dropZone.addEventListener('drop', (e) => {
+        dropZone.addEventListener('drop', (e) => {
             e.preventDefault();
-            _dropZone.style.backgroundColor = '#404040';
+            dropZone.style.backgroundColor = '#404040';
             const files = e.dataTransfer.files;
             handleFileUpload(files);
         });
@@ -113,7 +112,6 @@ function readFile() {
                 }
                 else {
                     var createArray = [];
-
                     row.values.forEach(function (value, index) {
                         createArray.push(value);
                     });
@@ -127,6 +125,7 @@ function readFile() {
                 _file = undefined;
             });
     }
+
     reader.readAsArrayBuffer(_file)
 }
 
@@ -171,8 +170,6 @@ function fillTable() {
 
                 if (showUTC)
                     item += " <br/> <i style=\"font-size: 65%;\">(UTC: " + formattedUTC + ")</i>";
-
-
 
                 // Add dateformat to 
                 if (_columnNames[itemIndex].includes(`<i name="dateFormat"`)) {
