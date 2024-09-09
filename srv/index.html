@@ -10,22 +10,23 @@
 
 <body>
     <div class="welcomeDIVcontainer" id="welcomeDIVcontainer">
-        <div class="welcomeDiv">
-            <center><h2>Welcome!</h2>
-            To get the most out of this website, please upload a CSV or Excel file. Once the file is uploaded, you’ll unlock full access to all the features and tools available.<br />                
-            Simply click the upload button to get started.<br />
-            <br />
-            If you encounter any issues during the upload process, feel free to reach out for support.</center>
+        <div class="welcomeDiv" style="text-align: center;">
+            <h2>Welcome!</h2>
+            <p>
+                To get the most out of this website, please upload a CSV or Excel file. Once the file is uploaded, you’ll unlock full access to all the features and tools available.<br />
+                Simply click the upload button to get started.<br />
+                <br />
+                If you encounter any issues during the upload process, feel free to reach out for support.
+            </p>
         </div>
 
         <div class="modalwelcomeDIV">
             <div class="modal-contentwelcomeDIV">
                 <h2>File upload</h2>
                 <div id="dropZone">Drag & Drop or click to Upload an Excel-File.</div>
-                <!--<input type="file" id="fileInput" style="display: none;">-->
-
-
-            </div></div></div>
+            </div>
+        </div>
+    </div>
 
     <!--  Settings - Modal -->
     <div class="modal" id="settingsModal">
@@ -92,8 +93,8 @@
         <div class="search-container">
             <input type="text" id="searchInput" onkeyup="searchTable()" placeholder="Search...">
             <label class="upload-button" id="fileUploadPopup" onchange="resetTable()">
-                <svg fill="#000000" height="15px" width="15px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
-                    viewBox="0 0 490.955 490.955" xml:space="preserve">
+                <svg fill="#000000" height="15px" width="15px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                     viewBox="0 0 490.955 490.955" xml:space="preserve">
                 <path id="XMLID_448_" d="M445.767,308.42l-53.374-76.49v-20.656v-11.366V97.241c0-6.669-2.604-12.94-7.318-17.645L312.787,7.301
                     C308.073,2.588,301.796,0,295.149,0H77.597C54.161,0,35.103,19.066,35.103,42.494V425.68c0,23.427,19.059,42.494,42.494,42.494
                     h159.307h39.714c1.902,2.54,3.915,5,6.232,7.205c10.033,9.593,23.547,15.576,38.501,15.576c26.935,0-1.247,0,34.363,0
@@ -104,20 +105,20 @@
                     c-2.03,3.866-5.99,6.271-10.337,6.271h-0.016h-32.575v83.048c0,6.437-5.239,11.662-11.659,11.662h-0.017H321.35h-0.017
                     c-6.423,0-11.662-5.225-11.662-11.662v-83.048h-32.574h-0.016c-4.346,0-8.308-2.405-10.336-6.271
                     c-2.012-3.866-1.725-8.49,0.783-12.07l61.424-88.064c2.189-3.123,5.769-4.984,9.57-4.984h0.017c3.802,0,7.38,1.861,9.568,4.984
-                    l61.427,88.064C412.04,337.28,412.328,341.905,410.316,345.771z"/>
+                    l61.427,88.064C412.04,337.28,412.328,341.905,410.316,345.771z" />
                 </svg>
             </label>
             <input type="file" id="file-upload">
             <button class="settings-button" id="settingsPopup" onchange="resetTable()">
-                <svg fill="#000000" height="15px" width="15px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
-                viewBox="0 0 491.556 491.556" xml:space="preserve">
+                <svg fill="#000000" height="15px" width="15px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                     viewBox="0 0 491.556 491.556" xml:space="preserve">
                 <path id="XMLID_680_" d="M480.537,132.385c-6.372-2.813-13.814-1.418-18.729,3.502l-49.891,49.868l-91.012-16.093l-16.101-91.018
                     l49.894-49.867c4.911-4.921,6.307-12.356,3.5-18.728c-2.805-6.364-9.258-10.36-16.197-10.029
                     C308,1.608,274.485,15.334,248.51,41.316c-39.887,39.872-50.913,97.498-33.435,147.364L19.369,384.429
                     c-24.516,24.5-24.516,64.24,0,88.749c11.756,11.764,27.712,18.378,44.363,18.378c16.635,0,32.605-6.615,44.361-18.37l196.679-196.68
                     c49.196,16.044,105.395,4.654,144.471-34.447c25.976-25.968,39.708-59.475,41.314-93.468
                     C490.864,141.644,486.909,135.206,480.537,132.385z M94.214,435.747c-10.328,10.329-27.094,10.329-37.422,0
-                    c-10.346-10.344-10.346-27.094,0-37.439c10.328-10.327,27.094-10.327,37.422,0C104.544,408.653,104.544,425.402,94.214,435.747z"/>
+                    c-10.346-10.344-10.346-27.094,0-37.439c10.328-10.327,27.094-10.327,37.422,0C104.544,408.653,104.544,425.402,94.214,435.747z" />
             </svg>
             </button>
             <span class="search_icon">
@@ -127,27 +128,29 @@
     </div>
 
     <!-- Content Output -->
-        <div class="content">
-            <div class="headTable" id="headTable">
-                <div class="headTablesheet">
-                    <label for="sheet">Sheet</label>
-                    <input type="number" id="sheet" min="1" step="1" value="1">
-                </div>
-                <div class="headTablecopybtn">
-                    <button id="copyTable">Copy table (enables copy paste to excel)</button>
-                </div>
+    <div class="content">
+        <div class="headTable" id="headTable">
+            <div class="headTablesheet">
+                <label for="sheet">Sheet</label>
+                <input type="number" id="sheet" min="1" step="1" value="1">
             </div>
+            <div class="headTablecopybtn">
+                <button id="copyTable">Copy table (enables copy paste to excel)</button>
+            </div>
+        </div>
 
         <!-- Table Display-->
         <table class="table-sortable" id="phoneRecords"></table>
 
         <!-- Footer-->
-        <footer><p>
-            Project located on <a href="https://github.com/SushiInGit/np_csv_converter/">GitHub</a> - 
-            by <a href="https://github.com/RYJarnovk">RY Jarnovk</a> & <a href="https://github.com/SushiInGit">SushiInPeace</a> 
-        </p></footer><br />
+        <footer>
+            <p>
+                Project located on <a href="https://github.com/SushiInGit/np_csv_converter/">GitHub</a> -
+                by <a href="https://github.com/RYJarnovk">RY Jarnovk</a> & <a href="https://github.com/SushiInGit">SushiInPeace</a>
+            </p>
+        </footer>
     </div>
-    
+
     <!-- ajax and render scripts-->
     <script src="script/script.js"></script>
     <script src="script/settings.js"></script>
