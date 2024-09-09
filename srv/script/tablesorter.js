@@ -74,4 +74,35 @@ function modifyTableHeader() {
     }
 
     table.appendChild(tbody); 
+    resizeTableHeaderWidths();
 }
+
+function setTableHeaderWidths() {
+const thead = document.querySelector('thead');
+const ths = thead.querySelectorAll('th');
+
+ths.forEach(th => {
+    const width = th.offsetWidth;
+
+    th.style.width = `${width}px`;
+});
+}
+
+// Set Table widths on load
+function resizeTableHeaderWidths() {
+    const thead = document.querySelector('thead');
+    const ths = thead.querySelectorAll('th');
+    const tableWidth = thead.parentElement.offsetWidth;
+
+    let totalWidth = 0;
+    ths.forEach(th => {
+        totalWidth += th.offsetWidth;
+    });
+
+    ths.forEach(th => {
+        const width = (th.offsetWidth / totalWidth) * 100; 
+        th.style.width = `${width}%`;
+    });
+}
+
+
