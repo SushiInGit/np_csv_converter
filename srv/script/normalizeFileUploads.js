@@ -166,6 +166,10 @@ function normalizeTexts(worksheet) {
                     }
                     else if (columnTracker >= 2) {
                         if (!isValidISODate(value)) {
+                            if (typeof value === 'object' && value !== null) {
+                                value = value.text;
+                            }
+
                             if (messageRecordLine.message === "") {
                                 messageRecordLine.message += `${value}`;
                             }
