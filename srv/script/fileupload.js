@@ -187,6 +187,17 @@ function fillTable_phone() {
         table.append(row);
     });
 
+    var headerRow = document.createElement("tr");
+    headerRow.appendChild(Object.assign(document.createElement("th"), { innerHTML: '' }));
+
+    Object.keys(_itemsArr[0]).forEach((key, i) => {
+        let th = document.createElement("th");
+        th.innerHTML = `${String.fromCharCode(65 + i - 1)}<br>${key}`;
+        headerRow.appendChild(th);
+    });
+
+    table.prepend(headerRow);
+
     makeLinksClickable();
     initializeSorting();
 }
