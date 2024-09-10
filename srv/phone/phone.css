@@ -1,0 +1,143 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #1f2c33;
+    margin: 0;
+    padding: 0;
+    color: #ffffff;
+}
+
+.container {
+    display: flex;
+    height: 100vh;
+}
+
+/* Sidebar for chat list */
+.sidebar {
+    width: 30%;
+    background-color: #35384f;
+    display: flex;
+    flex-direction: column;
+}
+
+.header-sidebar {
+    padding: 21px;
+    background-color: #292c3d;
+    color: #aebac1;
+    text-align: center;
+    font-size: 1.2em;
+}
+
+.chat-list {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding: 10px;
+}
+
+.chat-list-item {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: #191e28;
+    border-radius: 8px;
+    color: #ffffff;
+    cursor: pointer;
+}
+
+.chat-list-item:hover {
+    background-color: #222b3c;
+}
+
+.chat-list-item .chat-info {
+    flex-grow: 1;
+}
+
+.chat-list-item .chat-info .name {
+    font-weight: bold;
+}
+
+.chat-list-item .chat-info .message-preview {
+    color: #aebac1;
+    font-size: 0.9em;
+}
+
+.chat-list-item .time {
+    font-size: 0.8em;
+    color: #aebac1;
+}
+
+/* Chat container */
+.chat-container {
+    width: 70%;
+    background-color: #11151d;
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+}
+
+.chat-header {
+    padding: 15px;
+    background-color: #292c3d;
+    color: #aebac1;
+    display: flex;
+    align-items: center;
+}
+
+.chat-header .chat-info {
+    flex-grow: 1;
+}
+
+.chat-header .chat-info .name {
+    font-weight: bold;
+    color: #ffffff;
+}
+
+.chat-header .chat-info .status {
+    font-size: 0.9em;
+    color: #aebac1;
+}
+
+/* Message box */
+.message-box {
+    padding: 15px;
+    flex-grow: 1;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.message {
+    max-width: 60%;
+    padding: 10px 15px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    word-wrap: break-word;
+}
+
+.message.from {
+    align-self: flex-start;
+    background-color: #292c3d;
+    color: #ffffff;
+}
+
+.message.to {
+    align-self: flex-end;
+    background-color: #35384f;
+    color: #ffffff;
+}
+
+.timestamp {
+    text-align: right;
+    font-size: 0.8em;
+    color: #aebac1;
+    margin-top: 5px;
+}
+
+.number {
+    text-align: right;
+    font-size: 0.6em;
+    color: #aebac1;
+    margin-top: 5px;
+    font-weight: bold;
+}
