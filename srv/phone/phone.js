@@ -24,8 +24,8 @@ function renderConversations() {
         
         link.innerHTML = `
             <div class="chat-info">
-                <div class="name">${findNameByNumber(conversation.conversation.number_from)} to ${findNameByNumber(conversation.conversation.number_to)}</div>
-                <div class="message-preview">Click to view conversation</div>
+                <div class="name">${findNameByNumber(conversation.conversation.number_from)} </div>
+                <div class="message-preview">➤ ${findNameByNumber(conversation.conversation.number_to)}</div>
             </div>
             <div class="time">Last massage: <br />${formatDate(new Date(conversation.messages[0].timestamp))}</div>
         `;
@@ -193,7 +193,14 @@ function renderPhoneRecords(records) {
         
 }
 
-
+function closePhonebook() {
+    document.getElementById('phonebook-container').style.display = "none";
+    document.getElementById("chat-container").style.width = "80%";
+  }
+  function openPhonebook() {
+    document.getElementById('phonebook-container').style.display = "block";
+    document.getElementById("chat-container").style.width = "70%";
+  }
 // Initialize the conversation & phonebook list on page load
 renderConversations();
 renderPhonebook(sortPhoneRecords(phoneRecords));

@@ -13,7 +13,8 @@ body {
 
 /* Sidebar for chat list */
 .sidebar {
-    width: 20%;
+    width: 350px;
+    min-width: 350px;
     background-color: #35384f;
     display: flex;
     flex-direction: column;
@@ -68,7 +69,7 @@ body {
 
 /* Chat container */
 .chat-container {
-    width: 70%;
+    width: 100% !important;
     background-color: #11151d;
     background-repeat: no-repeat;
     background-size: cover;
@@ -104,8 +105,9 @@ body {
     background-color: #292c3d;
     background-repeat: no-repeat;
     background-size: cover;
-    display: flex;
+    display: none;
     flex-direction: column;
+    z-index: 10;
 }
 .header-phonebook {
     padding: 21px;
@@ -113,8 +115,12 @@ body {
     color: #aebac1;
     text-align: center;
     font-size: 1.2em;
+ 
 }
-
+.header-phonebook > a {
+    cursor: pointer;
+    font-size: 1.2em;
+}
 .phonebook-list {
     flex-grow: 1;
     overflow-y: auto;
@@ -204,7 +210,36 @@ body {
     opacity: 1;
     animation: fade 5s infinite ;
 }
+
 @keyframes fade {
     0%,100% { opacity: 0.5 }
     50% { opacity: 1 }
-  }
+}
+
+.divElement {
+    position: absolute;
+    top: 50%;
+    right: -75px;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    z-index: 1;
+    text-align: center;
+    font-size: 1.2em;
+
+    a {
+    background: #35384f;
+    text-decoration:none; /* Remove that ugly underlining */
+    border-radius: 50%;
+    display: block;
+    height: 80px;
+    width: 80px;
+    }
+    a::after {
+        content:"\2190";   /* The code for the arrow : see the reference */
+        display: block;
+        color: white;
+        font-weight: bold;
+        font-size: 60px; /* Adjust for your needs */
+        text-align: center;
+    }
+}

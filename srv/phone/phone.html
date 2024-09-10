@@ -20,7 +20,7 @@
         </div>
 
         <!-- Chat Container -->
-        <div class="chat-container">
+        <div class="chat-container" id="chat-container">
             <div class="chat-header" id="chat-header">
                 <div class="chat-info">
                     <div class="name">Select a conversation</div>
@@ -34,15 +34,15 @@
         </div>
 
         <!-- Phonebook Container -->
-        <div class="phonebook-container">
-            <div class="header-phonebook">Phonebook</div>
+        <div class="phonebook-container" id="phonebook-container">
+            <div class="header-phonebook"><a  class="openbtn" onclick="closePhonebook()">☰ Phonebook </a> </div>
             <div class="phonebook-list" id="phonebook-list">
                 <!-- Phonebook entrys will be dynamically added here -->
                  Test
             </div>
         </div>
     </div>
-
+<div class="divElement"><div><a  href="#"class="openbtn" onclick="openPhonebook()"> </a></div></div>
 
 <!--  // Sample data  -->
 <script src="testData_dump.js"></script>
