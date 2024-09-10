@@ -105,9 +105,9 @@ body {
     background-color: #292c3d;
     background-repeat: no-repeat;
     background-size: cover;
-    display: none;
     flex-direction: column;
     z-index: 10;
+    display: none;
 }
 .header-phonebook {
     padding: 21px;
@@ -164,6 +164,7 @@ body {
 /* Message box */
 .message-box {
     padding: 15px;
+    padding-right: 30px;
     flex-grow: 1;
     overflow-y: auto;
     display: flex;
@@ -211,15 +212,10 @@ body {
     animation: fade 5s infinite ;
 }
 
-@keyframes fade {
-    0%,100% { opacity: 0.5 }
-    50% { opacity: 1 }
-}
-
-.divElement {
-    position: absolute;
+.togglePhonebook {
+    position: fixed;
     top: 50%;
-    right: -75px;
+    right: -85px;
     -webkit-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
     z-index: 1;
@@ -227,19 +223,46 @@ body {
     font-size: 1.2em;
 
     a {
-    background: #35384f;
-    text-decoration:none; /* Remove that ugly underlining */
-    border-radius: 50%;
-    display: block;
-    height: 80px;
-    width: 80px;
+        border-color: #11151d;
+        background: #35384f;
+        text-decoration:none; 
+        border-radius: 50%;
+        display: block;
+        height: 80px;
+        width: 80px;
+        opacity: 0.5;
     }
     a::after {
-        content:"\2190";   /* The code for the arrow : see the reference */
+        content:"\2190";   
         display: block;
         color: white;
         font-weight: bold;
-        font-size: 60px; /* Adjust for your needs */
+        font-size: 60px; 
         text-align: center;
+        opacity: 1;
     }
+
+    a:hover {
+        border-color: #11151d;
+        background: #575d85;
+        text-decoration:none; 
+        border-radius: 50%;
+        display: block;
+        opacity: 1;
+        animation: bounce 2s infinite ;
+    }
+}
+
+
+
+
+@keyframes fade {
+    0%,100% { opacity: 0.5 }
+    50% { opacity: 1 }
+}
+
+@keyframes bounce {
+  0%   { transform: translateX(0); }
+  50%  { transform: translateX(-20px); }
+  100% { transform: translatex(0); }
 }
