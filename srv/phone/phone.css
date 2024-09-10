@@ -1,6 +1,6 @@
 body {
     font-family: 'Arial', sans-serif;
-    background-color: #1f2c33;
+    background-color: #35384f;
     margin: 0;
     padding: 0;
     color: #ffffff;
@@ -13,7 +13,7 @@ body {
 
 /* Sidebar for chat list */
 .sidebar {
-    width: 30%;
+    width: 20%;
     background-color: #35384f;
     display: flex;
     flex-direction: column;
@@ -98,6 +98,63 @@ body {
     color: #aebac1;
 }
 
+/* Phonebook container */
+.phonebook-container  {
+    width: 20%;
+    background-color: #292c3d;
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+}
+.header-phonebook {
+    padding: 21px;
+    background-color: #292c3d;
+    color: #aebac1;
+    text-align: center;
+    font-size: 1.2em;
+}
+
+.phonebook-list {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding: 10px;
+}
+
+.phonebook-list-item {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: #191e28;
+    border-radius: 8px;
+    color: #ffffff;
+    cursor: pointer;
+}
+
+.phonebook-list-item:hover {
+    background-color: #222b3c;
+}
+
+.phonebook-list-item .phonebook-info {
+    flex-grow: 1;
+}
+
+.phonebook-list-item .phonebook-info .name {
+    font-weight: bold;
+}
+
+.phonebook-list-item .phonebook-info .message-preview {
+    color: #aebac1;
+    font-size: 0.9em;
+}
+
+.phonebook-list-item .time {
+    font-size: 0.8em;
+    color: #aebac1;
+}
+
+
 /* Message box */
 .message-box {
     padding: 15px;
@@ -108,7 +165,7 @@ body {
 }
 
 .message {
-    max-width: 60%;
+    max-width: 50%;
     padding: 10px 15px;
     margin-bottom: 10px;
     border-radius: 8px;
@@ -141,3 +198,13 @@ body {
     margin-top: 5px;
     font-weight: bold;
 }
+
+.duplicate {
+    background-color: #b9181881;
+    opacity: 1;
+    animation: fade 5s infinite ;
+}
+@keyframes fade {
+    0%,100% { opacity: 0.5 }
+    50% { opacity: 1 }
+  }
