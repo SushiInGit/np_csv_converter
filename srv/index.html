@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/exceljs/4.3.0/exceljs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
     <link rel="stylesheet" href="css/styles.css">
 </head>
 
@@ -23,6 +24,11 @@
         <div class="modalwelcomeDIV">
             <div class="modal-contentwelcomeDIV">
                 <h2>File upload</h2>
+                <select id="fileType">
+                    <option value="0">Generic file</option>
+                    <option value="1">Phone records</option>
+                    <option value="2">Bank records</option>
+                </select>
                 <div id="dropZone">Drag & Drop or click to Upload an Excel-File.</div>
             </div>
         </div>
@@ -55,7 +61,9 @@
                     <option value="ja-JP">YYYY-MM-DD</option>
                 </select>
             </div>
+
             <div id="use12hClockDiv">
+
                 <label for="use12hClock">12h clock</label>
                 <input type="checkbox" id="use12hClock" />
             </div>
@@ -81,6 +89,11 @@
     <div class="modal" id="fileUploadModal">
         <div class="modal-content" id="modalcontent">
             <h2>File upload</h2>
+            <select id="fileType">
+                <option value="0">Generic file</option>
+                <option value="1">Phone records</option>
+                <option value="2">Bank records</option>
+            </select>
             <div id="dropZone">Drag & Drop or click to Upload an Excel-File.</div>
             <div id="dropZoneError">An error occurred during the file upload. Please try again or upload a valid file. If the problem persists, contact support.</div>
             <input type="file" id="fileInput" style="display: none;">
@@ -157,6 +170,7 @@
     <script src="script/fileupload.js"></script>
     <script src="script/search.js"></script>
     <script src="script/tablesorter.js"></script>
+    <script src="script/normalizeFileUploads.js"></script>
 </body>
 
 </html>

@@ -264,25 +264,47 @@ footer {
         opacity: 1;
         pointer-events: auto;
     }
-}
+    
+    .modal-content {
+        padding: 20px;
+        border-radius: 10px;
+        width: 400px;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-80%);
+        border-radius: 5px;
+        border: 1px solid #7f6795ad;
+        box-shadow: 0 0 15px 5px rgba(212, 165, 255, 0.2);
+        background-color: #222;
+        z-index: 1000;
+        transition: box-shadow 0.3s ease;
+        
+        h2 {
+            margin-top: 0;
+        }
+    }
 
-.modal-content {
-    padding: 20px;
-    border-radius: 10px;
-    width: 400px;
-    position: absolute;
-    top: 50%;
-    transform: translateY(-80%);
-    border-radius: 5px;
-    border: 1px solid #7f6795ad;
-    box-shadow: 0 0 15px 5px rgba(212, 165, 255, 0.2);
-    background-color: #222;
-    z-index: 1000;
-    transition: box-shadow 0.3s ease;
-}
+    &#settingsModal {
+        > .modal-content {
+            > div {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
 
-.modal-content h2 {
-    margin-top: 0;
+                select {
+                    background: none;
+                    border: 1px solid #7f6795ad;
+                    border-radius: 5px;
+                    color: var(--color);
+                    padding: 4px;
+                    box-shadow: 0 0 15px 2px rgba(212, 165, 255, 0.2);
+> option {
+    color: black;
+}
+                }
+            }
+        }
+    }
 }
 
 .settings-button {

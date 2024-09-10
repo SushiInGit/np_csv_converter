@@ -1,6 +1,8 @@
 var _file;
 var _columnNames = [];
 var _itemsArr = [];
+var _customObjectArray = [];
+var _fileType = 0;
 
 document.querySelector('#timezone').addEventListener('change', fillTable);
 document.querySelector('#use12hClock').addEventListener('change', fillTable);
@@ -62,13 +64,22 @@ document.addEventListener('DOMContentLoaded', () => {
         handleFileUpload(fileInput.files);
     });
 
+    document.querySelectorAll("#fileType").forEach((input) => {
+        input.addEventListener("change", () => {
+            _fileType = input.value;
+
+            document.querySelectorAll("#fileType").forEach((inputToChange) => {
+                inputToChange.value = _fileType;
+            });
+        })
+    });
+
     document.addEventListener('paste', (e) => {
         const items = e.clipboardData.items;
         for (let i = 0; i < items.length; i++) {
             if (items[i].kind === 'file') {
                 const file = items[i].getAsFile();
                 if (file.type === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet') {
-                    // alert(`Excel-File "${file.name}" uploaded from clipboard.`);
                     handleFileUpload(file);
                 }
             }
@@ -114,20 +125,42 @@ function readFile() {
                 document.querySelector('#sheet').value = maxSheets;
                 selectedSheet = maxSheets;
             }
-            var worksheet = workbook.getWorksheet(selectedSheet);
-            worksheet.eachRow(function (row, rowNumber) {
-                if (rowNumber == 1) {
-                    _columnNames = row.values;
-                }
-                else {
-                    var createArray = [];
-                    row.values.forEach(function (value, index) {
-                        createArray.push(value);
-                    });
-                    _itemsArr.push(createArray);
-                }
-            })
-            fillTable();
+
+
+            if (_fileType == 0) {
+                var worksheet = workbook.getWorksheet(selectedSheet);
+
+                worksheet.eachRow(function (row, rowNumber) {
+                    if (rowNumber == 1) {
+                        _columnNames = row.values;
+                    }
+                    else {
+                        var createArray = [];
+                        row.values.forEach(function (value, index) {
+                            createArray.push(value);
+                        });
+                        _itemsArr.push(createArray);
+                    }
+                })
+
+                fillTable();
+            }
+            else if (_fileType == 1) {
+                // Phone records
+                texts = _itemsArr.concat(normalizeTexts(workbook.getWorksheet(1)));
+                calls = _itemsArr.concat(normalizePhonecalls(workbook.getWorksheet(2)));
+
+                _itemsArr = texts.concat(calls);
+
+                fillTable_phone();
+            }
+            else if (_fileType == 2) {
+                // Bank records
+                // Todo
+                // _itemsArr = _itemsArr.concat(normalizeBankRecords(workbook.getWorksheet(1)));
+            }
+
+            
         })
             .catch(function (error) {
                 alert('File is not a valid Excel file');
@@ -136,6 +169,26 @@ function readFile() {
     }
 
     reader.readAsArrayBuffer(_file)
+}
+
+function fillTable_phone() {
+    var table = document.querySelector("#phoneRecords");
+    table.innerHTML = '';
+
+    _itemsArr.forEach((itemObject, index) => {
+        var row = document.createElement("tr");
+
+        row.appendChild(Object.assign(document.createElement("td"), { innerHTML: index + 1 }));
+
+        Object.keys(itemObject).forEach(key => {
+            row.appendChild(Object.assign(document.createElement("td"), { innerHTML: itemObject[key] }));
+        });
+
+        table.append(row);
+    });
+
+    makeLinksClickable();
+    initializeSorting();
 }
 
 function fillTable() {
@@ -224,7 +277,6 @@ function isValidISODateString(dateString) {
     var date = new Date(dateString);
     return !isNaN(date.getTime());
 }
-
 
 function makeLinksClickable() {
     var rows = document.querySelectorAll("#phoneRecords tr");
