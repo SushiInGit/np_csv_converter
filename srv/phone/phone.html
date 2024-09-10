@@ -7,44 +7,48 @@
     <link rel="stylesheet" href="phone.css">
 </head>
 <body>
-
-    <div class="container">
-        <!-- Sidebar -->
-        <div class="sidebar">
-            <div class="header-sidebar">
-                Conversations
-            </div>
-            <div class="chat-list" id="conversation-list">
-                <!-- Links to conversations will be dynamically added here -->
-            </div>
+<div class="container">
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="header-sidebar">
+            Conversations
         </div>
-
-        <!-- Chat Container -->
-        <div class="chat-container" id="chat-container">
-            <div class="chat-header" id="chat-header">
-                <div class="chat-info">
-                    <div class="name">Select a conversation</div>
-                    <div class="status">For details</div>
-                </div>
-            </div>
-
-            <div class="message-box" id="chat-box">
-                <!-- Messages will be dynamically added here -->
-            </div>
+        <div class="chat-list" id="conversation-list">
+            <!-- Links to conversations will be dynamically added here -->
         </div>
-
-        <!-- Phonebook Container -->
-        <div class="phonebook-container" id="phonebook-container">
-            <div class="header-phonebook"><a    onclick="closePhonebook()">☰ Phonebook </a> </div>
-            <div class="phonebook-list" id="phonebook-list">
-                <!-- Phonebook entrys will be dynamically added here -->
-                 Test
-            </div>
-        </div>
-        <div class="togglePhonebook bounce"><div><a  href="#" onclick="openPhonebook()"> </a></div></div>
     </div>
 
+    <!-- Chat Container -->
+    <div class="chat-container" id="chat-container">
+        <div class="chat-header" id="chat-header">
+            <div class="chat-info">
+                <div class="name">Select a conversation</div>
+                <div class="status">For details</div>
+            </div>
+        </div>
 
+        <div class="message-box" id="chat-box">
+            <!-- Messages will be dynamically added here -->
+        </div>
+    </div>
+
+    <!-- Phonebook Container -->
+    <div class="phonebook-container" id="phonebook-container">
+        <div class="header-phonebook"><a    onclick="closePhonebook()">☰ Phonebook </a> </div>
+        <div class="phonebook-list" id="phonebook-list">
+            <!-- Phonebook entrys will be dynamically added here -->
+            Test
+        </div>
+    </div>
+    <div class="togglePhonebook bounce"><div><a  href="#" onclick="openPhonebook()"> </a></div></div>
+</div>
+<!-- Footer-->
+<footer>
+    <p>
+        Project located on <a href="https://github.com/SushiInGit/np_csv_converter/">GitHub</a> -
+        by <a href="https://github.com/RYJarnovk">RY Jarnovk</a> & <a href="https://github.com/SushiInGit">SushiInPeace</a>
+    </p>
+</footer>
 <!--  // Sample data  -->
 <script src="testData_dump.js"></script>
 <!--  // Phone script  -->
