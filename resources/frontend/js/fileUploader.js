@@ -70,7 +70,7 @@ function handleFile() {
       const firstSheetName = workbook.SheetNames[0];
       const worksheet = workbook.Sheets[firstSheetName];
       const jsonData = XLSX.utils.sheet_to_json(worksheet);
- 
+      logger.files(jsonData);
       // Save daten to sessionStorage
       sessionStorage.setItem('excelData', JSON.stringify(jsonData));
       

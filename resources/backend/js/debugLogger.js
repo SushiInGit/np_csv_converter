@@ -19,7 +19,7 @@ logger = {
                     doTime: true,
                     doTrace: true,
                     doWarn: true,
-                    doSetting: false,
+                    doSetting: true,
                     doFile: true,
                     doDEVMODE: true,
 /// ------------------------------------------------------
