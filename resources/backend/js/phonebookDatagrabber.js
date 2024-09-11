@@ -1,15 +1,52 @@
-const chatDataInput = JSON.parse(excelData);
+const excel = {};
+
+for (let i = 0; i < sessionStorage.length; i++) {
+    const key = sessionStorage.key(i);
+    const value = sessionStorage.getItem(key);
+    const storageKey = `excelSheet${i + 1}`;
+    //sessionStorage.removeItem(storageKey);
+    const storedData = JSON.parse(value);
+    excel[`sheet${i}`] = {storedData};
+  }
+
+  console.log(excel.sheet1.storedData);
+
+const rawData = excel.sheet0.storedData;
 
 
 
 
 
+function groupConversations(data) {
+    const conversationMap = {};
 
+    data.forEach(item => {
+        const from = item.number_from.toString();
+        const to = item.number_to.toString();
 
+        const key = [from, to].sort().join('-');
 
+        if (!conversationMap[key]) {
+            conversationMap[key] = {
+                conversation: [from, to],
+                messages: []
+            };
+        }
+        conversationMap[key].messages.push({
+            from: from,
+            to: to,
+            message: item.message,
+            timestamp: item.timestamp
+        });
+    });
 
+    return Object.values(conversationMap);
+}
 
-const chatDataOutput = chatDataInput;
+// Convert the raw data into grouped conversations
+const groupedConversations = groupConversations(rawData);
+const chatData = groupedConversations;
+
 
 // Sample data 
 const phoneRecords = [
@@ -21,6 +58,7 @@ const phoneRecords = [
     { number: ['4209991000'], name: "Alice White" },  // Duplicate name and number
     { number: '4202550800', name: "Andi Smith" } // Duplicate name
 ];
+/*
     const shortData = [
         {
             conversation: { number_from: '4209480000', number_to: '4208993000' },
@@ -210,7 +248,8 @@ const longDataSpam = [
     ];
 
 
-const chatData = shortData.concat();
+const chatData = chatDataOutput;
 
 
 //const chatData = chatDataOutput;
+*/

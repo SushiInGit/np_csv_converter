@@ -19,13 +19,14 @@ function renderConversations() {
     const conversationList = document.getElementById('conversation-list');
     conversationList.innerHTML = '';
     chatData.forEach((conversation, index) => {
+        console.log(conversation)
         const link = document.createElement('div');
         link.classList.add('chat-list-item');
         
         link.innerHTML = `
             <div class="chat-info">
-                <div class="name">${findNameByNumber(conversation.conversation.number_from)} </div>
-                <div class="message-preview">➤ ${findNameByNumber(conversation.conversation.number_to)}</div>
+                <div class="name">${findNameByNumber(conversation.conversation[0])} </div>
+                <div class="message-preview">➤ ${findNameByNumber(conversation.conversation[1])}</div>
             </div>
             <div class="time">Last massage: <br />${formatDate(new Date(conversation.messages[0].timestamp))}</div>
         `;
@@ -42,23 +43,23 @@ function showConversation(index) {
     const conversation = chatData[index];
 
     // Set chat header information 
-    if(isNaN(findNameByNumber(conversation.conversation.number_from))){
-        header.querySelector('.name').textContent = `${findNameByNumber(conversation.conversation.number_from)} ( ${(conversation.conversation.number_from)} )`;
+    if(isNaN(findNameByNumber(conversation.conversation[0]))){
+        header.querySelector('.name').textContent = `${findNameByNumber(conversation.conversation[0])} ( ${(conversation.conversation[0])} )`;
     }else{
-        header.querySelector('.name').textContent = `Unkown ( ${(conversation.conversation.number_from)} )`;
+        header.querySelector('.name').textContent = `Unkown ( ${(conversation.conversation[0])} )`;
     }
 
-    if(isNaN(findNameByNumber(conversation.conversation.number_to))){
-        header.querySelector('.status').textContent = `Chat to ${findNameByNumber(conversation.conversation.number_to)} ( ${(conversation.conversation.number_to)} )`;
+    if(isNaN(findNameByNumber(conversation.conversation[1]))){
+        header.querySelector('.status').textContent = `Chat to ${findNameByNumber(conversation.conversation[1])} ( ${(conversation.conversation[1])} )`;
     }else{
-        header.querySelector('.status').textContent = `Chat to Unkown ( ${findNameByNumber(conversation.conversation.number_to)} )`;
+        header.querySelector('.status').textContent = `Chat to Unkown ( ${findNameByNumber(conversation.conversation[1])} )`;
     }
    
     chatBox.innerHTML = '';  // Clear previous messages
     conversation.messages.forEach(chat => {
         const messageDiv = document.createElement('div');
         messageDiv.classList.add('message');
-        messageDiv.classList.add(chat.number_from === conversation.conversation.number_from ? 'from' : 'to');
+        messageDiv.classList.add(chat.from === conversation.conversation[0] ? 'from' : 'to');
         
         const textDiv = document.createElement('div');
         textDiv.textContent = chat.message;
@@ -70,9 +71,9 @@ function showConversation(index) {
         const numberDiv = document.createElement('div');
         numberDiv.classList.add('number');
         numberDiv.textContent = "📞";
-        numberDiv.textContent += (chat.number_from === conversation.conversation.number_from ? 'from' : 'to');
+        numberDiv.textContent += (chat.from === conversation.conversation[0] ? 'from' : 'to');
         numberDiv.textContent += "\n";
-        numberDiv.textContent += (findNameByNumber(chat.number_from));
+        numberDiv.textContent += (findNameByNumber(chat.from));
 
         messageDiv.appendChild(textDiv);
         messageDiv.appendChild(timestampDiv);

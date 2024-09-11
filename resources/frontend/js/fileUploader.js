@@ -33,8 +33,8 @@ dropZone.addEventListener('drop', (event) => {
   dropZone.classList.remove('dragover');
   const files = event.dataTransfer.files;
   if (files.length) {
-    fileInput.files = files; 
-    handleFile(); 
+    fileInput.files = files;
+    handleFile();
   }
 });
 
@@ -65,15 +65,22 @@ function handleFile() {
       const data = new Uint8Array(event.target.result);
       const workbook = XLSX.read(data, { type: 'array' });
 
-      // convert excel-sheet to JSON <--- just first need to fix
-
-      const firstSheetName = workbook.SheetNames[0];
-      const worksheet = workbook.Sheets[firstSheetName];
-      const jsonData = XLSX.utils.sheet_to_json(worksheet);
-      logger.files(jsonData);
       // Save daten to sessionStorage
-      sessionStorage.setItem('excelData', JSON.stringify(jsonData));
-      
+      const sheetNames = workbook.SheetNames;
+      for (let i = 0; i < sheetNames.length; i++) {
+        const sheetData = XLSX.utils.sheet_to_json(workbook.Sheets[sheetNames[i]]);
+        // Phoneboook Stuff need to filter between other stuff 
+        const normalizedData = normalizeTexts(sheetData);
+
+        const storageKey = `excelSheet${i + 1}`;
+        //sessionStorage.removeItem(storageKey);
+        sessionStorage.setItem(storageKey, JSON.stringify(normalizedData));
+        const storedData = JSON.parse(sessionStorage.getItem(storageKey));
+        logger.log(`SessionStorage: (${sheetNames[i]}):`, storedData);
+      }
+
+
+
       if (!selectedOption) {
         showError('Please select an option from the dropdown menu.');
         return;
@@ -99,7 +106,8 @@ function handleFile() {
           showError('Invalid option.');
       }
     } catch (error) {
-      showError('Error reading the file. Please check if the file is valid."');
+      showError('Error reading the file. Please check if the file is valid.');
+      logger.warn(error);
     }
   };
 
@@ -111,5 +119,136 @@ function handleFile() {
 
 uploadForm.addEventListener('submit', function (event) {
   event.preventDefault();
-  handleFile(); 
+  handleFile();
 });
+
+
+
+function normalizeTexts(worksheet) {
+
+  var messageRecordsArray = [];
+
+  var defaultMessageRecordLine = {
+    number_from: 0, // 0
+    number_to: 0, // 1
+    message: "", // 2
+    timestamp: "" // 3
+  }
+
+  try {
+
+    var columnTracker = 0;
+    var messageRecordLine = { ...defaultMessageRecordLine };
+
+    worksheet.eachRow(function (row, rowNumber) {
+
+      if (rowNumber > 1) {
+
+        row.values.forEach(function (value, index) {
+
+          if (columnTracker == 0) {
+            messageRecordLine.number_from = value;
+            columnTracker++;
+          }
+          else if (columnTracker == 1) {
+            messageRecordLine.number_to = value;
+            columnTracker++;
+          }
+          else if (columnTracker >= 2) {
+            if (!isValidISODate(value)) {
+              if (typeof value === 'object' && value !== null) {
+                value = value.text;
+              }
+
+              if (messageRecordLine.message === "") {
+                messageRecordLine.message += `${value}`;
+              }
+              else {
+                messageRecordLine.message += `<br/>${value}`;
+              }
+            }
+            else {
+              messageRecordLine.timestamp = new Date(value).toISOString();
+              messageRecordLine.message = messageRecordLine.message.trim();
+              messageRecordsArray.push(messageRecordLine);
+              messageRecordLine = { ...defaultMessageRecordLine };
+              columnTracker = 0;
+            }
+          }
+
+        });
+
+      }
+
+    });
+
+  } catch (e) {
+    alert("Something broke, message a dev. \n\n Function: normalizeTexts(worksheet) \n" + e)
+  }
+
+  return messageRecordsArray;
+}
+
+function normalizeTexts(dataArray) {
+
+  var messageRecordsArray = [];
+
+  var defaultMessageRecordLine = {
+    number_from: 0, // 0
+    number_to: 0, // 1
+    message: "", // 2
+    timestamp: "" // 3
+  }
+
+  try {
+
+    dataArray.forEach(function (row, rowNumber) {
+      if (rowNumber > 0) { // Skipping header row
+
+        var messageRecordLine = { ...defaultMessageRecordLine };
+        var columnTracker = 0;
+
+        Object.values(row).forEach(function (value, index) {
+          if (columnTracker == 0) {
+            messageRecordLine.number_from = value;
+            columnTracker++;
+          }
+          else if (columnTracker == 1) {
+            messageRecordLine.number_to = value;
+            columnTracker++;
+          }
+          else if (columnTracker >= 2) {
+            if (!isValidISODate(value)) {
+              if (typeof value === 'object' && value !== null) {
+                value = value.text;
+              }
+
+              if (messageRecordLine.message === "") {
+                messageRecordLine.message += `${value}`;
+              }
+              else {
+                messageRecordLine.message += `<br/>${value}`;
+              }
+            }
+            else {
+              messageRecordLine.timestamp = new Date(value).toISOString();
+              messageRecordLine.message = messageRecordLine.message.trim();
+              messageRecordsArray.push(messageRecordLine);
+              messageRecordLine = { ...defaultMessageRecordLine };
+              columnTracker = 0;
+            }
+          }
+        });
+      }
+    });
+
+  } catch (e) {
+    alert("Something broke, message a dev. \n\n Function: normalizeTexts(worksheet) \n" + e)
+  }
+
+  return messageRecordsArray;
+}
+function isValidISODate(dateString) {
+  const isoDateRegex = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d{3})?Z$/;
+  return isoDateRegex.test(dateString);
+}
