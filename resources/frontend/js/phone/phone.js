@@ -95,7 +95,7 @@ function showConversation(index) {
                 callBetween.textContent = `${chat.from} to ${chat.to}`;
             }
             if(chat.established_at === "null"){
-                callDurationContainer.textContent = `📞 Call could not be established!`;
+                callDurationContainer.textContent = `📞 Call not be established!`;
                 callTimeContainer.textContent = `Call initiated: ${formatDate(chat.initiated_at)}`;
                 callBetween.textContent = `${chat.from} to ${chat.to}`;
             }
