@@ -66,13 +66,14 @@ function handleFile() {
       const workbook = XLSX.read(data, { type: 'array' });
 
       // convert excel-sheet to JSON <--- just first need to fix
+
       const firstSheetName = workbook.SheetNames[0];
       const worksheet = workbook.Sheets[firstSheetName];
       const jsonData = XLSX.utils.sheet_to_json(worksheet);
-
+ 
       // Save daten to sessionStorage
       sessionStorage.setItem('excelData', JSON.stringify(jsonData));
-
+      
       if (!selectedOption) {
         showError('Please select an option from the dropdown menu.');
         return;
@@ -92,6 +93,8 @@ function handleFile() {
         case '1337':
           window.location.href = '__dev.html';
           break;
+        case '42069':
+          break;
         default:
           showError('Invalid option.');
       }
@@ -103,6 +106,7 @@ function handleFile() {
   // read file ArrayBuffer
   reader.readAsArrayBuffer(file);
 }
+
 
 
 uploadForm.addEventListener('submit', function (event) {

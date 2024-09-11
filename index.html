@@ -27,6 +27,7 @@
         <h2>File upload</h2>
         <form id="upload-form">
         <select id="option-select" class="optionselect">
+            <option value=null>Please select the type of the file.</option>
             <option value="0">Phone record</option>
         </select>
         <div class="drop-zone" id="drop-zone">
@@ -48,11 +49,15 @@ if(logger.doDEVMODE){
     const selectPicker = document.getElementById('option-select');
     const addOption1 = document.createElement("option");
     const addOption2 = document.createElement("option");
+    const addOption3 = document.createElement("option");
     addOption1.value = "69";
     addOption1.text = "Legacy Table";
     addOption2.value = "1337";
     addOption2.text = "DEV MODE";
+    addOption3.value = "42069";
+    addOption3.text = "Breakpoint /---/ no redirect";
     selectPicker.add(addOption1, null);
     selectPicker.add(addOption2, null);
+    selectPicker.add(addOption3, null);
 }
 </script>
