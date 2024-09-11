@@ -1,3 +1,4 @@
+/// INIT sheets
 const excel = {};
 
 for (let i = 0; i < sessionStorage.length; i++) {
@@ -10,16 +11,11 @@ for (let i = 0; i < sessionStorage.length; i++) {
     excel[`sheet${i}`] = { storedData };
 }
 
-
-
 const rawData1 = normalizeTexts(excel.sheet0.storedData);
 const rawData2 = normalizePhonecalls(excel.sheet1.storedData);
-//const rawData = rawData1;
 const rawData = rawData1.concat(rawData2);
 
-
-
-
+//  Filter/Combine/Clear object
 function groupConversations(data) {
     const conversationMap = {};
 
@@ -54,15 +50,11 @@ function groupConversations(data) {
     return Object.values(conversationMap);
 }
 
-
-
-
-
+//////////////////////////
+// functions 
 
 function normalizeTexts(dataArray) {
-
     var messageRecordsArray = [];
-
     var defaultMessageRecordLine = {
         number_from: 0, // 0
         number_to: 0, // 1
@@ -71,7 +63,6 @@ function normalizeTexts(dataArray) {
     }
 
     try {
-
         dataArray.forEach(function (row, rowNumber) {
             if (rowNumber > 0) { // Skipping header row
 
@@ -111,19 +102,14 @@ function normalizeTexts(dataArray) {
                 });
             }
         });
-
     } catch (e) {
         alert("Something broke, message a dev. \n\n Function: normalizeTexts(worksheet) \n" + e)
     }
-
     return messageRecordsArray;
 }
 
-
 function normalizePhonecalls(dataArray) {
-
     var phonecallRecordsArray = [];
-
     var defaultPhonecallRecordLine = {
         number_from: 0, // 0
         number_to: 0, // 1
@@ -137,7 +123,6 @@ function normalizePhonecalls(dataArray) {
             if (rowNumber > 0) { // Skipping header row
                 var columnTracker = 0;
                 var phonecallRecordLine = { ...defaultPhonecallRecordLine };
-                console.log(row);
                 Object.values(row).forEach(function (value, index) {
                     if (columnTracker == 0) {
                         phonecallRecordLine.number_from = value;
@@ -164,39 +149,17 @@ function normalizePhonecalls(dataArray) {
                 });
 
             }
-
         });
     } catch (e) {
         alert("Something broke, message a dev. \n\n Function: normalizePhonecalls(worksheet) \n" + e)
     }
-
     return phonecallRecordsArray;
 }
-
 
 function isValidISODate(dateString) {
     const isoDateRegex = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d{3})?Z$/;
     return isoDateRegex.test(dateString);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 // Convert the raw data into grouped conversations
@@ -206,206 +169,12 @@ const chatData = groupedConversations;
 
 // Sample data 
 const phoneRecords = [
-    { number: '4209480000', name: "Test" },
-    { number: '4209991000', name: "Test2" }, // Duplicate number of Test
-    { number: '4208993000', name: "John Doe" },
-    { number: '4202008000', name: "Jane Smith" },
-    { number: ['4209991000', '4208887000'], name: "Alice White" },
-    { number: ['4209991000'], name: "Alice White" },  // Duplicate name and number
-    { number: '4202550800', name: "Andi Smith" } // Duplicate name
+    { number: '1209480000', name: "Test" },
+    { number: '1209991000', name: "Test2" }, // Duplicate number of Test
+    { number: '1208993000', name: "John Doe" },
+    { number: '1202008000', name: "Jane Smith" },
+    { number: ['1209991000', '1208887000'], name: "Alice White" },
+    { number: ['1209991000'], name: "Alice White" },  // Duplicate name and number
+    { number: '1202550800', name: "Andi Smith" }, // Duplicate name
+    { number: '4209479995', name: "Bruce Baylor" } // Duplicate name
 ];
-/*
-    const shortData = [
-        {
-            conversation: { number_from: '4209480000', number_to: '4208993000' },
-            messages: [
-                { number_from: '4209480000', message: 'Hey, how are you?', timestamp: '2024-08-01T07:31:16.000Z' },
-                { number_from: '4208993000', message: 'I am good! How about you?', timestamp: '2024-08-01T07:32:16.000Z' },
-                { number_from: '420899333300', message: 'I am good! How about you?', timestamp: '2024-08-01T07:32:16.000Z' },
-                { number_from: '4208993000', message: 'I am good! How about you?', timestamp: '2024-08-01T07:32:16.000Z' },
-                { number_from: '4208993000', message: 'I am good! How about you?', timestamp: '2024-08-01T07:32:16.000Z' },
-                { number_from: '4208993000', message: 'I am good! How about you?', timestamp: '2024-08-01T07:32:16.000Z' },
-                { number_from: '4208993000', message: 'I am good! How about you?', timestamp: '2024-08-01T07:32:16.000Z' },
-                { number_from: '4209480000', message: 'I am doing well, thanks for asking!', timestamp: '2024-08-01T07:35:16.000Z' }
-            ]
-        },
-        {
-            conversation: { number_from: '4209480000', number_to: '4202008000' },
-            messages: [
-                { number_from: '4209480000', message: 'Did you see the game?', timestamp: '2024-08-02T08:00:16.000Z' },
-                { number_from: '4202008000', message: 'Yes, it was great!', timestamp: '2024-08-02T08:05:16.000Z' },
-                { number_from: '4209480000', message: 'We should watch together next time.', timestamp: '2024-08-02T08:10:16.000Z' }
-            ]
-        }
-    ]
- 
-const longDataSpam = [
-        {
-            conversation: { number_from: '4209480000', number_to: '4202008000' },
-            messages: [
-                { number_from: '4209480000', message: 'Did you see the game?', timestamp: '2024-08-02T08:00:16.000Z' },
-                { number_from: '4202008000', message: 'Yes, it was great!', timestamp: '2024-08-02T08:05:16.000Z' },
-                { number_from: '4209480000', message: 'We should watch together next time.', timestamp: '2024-08-02T08:10:16.000Z' }
-            ]
-        }
-        ,
-        {
-            conversation: { number_from: '4209480000', number_to: '4202008000' },
-            messages: [
-                { number_from: '4209480000', message: 'Did you see the game?', timestamp: '2024-08-02T08:00:16.000Z' },
-                { number_from: '4202008000', message: 'Yes, it was great!', timestamp: '2024-08-02T08:05:16.000Z' },
-                { number_from: '4209480000', message: 'We should watch together next time.', timestamp: '2024-08-02T08:10:16.000Z' }
-            ]
-        }
-        ,
-        {
-            conversation: { number_from: '4209480000', number_to: '4202008000' },
-            messages: [
-                { number_from: '4209480000', message: 'Did you see the game?', timestamp: '2024-08-02T08:00:16.000Z' },
-                { number_from: '4202008000', message: 'Yes, it was great!', timestamp: '2024-08-02T08:05:16.000Z' },
-                { number_from: '4209480000', message: 'We should watch together next time.', timestamp: '2024-08-02T08:10:16.000Z' }
-            ]
-        }
-        ,
-        {
-            conversation: { number_from: '4209480000', number_to: '4202008000' },
-            messages: [
-                { number_from: '4209480000', message: 'Did you see the game?', timestamp: '2024-08-02T08:00:16.000Z' },
-                { number_from: '4202008000', message: 'Yes, it was great!', timestamp: '2024-08-02T08:05:16.000Z' },
-                { number_from: '4209480000', message: 'We should watch together next time.', timestamp: '2024-08-02T08:10:16.000Z' }
-            ]
-        }
-        ,
-        {
-            conversation: { number_from: '4209480000', number_to: '4202008000' },
-            messages: [
-                { number_from: '4209480000', message: 'Did you see the game?', timestamp: '2024-08-02T08:00:16.000Z' },
-                { number_from: '4202008000', message: 'Yes, it was great!', timestamp: '2024-08-02T08:05:16.000Z' },
-                { number_from: '4209480000', message: 'We should watch together next time.', timestamp: '2024-08-02T08:10:16.000Z' }
-            ]
-        }
-        ,
-        {
-            conversation: { number_from: '4209480000', number_to: '4202008000' },
-            messages: [
-                { number_from: '4209480000', message: 'Did you see the game?', timestamp: '2024-08-02T08:00:16.000Z' },
-                { number_from: '4202008000', message: 'Yes, it was great!', timestamp: '2024-08-02T08:05:16.000Z' },
-                { number_from: '4209480000', message: 'We should watch together next time.', timestamp: '2024-08-02T08:10:16.000Z' }
-            ]
-        }
-        ,
-        {
-            conversation: { number_from: '4209480000', number_to: '4202008000' },
-            messages: [
-                { number_from: '4209480000', message: 'Did you see the game?', timestamp: '2024-08-02T08:00:16.000Z' },
-                { number_from: '4202008000', message: 'Yes, it was great!', timestamp: '2024-08-02T08:05:16.000Z' },
-                { number_from: '4209480000', message: 'We should watch together next time.', timestamp: '2024-08-02T08:10:16.000Z' }
-            ]
-        }
-        ,
-        {
-            conversation: { number_from: '4209480000', number_to: '4202008000' },
-            messages: [
-                { number_from: '4209480000', message: 'Did you see the game?', timestamp: '2024-08-02T08:00:16.000Z' },
-                { number_from: '4202008000', message: 'Yes, it was great!', timestamp: '2024-08-02T08:05:16.000Z' },
-                { number_from: '4209480000', message: 'We should watch together next time.', timestamp: '2024-08-02T08:10:16.000Z' }
-            ]
-        }
-        ,
-        {
-            conversation: { number_from: '4209480000', number_to: '4202008000' },
-            messages: [
-                { number_from: '4209480000', message: 'Did you see the game?', timestamp: '2024-08-02T08:00:16.000Z' },
-                { number_from: '4202008000', message: 'Yes, it was great!', timestamp: '2024-08-02T08:05:16.000Z' },
-                { number_from: '4209480000', message: 'We should watch together next time.', timestamp: '2024-08-02T08:10:16.000Z' }
-            ]
-        }
-        ,
-        {
-            conversation: { number_from: '4209480000', number_to: '4202008000' },
-            messages: [
-                { number_from: '4209480000', message: 'Did you see the game?', timestamp: '2024-08-02T08:00:16.000Z' },
-                { number_from: '4202008000', message: 'Yes, it was great!', timestamp: '2024-08-02T08:05:16.000Z' },
-                { number_from: '4209480000', message: 'We should watch together next time.', timestamp: '2024-08-02T08:10:16.000Z' }
-            ]
-        }
-        ,
-        {
-            conversation: { number_from: '4209480000', number_to: '4202008000' },
-            messages: [
-                { number_from: '4209480000', message: 'Did you see the game?', timestamp: '2024-08-02T08:00:16.000Z' },
-                { number_from: '4202008000', message: 'Yes, it was great!', timestamp: '2024-08-02T08:05:16.000Z' },
-                { number_from: '4209480000', message: 'We should watch together next time.', timestamp: '2024-08-02T08:10:16.000Z' }
-            ]
-        }
-        ,
-        {
-            conversation: { number_from: '4209480000', number_to: '4202008000' },
-            messages: [
-                { number_from: '4209480000', message: 'Did you see the game?', timestamp: '2024-08-02T08:00:16.000Z' },
-                { number_from: '4202008000', message: 'Yes, it was great!', timestamp: '2024-08-02T08:05:16.000Z' },
-                { number_from: '4209480000', message: 'We should watch together next time.', timestamp: '2024-08-02T08:10:16.000Z' }
-            ]
-        }        ,
-        {
-            conversation: { number_from: '4209480000', number_to: '4202008000' },
-            messages: [
-                { number_from: '4209480000', message: 'Did you see the game?', timestamp: '2024-08-02T08:00:16.000Z' },
-                { number_from: '4202008000', message: 'Yes, it was great!', timestamp: '2024-08-02T08:05:16.000Z' },
-                { number_from: '4209480000', message: 'We should watch together next time.', timestamp: '2024-08-02T08:10:16.000Z' }
-            ]
-        }
-        ,
-        {
-            conversation: { number_from: '4209480000', number_to: '4202008000' },
-            messages: [
-                { number_from: '4209480000', message: 'Did you see the game?', timestamp: '2024-08-02T08:00:16.000Z' },
-                { number_from: '4202008000', message: 'Yes, it was great!', timestamp: '2024-08-02T08:05:16.000Z' },
-                { number_from: '4209480000', message: 'We should watch together next time.', timestamp: '2024-08-02T08:10:16.000Z' }
-            ]
-        }
-        ,
-        {
-            conversation: { number_from: '4209480000', number_to: '4202008000' },
-            messages: [
-                { number_from: '4209480000', message: 'Did you see the game?', timestamp: '2024-08-02T08:00:16.000Z' },
-                { number_from: '4202008000', message: 'Yes, it was great!', timestamp: '2024-08-02T08:05:16.000Z' },
-                { number_from: '4209480000', message: 'We should watch together next time.', timestamp: '2024-08-02T08:10:16.000Z' }
-            ]
-        }
-        ,
-        {
-            conversation: { number_from: '4209480000', number_to: '4202008000' },
-            messages: [
-                { number_from: '4209480000', message: 'Did you see the game?', timestamp: '2024-08-02T08:00:16.000Z' },
-                { number_from: '4202008000', message: 'Yes, it was great!', timestamp: '2024-08-02T08:05:16.000Z' },
-                { number_from: '4209480000', message: 'We should watch together next time.', timestamp: '2024-08-02T08:10:16.000Z' }
-            ]
-        }
-        ,
-        {
-            conversation: { number_from: '4209480000', number_to: '4202008000' },
-            messages: [
-                { number_from: '4209480000', message: 'Did you see the game?', timestamp: '2024-08-02T08:00:16.000Z' },
-                { number_from: '4202008000', message: 'Yes, it was great!', timestamp: '2024-08-02T08:05:16.000Z' },
-                { number_from: '4209480000', message: 'We should watch together next time.', timestamp: '2024-08-02T08:10:16.000Z' }
-            ]
-        }
-        ,
-        {
-            conversation: { number_from: '4209480000', number_to: '4202008000' },
-            messages: [
-                { number_from: '4209480000', message: 'Did you see the game?', timestamp: '2024-08-02T08:00:16.000Z' },
-                { number_from: '4202008000', message: 'Yes, it was great!', timestamp: '2024-08-02T08:05:16.000Z' },
-                { number_from: '4209480000', message: 'We should watch together next time.', timestamp: '2024-08-02T08:10:16.000Z' }
-            ]
-        }  
-
-    ];
-
-
-const chatData = chatDataOutput;
-
-
-//const chatData = chatDataOutput;
-*/

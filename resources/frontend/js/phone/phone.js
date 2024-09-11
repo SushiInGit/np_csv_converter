@@ -1,11 +1,15 @@
 // Function to format the timestamp
 function formatDate(timestamp) {
-    const date = new Date(timestamp);
-    //return date.toISOString();
-    return date.toLocaleString();
-
+    return timestamp.toLocaleString();
 }
 
+function formatDateJustDate(timestamp) {
+    return new Date(timestamp).toLocaleDateString();
+}
+
+function formatDateJustTime(timestamp) {
+    return new Date(timestamp).toLocaleTimeString();;
+}
 // Function to normalize phone number to a string for comparison
 function normalizeNumber(number) {
     if (Array.isArray(number)) {
@@ -70,7 +74,7 @@ function showConversation(index) {
     chatBox.innerHTML = '';  // Clear previous messages
     conversation.messages.forEach(chat => {
 
-        const currentDate = new Date(chat.timestamp).toLocaleDateString();
+        const currentDate = formatDateJustDate(new Date(chat.timestamp));
         
         // Check if a new day has begun and add a date marker
         if (lastDate !== currentDate) {
@@ -79,7 +83,7 @@ function showConversation(index) {
             dateMarker.textContent = currentDate;
             chatBox.appendChild(dateMarker);
             lastDate = currentDate;
-        }
+         }
          // Check if the message contains a call marker
         if (chat.message === '[-=-=-=-!!CALL!!-=-=-=-]') {
             const callMessageContainer = document.createElement('div');
@@ -91,13 +95,13 @@ function showConversation(index) {
             
             if(chat.established_at != "null"){
                 callDurationContainer.textContent = `📞 Call duration: ${callDuration}`;
-                callTimeContainer.textContent = `Call initiated: ${formatDate(chat.initiated_at)}`;
-                callBetween.textContent = `${chat.from} to ${chat.to}`;
+                callTimeContainer.textContent = `Time: ${formatDateJustTime(chat.initiated_at)}`;
+                callBetween.textContent = `${chat.from} to ${chat.to}`;    // Need to make from to trigger
             }
             if(chat.established_at === "null"){
                 callDurationContainer.textContent = `📞 Call not be established!`;
-                callTimeContainer.textContent = `Call initiated: ${formatDate(chat.initiated_at)}`;
-                callBetween.textContent = `${chat.from} to ${chat.to}`;
+                callTimeContainer.textContent = `Time: ${formatDateJustTime(chat.initiated_at)}`;
+                callBetween.textContent = `${chat.from} to ${chat.to}`;    // Need to make from to trigger
             }
             callMessageContainer.appendChild(callDurationContainer);
             callMessageContainer.appendChild(callTimeContainer);
