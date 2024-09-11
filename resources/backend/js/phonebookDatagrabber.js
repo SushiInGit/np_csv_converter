@@ -114,7 +114,7 @@ function normalizePhonecalls(dataArray) {
         number_from: 0, // 0
         number_to: 0, // 1
         initiated_at: "", // 2
-        message:"[-=-=-=-!!CALL!!-=-=-=-]",
+        message: "[-=-=-=-!!CALL!!-=-=-=-]",
         established_at: "", // 3
         ended_at: "" // 4
     }
@@ -161,8 +161,6 @@ function isValidISODate(dateString) {
     return isoDateRegex.test(dateString);
 }
 
-
-
 // Sample data 
 const phoneRecords = [
     { number: '1209480000', name: "Test" },
@@ -175,102 +173,8 @@ const phoneRecords = [
     { number: '4209479995', name: "Bruce Baylor" } // Duplicate name
 ];
 
-// Get Main used Number (hint how is the owner)
-function findMostFrequentNumber(messages) {
-    const numberCount = {}
-    messages.forEach(msg => {
-        numberCount[msg.number_from] = (numberCount[msg.number_from] || 0) + 1;
-        numberCount[msg.number_to] = (numberCount[msg.number_to] || 0) + 1;
-    });
-
-    let mostFrequentNumber = null;
-    let maxCount = 0;
-    for (const number in numberCount) {
-        if (numberCount[number] > maxCount) {
-            maxCount = numberCount[number];
-            mostFrequentNumber = parseInt(number);
-        }
-    }
-
-    return { mostFrequentNumber, count: maxCount };
-}
-const result = findMostFrequentNumber(rawData);
 
 
-
-
-//////////////
-function findDuplicateConversations(messages) {
-    const pairs = {}; // Object to store conversation pairs
-    messages.forEach(msg => {
-        const pair1 = `${msg.number_from}-${msg.number_to}`;
-        const pair2 = `${msg.number_to}-${msg.number_from}`;
-
-        if (pairs[pair2]) {
-            pairs[pair2].push(msg); 
-        } else if (pairs[pair1]) {
-            pairs[pair1].push(msg); 
-        } else {
-            pairs[pair1] = [msg];
-        }
-    });
-    const duplicates = Object.values(pairs).filter(pair => pair.length > 1);
-    return duplicates;
-}
-
-// Function to sort messages by duplicate conversations
-function sortMessagesByDuplicate(messages) {
-    const duplicates = findDuplicateConversations(messages);
-    const duplicateNumbers = new Set();
-    duplicates.forEach(pair => {
-        pair.forEach(msg => {
-            duplicateNumbers.add(msg.number_from);
-            duplicateNumbers.add(msg.number_to);
-        });
-    });
-
-    // Sort messages so that duplicates appear first
-    return messages.sort((a, b) => {
-        const aIsDuplicate = duplicateNumbers.has(a.number_from) || duplicateNumbers.has(a.number_to);
-        const bIsDuplicate = duplicateNumbers.has(b.number_from) || duplicateNumbers.has(b.number_to);
-
-        if (aIsDuplicate && !bIsDuplicate) {
-            return -1;
-        } else if (!aIsDuplicate && bIsDuplicate) {
-            return 1;
-        }
-        return 0; 
-    });
-}
-const sortedMessages = sortMessagesByDuplicate(rawData);
-
-
-// Function to normalize messages so the most frequent number is always in `number_from`
-function normalizeMessages(messages, mostFrequentNumber) {
-    return messages.map(msg => {
-        if (msg.number_to === mostFrequentNumber && msg.number_from !== mostFrequentNumber) {
-            return {
-                ...msg,
-                number_from: msg.number_to,
-                number_to: msg.number_from
-            };
-        }
-        return msg; 
-    });
-}
-const normalizedMessages = normalizeMessages(rawData, result.mostFrequentNumber);
-
-/*
-console.log("RND DUMP");
-console.log("Most Frequent Number:", result.mostFrequentNumber);
-console.log("Count:", result.count);
-
-console.log("Duplicate Conversations:", findDuplicateConversations(rawData));
-console.log("Sorted Messages:", sortedMessages);
-
-console.log("Normalized Messages:", normalizedMessages);
-
-*/
 
 
 // Convert the raw data into grouped conversations

@@ -71,23 +71,23 @@ function showConversation(index) {
     const showConvMainnr = parseInt(result_findMostFrequentNumber.mostFrequentNumber);
     const showConvFrom = parseInt(conversation.conversation[0]);
     const showConvTo = parseInt(conversation.conversation[1]);
-    console.log("phone.js mainNR", showConvMainnr, " -  from to:", showConvFrom, " - ", showConvTo);
+    //console.log("phone.js mainNR", showConvMainnr, " -  from to:", showConvFrom, " - ", showConvTo);
 
     ///          (parseInt(showConvMainnr === showConvFrom ? showConvFrom : showConvTo)).toString()
 
-    if(showConvMainnr === showConvFrom){
+    if (showConvMainnr === showConvFrom) {
         if (isNaN(findNameByNumber(conversation.conversation[0]))) {
             header.querySelector('.name').textContent = `${findNameByNumber(conversation.conversation[0])} ( ${(showConvFrom)} )`;
         } else {
             header.querySelector('.name').textContent = `Unkown ( ${(showConvFrom)} )`;
         }
-    
+
         if (isNaN(findNameByNumber(conversation.conversation[1]))) {
             header.querySelector('.status').textContent = `Chat to ${findNameByNumber(conversation.conversation[1])} ( ${(showConvTo)} )`;
         } else {
             header.querySelector('.status').textContent = `Chat to Unkown ( ${findNameByNumber(showConvTo)} )`;
         }
-       } else {
+    } else {
         ////////// Revers From <> To to fix the display 
         console.log("no");
         if (isNaN(findNameByNumber(conversation.conversation[1]))) {
@@ -95,17 +95,14 @@ function showConversation(index) {
         } else {
             header.querySelector('.name').textContent = `Unkown ( ${(showConvTo)} )`;
         }
-    
+
         if (isNaN(findNameByNumber(conversation.conversation[0]))) {
             header.querySelector('.status').textContent = `Chat to ${findNameByNumber(conversation.conversation[0])} ( ${(showConvFrom)} )`;
         } else {
             header.querySelector('.status').textContent = `Chat to Unkown ( ${findNameByNumber(showConvFrom)} )`;
         }
-    
+
     }
-
-
-
 
     chatBox.innerHTML = '';  // Clear previous messages
     conversation.messages.forEach(chat => {
