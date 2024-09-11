@@ -1,6 +1,6 @@
 // Function to format the timestamp
 function formatDate(timestamp) {
-    return timestamp.toLocaleString();
+    return new Date(timestamp).toLocaleString();
 }
 
 function formatDateJustDate(timestamp) {
