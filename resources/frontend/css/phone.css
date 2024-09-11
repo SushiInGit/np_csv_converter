@@ -206,7 +206,33 @@ body {
     margin-top: 5px;
     font-weight: bold;
 }
+.call-message-container {
+    background-color: #3f3b54;
+    color: #aebac1;
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-size: 13px;
+    display: inline-block;
+    max-width: 100%;
+    margin: 10px 0;
+    text-align: center;
+}
 
+/* Marker for new day */
+.date-marker {
+    max-width: 100%;
+    min-width: 100px;
+    background-color: #583972;
+    color: #aebac1;
+    padding: 15px 30px;
+    margin: 40px;
+    border-radius: 10px;
+    margin-left: 40%;
+    margin-right: 40%;
+    font-size: 12px;
+    font-weight: bold;
+    text-align: center;
+}
 .duplicate {
     background-color: #b9181881;
     opacity: 1;

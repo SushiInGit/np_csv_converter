@@ -39,12 +39,16 @@ function groupConversations(data) {
             from: from,
             to: to,
             message: item.message,
-            timestamp: item.timestamp,
+            timestamp: item.timestamp || item.initiated_at,
             initiated_at: item.initiated_at,
             established_at: item.established_at,
             ended_at: item.ended_at,
             calltime: item.cakktime
         });
+    });
+    // Sort messages within each conversation by timestamp
+    Object.values(conversationMap).forEach(conversation => {
+        conversation.messages.sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
     });
 
     return Object.values(conversationMap);
@@ -133,8 +137,7 @@ function normalizePhonecalls(dataArray) {
             if (rowNumber > 0) { // Skipping header row
                 var columnTracker = 0;
                 var phonecallRecordLine = { ...defaultPhonecallRecordLine };
-                //var msec = Math.abs( phonecallRecordLine.initiated_at - phonecallRecordLine.ended_at );
-                //var min = Math.floor((msec/1000)/60);
+                console.log(row);
                 Object.values(row).forEach(function (value, index) {
                     if (columnTracker == 0) {
                         phonecallRecordLine.number_from = value;

@@ -14,6 +14,19 @@ function normalizeNumber(number) {
     return number.toString();
 }
 
+// Function to calculate the difference between two ISO timestamps
+function calculateCallDuration(start, end) {
+    const startTime = new Date(start);
+    const endTime = new Date(end);
+    const diffMs = endTime - startTime;
+
+    // Convert milliseconds into minutes and seconds
+    const minutes = Math.floor(diffMs / 60000);
+    const seconds = ((diffMs % 60000) / 1000).toFixed(0);
+
+    return `${minutes} min ${seconds} sec`;
+}
+
 // Function to render the list of conversations
 function renderConversations() {
     const conversationList = document.getElementById('conversation-list');
@@ -40,6 +53,7 @@ function showConversation(index) {
     const chatBox = document.getElementById('chat-box');
     const header = document.getElementById('chat-header');
     const conversation = chatData[index];
+    let lastDate = null;
 
     // Set chat header information 
     if(isNaN(findNameByNumber(conversation.conversation[0]))){
@@ -53,12 +67,45 @@ function showConversation(index) {
     }else{
         header.querySelector('.status').textContent = `Chat to Unkown ( ${findNameByNumber(conversation.conversation[1])} )`;
     }
-    console.log(conversation);
     chatBox.innerHTML = '';  // Clear previous messages
     conversation.messages.forEach(chat => {
+
+        const currentDate = new Date(chat.timestamp).toLocaleDateString();
+        
+        // Check if a new day has begun and add a date marker
+        if (lastDate !== currentDate) {
+            const dateMarker = document.createElement('div');
+            dateMarker.classList.add('date-marker');
+            dateMarker.textContent = currentDate;
+            chatBox.appendChild(dateMarker);
+            lastDate = currentDate;
+        }
+         // Check if the message contains a call marker
+        if (chat.message === '[-=-=-=-!!CALL!!-=-=-=-]') {
+            const callMessageContainer = document.createElement('div');
+            callMessageContainer.classList.add('call-message-container');
+            const callDurationContainer =  document.createElement('div');
+            const callTimeContainer =  document.createElement('div');
+            const callBetween =  document.createElement('div');
+            const callDuration = calculateCallDuration(chat.established_at, chat.ended_at);
+            
+            if(chat.established_at != "null"){
+                callDurationContainer.textContent = `📞 Call duration: ${callDuration}`;
+                callTimeContainer.textContent = `Call initiated: ${formatDate(chat.initiated_at)}`;
+                callBetween.textContent = `${chat.from} to ${chat.to}`;
+            }
+            if(chat.established_at === "null"){
+                callDurationContainer.textContent = `📞 Call could not be established!`;
+                callTimeContainer.textContent = `Call initiated: ${formatDate(chat.initiated_at)}`;
+                callBetween.textContent = `${chat.from} to ${chat.to}`;
+            }
+            callMessageContainer.appendChild(callDurationContainer);
+            callMessageContainer.appendChild(callTimeContainer);
+            callMessageContainer.appendChild(callBetween);
+            chatBox.appendChild(callMessageContainer);
+        } else {
+
         const messageDiv = document.createElement('div');
-        //console.log(chat);
-        if(chat.message === '[-=-=-=-!!CALL!!-=-=-=-]'){console.log('trigger');}
         messageDiv.classList.add('message');
         messageDiv.classList.add(chat.from === conversation.conversation[0] ? 'from' : 'to');
         
@@ -81,6 +128,7 @@ function showConversation(index) {
         messageDiv.appendChild(numberDiv);
 
         chatBox.appendChild(messageDiv);
+        }
     });
 }
 
