@@ -53,10 +53,12 @@ function showConversation(index) {
     }else{
         header.querySelector('.status').textContent = `Chat to Unkown ( ${findNameByNumber(conversation.conversation[1])} )`;
     }
-   console.log(conversation);
+    console.log(conversation);
     chatBox.innerHTML = '';  // Clear previous messages
     conversation.messages.forEach(chat => {
         const messageDiv = document.createElement('div');
+        //console.log(chat);
+        if(chat.message === '[-=-=-=-!!CALL!!-=-=-=-]'){console.log('trigger');}
         messageDiv.classList.add('message');
         messageDiv.classList.add(chat.from === conversation.conversation[0] ? 'from' : 'to');
         
