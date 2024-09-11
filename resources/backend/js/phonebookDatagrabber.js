@@ -162,10 +162,6 @@ function isValidISODate(dateString) {
 }
 
 
-// Convert the raw data into grouped conversations
-const groupedConversations = groupConversations(rawData);
-const chatData = groupedConversations;
-
 
 // Sample data 
 const phoneRecords = [
@@ -264,6 +260,7 @@ function normalizeMessages(messages, mostFrequentNumber) {
 }
 const normalizedMessages = normalizeMessages(rawData, result.mostFrequentNumber);
 
+/*
 console.log("RND DUMP");
 console.log("Most Frequent Number:", result.mostFrequentNumber);
 console.log("Count:", result.count);
@@ -271,6 +268,11 @@ console.log("Count:", result.count);
 console.log("Duplicate Conversations:", findDuplicateConversations(rawData));
 console.log("Sorted Messages:", sortedMessages);
 
-
-console.log(result.mostFrequentNumber);
 console.log("Normalized Messages:", normalizedMessages);
+
+*/
+
+
+// Convert the raw data into grouped conversations
+const groupedConversations = groupConversations(rawData);
+const chatData = groupedConversations;
