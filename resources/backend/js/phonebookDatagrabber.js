@@ -1,3 +1,16 @@
+const chatDataInput = JSON.parse(excelData);
+
+
+
+
+
+
+
+
+
+
+const chatDataOutput = chatDataInput;
+
 // Sample data 
 const phoneRecords = [
     { number: '4209480000', name: "Test" },
@@ -14,7 +27,7 @@ const phoneRecords = [
             messages: [
                 { number_from: '4209480000', message: 'Hey, how are you?', timestamp: '2024-08-01T07:31:16.000Z' },
                 { number_from: '4208993000', message: 'I am good! How about you?', timestamp: '2024-08-01T07:32:16.000Z' },
-                { number_from: '4208993000', message: 'I am good! How about you?', timestamp: '2024-08-01T07:32:16.000Z' },
+                { number_from: '420899333300', message: 'I am good! How about you?', timestamp: '2024-08-01T07:32:16.000Z' },
                 { number_from: '4208993000', message: 'I am good! How about you?', timestamp: '2024-08-01T07:32:16.000Z' },
                 { number_from: '4208993000', message: 'I am good! How about you?', timestamp: '2024-08-01T07:32:16.000Z' },
                 { number_from: '4208993000', message: 'I am good! How about you?', timestamp: '2024-08-01T07:32:16.000Z' },
@@ -198,3 +211,6 @@ const longDataSpam = [
 
 
 const chatData = shortData.concat();
+
+
+//const chatData = chatDataOutput;

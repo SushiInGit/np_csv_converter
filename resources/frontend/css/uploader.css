@@ -1,0 +1,123 @@
+html,
+body {
+    --color: #f1f1f1;
+    --background-color: #222;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: var(--background-color);
+    color: var(--color);
+}
+
+body>* {
+    margin-bottom: 6px;
+}
+a {
+    color: #d4a5ff;
+    text-decoration: none;
+    position: relative;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: #fff;
+}
+
+a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -3px;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #d4a5ff, transparent);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+a:hover::after {
+    opacity: 1;
+}
+
+.welcomeDiv {
+    text-align: center;
+}
+
+.modalDropbox {
+    display: block;
+    padding-top: 100px;
+    margin: auto;
+    width: 50%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.modalDropboxInside {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 20px;
+    border-radius: 10px;
+    width: 400px;
+    border-radius: 5px;
+    border: 1px solid #7f6795ad;
+    box-shadow: 0 0 15px 5px rgba(212, 165, 255, 0.2);
+    background-color: #222;
+    transition: box-shadow 0.3s ease;
+}
+
+.modalDropboxInside h2 {
+    margin-top: 0;
+}
+.upload-button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    color: #fff;
+    transition: color 0.3s ease;
+}
+
+.upload-button:hover {
+    color: #f5f5f5;
+}
+
+.drop-zone {
+    border: 2px dashed #ccc;
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    color: #aaa;
+    cursor: pointer;
+}
+
+.drop-zone.dragover {
+    border-color: #000;
+    background-color: #f0f0f0;
+}
+.error-message {
+    color: red;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.dropZoneError {
+    border: 1px solid;
+    border-color: #ff1a1a;
+    box-shadow: 0 0 15px 5px rgba(252, 20, 20, 0.7);
+}
+
+.optionselect {
+    width: 100%;
+    background: none;
+    border: 1px solid #7f6795ad;
+    border-radius: 5px;
+    color: var(--color);
+    padding: 4px;
+    box-shadow: 0 0 15px 2px rgba(212, 165, 255, 0.2);
+    margin-bottom: 20px;
+
+        > option {
+            color: #fff;
+            background-color: #222;
+            border: 1px solid #7f6795ad;
+        }
+}

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Project NP CSV-Converter - Dev-Output</title>
+  <link rel="stylesheet" href="resources/frontend/css/table.css">
+  <!-- // Debug --> <script src="resources/backend/js/debugLogger.js"></script> <!-- Debug \\ -->
+</head>
+<body>
+  <h1>console-dump -> sessionStorage</h1>
+  <div id="container"></div>
+</body>
+</html>
+ <!-- // Load sessionStorage --> 
+<script src="resources/frontend/js/sessionStorageCheck.js"></script>
+
+
+ <!-- // Dump as Table --> 
+<script>
+
+console.log(logger.doLog) ;
+let div = document.querySelector('div');    
+const excelDataDump = sessionStorage.getItem('excelData');
+
+
+let jsonData = JSON.parse(excelDataDump);
+         let container = document.getElementById("container");
+         let table = document.createElement("table");
+         let cols = Object.keys(jsonData[0]);
+         let thead = document.createElement("thead");
+         let tr = document.createElement("tr");
+         cols.forEach((item) => {
+            let th = document.createElement("th");
+            th.innerText = item; 
+            tr.appendChild(th); 
+         });
+         thead.appendChild(tr);
+         table.append(tr) 
+         jsonData.forEach((item) => {
+            let tr = document.createElement("tr");
+            let vals = Object.values(item);
+            vals.forEach((elem) => {
+               let td = document.createElement("td");
+               td.innerText = elem;
+               tr.appendChild(td); 
+            });
+            table.appendChild(tr); 
+         });
+         container.appendChild(table) 
+</script>

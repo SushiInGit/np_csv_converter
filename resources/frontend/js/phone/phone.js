@@ -117,7 +117,7 @@ function findDuplicates(records) {
                 seenNumbers.add(number); 
             }
         }
-        console.log(seenNumbers);
+        logger.log(seenNumbers);
 
         // Check for duplicate names
         /*
@@ -188,7 +188,7 @@ function renderPhoneRecords(records) {
             recordList.appendChild(listItem);
         });
     } catch (error) {
-        //console.error(error);
+        logger.error(error);
     }
         
 }
