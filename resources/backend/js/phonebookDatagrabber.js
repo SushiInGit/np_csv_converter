@@ -9,11 +9,12 @@ for (let i = 0; i < sessionStorage.length; i++) {
     excel[`sheet${i}`] = {storedData};
   }
 
-  console.log(excel.sheet1.storedData);
-
-const rawData = excel.sheet0.storedData;
 
 
+const rawData1 = excel.sheet0.storedData;
+const rawData2 = excel.sheet1.storedData;
+const rawData   = rawData1.concat(rawData2);
+console.log(rawData);
 
 
 

@@ -19,7 +19,6 @@ function renderConversations() {
     const conversationList = document.getElementById('conversation-list');
     conversationList.innerHTML = '';
     chatData.forEach((conversation, index) => {
-        console.log(conversation)
         const link = document.createElement('div');
         link.classList.add('chat-list-item');
         
@@ -54,7 +53,7 @@ function showConversation(index) {
     }else{
         header.querySelector('.status').textContent = `Chat to Unkown ( ${findNameByNumber(conversation.conversation[1])} )`;
     }
-   
+   console.log(conversation);
     chatBox.innerHTML = '';  // Clear previous messages
     conversation.messages.forEach(chat => {
         const messageDiv = document.createElement('div');
@@ -118,9 +117,7 @@ function findDuplicates(records) {
                 seenNumbers.add(number); 
             }
         }
-        logger.log(seenNumbers);
-
-        // Check for duplicate names
+          // Check for duplicate names
         /*
         if (seenNames.has(record.name)) {
             duplicateIndices.add(i); 
