@@ -277,16 +277,16 @@ body {
         justify-content: center;
         text-align: center;
         font-size: 14px;
-        width: 200px;
+        width: 200px;   
     }
 
     .text .call-status {
-        margin-bottom: 5px;
+        margin-top: 5px;
         font-size: 14px;
+        margin-bottom: 5px;
     }
 
     .text .time {
-        margin-top: 5px;
         font-size: 12px;
     }
 
