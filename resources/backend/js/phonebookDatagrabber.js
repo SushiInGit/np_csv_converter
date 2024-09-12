@@ -116,7 +116,8 @@ function normalizePhonecalls(dataArray) {
         initiated_at: "", // 2
         message: "[-=-=-=-!!CALL!!-=-=-=-]",
         established_at: "", // 3
-        ended_at: "" // 4
+        ended_at: "", // 4
+        timestamp: ""
     }
     try {
         dataArray.forEach(function (row, rowNumber) {
@@ -134,6 +135,7 @@ function normalizePhonecalls(dataArray) {
                     }
                     else if (columnTracker == 2) {
                         phonecallRecordLine.initiated_at = value;
+                        phonecallRecordLine.timestamp = value;
                         columnTracker++;
                     }
                     else if (columnTracker == 3) {
@@ -163,6 +165,7 @@ function isValidISODate(dateString) {
 
 // Sample data 
 const phoneRecords = [
+    /*
     { number: '1209480000', name: "Test" },
     { number: '1209991000', name: "Test2" }, // Duplicate number of Test
     { number: '1208993000', name: "John Doe" },
@@ -170,6 +173,7 @@ const phoneRecords = [
     { number: ['1209991000', '1208887000'], name: "Alice White" },
     { number: ['1209991000'], name: "Alice White" },  // Duplicate name and number
     { number: '1202550800', name: "Andi Smith" }, // Duplicate name
+     */
     { number: '4209479995', name: "Bruce Baylor" } // Duplicate name
 ];
 

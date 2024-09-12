@@ -27,33 +27,52 @@ function renderConversations() {
 
     conversationList.innerHTML = '';
     chatData.forEach((conversation, index) => {
-        
+
+
         const link = document.createElement('div');
         link.classList.add('chat-list-item');
+        const sortedData = resultsNormalizedMessages.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
         if (parseInt(conversation.conversation[0]) === parseInt(findMFN.mostFrequentNumber)) {
-            headerconversationList.innerHTML = `<div>${findNameByNumber(conversation.conversation[0])}'s Phone History</div>`;
-            link.innerHTML = `
-            <div class="chat-info">
-                <div class="name">${findNameByNumber(conversation.conversation[1])}</div>
-                <div class="message-preview">➤ last msg WIP</div>
-            </div>
-            <div class="time">Last massage: <br />
-            ${(processTimestamp(conversation.messages[0].timestamp).displayOrder)} ${(processTimestamp(conversation.messages[0].timestamp).timeZone)}
-            </div>`;
+            
+            const filteredData = sortedData.filter(item => parseInt(conversation.conversation[1]) === item.filtered_number_to);
+            if (filteredData.length > 0) {
+                const lastMessage = filteredData[0];
+                const shortenedMessage = lastMessage.message.length > 15 ? lastMessage.message.slice(0, 15) + '...' : lastMessage.message;
+                if (lastMessage.message === '[-=-=-=-!!CALL!!-=-=-=-]') { outputshortmsg = "** call **";}else{outputshortmsg = shortenedMessage;}
+                headerconversationList.innerHTML = `<div>${findNameByNumber(conversation.conversation[0])}'s Phone History</div>`;
+                link.innerHTML = `
+                <div class="chat-info">
+                    <div class="name">${findNameByNumber(conversation.conversation[1])}</div>
+                    <div class="message-preview">${outputshortmsg}</div>
+                </div>
+                <div class="time">Last massage: <br />
+                ${(processTimestamp(conversation.messages[0].timestamp).displayOrder)} ${(processTimestamp(conversation.messages[0].timestamp).timeZone)}
+                </div>`;
+            }
         } else {
-            link.innerHTML = `
-        <div class="chat-info">
-            <div class="name">${findNameByNumber(conversation.conversation[0])} </div>
-            <div class="message-preview">➤ last msg WIP</div>
-        </div>
-        <div class="time">Last massage: <br />
-        ${(processTimestamp(conversation.messages[0].timestamp).displayOrder)}  ${(processTimestamp(conversation.messages[0].timestamp).timeZone)}
-        </div>`;
+          
+            
+            const filteredData = sortedData.filter(item => parseInt(conversation.conversation[0]) === item.filtered_number_to);
+            if (filteredData.length > 0) {
+                const lastMessage = filteredData[0];
+                const shortenedMessage = lastMessage.message.length > 15 ? lastMessage.message.slice(0, 15) + '...' : lastMessage.message;
+                if (lastMessage.message === '[-=-=-=-!!CALL!!-=-=-=-]') { outputshortmsg = "** call **";}else{outputshortmsg = shortenedMessage;}
+                headerconversationList.innerHTML = `<div>${findNameByNumber(conversation.conversation[1])}'s Phone History</div>`;
+                link.innerHTML = `
+                <div class="chat-info">
+                    <div class="name">${findNameByNumber(conversation.conversation[0])}</div>
+                    <div class="message-preview">${outputshortmsg}</div>
+                </div>
+                <div class="time">Last massage: <br />
+                ${(processTimestamp(conversation.messages[0].timestamp).displayOrder)} ${(processTimestamp(conversation.messages[0].timestamp).timeZone)}
+                </div>`;
+            }
+
         }
         link.addEventListener('click', () => showConversation(index));
         conversationList.appendChild(link);
     });
-    
+
 }
 
 // Function to display a selected conversation
@@ -128,14 +147,14 @@ function showConversation(index) {
                 callTimeContainer.textContent = `${fixedDate.time} ${fixedDate.timeZone}`;
                 callTimeContainer.classList.add('time');
 
-                if(parseInt(findMFN.mostFrequentNumber) === parseInt(chat.from)){
+                if (parseInt(findMFN.mostFrequentNumber) === parseInt(chat.from)) {
                     callBetween.textContent = `Incomming call: ${chat.to}`;
                     callIndicator.classList.add('callIn');
                     callIndicator.innerHTML = ` <span class="fa-stack fa-2x">
                                                 <i class="fas fa-phone-alt fa-stack-2x"></i>
                                                 <i class="fas fa-arrow-left fa-stack-1x phone-arrow"></i>
                                                 </span>`;
-                }else{
+                } else {
                     callBetween.textContent = `Outgoing call: ${chat.from}`;
                     callIndicator.classList.add('callOut');
                     callIndicator.innerHTML = ` <span class="fa-stack fa-2x">
@@ -143,18 +162,18 @@ function showConversation(index) {
                                                 <i class="fas fa-arrow-right fa-stack-1x phone-arrow"></i>
                                                 </span>`;
                 };
-                    // Need to make from to trigger
+                // Need to make from to trigger
                 callBetween.classList.add('numbers');
-               }
+            }
             if (chat.established_at === "null") {
                 callDurationContainer.textContent = `Call not be established!`;
                 callDurationContainer.classList.add('call-status');
                 callTimeContainer.textContent = `${fixedDate.time} ${fixedDate.timeZone}`;
                 callTimeContainer.classList.add('time');
-                if(parseInt(findMFN.mostFrequentNumber) === parseInt(chat.from)){
-                callBetween.textContent = `Incomming call: ${chat.to}`;
-                }else{
-                callBetween.textContent = `Outgoing call: ${chat.from}`;
+                if (parseInt(findMFN.mostFrequentNumber) === parseInt(chat.from)) {
+                    callBetween.textContent = `Incomming call: ${chat.to}`;
+                } else {
+                    callBetween.textContent = `Outgoing call: ${chat.from}`;
                 }
                 callBetween.classList.add('numbers');
                 callIndicator.classList.add('callFail');
@@ -192,13 +211,13 @@ function showConversation(index) {
             numberDiv.textContent += (chat.from === conversation.conversation[0] ? '✉️ from' : '✉️ to');
             numberDiv.textContent += "\n";
             numberDiv.textContent += (findNameByNumber(chat.from));
-            
+
 
             messageDiv.appendChild(numberDiv);
 
             messageDiv.appendChild(textDiv);
             messageDiv.appendChild(timestampDiv);
-            
+
             chatBox.appendChild(messageDiv);
         }
     });
@@ -392,9 +411,6 @@ const findMFN = findMostFrequentNumber(rawData);
 
 
 
-
 // Initialize the conversation & phonebook list on page load
 renderConversations();
 renderPhonebook(sortPhoneRecords(phoneRecords));
-
-console.log(rawData);
