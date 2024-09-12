@@ -36,14 +36,16 @@ function renderConversations() {
             
             const filteredData = sortedData.filter(item => parseInt(conversation.conversation[1]) === item.filtered_number_to);
             if (filteredData.length > 0) {
+                /*  //// Short msg -- Not active anymore
                 const lastMessage = filteredData[0];
                 const shortenedMessage = lastMessage.message.length > 15 ? lastMessage.message.slice(0, 15) + '...' : lastMessage.message;
                 if (lastMessage.message === '[-=-=-=-!!CALL!!-=-=-=-]') { outputshortmsg = "** call **";}else{outputshortmsg = shortenedMessage;}
+                */
                 headerconversationList.innerHTML = `<div>${findNameByNumber(conversation.conversation[0])}'s Phone History</div>`;
                 link.innerHTML = `
                 <div class="chat-info">
                     <div class="name">${findNameByNumber(conversation.conversation[1])}</div>
-                    <div class="message-preview">${outputshortmsg}</div>
+                    <div class="message-preview">${conversation.conversation[1]}</div>
                 </div>
                 <div class="time">Last massage: <br />
                 ${(processTimestamp(conversation.messages[0].timestamp).displayOrder)} ${(processTimestamp(conversation.messages[0].timestamp).timeZone)}
@@ -54,14 +56,16 @@ function renderConversations() {
             
             const filteredData = sortedData.filter(item => parseInt(conversation.conversation[0]) === item.filtered_number_to);
             if (filteredData.length > 0) {
+                /*  //// Short msg -- Not active anymore
                 const lastMessage = filteredData[0];
                 const shortenedMessage = lastMessage.message.length > 15 ? lastMessage.message.slice(0, 15) + '...' : lastMessage.message;
-                if (lastMessage.message === '[-=-=-=-!!CALL!!-=-=-=-]') { outputshortmsg = "** call **";}else{outputshortmsg = shortenedMessage;}
+                if (lastMessage.message === '[-=-=-=-!!CALL!!-=-=-=-]') { outputshortmsg = "** call **";}else{outputshortmsg = shortenedMessage;} 
+                */
                 headerconversationList.innerHTML = `<div>${findNameByNumber(conversation.conversation[1])}'s Phone History</div>`;
                 link.innerHTML = `
                 <div class="chat-info">
                     <div class="name">${findNameByNumber(conversation.conversation[0])}</div>
-                    <div class="message-preview">${outputshortmsg}</div>
+                    <div class="message-preview">${conversation.conversation[0]}</div>
                 </div>
                 <div class="time">Last massage: <br />
                 ${(processTimestamp(conversation.messages[0].timestamp).displayOrder)} ${(processTimestamp(conversation.messages[0].timestamp).timeZone)}
