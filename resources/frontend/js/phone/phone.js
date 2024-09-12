@@ -44,7 +44,7 @@ function renderConversations() {
                 headerconversationList.innerHTML = `<div>${findNameByNumber(conversation.conversation[0])}'s Phone History</div>`;
                 link.innerHTML = `
                 <div class="chat-info">
-                    <div class="name">${findNameByNumber(conversation.conversation[1])}</div>
+                    <div class="name">${findNameByNumberUnknown(conversation.conversation[1])}</div>
                     <div class="message-preview">${conversation.conversation[1]}</div>
                 </div>
                 <div class="time">Last massage: <br />
@@ -64,7 +64,7 @@ function renderConversations() {
                 headerconversationList.innerHTML = `<div>${findNameByNumber(conversation.conversation[1])}'s Phone History</div>`;
                 link.innerHTML = `
                 <div class="chat-info">
-                    <div class="name">${findNameByNumber(conversation.conversation[0])}</div>
+                    <div class="name">${findNameByNumberUnknown(conversation.conversation[0])}</div>
                     <div class="message-preview">${conversation.conversation[0]}</div>
                 </div>
                 <div class="time">Last massage: <br />
@@ -229,6 +229,21 @@ function showConversation(index) {
     });
 }
 
+// Function to find name from phone records
+function findNameByNumberUnknown(number) {
+    for (const record of phoneRecords) {
+        if (Array.isArray(record.number)) {
+            if (record.number.includes(number)) {
+                return record.name;
+            }
+        } else if (record.number === number) {
+            return record.name;
+        }else{
+            number = "Unknown";
+        }
+    }
+    return number;
+}
 // Function to find name from phone records
 function findNameByNumber(number) {
     for (const record of phoneRecords) {
