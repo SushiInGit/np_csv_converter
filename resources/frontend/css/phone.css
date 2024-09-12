@@ -101,7 +101,7 @@ body {
 }
 
 /* Phonebook container */
-.phonebook-container  {
+.phonebook-container {
     width: 20%;
     background-color: #292c3d;
     background-repeat: no-repeat;
@@ -110,18 +110,21 @@ body {
     z-index: 10;
     display: none;
 }
+
 .header-phonebook {
     padding: 21px;
     background-color: #292c3d;
     color: #aebac1;
     text-align: center;
     font-size: 1.2em;
- 
+
 }
-.header-phonebook > a {
+
+.header-phonebook>a {
     cursor: pointer;
     font-size: 1.2em;
 }
+
 .phonebook-list {
     flex-grow: 1;
     overflow-y: auto;
@@ -180,7 +183,7 @@ body {
     border-radius: 8px;
     word-wrap: break-word;
 
-    + .message {
+    +.message {
         margin-top: 0px;
     }
 }
@@ -212,6 +215,7 @@ body {
     margin-bottom: 15px;
     font-weight: bold;
 }
+
 .number.to {
     text-align: left;
 }
@@ -219,12 +223,13 @@ body {
 .number.from {
     text-align: right;
 }
+
 .call-message-container {
     display: flex;
     align-items: center;
     justify-content: center;
     background-color: #4b4361;
-    opacity: 0.7; 
+    opacity: 0.7;
     padding: 10px;
     margin-top: 10px;
     margin-bottom: 10px;
@@ -234,44 +239,60 @@ body {
     left: 50%;
     position: relative;
     transform: translateX(-50%);
-    
-            .callindicator {
-                font-size: 10px;
-                font-weight: bold;
-                margin-right: 10px; 
+
+    .callindicator {
+        font-size: 10px;
+        font-weight: bold;
+        margin-right: 10px;
+
+        &.callIn {
+
+            svg,
+            svg * {
+                fill: #bf7b17;
             }
-            .callIn{
-                color: rgba(231, 55, 55, 0.685);
-                opacity: 0.7;
+        }
+
+        &.callOut {
+
+            svg,
+            svg * {
+                fill: #427a30;
             }
-            .callOut{
-                color: rgba(149, 202, 142, 0.678);
-                opacity: 0.7;
+        }
+
+        &.callFail {
+
+            svg,
+            svg * {
+                fill: #9d3535;
             }
-            .callFail{
-                color: rgba(255, 255, 255, 0.678);
-                opacity: 0.7;
-            }
-            .text {
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                text-align: center;
-                font-size: 14px;
-                width: 200px;
-            }
-            .text .call-status {
-                margin-bottom: 5px;
-                font-size: 14px;
-            }
-            
-            .text .time {
-                margin-top: 5px;
-                font-size: 12px;
-            }
-            .text .number {
-                font-size: 12px;
-            }
+        }
+    }
+
+
+    .text {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+        font-size: 14px;
+        width: 200px;
+    }
+
+    .text .call-status {
+        margin-bottom: 5px;
+        font-size: 14px;
+    }
+
+    .text .time {
+        margin-top: 5px;
+        font-size: 12px;
+    }
+
+    .text .number {
+        font-size: 12px;
+    }
 }
 
 /* Marker for new day */
@@ -289,10 +310,11 @@ body {
     font-weight: bold;
     text-align: center;
 }
+
 .duplicate {
     background-color: #b9181881;
     opacity: 1;
-    animation: fade 5s infinite ;
+    animation: fade 5s infinite;
 }
 
 .togglePhonebook {
@@ -308,19 +330,20 @@ body {
     a {
         border-color: #11151d;
         background: #35384f;
-        text-decoration:none; 
+        text-decoration: none;
         border-radius: 50%;
         display: block;
         height: 80px;
         width: 80px;
         opacity: 0.5;
     }
+
     a::after {
-        content:"\2190";   
+        content: "\2190";
         display: block;
         color: white;
         font-weight: bold;
-        font-size: 60px; 
+        font-size: 60px;
         text-align: center;
         opacity: 1;
     }
@@ -328,11 +351,11 @@ body {
     a:hover {
         border-color: #11151d;
         background: #575d85;
-        text-decoration:none; 
+        text-decoration: none;
         border-radius: 50%;
         display: block;
         opacity: 1;
-        animation: bounce 2s infinite ;
+        animation: bounce 2s infinite;
     }
 }
 
@@ -348,11 +371,11 @@ footer {
         position: relative;
         transition: color 0.3s ease;
     }
-    
+
     a:hover {
         color: #fff;
     }
-    
+
     a::after {
         content: '';
         position: absolute;
@@ -364,21 +387,21 @@ footer {
         opacity: 0;
         transition: opacity 0.3s ease;
     }
-    
+
     a:hover::after {
         opacity: 1;
-    }   
+    }
 }
 
 #chart-container-wrapper {
     display: flex;
-    flex-wrap: wrap; 
+    flex-wrap: wrap;
     justify-content: center;
 }
 
 .chart-container {
-    width: 100%;  
-    min-height: 400px; 
+    width: 100%;
+    min-height: 400px;
     margin: 10px;
 }
 
@@ -428,12 +451,27 @@ canvas {
 }
 
 @keyframes fade {
-    0%,100% { opacity: 0.5 }
-    50% { opacity: 1 }
+
+    0%,
+    100% {
+        opacity: 0.5
+    }
+
+    50% {
+        opacity: 1
+    }
 }
 
 @keyframes bounce {
-  0%   { transform: translateX(0); }
-  50%  { transform: translateX(-20px); }
-  100% { transform: translatex(0); }
+    0% {
+        transform: translateX(0);
+    }
+
+    50% {
+        transform: translateX(-20px);
+    }
+
+    100% {
+        transform: translatex(0);
+    }
 }
