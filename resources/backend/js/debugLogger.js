@@ -21,7 +21,7 @@ logger = {
                     doWarn: true,
                     doSetting: true,
                     doFile: true,
-                    doDEVMODE: false,
+                    doDEVMODE: true,
 /// ------------------------------------------------------
     assert: function() {
         if(logger.active && logger.doAssert) {
