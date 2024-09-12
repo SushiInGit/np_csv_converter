@@ -28,15 +28,16 @@
         }
     
         &::-webkit-scrollbar-thumb {
+            background: rgba(72,66,94, 0.6);
+        }
+        
+        &::-webkit-scrollbar-thumb:hover {
             background: rgba(72,66,94, 0.4);
         }
     
-        &::-webkit-scrollbar-thumb:hover {
-            background: rgba(72,66,94, 0.6);
-        }
-    
         &::-webkit-scrollbar-thumb:active {
-            background: rgba(72,66,94, 0.9);
+            background: rgba(72,66,94, 0.4);
+            /*background: rgba(72,66,94, 0.9);*/
         }
 
     }
