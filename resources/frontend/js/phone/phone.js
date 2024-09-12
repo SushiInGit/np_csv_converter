@@ -1,15 +1,3 @@
-// Function to format the timestamp
-function formatDate(timestamp) {
-    return new Date(timestamp).toLocaleString();
-}
-
-function formatDateJustDate(timestamp) {
-    return new Date(timestamp).toLocaleDateString();
-}
-
-function formatDateJustTime(timestamp) {
-    return new Date(timestamp).toLocaleTimeString();
-}
 // Function to normalize phone number to a string for comparison
 function normalizeNumber(number) {
     if (Array.isArray(number)) {
@@ -33,13 +21,17 @@ function calculateCallDuration(start, end) {
 
 // Function to render the list of conversations
 function renderConversations() {
+    const headerconversationList = document.getElementById('header-sidebar');
+
     const conversationList = document.getElementById('conversation-list');
+
     conversationList.innerHTML = '';
     chatData.forEach((conversation, index) => {
-        //console.log("phone.js - index:", index, " - ", conversation);
+        
         const link = document.createElement('div');
         link.classList.add('chat-list-item');
         if (parseInt(conversation.conversation[0]) === parseInt(result_findMostFrequentNumber.mostFrequentNumber)) {
+            headerconversationList.innerHTML = `<div>${findNameByNumber(conversation.conversation[0])}'s Phone History</div>`;
             link.innerHTML = `
             <div class="chat-info">
                 <div class="name">${findNameByNumber(conversation.conversation[1])}</div>
@@ -61,6 +53,7 @@ function renderConversations() {
         link.addEventListener('click', () => showConversation(index));
         conversationList.appendChild(link);
     });
+    
 }
 
 // Function to display a selected conversation
@@ -73,9 +66,6 @@ function showConversation(index) {
     const showConvMainnr = parseInt(result_findMostFrequentNumber.mostFrequentNumber);
     const showConvFrom = parseInt(conversation.conversation[0]);
     const showConvTo = parseInt(conversation.conversation[1]);
-    //console.log("phone.js mainNR", showConvMainnr, " -  from to:", showConvFrom, " - ", showConvTo);
-
-    ///          (parseInt(showConvMainnr === showConvFrom ? showConvFrom : showConvTo)).toString()
 
     if (showConvMainnr === showConvFrom) {
         if (isNaN(findNameByNumber(conversation.conversation[0]))) {
@@ -108,8 +98,7 @@ function showConversation(index) {
 
     chatBox.innerHTML = '';  // Clear previous messages
     conversation.messages.forEach(chat => {
-
-        const currentDate = formatDateJustDate(new Date(chat.timestamp));
+        const currentDate = processTimestamp(conversation.messages[0].timestamp).date;
 
         // Check if a new day has begun and add a date marker
         if (lastDate !== currentDate) {
@@ -127,15 +116,15 @@ function showConversation(index) {
             const callTimeContainer = document.createElement('div');
             const callBetween = document.createElement('div');
             const callDuration = calculateCallDuration(chat.established_at, chat.ended_at);
-
+            fixedDate = processTimestamp(conversation.messages[0].timestamp).time;
             if (chat.established_at != "null") {
                 callDurationContainer.textContent = `📞 Call duration: ${callDuration}`;
-                callTimeContainer.textContent = `Time: ${formatDateJustTime(chat.initiated_at)}`;
+                callTimeContainer.textContent = `Time: ${fixedDate}`;
                 callBetween.textContent = `${chat.from} to ${chat.to}`;    // Need to make from to trigger
             }
             if (chat.established_at === "null") {
                 callDurationContainer.textContent = `📞 Call not be established!`;
-                callTimeContainer.textContent = `Time: ${formatDateJustTime(chat.initiated_at)}`;
+                callTimeContainer.textContent = `Time: ${fixedDate}`;
                 callBetween.textContent = `${chat.from} to ${chat.to}`;    // Need to make from to trigger
             }
             callMessageContainer.appendChild(callDurationContainer);
@@ -152,8 +141,9 @@ function showConversation(index) {
             textDiv.textContent = chat.message;
 
             const timestampDiv = document.createElement('div');
+            fixedDate = processTimestamp(conversation.messages[0].timestamp).time;
             timestampDiv.classList.add('timestamp');
-            timestampDiv.textContent = formatDate(chat.timestamp);
+            timestampDiv.textContent = fixedDate;
 
             const numberDiv = document.createElement('div');
             numberDiv.classList.add('number');
