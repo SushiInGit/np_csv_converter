@@ -103,7 +103,7 @@ if(loggerConfig.doDEVMODE){
   const addOption2 = document.createElement("option");
   const addOption3 = document.createElement("option");
   addOption2.value = "1337";
-  addOption2.text = "DEV MODE";
+  addOption2.text = "DEV MODE  [Render all sessionStorage Tables on a Page]";
   addOption3.value = "42069";
   addOption3.text = "Breakpoint /---/ no redirect";
   selectPicker.add(addOption2, null);
