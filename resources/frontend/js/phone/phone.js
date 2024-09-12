@@ -112,7 +112,6 @@ function showConversation(index) {
         }
     } else {
         ////////// Revers From <> To to fix the display 
-        console.log("no");
         if (isNaN(findNameByNumber(conversation.conversation[1]))) {
             header.querySelector('.name').textContent = `${findNameByNumber(conversation.conversation[1])} ( ${(showConvTo)} )`;
         } else {
