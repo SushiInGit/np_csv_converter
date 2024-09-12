@@ -208,7 +208,7 @@ function showConversation(index) {
             numberDiv.classList.add('number');
             numberDiv.classList.add(chat.from === conversation.conversation[0] ? 'from' : 'to');
             //numberDiv.classList.add('from');  📞
-            numberDiv.textContent += (chat.from === conversation.conversation[0] ? '✉️ from' : '✉️ to');
+            numberDiv.textContent += (chat.from === conversation.conversation[0] ? '✉️ from' : '✉️ from');
             numberDiv.textContent += "\n";
             numberDiv.textContent += (findNameByNumber(chat.from));
 
