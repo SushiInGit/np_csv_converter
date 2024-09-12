@@ -21,6 +21,25 @@
     &::-webkit-scrollbar-thumb:active {
         background: rgba(0,0,0,0.9);
     }
+
+    &.chat-container * {
+        &::-webkit-scrollbar-track {
+            background: rgba(53, 56, 79, 0.2);
+        }
+    
+        &::-webkit-scrollbar-thumb {
+            background: rgba(57, 50, 94, 0.4);
+        }
+    
+        &::-webkit-scrollbar-thumb:hover {
+            background: rgba(57, 50, 94, 0.6);
+        }
+    
+        &::-webkit-scrollbar-thumb:active {
+            background: rgba(57, 50, 94, 0.9);
+        }
+
+    }
 }
 
 body {
