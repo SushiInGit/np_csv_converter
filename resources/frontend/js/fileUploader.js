@@ -37,6 +37,11 @@ dropZone.addEventListener('drop', (event) => {
     handleFile();
   }
 });
+uploadForm.addEventListener('submit', function (event) {
+  event.preventDefault();
+  handleFile();
+});
+
 
 function handleFile() {
   const file = fileInput.files[0];
@@ -116,9 +121,4 @@ function handleFile() {
 }
 
 
-
-uploadForm.addEventListener('submit', function (event) {
-  event.preventDefault();
-  handleFile();
-});
 
