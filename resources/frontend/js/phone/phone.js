@@ -30,7 +30,7 @@ function renderConversations() {
         
         const link = document.createElement('div');
         link.classList.add('chat-list-item');
-        if (parseInt(conversation.conversation[0]) === parseInt(result_findMostFrequentNumber.mostFrequentNumber)) {
+        if (parseInt(conversation.conversation[0]) === parseInt(findMFN.mostFrequentNumber)) {
             headerconversationList.innerHTML = `<div>${findNameByNumber(conversation.conversation[0])}'s Phone History</div>`;
             link.innerHTML = `
             <div class="chat-info">
@@ -38,7 +38,7 @@ function renderConversations() {
                 <div class="message-preview">➤ last msg WIP</div>
             </div>
             <div class="time">Last massage: <br />
-            ${(processTimestamp(conversation.messages[0].timestamp).displayOrder)}
+            ${(processTimestamp(conversation.messages[0].timestamp).displayOrder)} ${(processTimestamp(conversation.messages[0].timestamp).timeZone)}
             </div>`;
         } else {
             link.innerHTML = `
@@ -47,7 +47,7 @@ function renderConversations() {
             <div class="message-preview">➤ last msg WIP</div>
         </div>
         <div class="time">Last massage: <br />
-        ${(processTimestamp(conversation.messages[0].timestamp).displayOrder)}
+        ${(processTimestamp(conversation.messages[0].timestamp).displayOrder)}  ${(processTimestamp(conversation.messages[0].timestamp).timeZone)}
         </div>`;
         }
         link.addEventListener('click', () => showConversation(index));
@@ -63,7 +63,7 @@ function showConversation(index) {
     const conversation = chatData[index];
     let lastDate = null;
     /// That Main Number is always on top
-    const showConvMainnr = parseInt(result_findMostFrequentNumber.mostFrequentNumber);
+    const showConvMainnr = parseInt(findMFN.mostFrequentNumber);
     const showConvFrom = parseInt(conversation.conversation[0]);
     const showConvTo = parseInt(conversation.conversation[1]);
 
@@ -111,26 +111,66 @@ function showConversation(index) {
         // Check if the message contains a call marker
         if (chat.message === '[-=-=-=-!!CALL!!-=-=-=-]') {
             const callMessageContainer = document.createElement('div');
-            callMessageContainer.classList.add('call-message-container');
+            const callText = document.createElement('div');
+            const callIndicator = document.createElement('div');
             const callDurationContainer = document.createElement('div');
             const callTimeContainer = document.createElement('div');
             const callBetween = document.createElement('div');
+            callMessageContainer.classList.add('text');
+            callIndicator.classList.add('callindicator');
+            callText.classList.add('call-message-container');
+
             const callDuration = calculateCallDuration(chat.established_at, chat.ended_at);
-            fixedDate = processTimestamp(conversation.messages[0].timestamp).time;
+            fixedDate = processTimestamp(conversation.messages[0].timestamp);
             if (chat.established_at != "null") {
-                callDurationContainer.textContent = `📞 Call duration: ${callDuration}`;
-                callTimeContainer.textContent = `Time: ${fixedDate}`;
-                callBetween.textContent = `${chat.from} to ${chat.to}`;    // Need to make from to trigger
-            }
+                callDurationContainer.textContent = `Call duration: ${callDuration}`;
+                callDurationContainer.classList.add('call-status');
+                callTimeContainer.textContent = `${fixedDate.time} ${fixedDate.timeZone}`;
+                callTimeContainer.classList.add('time');
+
+                if(parseInt(findMFN.mostFrequentNumber) === parseInt(chat.from)){
+                    callBetween.textContent = `Incomming call: ${chat.to}`;
+                    callIndicator.classList.add('callIn');
+                    callIndicator.innerHTML = ` <span class="fa-stack fa-2x">
+                                                <i class="fas fa-phone-alt fa-stack-2x"></i>
+                                                <i class="fas fa-arrow-left fa-stack-1x phone-arrow"></i>
+                                                </span>`;
+                }else{
+                    callBetween.textContent = `Outgoing call: ${chat.from}`;
+                    callIndicator.classList.add('callOut');
+                    callIndicator.innerHTML = ` <span class="fa-stack fa-2x">
+                                                <i class="fas fa-phone-alt fa-stack-2x"></i>
+                                                <i class="fas fa-arrow-right fa-stack-1x phone-arrow"></i>
+                                                </span>`;
+                };
+                    // Need to make from to trigger
+                callBetween.classList.add('numbers');
+               }
             if (chat.established_at === "null") {
-                callDurationContainer.textContent = `📞 Call not be established!`;
-                callTimeContainer.textContent = `Time: ${fixedDate}`;
-                callBetween.textContent = `${chat.from} to ${chat.to}`;    // Need to make from to trigger
+                callDurationContainer.textContent = `Call not be established!`;
+                callDurationContainer.classList.add('call-status');
+                callTimeContainer.textContent = `${fixedDate.time} ${fixedDate.timeZone}`;
+                callTimeContainer.classList.add('time');
+                if(parseInt(findMFN.mostFrequentNumber) === parseInt(chat.from)){
+                callBetween.textContent = `Incomming call: ${chat.to}`;
+                }else{
+                callBetween.textContent = `Outgoing call: ${chat.from}`;
+                }
+                callBetween.classList.add('numbers');
+                callIndicator.classList.add('callFail');
+                callIndicator.innerHTML = ` <span class="fa-stack fa-2x">
+                                            <i class="fas fa-signal fa-stack-2x"></i>
+                                            <i class="fas fa-slash fa-stack-2x" style="color: red; opacity: 0.7;"></i>
+                                            </span>`;
             }
             callMessageContainer.appendChild(callDurationContainer);
-            callMessageContainer.appendChild(callTimeContainer);
             callMessageContainer.appendChild(callBetween);
-            chatBox.appendChild(callMessageContainer);
+            callMessageContainer.appendChild(callTimeContainer);
+
+            callText.appendChild(callIndicator);
+            callText.appendChild(callMessageContainer);
+            chatBox.appendChild(callText);
+
         } else {
 
             const messageDiv = document.createElement('div');
@@ -141,21 +181,24 @@ function showConversation(index) {
             textDiv.textContent = chat.message;
 
             const timestampDiv = document.createElement('div');
-            fixedDate = processTimestamp(conversation.messages[0].timestamp).time;
+            fixedDate = processTimestamp(conversation.messages[0].timestamp);
             timestampDiv.classList.add('timestamp');
-            timestampDiv.textContent = fixedDate;
+            timestampDiv.textContent = `${fixedDate.time} ${fixedDate.timeZone}`;
 
             const numberDiv = document.createElement('div');
             numberDiv.classList.add('number');
-            numberDiv.textContent = "📞";
-            numberDiv.textContent += (chat.from === conversation.conversation[0] ? 'from' : 'to');
+            numberDiv.classList.add(chat.from === conversation.conversation[0] ? 'from' : 'to');
+            //numberDiv.classList.add('from');  📞
+            numberDiv.textContent += (chat.from === conversation.conversation[0] ? '✉️ from' : '✉️ to');
             numberDiv.textContent += "\n";
             numberDiv.textContent += (findNameByNumber(chat.from));
+            
+
+            messageDiv.appendChild(numberDiv);
 
             messageDiv.appendChild(textDiv);
             messageDiv.appendChild(timestampDiv);
-            messageDiv.appendChild(numberDiv);
-
+            
             chatBox.appendChild(messageDiv);
         }
     });
@@ -343,7 +386,7 @@ function findMostFrequentNumber(messages) {
 
     return { mostFrequentNumber, count: maxCount };
 }
-const result_findMostFrequentNumber = findMostFrequentNumber(rawData);
+const findMFN = findMostFrequentNumber(rawData);
 
 
 
