@@ -174,7 +174,7 @@ function showConversation(index) {
                 callBetween.classList.add('numbers');
             }
             if (chat.established_at === "null") {
-                callDurationContainer.textContent = `Call not be established!`;
+                callDurationContainer.textContent = `Call could not be established!`;
                 callDurationContainer.classList.add('call-status');
                 callTimeContainer.textContent = `${fixedDate.time} ${fixedDate.timeZone}`;
                 callTimeContainer.classList.add('time');
