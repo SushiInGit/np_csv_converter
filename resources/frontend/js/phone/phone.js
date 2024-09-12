@@ -117,7 +117,7 @@ function showConversation(index) {
 
     chatBox.innerHTML = '';  // Clear previous messages
     conversation.messages.forEach(chat => {
-        const currentDate = processTimestamp(conversation.messages[0].timestamp).date;
+        const currentDate = processTimestamp(chat.timestamp).date;
 
         // Check if a new day has begun and add a date marker
         if (lastDate !== currentDate) {
@@ -140,7 +140,7 @@ function showConversation(index) {
             callText.classList.add('call-message-container');
 
             const callDuration = calculateCallDuration(chat.established_at, chat.ended_at);
-            fixedDate = processTimestamp(conversation.messages[0].timestamp);
+            const fixedDate = processTimestamp(chat.timestamp);
             if (chat.established_at != "null") {
                 callDurationContainer.textContent = `Call duration: ${callDuration}`;
                 callDurationContainer.classList.add('call-status');
@@ -202,7 +202,7 @@ function showConversation(index) {
             textDiv.textContent = chat.message;
 
             const timestampDiv = document.createElement('div');
-            fixedDate = processTimestamp(conversation.messages[0].timestamp);
+            fixedDate = processTimestamp(chat.timestamp);
             timestampDiv.classList.add('timestamp');
             timestampDiv.textContent = `${fixedDate.time} ${fixedDate.timeZone}`;
 
