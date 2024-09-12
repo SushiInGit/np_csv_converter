@@ -36,7 +36,12 @@ function renderConversations() {
             
             const filteredData = sortedData.filter(item => parseInt(conversation.conversation[1]) === item.filtered_number_to);
             if (filteredData.length > 0) {
-                /*  //// Short msg -- Not active anymore
+
+                const callCount = filteredData.filter(entry => entry.message === '[-=-=-=-!!CALL!!-=-=-=-]').length;
+                const totalCount = filteredData.length;
+                const msgCount = totalCount - callCount;
+
+                /*  //// Short msg -- Not active anymore  📞✉️
                 const lastMessage = filteredData[0];
                 const shortenedMessage = lastMessage.message.length > 15 ? lastMessage.message.slice(0, 15) + '...' : lastMessage.message;
                 if (lastMessage.message === '[-=-=-=-!!CALL!!-=-=-=-]') { outputshortmsg = "** call **";}else{outputshortmsg = shortenedMessage;}
@@ -47,8 +52,8 @@ function renderConversations() {
                     <div class="name">${findNameByNumberUnknown(conversation.conversation[1])}</div>
                     <div class="message-preview">${conversation.conversation[1]}</div>
                 </div>
-                <div class="time">Last massage: <br />
-                ${(processTimestamp(conversation.messages[0].timestamp).displayOrder)} ${(processTimestamp(conversation.messages[0].timestamp).timeZone)}
+                <div class="time">✉️ Message: ${(msgCount)}<br />
+                📞 Calls: ${(callCount)}
                 </div>`;
             }
         } else {
@@ -56,6 +61,9 @@ function renderConversations() {
             
             const filteredData = sortedData.filter(item => parseInt(conversation.conversation[0]) === item.filtered_number_to);
             if (filteredData.length > 0) {
+                const callCount = filteredData.filter(entry => entry.message === '[-=-=-=-!!CALL!!-=-=-=-]').length;
+                const totalCount = filteredData.length;
+                const msgCount = totalCount - callCount;
                 /*  //// Short msg -- Not active anymore
                 const lastMessage = filteredData[0];
                 const shortenedMessage = lastMessage.message.length > 15 ? lastMessage.message.slice(0, 15) + '...' : lastMessage.message;
@@ -67,9 +75,9 @@ function renderConversations() {
                     <div class="name">${findNameByNumberUnknown(conversation.conversation[0])}</div>
                     <div class="message-preview">${conversation.conversation[0]}</div>
                 </div>
-                <div class="time">Last massage: <br />
-                ${(processTimestamp(conversation.messages[0].timestamp).displayOrder)} ${(processTimestamp(conversation.messages[0].timestamp).timeZone)}
-                </div>`;
+                <div class="time">✉️ Message: ${(msgCount)}<br />
+                 📞 Calls: ${(callCount)}
+                 </div>`;
             }
 
         }
@@ -204,7 +212,7 @@ function showConversation(index) {
             const numberDiv = document.createElement('div');
             numberDiv.classList.add('number');
             numberDiv.classList.add(chat.from === conversation.conversation[0] ? 'from' : 'to');
-            //numberDiv.classList.add('from');  📞
+            //numberDiv.classList.add('from');  📞✉️
             numberDiv.textContent += (chat.from === conversation.conversation[0] ? '✉️ from' : '✉️ from');
             numberDiv.textContent += "\n";
             numberDiv.textContent += (findNameByNumber(chat.from));
