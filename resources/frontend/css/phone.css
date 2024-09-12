@@ -314,6 +314,62 @@ footer {
     }   
 }
 
+#chart-container-wrapper {
+    display: flex;
+    flex-wrap: wrap; 
+    justify-content: center;
+}
+
+.chart-container {
+    width: 100%;  
+    min-height: 400px; 
+    margin: 10px;
+}
+
+canvas {
+    width: 100%;
+    height: 100%;
+}
+
+.heatmap-grid {
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    gap: 5px;
+    width: 100%;
+    max-width: 600px;
+    margin: 20px auto;
+    background-color: #2c2f33;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.heatmap-cell {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 12px;
+    font-weight: bold;
+    color: #fff;
+    border-radius: 5px;
+}
+
+.low-interaction {
+    background-color: #99ccff;
+}
+
+.medium-interaction {
+    background-color: #cc66ff;
+}
+
+.high-interaction {
+    background-color: #ff6666;
+}
+
+.very-high-interaction {
+    background-color: #ff3333;
+}
 
 @keyframes fade {
     0%,100% { opacity: 0.5 }

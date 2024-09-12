@@ -8,7 +8,7 @@ function formatDateJustDate(timestamp) {
 }
 
 function formatDateJustTime(timestamp) {
-    return new Date(timestamp).toLocaleTimeString();;
+    return new Date(timestamp).toLocaleTimeString();
 }
 // Function to normalize phone number to a string for comparison
 function normalizeNumber(number) {
@@ -42,19 +42,21 @@ function renderConversations() {
         if (parseInt(conversation.conversation[0]) === parseInt(result_findMostFrequentNumber.mostFrequentNumber)) {
             link.innerHTML = `
             <div class="chat-info">
-                <div class="name">${findNameByNumber(conversation.conversation[0])} </div>
-                <div class="message-preview">➤ ${findNameByNumber(conversation.conversation[1])}</div>
+                <div class="name">${findNameByNumber(conversation.conversation[1])}</div>
+                <div class="message-preview">➤ last msg WIP</div>
             </div>
-            <div class="time">Last massage: <br />${formatDate(new Date(conversation.messages[0].timestamp))}</div>
-        `;
+            <div class="time">Last massage: <br />
+            ${(processTimestamp(conversation.messages[0].timestamp).displayOrder)}
+            </div>`;
         } else {
             link.innerHTML = `
         <div class="chat-info">
-            <div class="name">${findNameByNumber(conversation.conversation[1])} </div>
-            <div class="message-preview">➤ ${findNameByNumber(conversation.conversation[0])}</div>
+            <div class="name">${findNameByNumber(conversation.conversation[0])} </div>
+            <div class="message-preview">➤ last msg WIP</div>
         </div>
-        <div class="time">Last massage: <br />${formatDate(new Date(conversation.messages[0].timestamp))}</div>
-        `;
+        <div class="time">Last massage: <br />
+        ${(processTimestamp(conversation.messages[0].timestamp).displayOrder)}
+        </div>`;
         }
         link.addEventListener('click', () => showConversation(index));
         conversationList.appendChild(link);
@@ -362,3 +364,4 @@ const result_findMostFrequentNumber = findMostFrequentNumber(rawData);
 renderConversations();
 renderPhonebook(sortPhoneRecords(phoneRecords));
 
+console.log(rawData);
