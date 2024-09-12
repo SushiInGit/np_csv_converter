@@ -8,7 +8,7 @@ body {
 
 .container {
     display: flex;
-    height: 100vh;
+    height: calc(100vh - 50px);
     margin-bottom: 20px;
 }
 
@@ -180,13 +180,13 @@ body {
     word-wrap: break-word;
 }
 
-.message.from {
+.message.to {
     align-self: flex-start;
     background-color: #292c3d;
     color: #ffffff;
 }
 
-.message.to {
+.message.from {
     align-self: flex-end;
     background-color: #35384f;
     color: #ffffff;
@@ -207,11 +207,11 @@ body {
     margin-bottom: 15px;
     font-weight: bold;
 }
-.number.from {
+.number.to {
     text-align: left;
 }
 
-.number.to {
+.number.from {
     text-align: right;
 }
 .call-message-container {
