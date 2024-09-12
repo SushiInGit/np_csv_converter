@@ -1,4 +1,19 @@
+const sessionStorageData = {};
 
+for (let i = 0; i < sessionStorage.length; i++) {
+    const key = sessionStorage.key(i);
+    const value = sessionStorage.getItem(key);
+    const storageKey = `excelSheet${i + 1}`;
+    //sessionStorage.removeItem(storageKey);
+    //console.log(JSON.parse(value));
+    const storedData = JSON.parse(value);
+    sessionStorageData[`sheet${i}`] = { storedData };
+    //logger.table(storedData);
+}
+
+// logger.table(sessionStorageData.sheet0.storedData);
+// logger.table(sessionStorageData.sheet1.storedData);
+////////////
 
 function isValidExcelFile(file) {
     const validExtensions = ['xlsx', 'xls'];
@@ -31,7 +46,7 @@ function isValidExcelFile(file) {
       const storageKey = `excelSheet${index + 1}`;
       sessionStorage.setItem(storageKey, JSON.stringify(sheet.data));
       const storedData = JSON.parse(sessionStorage.getItem(storageKey));
-      logger.log(`SessionStorage: (${sheet.name}):`, storedData);
+      logger.table(`SessionStorage: (${sheet.name}):`, storedData);
     });
   }
   

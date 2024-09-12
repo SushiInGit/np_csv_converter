@@ -3,10 +3,10 @@ let div = document.querySelector('div');
 for (let i = 0; i < sessionStorage.length; i++) {
    const key = sessionStorage.key(i);
    const value = sessionStorage.getItem(key);
-   logger.trace(`SessionStorage: ${key}`, JSON.parse(value));
    const excelDataDump = sessionStorage.getItem('key');
    try {
       let jsonData = JSON.parse(value);
+      logger.table(jsonData);
       let container = document.getElementById("container");
       let table = document.createElement("table");
       let cols = Object.keys(jsonData[0]);
