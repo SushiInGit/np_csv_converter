@@ -522,3 +522,42 @@ canvas {
         transform: translatex(0);
     }
 }
+
+
+#imagePreview {
+    position: absolute;
+    display: none;
+    border: 1px solid #ccc;
+    color: #d4a5ff;
+    max-width: 300px;
+    max-height: 300px;
+    z-index: 1000;
+
+  }
+ 
+  #errorMessagePIC {
+    position: absolute;
+    display: none;
+    color: red;
+    font-size: 14px;
+    background-color: white;
+    border: 1px solid red;
+    padding: 5px;
+    z-index: 1000;
+  }
+  .message{
+    a {
+        border-color: #11151d;
+        background: #35384f;
+        text-decoration: none;
+        color: white;
+
+    }
+
+
+    a:hover {
+        border-color: #11151d;
+        background: #575d85;
+        text-decoration: none;
+    }
+  }

@@ -112,7 +112,7 @@ function showConversation(index) {
         }
     } else {
         ////////// Revers From <> To to fix the display 
-        console.log("no");
+     
         if (isNaN(findNameByNumber(conversation.conversation[1]))) {
             header.querySelector('.name').textContent = `${findNameByNumber(conversation.conversation[1])} ( ${(showConvTo)} )`;
         } else {
@@ -245,7 +245,7 @@ function findNameByNumberUnknown(number) {
 }
 // Function to find name from phone records
 function findNameByNumber(number) {
-    console.log(number);
+
     for (const record of phoneRecords) {
         if (Array.isArray(record.number)) {
             console.log(record.number);
