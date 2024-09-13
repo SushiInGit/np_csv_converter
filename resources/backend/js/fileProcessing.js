@@ -86,6 +86,8 @@ function normalizeSessionSave(sheet, index) {                                   
         logger.table(`SessionStorage: ${storageKey}\n \nSheet-Name: ${sheet.name}`, storedData);
 }
 
+
+////////////////////// LEGACY CODE DELETE AFTER SWAPPING IS FINISH saveToSessionStorage()
 function saveToSessionStorage(sheetDataArray) {                                       // Create SessionStorage Data 
     sheetDataArray.forEach((sheet, index) => {
         const storageKey = `excelSheet${index + 1}`;
