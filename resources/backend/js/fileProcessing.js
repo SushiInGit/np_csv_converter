@@ -14,6 +14,12 @@ function isValidExcelFile(file) {                                           // C
     return validExtensions.includes(fileExtension.toLowerCase());
 }
 
+function isValidISODateCheck(dateString) {
+    const isoDateRegex = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d{3})?Z$/;
+    return isoDateRegex.test(dateString);
+}
+
+
 function processXLSXData(arrayBuffer) {                                   // Read the Excel file
     try {
         const data = new Uint8Array(arrayBuffer);
@@ -58,15 +64,18 @@ function outputHeaderType(input) {                                             /
     }
 }
 
-
-
 function modifyExcelData(data) {                                            // Gets the Excelfile
-    data.forEach((excelFile, index) => {
-        dataKey = `${index + 1}`;
-        dataName = excelFile.name
+    data.forEach((excelFile) => {
         dataTable = excelFile.data;
         dataTableHeader = excelFile.data[0];
-        outputHeaderType(dataTableHeader);
+        getHeaderType = outputHeaderType(dataTableHeader);
+
+        if (getHeaderType === "phone_message_sheet") {
+           console.table(normalizeTexts(dataTable));
+        };
+        if (getHeaderType === "phone_call_sheet") {
+            console.table(normalizePhonecalls(dataTable));
+        };
     });
 
 
@@ -84,7 +93,113 @@ function saveToSessionStorage(sheetDataArray) {                            // Cr
 }
 
 
+//////////////////////////
 
+function normalizeTexts(dataArray) {
+    var messageRecordsArray = [];
+    var defaultMessageRecordLine = {
+        phoneFrom: 0,           // 0 "number_from"
+        phoneTo: 0,             // 1 "number_to"
+        phoneMessage: "",       // 2 "message"
+        phoneTimestamp: "",     // 3 "timestamp"
+        isCall: false,          // 4 Boolean [false = Message, true = Call]
+        phoneCallStart: null,   // 5 Initially null/empty
+        phoneCallEnd: null      // 6 Initially null/empty
+    }
+
+    try {
+        dataArray.forEach(function (row, rowNumber) {
+            if (rowNumber > 0) { // Skipping header row
+                var messageRecordLine = { ...defaultMessageRecordLine };
+                var columnTracker = 0;
+
+                Object.values(row).forEach(function (value, index) {
+                    if (columnTracker == 0) {
+                        messageRecordLine.phoneFrom = value;
+                        columnTracker++;
+                    }
+                    else if (columnTracker == 1) {
+                        messageRecordLine.phoneTo = value;
+                        columnTracker++;
+                    }
+                    else if (columnTracker >= 2) {
+                        if (!isValidISODateCheck(value)) {
+                            if (typeof value === 'object' && value !== null) {
+                                value = value.text;
+                            }
+                            if (messageRecordLine.phoneMessage === "") {
+                                messageRecordLine.phoneMessage += `${value}`;
+                            }
+                            else {
+                                messageRecordLine.phoneMessage += `  ${value}`;
+                            }
+                        }
+                        else {
+
+                            messageRecordLine.phoneTimestamp = new Date(value).toISOString();
+                            messageRecordLine.phoneMessage = messageRecordLine.phoneMessage.trim();
+                            messageRecordsArray.push(messageRecordLine);
+                            messageRecordLine = { ...defaultMessageRecordLine };
+                            columnTracker = 0;
+                        }
+                    }
+                });
+            }
+        });
+    } catch (e) {
+        showError("Something broke, message a dev. \n\nFunction: normalizeTexts() \n\n" + e)
+    }
+    return messageRecordsArray;
+}
+
+function normalizePhonecalls(dataArray) {
+    var phonecallRecordsArray = [];
+    var defaultPhonecallRecordLine = {
+        phoneFrom: 0,           // 0 "call_from"
+        phoneTo: 0,             // 1 "call_to"
+        phoneMessage: null,     // 2 "----------"
+        phoneTimestamp: "",     // 3 "initiated_at"
+        isCall: true,           // 4 Boolean [false = Message, true = Call]
+        phoneCallStart: "",     // 5 "established_at"
+        phoneCallEnd: ""        // 6 "ended_at"
+    }
+    try {
+        dataArray.forEach(function (row, rowNumber) {
+            if (rowNumber > 0) { // Skipping header row
+                var columnTracker = 0;
+                var phonecallRecordLine = { ...defaultPhonecallRecordLine };
+                Object.values(row).forEach(function (value, index) {
+                    if (columnTracker == 0) {
+                        phonecallRecordLine.phoneFrom = value;
+                        columnTracker++;
+                    }
+                    else if (columnTracker == 1) {
+                        phonecallRecordLine.phoneTo = value;
+                        columnTracker++;
+                    }
+                    else if (columnTracker == 2) {
+                        phonecallRecordLine.phoneTimestamp = value;
+                        columnTracker++;
+                    }
+                    else if (columnTracker == 3) {
+                        phonecallRecordLine.phoneCallStart = value;
+                        columnTracker++;
+                    }
+                    else if (columnTracker == 4) {
+                        phonecallRecordLine.phoneCallEnd = value;
+                        phonecallRecordsArray.push(phonecallRecordLine);
+                        phonecallRecordLine = { ...defaultPhonecallRecordLine }
+                        columnTracker = 0;
+                    }
+                });
+
+            }
+        });
+    } catch (e) {
+        alert("Something broke, message a dev. \n\nFunction: normalizePhonecalls() \n\n" + e)
+    }
+    return phonecallRecordsArray;
+}
 
 ////////////////////////////////////////////// WIP
 function normalizeBankRecords(worksheet) {
