@@ -46,10 +46,10 @@ function renderConversations() {
                 const shortenedMessage = lastMessage.message.length > 15 ? lastMessage.message.slice(0, 15) + '...' : lastMessage.message;
                 if (lastMessage.message === '[-=-=-=-!!CALL!!-=-=-=-]') { outputshortmsg = "** call **";}else{outputshortmsg = shortenedMessage;}
                 */
-                headerconversationList.innerHTML = `<div>${findNameByNumber(conversation.conversation[0])}'s Phone History</div>`;
+                headerconversationList.innerHTML = `<div>${findNameByNumber( parseInt(conversation.conversation[0]))}'s Phone History</div>`;
                 link.innerHTML = `
                 <div class="chat-info">
-                    <div class="name">${findNameByNumberUnknown(conversation.conversation[1])}</div>
+                    <div class="name">${findNameByNumberUnknown( parseInt(conversation.conversation[1]))}</div>
                     <div class="message-preview">${conversation.conversation[1]}</div>
                 </div>
                 <div class="time">✉️ Message: ${(msgCount)}<br />
@@ -69,10 +69,10 @@ function renderConversations() {
                 const shortenedMessage = lastMessage.message.length > 15 ? lastMessage.message.slice(0, 15) + '...' : lastMessage.message;
                 if (lastMessage.message === '[-=-=-=-!!CALL!!-=-=-=-]') { outputshortmsg = "** call **";}else{outputshortmsg = shortenedMessage;} 
                 */
-                headerconversationList.innerHTML = `<div>${findNameByNumber(conversation.conversation[1])}'s Phone History</div>`;
+                headerconversationList.innerHTML = `<div>${findNameByNumber( parseInt(conversation.conversation[1]))}'s Phone History</div>`;
                 link.innerHTML = `
                 <div class="chat-info">
-                    <div class="name">${findNameByNumberUnknown(conversation.conversation[0])}</div>
+                    <div class="name">${findNameByNumberUnknown( parseInt(conversation.conversation[0]))}</div>
                     <div class="message-preview">${conversation.conversation[0]}</div>
                 </div>
                 <div class="time">✉️ Message: ${(msgCount)}<br />
@@ -230,27 +230,29 @@ function showConversation(index) {
 
 // Function to find name from phone records
 function findNameByNumberUnknown(number) {
+    
     for (const record of phoneRecords) {
         if (Array.isArray(record.number)) {
+            console.log(record.number);
             if (record.number.includes(number)) {
                 return record.name;
             }
-        } else if (record.number === number) {
+        } else if (parseInt(record.number) === parseInt(number)) {
             return record.name;
-        }else{
-            number = "Unknown";
         }
     }
     return number;
 }
 // Function to find name from phone records
 function findNameByNumber(number) {
+    console.log(number);
     for (const record of phoneRecords) {
         if (Array.isArray(record.number)) {
+            console.log(record.number);
             if (record.number.includes(number)) {
                 return record.name;
             }
-        } else if (record.number === number) {
+        } else if (parseInt(record.number) === parseInt(number)) {
             return record.name;
         }
     }
