@@ -1,169 +1,93 @@
 const sessionStorageData = {};
-
-for (let i = 0; i < sessionStorage.length; i++) {
-    const key = sessionStorage.key(i);
+for (let i = 0; i < sessionStorage.length; i++) {                          // Grab every storedData and put it into "sessionStorageData.sheet[indexNR]"
+    const key = sessionStorage.key(i);                                     // Like: sessionStorageData.sheet0.storedData
     const value = sessionStorage.getItem(key);
     const storageKey = `excelSheet${i + 1}`;
-    //sessionStorage.removeItem(storageKey);
-    //console.log(JSON.parse(value));
     const storedData = JSON.parse(value);
     sessionStorageData[`sheet${i}`] = { storedData };
-    //logger.table(storedData);
 }
 
-// logger.table(sessionStorageData.sheet0.storedData);
-// logger.table(sessionStorageData.sheet1.storedData);
-////////////
 
-function isValidExcelFile(file) {
+function isValidExcelFile(file) {                                           // Check if its a Excel file
     const validExtensions = ['xlsx', 'xls'];
     const fileExtension = file.name.split('.').pop();
     return validExtensions.includes(fileExtension.toLowerCase());
-  }
-
-  function processXLSXData(arrayBuffer) {
-    try {
-      const data = new Uint8Array(arrayBuffer);
-      const workbook = XLSX.read(data, { type: 'array' });
-      const sheetNames = workbook.SheetNames;
-      const allSheetsData = [];
-  
-      // Convert each sheet to JSON
-      sheetNames.forEach((sheetName, index) => {
-        const sheetData = XLSX.utils.sheet_to_json(workbook.Sheets[sheetName]);
-        allSheetsData.push({ name: sheetName, data: sheetData });
-      });
-  
-      return allSheetsData; // Array of objects with sheet names and data
-    } catch (error) {
-      showError('Error reading the file. Please check if the file is valid.');
-      logger.warn(error);
-      return null;
-    }
-  }
-  function storeDataInSessionStorage(sheetDataArray) {
-    sheetDataArray.forEach((sheet, index) => {
-      const storageKey = `excelSheet${index + 1}`;
-      sessionStorage.setItem(storageKey, JSON.stringify(sheet.data));
-      const storedData = JSON.parse(sessionStorage.getItem(storageKey));
-      logger.table(`SessionStorage: (${sheet.name}):`, storedData);
-    });
-  }
-  
-
-
-
-
-
-
-
-
-
-
-
-
-///////////  --- WIP  Filter for input 
-function processDataByHeaders(rawData, filterArray) {
-    // Extract headers from the first row of rawData
-    const headers = Object.keys(rawData[0]);
-
-    // Prepare output containers for different filter sets
-    let output1 = [];
-    let output2 = [];
-
-
-    // Helper function to create an empty object based on the filterArray
-    function createEmptyObject() {
-        let emptyObj = {};
-        filterArray.forEach(header => {
-            emptyObj[header] = null;
-        });
-        return emptyObj;
-    }
-
-    // Function to check if all required headers are present in the raw data
-    function checkHeaders(headers, requiredHeaders) {
-        return requiredHeaders.every(header => headers.includes(header));
-    }
-
-    // Filter arrays for different outputs, extendable for future checks
-    const filterSet1 = ['number_from', 'number_to']; // Output1 checks
-    const filterSet2 = ['message', 'timestamp']; // Output2 checks
-    // Add more sets for future filters
-
-    // Loop through the rawData and categorize the data
-    rawData.forEach(row => {
-        // Check for Output1
-        if (checkHeaders(headers, filterSet1)) {
-            output1.push({
-                number_from: row.number_from,
-                number_to: row.number_to,
-            });
-        } else {
-            // If headers are missing, add an empty object
-            output1.push(createEmptyObject());
-        }
-
-        // Check for Output2
-        if (checkHeaders(headers, filterSet2)) {
-            output2.push({
-                message: row.message,
-                timestamp: row.timestamp,
-            });
-        } else {
-            // If headers are missing, add an empty object
-            output2.push(createEmptyObject());
-        }
-
-        // Extend further for more outputs as needed
-        // Check for Output3 (for future filter sets)
-        /*
-        if (--- future check condition --) {
-            output3.push({
-                // Future data handling
-            });
-        
-        } else {
-            output3.push(createEmptyObject());
-        }
-            */
-        
-    });
-
-    // Return the categorized outputs
-    return {
-        output1,
-        output2,
-    };
 }
 
-// Sample rawData 
-/*
-const rawData = [
-    { number_from: 4209479995, number_to: 4200843991, message: 'Test Message 1', timestamp: '2024-08-02T04:51:30.000Z' },
-    { number_from: 4200843991, number_to: 4209479995, message: 'Test Message 2', timestamp: '2024-08-02T04:51:46.000Z' },
-];
-*/
-// Define filterArray
-const filterArray = ['number_from', 'number_to', 'message', 'timestamp'];
+function processXLSXData(arrayBuffer) {                                   // Read the Excel file
+    try {
+        const data = new Uint8Array(arrayBuffer);
+        const workbook = XLSX.read(data, { type: 'array' });
+        const sheetNames = workbook.SheetNames;
+        const allSheetsData = [];
 
-// Call the function and process the data
-const result = processDataByHeaders(rawData, filterArray);
+        sheetNames.forEach((sheetName, index) => {                            // Convert each sheet to JSON
+            const sheetData = XLSX.utils.sheet_to_json(workbook.Sheets[sheetName], { header: 1 });
+            allSheetsData.push({ name: sheetName, data: sheetData });
+        });
 
-// Output the results
-logger.trace('Output 1:', result.output1);
-logger.trace('Output 2:', result.output2);
-logger.trace('Output 3:', result.output3);
+        return allSheetsData;                                                 // Array of objects with sheet names and data
+
+    } catch (error) {
+        showError('Error reading the file. Please check if the file is valid.');
+        logger.warn(error);
+        return null;
+    }
+}
+
+//  Filter: Settings
+const filterPhoneMSG = ['number_from', 'number_to', 'message', 'timestamp'];
+const filterPhoneCALL = ['call_from', 'call_to', 'initiated_at', 'established_at', 'ended_at'];
+const filterBank = ['id', 'comment', 'type', 'direction', 'from_account_id', 'from_civ_name', 'from_account_name', 'to_account_id', 'to_civ_name', 'to_account_name', 'amount', 'date', 'tax_percentage', 'tax_type', 'tax_id'];
+
+function checkHeaders(headers, filter) {                                // Check Header informations
+    return filter.every(header => headers.includes(header));
+}
+
+function outputHeaderType(input) {                                             // Output Sheet Type if its known
+    if (input === null) {
+        return null;
+    } else if (checkHeaders(dataTableHeader, filterPhoneMSG)) {
+        return 'phone_message_sheet'
+    } else if (checkHeaders(dataTableHeader, filterPhoneCALL)) {
+        return 'phone_call_sheet'
+    } else if (checkHeaders(dataTableHeader, filterBank)) {
+        return 'bank_sheet'
+    } else {
+        return showError('One or more sheets inside this file are unknown or currupted!');
+    }
+}
 
 
-/////////////
+
+function modifyExcelData(data) {                                            // Gets the Excelfile
+    data.forEach((excelFile, index) => {
+        dataKey = `${index + 1}`;
+        dataName = excelFile.name
+        dataTable = excelFile.data;
+        dataTableHeader = excelFile.data[0];
+        outputHeaderType(dataTableHeader);
+    });
+
+
+
+    // saveToSessionStorage(excelFile);                                              // Send to storeDataInSessionStorage() for sessionStorage creation
+}
+
+function saveToSessionStorage(sheetDataArray) {                            // Create SessionStorage Data 
+    sheetDataArray.forEach((sheet, index) => {
+        const storageKey = `excelSheet${index + 1}`;
+        sessionStorage.setItem(storageKey, JSON.stringify(sheet.data));
+        const storedData = JSON.parse(sessionStorage.getItem(storageKey));     // Read Data out of SessionStorage
+        logger.table(`SessionStorage: (${sheet.name}):`, storedData);
+    });
+}
 
 
 
 
-
-  ////////////////////////////////////////////// WIP
-  function normalizeBankRecords(worksheet) {
+////////////////////////////////////////////// WIP
+function normalizeBankRecords(worksheet) {
 
     worksheet.eachRow(function (row, rowNumber) {
 

@@ -1,34 +1,28 @@
-function handleSwitch() {
+function handleSwitch() {                                           // Init Events about file upload and redirect > case-switch
   const file = fileInput.files[0];
   const selectedOption = document.getElementById('option-select').value;
 
-  // Reset error message
-  showError('');
-
-  // Check if a file is selected
-  if (!file) {
+  showError('');                                                    // Reset error message
+ 
+  if (!file) {                                                      // Check if a file is selected
     showError('Please select a file.');
     return;
   }
 
-  // Validate the file type
-  if (!isValidExcelFile(file)) {
+  if (!isValidExcelFile(file)) {                                    // Validate the file type against function()
     showError('Invalid file. Please upload an Excel file (.xlsx or .xls).');
     return;
   }
 
-  // Read the file and process it
-  readExcelFile(file);
-
-  // Check selected option
-  if (!selectedOption) {
+  readExcelFile(file);                                              // Read the file and process it
+ 
+  if (!selectedOption) {                                            // Check selected option
     showError('Please select an option from the dropdown menu.');
     return;
   }
 
-  // Switch for redirect
-  switch (selectedOption) {
-    case '0': // GO-TO: Phonerecords
+  switch (selectedOption) {                                          // Switch for redirect
+    case '0': 
       window.location.href = 'phone.html';
       break;
     case '1337':
@@ -41,36 +35,22 @@ function handleSwitch() {
   }
 }
 
-function readExcelFile(file) {
+function readExcelFile(file) {                                        // Read Excel file
   const reader = new FileReader();
-
   reader.onload = function (event) {
     const sheetDataArray = processXLSXData(event.target.result);
     if (sheetDataArray) {
-      storeDataInSessionStorage(sheetDataArray);
+      modifyExcelData(sheetDataArray);                                // Create SessionStorage Data  -- function()
     }
   };
-
-  // Read file as ArrayBuffer
-  reader.readAsArrayBuffer(file);
+  reader.readAsArrayBuffer(file);                                     // Read file as ArrayBuffer
 }
 
-
-
-const fileInput = document.getElementById('file-input');
+const fileInput = document.getElementById('file-input');              // File Upload Grabber -- START
 const dropZone = document.getElementById('drop-zone');
 const errorMessage = document.getElementById('error-message');
 const errorContainer = document.getElementById('dropboxContainer');
 const uploadForm = document.getElementById('upload-form');
-
-
-
-// check what the file is
-function isValidExcelFile(file) {
-  const validExtensions = ['.xlsx', '.xls'];
-  const fileExtension = file.name.slice(file.name.lastIndexOf('.'));
-  return validExtensions.includes(fileExtension);
-}
 
 dropZone.addEventListener('click', () => fileInput.click());
 
@@ -91,14 +71,14 @@ dropZone.addEventListener('drop', (event) => {
     fileInput.files = files;
     handleSwitch();
   }
-});
+});                                                                   
+
 uploadForm.addEventListener('submit', function (event) {
   event.preventDefault();
   handleSwitch();
-});
+});                                                                     // File Upload Grabber -- END
 
-
-if(loggerConfig.doDEVMODE){
+if(loggerConfig.doDEVMODE){                                             // Create special select-points if devmode === true
   const selectPicker = document.getElementById('option-select');
   const addOption2 = document.createElement("option");
   const addOption3 = document.createElement("option");
