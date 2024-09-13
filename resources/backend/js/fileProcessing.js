@@ -75,7 +75,7 @@ function modifyExcelData(data) {                                                
             normalizeSessionSave(normalizeDate, count);
         };
         if (getHeaderType === "phone_call_sheet") {
-            const normalizeDate = normalizeTexts(excelFile);
+            const normalizeDate = normalizePhonecalls(excelFile);
             normalizeSessionSave(normalizeDate, count);
         };
     });
