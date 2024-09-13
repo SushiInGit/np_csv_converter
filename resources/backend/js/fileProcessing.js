@@ -104,9 +104,8 @@ function normalizeTexts(dataArray) {
         To: 0,             // 1 "number_to"
         Message: "",       // 2 "message"
         Timestamp: "",     // 3 "timestamp"
-        IsCall: false,     // Boolean [false = Message, true = Call]
-        CallStart: null,   // Initially null/empty
-        CallEnd: null      // Initially null/empty
+        IsCall: false      // Boolean [false = Message, true = Call]
+
     }
     try {
         dataArray.forEach(function (row, rowNumber) {
@@ -160,9 +159,8 @@ function normalizePhonecalls(dataArray) {
         To: 0,             // 1 "call_to"
         Message: null,     // Initially null/empty
         Timestamp: "",     // 2 "initiated_at"
-        IsCall: true,      // Boolean [false = Message, true = Call]
-        CallStart: "",     // 3 "established_at"
-        CallEnd: ""        // 4 "ended_at"
+        IsCall: true       // Boolean [false = Message, true = Call]
+
     }
     try {
         dataArray.forEach(function (row, rowNumber) {
