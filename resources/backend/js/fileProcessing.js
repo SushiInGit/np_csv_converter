@@ -2,7 +2,7 @@ const sessionStorageData = {};
 for (let i = 0; i < sessionStorage.length; i++) {                          // Grab every storedData and put it into "sessionStorageData.sheet[indexNR]"
     const key = sessionStorage.key(i);                                     // Like: sessionStorageData.sheet0.storedData
     const value = sessionStorage.getItem(key);
-    const storageKey = `excelSheet${i + 1}`;
+    //const storageKey = `excelSheet${i + 1}`;
     const storedData = JSON.parse(value);
     sessionStorageData[`sheet${i}`] = { storedData };
 }

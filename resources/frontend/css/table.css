@@ -358,6 +358,7 @@ footer {
 
 .search-container {
     display: flex;
+    color: #e0e0e0;
     align-items: center;
     border-radius: 50px;
     padding: 10px 20px;
@@ -365,7 +366,7 @@ footer {
     border: 1px solid #7f6795ad;
     box-shadow: 0 0 15px 5px rgba(212, 165, 255, 0.2);
     background-color: #222;
-    width: 80%;
+    width: calc(100% - 50px);;
 
     input[type="text"] {
         background: transparent;
