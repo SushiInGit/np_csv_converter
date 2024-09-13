@@ -236,8 +236,6 @@ function findNameByNumberUnknown(number) {
             }
         } else if (record.number === number) {
             return record.name;
-        }else{
-            number = "Unknown";
         }
     }
     return number;
