@@ -71,10 +71,12 @@ function modifyExcelData(data) {                                                
         getHeaderType = outputHeaderType(dataTableHeader);
 
         if (getHeaderType === "phone_message_sheet") {
-            normalizeSessionSave(excelFile, count);
+            const normalizeDate = normalizeTexts(excelFile);
+            normalizeSessionSave(normalizeDate, count);
         };
         if (getHeaderType === "phone_call_sheet") {
-            normalizeSessionSave(excelFile, count);
+            const normalizeDate = normalizeTexts(excelFile);
+            normalizeSessionSave(normalizeDate, count);
         };
     });
 }
