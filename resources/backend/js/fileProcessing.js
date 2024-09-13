@@ -7,7 +7,6 @@ for (let i = 0; i < sessionStorage.length; i++) {                          // Gr
     sessionStorageData[`sheet${i}`] = { storedData };
 }
 
-
 function isValidExcelFile(file) {                                           // Check if its a Excel file
     const validExtensions = ['xlsx', 'xls'];
     const fileExtension = file.name.split('.').pop();
@@ -18,7 +17,6 @@ function isValidISODateCheck(dateString) {
     const isoDateRegex = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d{3})?Z$/;
     return isoDateRegex.test(dateString);
 }
-
 
 function processXLSXData(arrayBuffer) {                                   // Read the Excel file
     try {
@@ -46,7 +44,7 @@ const filterPhoneMSG = ['number_from', 'number_to', 'message', 'timestamp'];
 const filterPhoneCALL = ['call_from', 'call_to', 'initiated_at', 'established_at', 'ended_at'];
 const filterBank = ['id', 'comment', 'type', 'direction', 'from_account_id', 'from_civ_name', 'from_account_name', 'to_account_id', 'to_civ_name', 'to_account_name', 'amount', 'date', 'tax_percentage', 'tax_type', 'tax_id'];
 
-function checkHeaders(headers, filter) {                                // Check Header informations
+function checkHeaders(headers, filter) {                                      // Check Header informations
     return filter.every(header => headers.includes(header));
 }
 
@@ -64,49 +62,50 @@ function outputHeaderType(input) {                                             /
     }
 }
 
-function modifyExcelData(data) {                                            // Gets the Excelfile
+function modifyExcelData(data) {                                                 // Gets the Excelfile
+    let count = 0;
     data.forEach((excelFile) => {
+        count++;
         dataTable = excelFile.data;
         dataTableHeader = excelFile.data[0];
         getHeaderType = outputHeaderType(dataTableHeader);
 
         if (getHeaderType === "phone_message_sheet") {
-           console.table(normalizeTexts(dataTable));
+            normalizeSessionSave(excelFile, count);
         };
         if (getHeaderType === "phone_call_sheet") {
-            console.table(normalizePhonecalls(dataTable));
+            normalizeSessionSave(excelFile, count);
         };
     });
-
-
-
-    // saveToSessionStorage(excelFile);                                              // Send to storeDataInSessionStorage() for sessionStorage creation
 }
 
-function saveToSessionStorage(sheetDataArray) {                            // Create SessionStorage Data 
+function normalizeSessionSave(sheet, index) {                                       // Create SessionStorage Data 
+        const storageKey = sheet.name + index;
+        sessionStorage.setItem(storageKey, JSON.stringify(sheet.data));
+        const storedData = JSON.parse(sessionStorage.getItem(storageKey));           // Read Data out of SessionStorage
+        logger.table(`SessionStorage: ${storageKey}\n \nSheet-Name: ${sheet.name}`, storedData);
+}
+
+function saveToSessionStorage(sheetDataArray) {                                       // Create SessionStorage Data 
     sheetDataArray.forEach((sheet, index) => {
         const storageKey = `excelSheet${index + 1}`;
         sessionStorage.setItem(storageKey, JSON.stringify(sheet.data));
-        const storedData = JSON.parse(sessionStorage.getItem(storageKey));     // Read Data out of SessionStorage
+        const storedData = JSON.parse(sessionStorage.getItem(storageKey));             // Read Data out of SessionStorage
         logger.table(`SessionStorage: (${sheet.name}):`, storedData);
     });
 }
 
-
-//////////////////////////
-
 function normalizeTexts(dataArray) {
     var messageRecordsArray = [];
     var defaultMessageRecordLine = {
-        phoneFrom: 0,           // 0 "number_from"
-        phoneTo: 0,             // 1 "number_to"
-        phoneMessage: "",       // 2 "message"
-        phoneTimestamp: "",     // 3 "timestamp"
-        isCall: false,          // 4 Boolean [false = Message, true = Call]
-        phoneCallStart: null,   // 5 Initially null/empty
-        phoneCallEnd: null      // 6 Initially null/empty
+        From: 0,           // 0 "number_from"
+        To: 0,             // 1 "number_to"
+        Message: "",       // 2 "message"
+        Timestamp: "",     // 3 "timestamp"
+        IsCall: false,     // Boolean [false = Message, true = Call]
+        CallStart: null,   // Initially null/empty
+        CallEnd: null      // Initially null/empty
     }
-
     try {
         dataArray.forEach(function (row, rowNumber) {
             if (rowNumber > 0) { // Skipping header row
@@ -115,11 +114,11 @@ function normalizeTexts(dataArray) {
 
                 Object.values(row).forEach(function (value, index) {
                     if (columnTracker == 0) {
-                        messageRecordLine.phoneFrom = value;
+                        messageRecordLine.From = value;
                         columnTracker++;
                     }
                     else if (columnTracker == 1) {
-                        messageRecordLine.phoneTo = value;
+                        messageRecordLine.To = value;
                         columnTracker++;
                     }
                     else if (columnTracker >= 2) {
@@ -127,17 +126,17 @@ function normalizeTexts(dataArray) {
                             if (typeof value === 'object' && value !== null) {
                                 value = value.text;
                             }
-                            if (messageRecordLine.phoneMessage === "") {
-                                messageRecordLine.phoneMessage += `${value}`;
+                            if (messageRecordLine.Message === "") {
+                                messageRecordLine.Message += `${value}`;
                             }
                             else {
-                                messageRecordLine.phoneMessage += `  ${value}`;
+                                messageRecordLine.Message += `  ${value}`;
                             }
                         }
                         else {
 
-                            messageRecordLine.phoneTimestamp = new Date(value).toISOString();
-                            messageRecordLine.phoneMessage = messageRecordLine.phoneMessage.trim();
+                            messageRecordLine.Timestamp = new Date(value).toISOString();
+                            messageRecordLine.Message = messageRecordLine.Message.trim();
                             messageRecordsArray.push(messageRecordLine);
                             messageRecordLine = { ...defaultMessageRecordLine };
                             columnTracker = 0;
@@ -155,13 +154,13 @@ function normalizeTexts(dataArray) {
 function normalizePhonecalls(dataArray) {
     var phonecallRecordsArray = [];
     var defaultPhonecallRecordLine = {
-        phoneFrom: 0,           // 0 "call_from"
-        phoneTo: 0,             // 1 "call_to"
-        phoneMessage: null,     // 2 "----------"
-        phoneTimestamp: "",     // 3 "initiated_at"
-        isCall: true,           // 4 Boolean [false = Message, true = Call]
-        phoneCallStart: "",     // 5 "established_at"
-        phoneCallEnd: ""        // 6 "ended_at"
+        From: 0,           // 0 "call_from"
+        To: 0,             // 1 "call_to"
+        Message: null,     // Initially null/empty
+        Timestamp: "",     // 2 "initiated_at"
+        IsCall: true,      // Boolean [false = Message, true = Call]
+        CallStart: "",     // 3 "established_at"
+        CallEnd: ""        // 4 "ended_at"
     }
     try {
         dataArray.forEach(function (row, rowNumber) {
@@ -170,23 +169,23 @@ function normalizePhonecalls(dataArray) {
                 var phonecallRecordLine = { ...defaultPhonecallRecordLine };
                 Object.values(row).forEach(function (value, index) {
                     if (columnTracker == 0) {
-                        phonecallRecordLine.phoneFrom = value;
+                        phonecallRecordLine.From = value;
                         columnTracker++;
                     }
                     else if (columnTracker == 1) {
-                        phonecallRecordLine.phoneTo = value;
+                        phonecallRecordLine.To = value;
                         columnTracker++;
                     }
                     else if (columnTracker == 2) {
-                        phonecallRecordLine.phoneTimestamp = value;
+                        phonecallRecordLine.Timestamp = value;
                         columnTracker++;
                     }
                     else if (columnTracker == 3) {
-                        phonecallRecordLine.phoneCallStart = value;
+                        phonecallRecordLine.CallStart = value;
                         columnTracker++;
                     }
                     else if (columnTracker == 4) {
-                        phonecallRecordLine.phoneCallEnd = value;
+                        phonecallRecordLine.CallEnd = value;
                         phonecallRecordsArray.push(phonecallRecordLine);
                         phonecallRecordLine = { ...defaultPhonecallRecordLine }
                         columnTracker = 0;
