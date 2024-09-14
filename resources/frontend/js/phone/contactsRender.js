@@ -8,26 +8,3 @@ function openPhonebook() {
 }
 
 
-// Function to render the list of conversations
-function renderPhonebook(records) {
-    const phonebookList = document.getElementById('phonebook-list');
-    phonebookList.innerHTML = '';
-    const sortPhoneRecord = sortPhoneRecords(records);
-    const duplicates = findDuplicates(records);
-
-    contactList.forEach((phonelist, index) => {
-        const phonebooklist = document.createElement('div');
-        phonebooklist.classList.add('phonebook-list-item');
-
-        if (duplicates.includes(index)) {
-            phonebooklist.classList.add('duplicate');
-        }
-
-        phonebooklist.innerHTML = `
-            <div class="phonebook-info">
-                <div class="name">${(phonelist.name)} <br> ${(phonelist.number)}</div>
-            </div>
-        `;
-        phonebookList.appendChild(phonebooklist);
-    });
-}

@@ -1,4 +1,28 @@
+// Function to calculate the difference between two ISO timestamps
+function calculateCallDuration(start, end) {
+    const startTime = new Date(start);
+    const endTime = new Date(end);
+    const diffMs = endTime - startTime;
 
+    // Convert milliseconds into minutes and seconds
+    const minutes = Math.floor(diffMs / 60000);
+    const seconds = ((diffMs % 60000) / 1000).toFixed(0);
+
+    return `${minutes} min ${seconds} sec`;
+}
+// Funktion logsPhonebookCheck -- Find telefone-numbers in messages
+function logsPhonebookCheck(message) {
+    output = `<br><hr><br><b>Found Number(s) in Text</b><ul>`;
+    // RegEx to find numbers Format: 4201234567,  (420)2345678, (420) 3456789, (420) 456 7890, (420) 5678 901)
+    const phoneRegex = /\(?420\)?\s?\d{3}\s?\d?\s?\s?\d?\s?\d{3}/g;
+    found = message.replace(phoneRegex, match => {
+        const found = match.replace(/\D/g, '');
+        getNumber = parseInt(found);
+        output += `<li> **${(getNumber)}** ( ${findNameByNumber(getNumber)} )</li>`;
+    });
+    output += `</ul><br><hr>`;
+    return output;
+}
 
 function showLogs(index, From, conversations) {  // All Data comes from renderConversations()
     //console.log(From);                         // Number thats not the simOwner
@@ -100,7 +124,15 @@ function showLogs(index, From, conversations) {  // All Data comes from renderCo
             messageDiv.classList.add(historyLog.From === simOwner.Number ? 'from' : 'to');
 
             const textDiv = document.createElement('div');
-            textDiv.textContent = historyLog.Message;
+            textDiv.classList.add('text');
+            textDiv.innerHTML = historyLog.Message;
+
+           
+            const phonebookDiv = document.createElement('div');
+            phonebookDiv.classList.add('phonebook');
+            /*        WIP NUMBER CHECK
+            phonebookDiv.innerHTML = `${(logsPhonebookCheck(historyLog.Message))}`;
+            */
 
             const timestampDiv = document.createElement('div');
             fixedDate = processTimestamp(historyLog.Timestamp);
@@ -116,6 +148,7 @@ function showLogs(index, From, conversations) {  // All Data comes from renderCo
 
             messageDiv.appendChild(numberDiv);
             messageDiv.appendChild(textDiv);
+            messageDiv.appendChild(phonebookDiv);
             messageDiv.appendChild(timestampDiv);
             chatBox.appendChild(messageDiv);
         } /// End else of if (historyLog.IsCall) {}

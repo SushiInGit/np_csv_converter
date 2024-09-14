@@ -233,6 +233,23 @@ body {
     +.message {
         margin-top: 0px;
     }
+    .phonebook {
+        font-style: italic;
+        font-size: 0.8em;
+        margin-top: 15px;
+        color:#c498e9;
+        opacity: 0.8;
+    }
+    b{
+        color:#c498e9;
+        font-weight: 900;
+        font-size: 1em;
+        
+    }
+    hr{
+        border: 0.7px dashed rgb(161, 110, 177);
+        opacity: 0.5;
+    }
 }
 
 .message.to {

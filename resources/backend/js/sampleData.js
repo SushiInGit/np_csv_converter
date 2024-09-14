@@ -64,12 +64,12 @@ const contactList = [     // {number: int, Name: string}
 
 
 const conversationData = [   // { From: int, To: int, Message: string, Timestamp: string, IsCall: Boolean, CallStart: string, CallEnd: string },
-  { From: 4209479995, To: 4201843991, Message: "Dont give up on me future ex wifey. been busy. hope your doing well", Timestamp: '2024-08-10T06:42:27.576Z', IsCall: false, CallStart: null, CallEnd: null },
+  { From: 4209479995, To: 4201843991, Message: "Dont give up on me future ex wifey. been busy. 4200843991 (420)2801082 hope your doing well", Timestamp: '2024-08-10T06:42:27.576Z', IsCall: false, CallStart: null, CallEnd: null },
   { From: 4209479995, To: 4202801082, Message: null, Timestamp: '2024-08-31T21:58:18.519Z', IsCall: true, CallStart: '2024-08-17T19:15:14.331Z', CallEnd: '2024-08-17T19:15:20.872Z' },
   { From: 4209479995, To: 4202801082, Message: null, Timestamp: '2024-08-31T22:08:56.173Z', IsCall: true, CallStart: null, CallEnd: null },
   { From: 4200290425, To: 4209466995, Message: null, Timestamp: '2024-08-31T22:10:01.536Z', IsCall: true, CallStart: '2024-09-01T19:15:18.597Z', CallEnd: '2024-09-01T19:15:29.266Z' },
   { From: 4209479995, To: 4200290425, Message: null, Timestamp: '2024-08-31T22:13:49.835Z', IsCall: true, CallStart: null, CallEnd: null },
-  { From: 4209479995, To: 4200843991, Message: "Dont give up on me future ex wifey. been busy. hope your doing well", Timestamp: '2024-08-10T06:42:27.576Z', IsCall: false, CallStart: null, CallEnd: null },
+  { From: 4209479995, To: 4200843991, Message: "Dont give up on me (420)0290425 future ex wifey. been busy. hope your doing well", Timestamp: '2024-08-10T06:42:27.576Z', IsCall: false, CallStart: null, CallEnd: null },
   { From: 4200843951, To: 4209479995, Message: "aww HELLO I've been very busy too", Timestamp: '2024-02-10T10:01:00.136Z', IsCall: false, CallStart: null, CallEnd: null },
   { From: 4200843991, To: 4209479995, Message: "how have you been?", Timestamp: '2024-02-11T17:08:42.933Z', IsCall: false, CallStart: null, CallEnd: null },
   { From: 4209479995, To: 4202801082, Message: null, Timestamp: '2024-02-31T21:58:18.519Z', IsCall: true, CallStart: '2024-08-17T19:15:14.331Z', CallEnd: '2024-08-17T19:15:20.872Z' },

@@ -1,3 +1,17 @@
+// Function to find name from phone records
+function findNameByNumber(number) {
+    for (const record of contactList) {
+        if (Array.isArray(record.number)) {
+            if (record.number.includes(number)) {
+                return record.name;
+            }
+        } else if (record.number === number) {
+            return record.name;
+        }
+    }
+    return number;
+}
+
 // Function to render the list of conversations
 function renderConversations(data) {
     const headerconversationList = document.getElementById('header-sidebar');
@@ -11,7 +25,7 @@ function renderConversations(data) {
         if (conversation.From === simOwner.Number || conversation.To === simOwner.Number) {
             link.innerHTML = `
             <div class="chat-info">
-                <div class="name">${findNameByNumberUnknown(conversation.To)}</div>
+                <div class="name">${findNameByNumber(conversation.To)}</div>
                 <div class="message-preview">${conversation.To}</div>
             </div>
             <div class="time">✉️ Message: ${(findConversationInformation(conversation.communications).messageCount)}<br />
