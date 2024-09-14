@@ -152,6 +152,6 @@ const resultsNormalizedMessages = normalizeMessages(rawData, simOwner.Number);
 
 
 // Initialize the conversation & phonebook list on page load
-renderConversations(conversationData);
+renderConversations(groupedCommunications);
 //renderPhonebook(sortPhoneRecords(contactList.number));
 renderPhonebook(contactList);

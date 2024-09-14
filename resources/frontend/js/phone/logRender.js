@@ -1,48 +1,34 @@
-// Function to display a selected conversation
-function showConversation(index) {
+
+
+function showLogs(index, From, conversations) {  // All Data comes from renderConversations()
+    //console.log(From);                         // Number thats not the simOwner
+    //console.log(conversations.communications); // Array of Data 
+
     const chatBox = document.getElementById('chat-box');
     const header = document.getElementById('chat-header');
-    const conversation = chatData[index];
-    console.log("showConversaton: ",conversation, chatData);
+
+    conversation = conversations.communications;
     let lastDate = null;
-    /// That Main Number is always on top
-    const showConvMainnr = parseInt(simOwner.Number);
-    const showConvFrom = parseInt(conversation.conversation[0]);
-    const showConvTo = parseInt(conversation.conversation[1]);
 
-    if (showConvMainnr === showConvFrom) {
-        if (isNaN(findNameByNumber(conversation.conversation[0]))) {
-            header.querySelector('.name').textContent = `${findNameByNumber(conversation.conversation[0])} ( ${(showConvFrom)} )`;
-        } else {
-            header.querySelector('.name').textContent = `Unkown ( ${(showConvFrom)} )`;
-        }
-
-        if (isNaN(findNameByNumber(conversation.conversation[1]))) {
-            header.querySelector('.status').textContent = `Chat to ${findNameByNumber(conversation.conversation[1])} ( ${(showConvTo)} )`;
-        } else {
-            header.querySelector('.status').textContent = `Chat to Unkown ( ${findNameByNumber(showConvTo)} )`;
-        }
+    if (isNaN(findNameByNumber(From))) {
+        header.querySelector('.name').textContent = `${findNameByNumber(From)} ( ${(From)} )`;
     } else {
-        ////////// Revers From <> To to fix the display 
-        if (isNaN(findNameByNumber(conversation.conversation[1]))) {
-            header.querySelector('.name').textContent = `${findNameByNumber(conversation.conversation[1])} ( ${(showConvTo)} )`;
-        } else {
-            header.querySelector('.name').textContent = `Unkown ( ${(showConvTo)} )`;
-        }
-
-        if (isNaN(findNameByNumber(conversation.conversation[0]))) {
-            header.querySelector('.status').textContent = `Chat to ${findNameByNumber(conversation.conversation[0])} ( ${(showConvFrom)} )`;
-        } else {
-            header.querySelector('.status').textContent = `Chat to Unkown ( ${findNameByNumber(showConvFrom)} )`;
-        }
-
+        header.querySelector('.name').textContent = `Unkown ( ${(From)} )`;
     }
-
+    if (isNaN(findNameByNumber(simOwner.Number))) {
+        header.querySelector('.status').textContent = `Chat to ${findNameByNumber(simOwner.Number)} ( ${(simOwner.Number)} )`;
+    } else {
+        header.querySelector('.status').textContent = `Chat to Unkown ( ${findNameByNumber(simOwner.Number)} )`;
+    }
     chatBox.innerHTML = '';  // Clear previous messages
-    conversation.messages.forEach(chat => {
-        const currentDate = processTimestamp(chat.timestamp).date;
+
+    const conversationSorted = conversation.sort((a, b) => new Date(a.Timestamp) - new Date(b.Timestamp)); // Make sure the Object is sorted by Timestemp - 99.9999% will never be a problem
+
+    // Create Output data for History
+    conversationSorted.forEach(historyLog => {
 
         // Check if a new day has begun and add a date marker
+        const currentDate = processTimestamp(historyLog.Timestamp).date;
         if (lastDate !== currentDate) {
             const dateMarker = document.createElement('div');
             dateMarker.classList.add('date-marker');
@@ -50,8 +36,9 @@ function showConversation(index) {
             chatBox.appendChild(dateMarker);
             lastDate = currentDate;
         }
+
         // Check if the message contains a call marker
-        if (chat.message === '[-=-=-=-!!CALL!!-=-=-=-]') {
+        if (historyLog.IsCall) {
             const callMessageContainer = document.createElement('div');
             const callText = document.createElement('div');
             const callIndicator = document.createElement('div');
@@ -62,21 +49,22 @@ function showConversation(index) {
             callIndicator.classList.add('callindicator');
             callText.classList.add('call-message-container');
 
-            const callDuration = calculateCallDuration(chat.established_at, chat.ended_at);
-            const fixedDate = processTimestamp(chat.timestamp);
-            if (chat.established_at != "null") {
+            const callDuration = calculateCallDuration(historyLog.CallStart, historyLog.CallEnd);
+            const fixedDate = processTimestamp(historyLog.timestamp);
+
+            if (historyLog.CallStart != null) {
                 callDurationContainer.textContent = `Call duration: ${callDuration}`;
                 callDurationContainer.classList.add('call-status');
                 callTimeContainer.textContent = `${fixedDate.time} ${fixedDate.timeZone}`;
                 callTimeContainer.classList.add('time');
 
-                if (parseInt(simOwner.Number) === parseInt(chat.from)) {
-                   // callBetween.textContent = `Incomming call: ${chat.to}`;
-                   callBetween.textContent = `Incomming call`;
+                if (parseInt(simOwner.Number) === parseInt(historyLog.From)) {
+                    // callBetween.textContent = `Incomming call: ${historyLog.to}`;
+                    callBetween.textContent = `Incomming call`;
                     callIndicator.classList.add('callIn');
                     callIndicator.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="50px" height="50px" viewBox="0 0 24 24" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M17.3545 22.2323C15.3344 21.7262 11.1989 20.2994 7.44979 16.5502C3.70068 12.8011 2.27383 8.66562 1.76771 6.64553C1.47684 5.48462 2.00061 4.36437 2.88872 3.73L5.21698 2.06697C6.57925 1.09391 8.47435 1.4241 9.42727 2.80054L10.8931 4.9178C11.5153 5.81654 11.3006 7.04833 10.4112 7.68369L9.24237 8.51853C9.41926 9.19513 9.96942 10.5846 11.6924 12.3076C13.4154 14.0306 14.8049 14.5808 15.4815 14.7577L16.3164 13.5889C16.9517 12.6994 18.1835 12.4848 19.0822 13.107L21.1995 14.5728C22.5759 15.5257 22.9061 17.4208 21.9331 18.7831L20.27 21.1113C19.6357 21.9994 18.5154 22.5232 17.3545 22.2323ZM8.864 15.136C12.2734 18.5454 16.0358 19.8401 17.8406 20.2923C18.1044 20.3584 18.4233 20.2559 18.6426 19.9488L20.3056 17.6206C20.63 17.1665 20.5199 16.5348 20.0611 16.2172L17.9438 14.7514L17.0479 16.0056C16.6818 16.5182 16.0047 16.9202 15.2163 16.7501C14.2323 16.5378 12.4133 15.8569 10.2782 13.7218C8.14313 11.5867 7.46222 9.76773 7.24991 8.78373C7.0798 7.99534 7.48184 7.31824 7.99442 6.95212L9.24868 6.05622L7.78288 3.93896C7.46524 3.48014 6.83354 3.37008 6.37945 3.69443L4.0512 5.35747C3.74416 5.57678 3.64165 5.89568 3.70774 6.15946C4.15992 7.96421 5.45462 11.7267 8.864 15.136Z" fill="#0F0F0F"/><path d="M18.4142 6.99997H21C21.5523 6.99997 22 7.44769 22 7.99997C22 8.55226 21.5523 8.99997 21 8.99997H17C15.8954 8.99997 15 8.10454 15 6.99997V2.99997C15 2.44769 15.4477 1.99997 16 1.99997C16.5523 1.99997 17 2.44769 17 2.99997V5.58574L21.2552 1.33055C21.6457 0.940028 22.2789 0.940027 22.6694 1.33055C23.0599 1.72108 23.0599 2.35424 22.6694 2.74477L18.4142 6.99997Z" fill="#0F0F0F"/></svg>`;
                 } else {
-                    // callBetween.textContent = `Outgoing call: ${chat.from}`;
+                    // callBetween.textContent = `Outgoing call: ${historyLog.from}`;
                     callBetween.textContent = `Outgoing call`;
                     callIndicator.classList.add('callOut');
                     callIndicator.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="50px" height="50px" viewBox="0 0 24 24" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M17.3545 22.2324C15.3344 21.7262 11.1989 20.2994 7.44979 16.5503C3.70068 12.8012 2.27383 8.66565 1.76771 6.64556C1.47684 5.48465 2.00061 4.3644 2.88872 3.73003L5.21698 2.067C6.57925 1.09394 8.47435 1.42413 9.42727 2.80057L10.8931 4.91783C11.5153 5.81657 11.3006 7.04836 10.4112 7.68371L9.24237 8.51856C9.41926 9.19516 9.96942 10.5846 11.6924 12.3076C13.4154 14.0306 14.8049 14.5808 15.4815 14.7577L16.3164 13.5889C16.9517 12.6994 18.1835 12.4848 19.0822 13.107L21.1995 14.5728C22.5759 15.5257 22.9061 17.4208 21.9331 18.7831L20.27 21.1113C19.6357 21.9995 18.5154 22.5232 17.3545 22.2324ZM8.864 15.1361C12.2734 18.5454 16.0358 19.8401 17.8406 20.2923C18.1044 20.3584 18.4233 20.2559 18.6426 19.9489L20.3056 17.6206C20.63 17.1665 20.5199 16.5348 20.0611 16.2172L17.9438 14.7514L17.0479 16.0056C16.6818 16.5182 16.0047 16.9203 15.2163 16.7502C14.2323 16.5378 12.4133 15.8569 10.2782 13.7218C8.14313 11.5868 7.46222 9.76776 7.24991 8.78376C7.0798 7.99537 7.48184 7.31827 7.99442 6.95215L9.24868 6.05625L7.78288 3.93899C7.46524 3.48017 6.83354 3.37011 6.37945 3.69446L4.0512 5.3575C3.74416 5.57681 3.64165 5.89571 3.70774 6.15949C4.15992 7.96424 5.45462 11.7267 8.864 15.1361Z" fill="#0F0F0F"/><path d="M23 7C23 7.55228 22.5523 8 22 8C21.4477 8 21 7.55228 21 7V4.41421L16.7216 8.69265C16.331 9.08318 15.6979 9.08317 15.3073 8.69265C14.9168 8.30213 14.9168 7.66896 15.3073 7.27844L19.5858 3L17 3C16.4477 3 16 2.55228 16 2C16 1.44772 16.4477 1 17 1L21 1C22.1046 1 23 1.89543 23 3V7Z" fill="#0F0F0F"/></svg>`;
@@ -84,12 +72,13 @@ function showConversation(index) {
                 // Need to make from to trigger
                 callBetween.classList.add('numbers');
             }
-            if (chat.established_at === "null") {
+
+            if (historyLog.CallStart === null) {
                 callDurationContainer.textContent = `Call could not be established!`;
                 callDurationContainer.classList.add('call-status');
                 callTimeContainer.textContent = `${fixedDate.time} ${fixedDate.timeZone}`;
                 callTimeContainer.classList.add('time');
-                if (parseInt(simOwner.Number) === parseInt(chat.from)) {
+                if (parseInt(simOwner.Number) === parseInt(historyLog.From)) {
                     callBetween.textContent = `Incomming call`;
                 } else {
                     callBetween.textContent = `Outgoing call`;
@@ -105,36 +94,32 @@ function showConversation(index) {
             callText.appendChild(callIndicator);
             callText.appendChild(callMessageContainer);
             chatBox.appendChild(callText);
-
         } else {
-
             const messageDiv = document.createElement('div');
             messageDiv.classList.add('message');
-            messageDiv.classList.add(chat.from === conversation.conversation[0] ? 'from' : 'to');
+            messageDiv.classList.add(historyLog.From === simOwner.Number ? 'from' : 'to');
 
             const textDiv = document.createElement('div');
-            textDiv.textContent = chat.message;
+            textDiv.textContent = historyLog.Message;
 
             const timestampDiv = document.createElement('div');
-            fixedDate = processTimestamp(chat.timestamp);
+            fixedDate = processTimestamp(historyLog.Timestamp);
             timestampDiv.classList.add('timestamp');
             timestampDiv.textContent = `${fixedDate.time} ${fixedDate.timeZone}`;
 
             const numberDiv = document.createElement('div');
             numberDiv.classList.add('number');
-            numberDiv.classList.add(chat.from === conversation.conversation[0] ? 'from' : 'to');
-            //numberDiv.classList.add('from');  📞✉️
-            numberDiv.textContent += (chat.from === conversation.conversation[0] ? '✉️ from' : '✉️ from');
+            numberDiv.classList.add(historyLog.From === simOwner.Number ? 'from' : 'to');
+            numberDiv.textContent += (historyLog.From === simOwner.Number ? '✉️ from' : '✉️ from');
             numberDiv.textContent += "\n";
-            numberDiv.textContent += (findNameByNumber(chat.from));
-
+            numberDiv.textContent += (findNameByNumber(historyLog.From));
 
             messageDiv.appendChild(numberDiv);
-
             messageDiv.appendChild(textDiv);
             messageDiv.appendChild(timestampDiv);
-
             chatBox.appendChild(messageDiv);
-        }
+        } /// End else of if (historyLog.IsCall) {}
     });
+
+
 }

@@ -1,5 +1,3 @@
-
-
 function findMostFrequentNumber(messages) {                         // Get Main used Number (hint how is the owner)
     const numberCount = {}
     messages.forEach(msg => {
@@ -17,7 +15,6 @@ function findMostFrequentNumber(messages) {                         // Get Main 
     return { Number, count: maxCount };
 }
 const simOwner = findMostFrequentNumber(conversationData);
-// logger.log(simOwner);
 
 function findConversationInformation(messages) {                        // Gives Infos based on the input
     const IsCall = messages.filter(entry => entry.IsCall === true).length;
@@ -26,4 +23,4 @@ function findConversationInformation(messages) {                        // Gives
     return {callCount: IsCall, messageCount: IsNotCall, everythingCount: OverallCount};
 }
 const conversationInfo = findConversationInformation(conversationData);
-// logger.log(conversationInfo.everythingCount);
+

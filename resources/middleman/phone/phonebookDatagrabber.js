@@ -177,4 +177,3 @@ function isValidISODate(dateString) {
 // const groupedConversations = groupConversations(conversationData); <<<<<<<<<< need to build a new filter
 // const chatData = groupedConversations;
 
-const chatData = conversationData;
