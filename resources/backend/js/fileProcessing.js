@@ -2,6 +2,7 @@ const sessionStorageData = {};
 for (let i = 0; i < sessionStorage.length; i++) {                          // Grab every storedData and put it into "sessionStorageData.sheet[indexNR]"
     const key = sessionStorage.key(i);                                     // Like: sessionStorageData.sheet0.storedData
     const value = sessionStorage.getItem(key);
+    console.log(value);
     //const storageKey = `excelSheet${i + 1}`;
     const storedData = JSON.parse(value);
     sessionStorageData[`sheet${i}`] = { storedData };
@@ -39,16 +40,17 @@ function processXLSXData(arrayBuffer) {                                   // Rea
     }
 }
 
-//  Filter: Settings
-const filterPhoneMSG = ['number_from', 'number_to', 'message', 'timestamp'];
-const filterPhoneCALL = ['call_from', 'call_to', 'initiated_at', 'established_at', 'ended_at'];
-const filterBank = ['id', 'comment', 'type', 'direction', 'from_account_id', 'from_civ_name', 'from_account_name', 'to_account_id', 'to_civ_name', 'to_account_name', 'amount', 'date', 'tax_percentage', 'tax_type', 'tax_id'];
 
 function checkHeaders(headers, filter) {                                      // Check Header informations
     return filter.every(header => headers.includes(header));
 }
 
 function outputHeaderType(input) {                                             // Output Sheet Type if its known
+    //  Filter: Settings
+    const filterPhoneMSG = ['number_from', 'number_to', 'message', 'timestamp'];
+    const filterPhoneCALL = ['call_from', 'call_to', 'initiated_at', 'established_at', 'ended_at'];
+    const filterBank = ['id', 'comment', 'type', 'direction', 'from_account_id', 'from_civ_name', 'from_account_name', 'to_account_id', 'to_civ_name', 'to_account_name', 'amount', 'date', 'tax_percentage', 'tax_type', 'tax_id'];
+
     if (input === null) {
         return null;
     } else if (checkHeaders(dataTableHeader, filterPhoneMSG)) {
@@ -69,23 +71,30 @@ function modifyExcelData(data) {                                                
         dataTable = excelFile.data;
         dataTableHeader = excelFile.data[0];
         getHeaderType = outputHeaderType(dataTableHeader);
+        console.log(getHeaderType);
 
         if (getHeaderType === "phone_message_sheet") {
-            const normalizeDate = normalizeTexts(excelFile);
-            normalizeSessionSave(normalizeDate, count);
+
+            const normalizeData = normalizeTexts(excelFile);
+            console.log(normalizeData);
+            //normalizeSessionSave(normalizeData, count);
+
+
         };
         if (getHeaderType === "phone_call_sheet") {
-            const normalizeDate = normalizePhonecalls(excelFile);
-            normalizeSessionSave(normalizeDate, count);
+            const normalizeData = normalizePhonecalls(excelFile);
+            console.log(normalizeData);
+            //normalizeSessionSave(normalizeData, count);
+
         };
     });
 }
 
 function normalizeSessionSave(sheet, index) {                                       // Create SessionStorage Data 
-        const storageKey = sheet.name + index;
-        sessionStorage.setItem(storageKey, JSON.stringify(sheet.data));
-        const storedData = JSON.parse(sessionStorage.getItem(storageKey));           // Read Data out of SessionStorage
-        logger.table(`SessionStorage: ${storageKey}\n \nSheet-Name: ${sheet.name}`, storedData);
+    const storageKey = sheet.name + index;
+    sessionStorage.setItem(storageKey, JSON.stringify(sheet.data));
+    const storedData = JSON.parse(sessionStorage.getItem(storageKey));           // Read Data out of SessionStorage
+    logger.table(`SessionStorage: ${storageKey}\n \nSheet-Name: ${sheet.name}`, storedData);
 }
 
 
@@ -106,11 +115,19 @@ function normalizeTexts(dataArray) {
         To: 0,             // 1 "number_to"
         Message: "",       // 2 "message"
         Timestamp: "",     // 3 "timestamp"
-        IsCall: false      // Boolean [false = Message, true = Call]
+        IsCall: false,      // Boolean [false = Message, true = Call]
+        CallStart: null,     // 3 "established_at"
+        CallEnd: null        // 4 "ended_at"
 
     }
+    //console.log(dataArray.data);
+    if (!Array.isArray(dataArray.data) || dataArray.data.length === 0) {
+        showError("The input data is not an array.");
+        return messageRecordsArray; // return empty array or handle accordingly
+    }
+
     try {
-        dataArray.forEach(function (row, rowNumber) {
+        dataArray.data.slice(1).forEach(function (row, rowNumber) {
             if (rowNumber > 0) { // Skipping header row
                 var messageRecordLine = { ...defaultMessageRecordLine };
                 var columnTracker = 0;
@@ -139,7 +156,7 @@ function normalizeTexts(dataArray) {
                         else {
 
                             messageRecordLine.Timestamp = new Date(value).toISOString();
-                            messageRecordLine.Message = messageRecordLine.Message.trim();
+                            messageRecordLine.Timestamp = messageRecordLine.Message.trim();
                             messageRecordsArray.push(messageRecordLine);
                             messageRecordLine = { ...defaultMessageRecordLine };
                             columnTracker = 0;
@@ -161,11 +178,19 @@ function normalizePhonecalls(dataArray) {
         To: 0,             // 1 "call_to"
         Message: null,     // Initially null/empty
         Timestamp: "",     // 2 "initiated_at"
-        IsCall: true       // Boolean [false = Message, true = Call]
-
+        IsCall: true,      // Boolean [false = Message, true = Call]
+        CallStart: "",     // 3 "established_at"
+        CallEnd: ""        // 4 "ended_at"
     }
+
+    //console.log(dataArray.data);
+    if (!Array.isArray(dataArray.data) || dataArray.data.length === 0) {
+        showError("The input data is not an array.");
+        return phonecallRecordsArray; // return empty array or handle accordingly
+    }
+
     try {
-        dataArray.forEach(function (row, rowNumber) {
+        dataArray.data.slice(1).forEach(function (row, rowNumber) {
             if (rowNumber > 0) { // Skipping header row
                 var columnTracker = 0;
                 var phonecallRecordLine = { ...defaultPhonecallRecordLine };
@@ -197,10 +222,12 @@ function normalizePhonecalls(dataArray) {
             }
         });
     } catch (e) {
-        alert("Something broke, message a dev. \n\nFunction: normalizePhonecalls() \n\n" + e)
+        showError("Something broke, message a dev. \n\nFunction: normalizePhonecalls() \n\n" + e);
     }
+
     return phonecallRecordsArray;
 }
+
 
 ////////////////////////////////////////////// WIP
 function normalizeBankRecords(worksheet) {
