@@ -1,0 +1,67 @@
+#imagePreview, #phonenumberFound {
+    position: absolute;
+    display: none;
+    border: 1px solid #ccc;
+    color: #d4a5ff;
+    max-width: 300px;
+    max-height: 300px;
+    z-index: 1000;
+}
+
+#phonenumberFound {
+    background-color: #292c3d;
+    border: none;
+    border-radius: 3px;
+    padding: 3px;
+}
+
+.message .phonenumber {
+    color: #774d77;
+    font-weight: 700;
+
+    &::before {
+        content: attr(data-name);
+        display: block;
+        position: absolute;
+        color: #774d77;
+        margin-top: 12px;
+        margin-left: 8px;
+        opacity: 0;
+
+        background-color: #292c3d;
+        border: none;
+        border-radius: 3px;
+        padding: 4px 6px;
+    }
+
+    &:hover::before {
+        opacity: 1;
+    }
+} 
+
+#errorMessagePIC {
+    position: absolute;
+    display: none;
+    color: red;
+    font-size: 14px;
+    background-color: white;
+    border: 1px solid red;
+    padding: 5px;
+    z-index: 1000;
+}
+
+.message {
+    a {
+        border-color: #11151d;
+        background: #35384f;
+        text-decoration: none;
+        color: white;
+    }
+
+
+    a:hover {
+        border-color: #11151d;
+        background: #575d85;
+        text-decoration: none;
+    }
+}

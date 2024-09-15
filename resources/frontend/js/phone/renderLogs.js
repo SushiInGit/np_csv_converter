@@ -12,16 +12,11 @@ function calculateCallDuration(start, end) {
 }
 // Funktion logsPhonebookCheck -- Find telefone-numbers in messages
 function logsPhonebookCheck(message) {
-    output = `<br><hr><br><b>Found Number(s) in Text</b><ul>`;
-    // RegEx to find numbers Format: 4201234567,  (420)2345678, (420) 3456789, (420) 456 7890, (420) 5678 901)
     const phoneRegex = /\(?420\)?\s?\d{3}\s?\d?\s?\s?\d?\s?\d{3}/g;
-    found = message.replace(phoneRegex, match => {
-        const found = match.replace(/\D/g, '');
-        getNumber = parseInt(found);
-        output += `<li> **${(getNumber)}** ( ${findNameByNumber(getNumber)} )</li>`;
+    const wrappedHtmlString = message.replace(phoneRegex, (match) => {
+        return `<span class="phonenumber" data-name="${findNameByNumber(parseInt(match))}">${match}</span>`;
     });
-    output += `</ul><br><hr>`;
-    return output;
+    return wrappedHtmlString;
 }
 
 function showLogs(index, From, conversations) {  // All Data comes from renderConversations()
@@ -125,14 +120,9 @@ function showLogs(index, From, conversations) {  // All Data comes from renderCo
 
             const textDiv = document.createElement('div');
             textDiv.classList.add('text');
-            textDiv.innerHTML = historyLog.Message;
+            // textDiv.innerHTML = historyLog.Message;
 
-           
-            const phonebookDiv = document.createElement('div');
-            phonebookDiv.classList.add('phonebook');
-            /*        WIP NUMBER CHECK*/
-            phonebookDiv.innerHTML = `${(logsPhonebookCheck(historyLog.Message))}`;
-            /**/
+            textDiv.innerHTML = logsPhonebookCheck(historyLog.Message);
 
             const timestampDiv = document.createElement('div');
             fixedDate = processTimestamp(historyLog.Timestamp);
@@ -148,7 +138,7 @@ function showLogs(index, From, conversations) {  // All Data comes from renderCo
 
             messageDiv.appendChild(numberDiv);
             messageDiv.appendChild(textDiv);
-            messageDiv.appendChild(phonebookDiv);
+            // messageDiv.appendChild(phonebookDiv);
             messageDiv.appendChild(timestampDiv);
             chatBox.appendChild(messageDiv);
         } /// End else of if (historyLog.IsCall) {}

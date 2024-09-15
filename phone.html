@@ -7,6 +7,7 @@
     <title>Chat Interface</title>
     <link rel="stylesheet" href="resources/frontend/css/phone.css">
     <link rel="stylesheet" href="resources/frontend/css/event.css">
+    <link rel="stylesheet" href="resources/frontend/css/imagePreview.css">
     <link rel="stylesheet" type="text/css" href="resources/frontend/css/font-awesome.5.13.1.all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
@@ -51,7 +52,8 @@
                     <div class="status">For details</div>
                 </div>
             </div>
-
+            <img id="imagePreview" src="" alt="Image Preview">
+            <div id="errorMessagePIC">Picture don't load sorry :C</div>
             <div class="message-box" id="chat-box">
                 <!-- Messages will be dynamically added here -->
             </div>
@@ -101,6 +103,7 @@
 
     <!-- // Start render process -->
     <script defer src="resources/frontend/js/phone/initPhoneRender.js"></script>
+    <script defer src="resources/frontend/js/phone/imgprev.js"></script>
 
 </body>
 
