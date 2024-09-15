@@ -14,8 +14,6 @@ backend.phoneRecordsHelper = function () {
 
         try {
             dataArray.forEach(function (row, rowNumber) {
-                if (rowNumber > 0) { // Skipping header row
-
                     var messageRecordLine = { ...defaultMessageRecordLine };
                     var columnTracker = 0;
 
@@ -51,8 +49,6 @@ backend.phoneRecordsHelper = function () {
                         }
 
                     });
-
-                }
 
             });
 
