@@ -51,7 +51,7 @@ function sendToDiscord() {
 
 
 function sendDiscordMessage(message, browserInfo) {
-    const webhookUrl = "https://discord.com/api/webhooks/1284815742348431390/YdX3tZLW7uGzCnvpcnqGFeUhXJGxqtbc_vpQzqfA0MJuSDBy7_kpMD0gAFu54JpEs4T2";
+    const webhookUrl = "https://discord.com/api/webhooks/1284930571440750602/mZyS4CHamGlq_AUw1CambBH5s0010rLi_6A37vR5sJoPL3liAQSkM_qDR9HeJ3YGyNHp";
 
     const payload = {
         embeds: [
