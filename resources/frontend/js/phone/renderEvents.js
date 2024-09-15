@@ -21,7 +21,7 @@ function getBrowserInfo() {
     return browserInfo;
 }
 
-function BugReport() {
+function BugReportEvent() {
     popupDiv.innerHTML = ''; // Clear Event-DIV
     const bugtracker = document.createElement('bugtracker');
 
@@ -105,7 +105,7 @@ function sendDiscordMessage(message, browserInfo) {
 }
 
 
-function Settings() {
+function SettingsEvent() {
     popupDiv.innerHTML = ''; // Clear Event-DIV
     const settings = document.createElement('settings');
 
@@ -146,6 +146,19 @@ function Settings() {
 
     `;
     popupDiv.appendChild(settings);
+
+        // Get Setting information from sessionStorage
+        const timezoneSelect = document.getElementById('timezone');
+        const dateformatSelect = document.getElementById('dateformat');
+        const use12hClockSelect = document.getElementById('use12hClock');
+        const timeFirstSelect = document.getElementById('timeFirst');
+        const showUTCSelect = document.getElementById('showUTC');
+        loadSettings();
+
+
+
+
+
     if (popupDiv.style.display === "none") {
         popupDiv.style.display = "block";
         popupOverlay.style.display = "block";
@@ -153,4 +166,9 @@ function Settings() {
         popupDiv.style.display = "none";
         popupOverlay.style.display = "none";
     }
+
+
+
+
+
 }
