@@ -1,4 +1,5 @@
 #popupDiv {
+
     /* --------Start of Events---------  */
     .close {
         cursor: pointer;
@@ -44,10 +45,10 @@
 
     #use12hClockDiv {
         display: table;
-         padding-top: 5px;
+        padding-top: 5px;
         padding-bottom: 5px;
         vertical-align: middle;
-        
+
     }
 
     #timeFirstDiv {
@@ -124,6 +125,7 @@
     input[type="checkbox"]:hover {
         background-color: #444444;
     }
+
     .upload-button {
         background-color: transparent;
         border: none;
@@ -131,10 +133,11 @@
         color: #fff;
         transition: color 0.3s ease;
     }
-    
+
     .upload-button:hover {
         color: #f5f5f5;
     }
+
     .drop-zone {
         border: 2px dashed #ccc;
         border-radius: 10px;
@@ -143,22 +146,52 @@
         color: #aaa;
         cursor: pointer;
     }
-    
+
     .drop-zone.dragover {
         border-color: #000;
         background-color: #f0f0f0;
     }
+
     .error-message {
         color: red;
         font-weight: bold;
         margin-top: 10px;
     }
-    
+
     .dropZoneError {
         border: 1px solid;
         border-color: #ff1a1a;
         box-shadow: 0 0 15px 5px rgba(252, 20, 20, 0.7);
     }
 
-/* --------End of Events---------  */
+
+
+    /* --------End of Events---------  */
+}
+
+
+a {
+    position: relative;
+    text-decoration: none;
+}
+.sidemenu-container{
+a::after {
+    content: attr(data-alt);
+    /* Use the custom attribute for the tooltip */
+    position: absolute;
+    bottom: calc(100% - 8px);
+    right: 50px;
+    background-color: #333333;
+    color: #ffffff;
+    padding: 5px;
+    border-radius: 5px;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+a:hover::after {
+    opacity: 1;
+}
 }

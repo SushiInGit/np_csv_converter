@@ -62,17 +62,17 @@
             <div class="sidemenu-header"></div>
             <div class="menu-top">
                 <div class="menu-item">
-                    <a onclick="UploadEvent()"><span class="material-symbols-rounded">backup</span></a>
-                    <a onclick="SearchEvent()"><span class="material-symbols-rounded">manage_search</span></a>
-                    <a onclick="PhonebookEvent()"><span class="material-symbols-rounded">deskphone</span></a>
-                    <a onclick="ActivityEvent()"><span class="material-symbols-outlined">browse_activity</span></a>
-
+                    <a onclick="SearchEvent()" data-alt="Opens search-system"><span class="material-symbols-rounded">manage_search</span></a> <!-- Search Function -->
+                    <a onclick="PhonebookEvent()" data-alt="Opens phone directory"><span class="material-symbols-rounded">deskphone</span></a> <!-- Phonebook -->
+                    <a onclick="ActivityEvent()" data-alt="Metadata informations"><span class="material-symbols-outlined">browse_activity</span></a> <!-- Metadata -->
                 </div>
             </div>
             <div class="menu-bottom">
                 <div class="menu-item">
-                    <a onclick="BugReportEvent()"><span class="material-symbols-rounded">bug_report</span> </a>
-                    <a onclick="SettingsEvent()"><span class="material-symbols-rounded">settings_cinematic_blur</span></a>
+                    <a onclick="UploadEvent()"  data-alt="Upload phone subpoena excel-file"><span class="material-symbols-rounded">backup</span></a> <!-- Dataupload -->
+                    <a onclick="PhonebookImportEvent()"  data-alt="Import phone contacts"><span class="material-symbols-rounded">on_device_training</span></a> <!-- Phone contacts -->
+                    <a onclick="BugReportEvent()" data-alt="Report a bug"><span class="material-symbols-rounded">bug_report</span> </a> <!-- Bugreport -->
+                    <a onclick="SettingsEvent()" data-alt="Time convertion settings"><span class="material-symbols-rounded">settings_cinematic_blur</span></a> <!-- Settings -->
                 </div>
             </div>
         </div>

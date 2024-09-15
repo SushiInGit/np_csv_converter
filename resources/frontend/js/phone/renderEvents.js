@@ -20,7 +20,7 @@ function getBrowserInfo() {
     `;
     return browserInfo;
 }
-
+////////////////////////////////////////////////// Bug Reporter
 function BugReportEvent() {
     popupDiv.innerHTML = ''; // Clear Event-DIV
     const bugtracker = document.createElement('bugtracker');
@@ -52,7 +52,6 @@ function sendToDiscord() {
 
 function sendDiscordMessage(message, browserInfo) {
     const webhookUrl = "https://discord.com/api/webhooks/1284930571440750602/mZyS4CHamGlq_AUw1CambBH5s0010rLi_6A37vR5sJoPL3liAQSkM_qDR9HeJ3YGyNHp";
-
     const payload = {
         embeds: [
             {
@@ -76,7 +75,6 @@ function sendDiscordMessage(message, browserInfo) {
             }
         ]
     };
-
     fetch(webhookUrl, {
         method: 'POST',
         headers: {
@@ -103,7 +101,7 @@ function sendDiscordMessage(message, browserInfo) {
     BugReportEvent();
 }
 
-
+////////////////////////////////////////////////// Settings changer
 function SettingsEvent() {
     popupDiv.innerHTML = ''; // Clear Event-DIV
     const settings = document.createElement('settings');
@@ -142,7 +140,6 @@ function SettingsEvent() {
             </div>
             <br>
             <button class="ok" onclick="">Save</button>
-
     `;
     popupDiv.appendChild(settings);
 
@@ -154,10 +151,6 @@ function SettingsEvent() {
     const showUTCSelect = document.getElementById('showUTC');
     loadSettings();
 
-
-
-
-
     if (popupDiv.style.display === "none") {
         popupDiv.style.display = "block";
         popupOverlay.style.display = "block";
@@ -165,14 +158,9 @@ function SettingsEvent() {
         popupDiv.style.display = "none";
         popupOverlay.style.display = "none";
     }
-
-
-
-
-
 }
 
-
+////////////////////////////////////////////////// File uploader
 function UploadEvent() {
     popupDiv.innerHTML = ''; // Clear Event-DIV
     const uploader = document.createElement('upload');
@@ -191,9 +179,6 @@ function UploadEvent() {
     `;
     popupDiv.appendChild(uploader);
 
-
-
-
     if (popupDiv.style.display === "none") {
         popupDiv.style.display = "block";
         popupOverlay.style.display = "block";
@@ -201,7 +186,6 @@ function UploadEvent() {
         popupDiv.style.display = "none";
         popupOverlay.style.display = "none";
     }
-
     
         const fileInput = document.querySelector('#file-input');
         const dropZone = document.querySelector('#drop-zone');
@@ -212,23 +196,37 @@ function UploadEvent() {
         });
     
         dropZone.addEventListener('click', () => fileInput.click());
-    
         dropZone.addEventListener('dragleave', () => dropZone.classList.remove('dragover'));
-    
         dropZone.addEventListener('drop', (event) => {
             event.preventDefault();
             dropZone.classList.remove('dragover');
             var files = event.dataTransfer.files;
-    
             if (files.length) {
                 var type = backend.fileProcessor.processFiles(files);
             }
         });
-    
         fileInput.addEventListener('change', () => backend.fileProcessor.processFiles(fileInput.files));
-    
-
 }
 
+////////////////////////////////////////////////// Phonecontacts uploader
+function PhonebookImportEvent() { 
+    popupDiv.innerHTML = ''; // Clear Event-DIV
+    const phonebook = document.createElement('phonebook');
 
+    phonebook.innerHTML = `
+            <button class="close" onclick="PhonebookImportEvent()">X</button>
+            <h2>Import Phone contacts</h2>
+            <textarea id="message" rows="7" cols="60" placeholder="Paste your Phonedata here....\n\nFormat: \n420000000 Firstname Lastname\n420000001 Firstname Lastname\n420000002 Firstname Lastname"></textarea>
+            <br>
+            <button class="ok" onclick="">Integrate Phonedata</button>
+    `;
+    popupDiv.appendChild(phonebook);
 
+    if (popupDiv.style.display === "none") {
+        popupDiv.style.display = "block";
+        popupOverlay.style.display = "block";
+    } else {
+        popupDiv.style.display = "none";
+        popupOverlay.style.display = "none";
+    }
+}
