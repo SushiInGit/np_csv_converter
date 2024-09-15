@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,68 +8,87 @@
     <link rel="stylesheet" href="resources/frontend/css/phone.css">
     <link rel="stylesheet" type="text/css" href="resources/frontend/css/font-awesome.5.13.1.all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="resources/backend/js/timeConverter.js"></script>  
-    <!-- // Debug --> <script src="resources/backend/js/debugLogger.js"></script> <!-- Debug \\ -->
+    <script src="resources/backend/js/timeConverter.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" >
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded" />
+    <!-- // Debug -->
+    <script src="resources/backend/js/debugLogger.js"></script> <!-- Debug \\ -->
 </head>
-<body>
-<div class="container">
-    <!-- Sidebar -->
-    <div class="sidebar">
-        <div class="header-sidebar" id="header-sidebar">
-            Conversations
-        </div>
-        <div class="chat-list" id="conversation-list">
-            <!-- Links to conversations will be dynamically added here -->
-        </div>
-    </div>
 
-    <!-- Chat Container -->
-    <div class="chat-container" id="chat-container">
-        <div class="chat-header" id="chat-header">
-            <div class="chat-info">
-                <div class="name">Select a conversation</div>
-                <div class="status">For details</div>
+<body>
+    <div id="popupOverlay" style="display: none;"></div>
+    <div class="container">
+        <!-- Popup-->
+        <div id="popupDiv" style="display: none;"></div>
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="header-sidebar" id="header-sidebar">
+                Conversations
+            </div>
+            <div class="chat-list" id="conversation-list">
+                <!-- Links to conversations will be dynamically added here -->
             </div>
         </div>
 
-        <div class="message-box" id="chat-box">
-            <!-- Messages will be dynamically added here -->
+        <!-- Chat Container -->
+        <div class="chat-container" id="chat-container">
+            <div class="chat-header" id="chat-header">
+                <div class="chat-info">
+                    <div class="name">Select a conversation</div>
+                    <div class="status">For details</div>
+                </div>
+            </div>
+
+            <div class="message-box" id="chat-box">
+                <!-- Messages will be dynamically added here -->
+            </div>
+        </div>
+
+        <!-- Right Sidemenu Container -->
+        <div class="sidemenu-container" id="sidemenu-container">
+            <div class="sidemenu-header"></div>
+            <div class="menu-top">
+                <div class="menu-item">
+                    <span class="material-symbols-rounded">manage_search</span>
+                    <span class="material-symbols-rounded">deskphone</span> 
+                    <span class="material-symbols-outlined">browse_activity</span>
+
+                </div>
+            </div>
+            <div class="menu-bottom">
+                <div class="menu-item">
+                    <a onclick="BugReport()"><span class="material-symbols-rounded">bug_report</span> </a>
+                    <a onclick="Settings()"><span class="material-symbols-rounded">settings_cinematic_blur</span></a>
+                </div>
+            </div>
         </div>
     </div>
-
-    <!-- Phonebook Container -->
-    <div class="phonebook-container" id="phonebook-container">
-        <div class="header-phonebook"><a    onclick="closePhonebook()">☰ Phonebook </a> </div>
-        <div class="phonebook-list" id="phonebook-list">
-            <!-- Phonebook entrys will be dynamically added here -->
-            Test
-        </div>
     </div>
-    <div class="togglePhonebook bounce"><div><a  href="#" onclick="openPhonebook()"> </a></div></div>
-</div>
-<!-- Footer-->
-<footer>
-    <p>
-        Project located on <a href="https://github.com/SushiInGit/np_csv_converter/">GitHub</a> -
-        by <a href="https://github.com/RYJarnovk">RY Jarnovk</a> & <a href="https://github.com/SushiInGit">SushiInPeace</a>
-    </p>
-</footer>
-<!--  // Sample data  -->
-<script src="resources/backend/js/sampleData.js"></script>
+    <!-- Footer-->
+    <footer>
+        <p>
+            Project located on <a href="https://github.com/SushiInGit/np_csv_converter/">GitHub</a> -
+            by <a href="https://github.com/RYJarnovk">RY Jarnovk</a> & <a
+                href="https://github.com/SushiInGit">SushiInPeace</a>
+        </p>
+    </footer>
+    <!--  // Sample data  -->
+    <script src="resources/backend/js/sampleData.js"></script>
 
-<!--  // Middleman  -->
-<script src="resources/middleman/phone/phonebookDatagrabber.js"></script>
-<script src="resources/middleman/phone/getInformations.js"></script>
-<script src="resources/middleman/phone/groupedCommunication.js"></script>
+    <!--  // Middleman  -->
+    <script src="resources/middleman/phone/phonebookDatagrabber.js"></script>
+    <script src="resources/middleman/phone/getInformations.js"></script>
+    <script src="resources/middleman/phone/groupedCommunication.js"></script>
 
-<!--  // Frontend  -->
-<script src="resources/frontend/js/phone/logRender.js"></script>
-<script src="resources/frontend/js/phone/contactsRender.js"></script>
-<script src="resources/frontend/js/phone/conversationsRender.js"></script>
-<script src="resources/frontend/js/phone/phonebookRender.js"></script>
+    <!--  // Frontend  -->
+    <script src="resources/frontend/js/phone/renderLogs.js"></script>
+    <script src="resources/frontend/js/phone/renderConversations.js"></script>
+    <script src="resources/frontend/js/phone/renderPhonebook.js"></script>
+    <script src="resources/frontend/js/phone/renderEvents.js"></script>
 
-<!-- // Start render process -->
-<script src="resources/frontend/js/phone/initPhoneRender.js"></script>
+    <!-- // Start render process -->
+    <script src="resources/frontend/js/phone/initPhoneRender.js"></script>
 
 </body>
+
 </html>
