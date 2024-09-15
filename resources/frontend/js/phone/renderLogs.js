@@ -130,9 +130,9 @@ function showLogs(index, From, conversations) {  // All Data comes from renderCo
            
             const phonebookDiv = document.createElement('div');
             phonebookDiv.classList.add('phonebook');
-            /*        WIP NUMBER CHECK
+            /*        WIP NUMBER CHECK*/
             phonebookDiv.innerHTML = `${(logsPhonebookCheck(historyLog.Message))}`;
-            */
+            /**/
 
             const timestampDiv = document.createElement('div');
             fixedDate = processTimestamp(historyLog.Timestamp);
