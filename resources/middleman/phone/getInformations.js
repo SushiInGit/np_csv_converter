@@ -14,7 +14,7 @@ function findMostFrequentNumber(messages) {                         // Get Main 
     }
     return { Number, count: maxCount };
 }
-const simOwner = findMostFrequentNumber(conversationData);
+const simOwner = findMostFrequentNumber(rawData);
 
 function findConversationInformation(messages) {                        // Gives Infos based on the input
     const IsCall = messages.filter(entry => entry.IsCall === true).length;
@@ -22,5 +22,5 @@ function findConversationInformation(messages) {                        // Gives
     const OverallCount = messages.length;
     return {callCount: IsCall, messageCount: IsNotCall, everythingCount: OverallCount};
 }
-const conversationInfo = findConversationInformation(conversationData);
+const conversationInfo = findConversationInformation(rawData);
 

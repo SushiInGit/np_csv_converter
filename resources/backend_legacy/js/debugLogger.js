@@ -19,7 +19,7 @@ const loggerConfig = {
     doWarn: true,
     doSetting: true,
     doFile: true,
-    doDEVMODE: true
+    doDEVMODE: false
 };
 // ------------------------------------------------------
 

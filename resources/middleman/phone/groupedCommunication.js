@@ -12,7 +12,7 @@ function prioritizeFrom(simOwner, data) {
     }
 }
 const groupedCommunications = [];
-conversationData.forEach(call => {
+rawData.forEach(call => {
     const normalizedPair = prioritizeFrom(simOwner.Number,call);
     let existingGroup = groupedCommunications.find(group => 
         group.From === normalizedPair.From && group.To === normalizedPair.To
