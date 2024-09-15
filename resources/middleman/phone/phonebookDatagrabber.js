@@ -37,7 +37,7 @@ const rawData = [
         Message: null,
         IsCall: true,
         Timestamp: item.initiated_at,
-        CallStart: item.established_at,
+        CallStart: item.established_at == "null" ? null : item.established_at,
         CallEnd: item.ended_at
     }))
 ];

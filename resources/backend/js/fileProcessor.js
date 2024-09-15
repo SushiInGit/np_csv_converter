@@ -41,6 +41,7 @@ backend.fileProcessor = function () {
             switch (sheetType) {
                 case allSheetTypes.TEXTS:
                     cleanData = backend.phoneRecordsHelper.normalizeTexts(sheet);
+                    redirectUrl = "phone.html"
                     break;
 
                 case allSheetTypes.CALLS:
@@ -50,6 +51,7 @@ backend.fileProcessor = function () {
                     // No need for any formatting
                     // Return the data as is
                     cleanData = sheet;
+                    redirectUrl = "phone.html"
                     break;
 
                 case allSheetTypes.BANKRECORDS:
@@ -57,6 +59,7 @@ backend.fileProcessor = function () {
 
                     // Todo
                     cleanData = backend.dataController.normalizeBankRecords(sheet);
+                    redirectUrl = "bank.html"; // ???
                     break;
 
                 case allSheetTypes.GENERIC:
@@ -65,6 +68,7 @@ backend.fileProcessor = function () {
 
                     // Handle default
                     cleanData = sheet;
+                    redirectUrl = ""; // ???
                     break;
             }
 
