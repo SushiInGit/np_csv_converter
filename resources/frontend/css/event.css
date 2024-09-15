@@ -177,7 +177,7 @@ a {
 .sidemenu-container{
 a::after {
     content: attr(data-alt);
-    /* Use the custom attribute for the tooltip */
+    font-size: 16px;
     position: absolute;
     bottom: calc(100% - 8px);
     right: 50px;
