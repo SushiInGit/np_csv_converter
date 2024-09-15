@@ -112,7 +112,37 @@ function Settings() {
     settings.innerHTML = `
             <button class="close" onclick="Settings()">X</button>
             <h2>Settings</h2>
-
+            <div id="timezoneDiv">
+                <label for="timezone">Timezone:</label>
+                <select id="timezone">
+                    <option value="gmt">GMT</option>
+                    <option value="utc">UTC</option>
+                    <option value="psts">America/Los_Angeles (PST/PDT)</option>
+                    <option value="edt">America/New_York (EDT)</option>
+                    <option value="aest">Australia/Sydney (AEST/AEDT)</option>
+                    <option value="cest">Europe/Berlin (CEST)</option>
+                    <option value="bst">Europe/London (BST)</option>
+                </select>
+            </div>
+            <div id="dateformatDiv">
+                <label for="dateformat">Dateformat:</label>
+                <select id="dateformat">
+                    <option value="MM/DD/YYYY">MM/DD/YYYY</option>
+                    <option value="DD/MM/YYYY">DD/MM/YYYY</option>
+                    <option value="DD.MM.YYYY">DD.MM.YYYY</option>
+                    <option value="YYYY-MM-DD">YYYY-MM-DD</option>
+                </select>
+            </div>
+            <div id="use12hClockDiv">
+                <label for="use12hClock">12h clock</label>
+                <input type="checkbox" id="use12hClock" />
+            </div>
+            <div id="timeFirstDiv">
+                <label for="timeFirst">Time first</label>
+                <input type="checkbox" id="timeFirst" />
+            </div>
+            <br>
+            <button class="ok" onclick="">Save</button>
 
     `;
     popupDiv.appendChild(settings);

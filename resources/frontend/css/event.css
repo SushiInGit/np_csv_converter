@@ -1,0 +1,128 @@
+#popupDiv {
+    .close {
+        cursor: pointer;
+        padding: 8px 12px;
+        background-color: #e74c3c;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        position: absolute;
+        right: 10px;
+        top: 10px;
+    }
+
+    .close:hover {
+        background-color: #eb5b4b;
+    }
+
+    .ok {
+        margin-top: 20px;
+        padding: 10px 20px;
+        background-color: #27ae60;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+    }
+
+    .ok:hover {
+        background-color: #2ecc71;
+    }
+
+    #timezoneDiv {
+        padding-top: 5px;
+        padding-bottom: 5px;
+        vertical-align: middle;
+    }
+
+    #dateformatDiv {
+        padding-top: 5px;
+        padding-bottom: 5px;
+        vertical-align: middle;
+    }
+
+    #use12hClockDiv {
+        display: table;
+         padding-top: 5px;
+        padding-bottom: 5px;
+        vertical-align: middle;
+        
+    }
+
+    #timeFirstDiv {
+        display: table;
+        padding-top: 5px;
+        vertical-align: middle;
+    }
+
+
+    /* Label styling for dark mode */
+    label {
+        display: table-cell;
+        color: #ffffff;
+        vertical-align: middle;
+        padding-right: 15px;
+    }
+
+    select {
+        width: 100%;
+        padding: 10px;
+        background-color: #333333;
+        color: #ffffff;
+        border: 1px solid #555555;
+        border-radius: 5px;
+        appearance: none;
+        text-align: center;
+        text-align-last: center;
+    }
+
+    select option {
+        text-align: left;
+    }
+
+    select:hover {
+        background-color: #444444;
+    }
+
+    select:focus {
+        outline: none;
+        border-color: #777777;
+    }
+
+    select::after {
+        content: '\25BC';
+        position: absolute;
+        right: 10px;
+        color: #ffffff;
+        pointer-events: none;
+    }
+
+
+
+    input[type="checkbox"] {
+        display: table-cell;
+        width: 20px;
+        height: 20px;
+        appearance: none;
+        background-color: #333333;
+        border: 2px solid #555555;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    input[type="checkbox"]:checked {
+        background-color: #00aa00;
+        border-color: #00aa00;
+    }
+
+    input[type="checkbox"]:focus {
+        outline: none;
+        border-color: #777777;
+    }
+
+    input[type="checkbox"]:hover {
+        background-color: #444444;
+    }
+
+
+}
