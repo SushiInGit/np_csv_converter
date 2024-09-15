@@ -26,7 +26,7 @@ function BugReportEvent() {
     const bugtracker = document.createElement('bugtracker');
 
     bugtracker.innerHTML = `
-            <button class="close" onclick="BugReport()">X</button>
+            <button class="close" onclick="BugReportEvent()">X</button>
             <h2>Send Bugreport</h2>
             <textarea id="message" rows="4" cols="60" placeholder="Enter your message...."></textarea>
             <br>
@@ -51,30 +51,30 @@ function sendToDiscord() {
 
 
 function sendDiscordMessage(message, browserInfo) {
-    const webhookUrl = "https://discord.com/api/webhooks/1284815742348431390/YdX3tZLW7uGzCnvpcnqGFeUhXJGxqtbc_vpQzqfA0MJuSDBy7_kpMD0gAFu54JpEs4T2"; 
+    const webhookUrl = "https://discord.com/api/webhooks/1284815742348431390/YdX3tZLW7uGzCnvpcnqGFeUhXJGxqtbc_vpQzqfA0MJuSDBy7_kpMD0gAFu54JpEs4T2";
 
     const payload = {
-                embeds: [
+        embeds: [
+            {
+                color: 5763719, // bluecolor
+                fields: [
                     {
-                        color: 5763719, // bluecolor
-                        fields: [
-                            {
-                                name: "Bugreport",
-                                value: `\`\`\`${message}\`\`\``,
-                                inline: false
-                            },
-                            {
-                                name: "Browser Information",
-                                value: `\`\`\`${browserInfo}\`\`\``,
-                                inline: false
-                            }
-                        ],
-                        footer: {
-                            text: "Send from GitHub host."
-                        },
-                        timestamp: new Date().toISOString()
+                        name: "Bugreport",
+                        value: `\`\`\`${message}\`\`\``,
+                        inline: false
+                    },
+                    {
+                        name: "Browser Information",
+                        value: `\`\`\`${browserInfo}\`\`\``,
+                        inline: false
                     }
-                ]
+                ],
+                footer: {
+                    text: "Send from GitHub host."
+                },
+                timestamp: new Date().toISOString()
+            }
+        ]
     };
 
     fetch(webhookUrl, {
@@ -88,7 +88,7 @@ function sendDiscordMessage(message, browserInfo) {
             if (response.ok) {
                 popupDiv.innerHTML = '';  // Clear Event-DIV
                 alert('Bugreport message is send!');
-                
+
             } else {
                 popupDiv.innerHTML = '';  // Clear Event-DIV
                 alert('Error: Bugreport cant be send. Try again later.');
@@ -100,8 +100,7 @@ function sendDiscordMessage(message, browserInfo) {
             alert('Error: Bugreport cant be send. Try again later.');
         });
 
-    BugReport();
-    
+    BugReportEvent();
 }
 
 
@@ -110,7 +109,7 @@ function SettingsEvent() {
     const settings = document.createElement('settings');
 
     settings.innerHTML = `
-            <button class="close" onclick="Settings()">X</button>
+            <button class="close" onclick="SettingsEvent()">X</button>
             <h2>Settings</h2>
             <div id="timezoneDiv">
                 <label for="timezone">Timezone:</label>
@@ -147,13 +146,13 @@ function SettingsEvent() {
     `;
     popupDiv.appendChild(settings);
 
-        // Get Setting information from sessionStorage
-        const timezoneSelect = document.getElementById('timezone');
-        const dateformatSelect = document.getElementById('dateformat');
-        const use12hClockSelect = document.getElementById('use12hClock');
-        const timeFirstSelect = document.getElementById('timeFirst');
-        const showUTCSelect = document.getElementById('showUTC');
-        loadSettings();
+    // Get Setting information from sessionStorage
+    const timezoneSelect = document.getElementById('timezone');
+    const dateformatSelect = document.getElementById('dateformat');
+    const use12hClockSelect = document.getElementById('use12hClock');
+    const timeFirstSelect = document.getElementById('timeFirst');
+    const showUTCSelect = document.getElementById('showUTC');
+    loadSettings();
 
 
 
@@ -172,3 +171,64 @@ function SettingsEvent() {
 
 
 }
+
+
+function UploadEvent() {
+    popupDiv.innerHTML = ''; // Clear Event-DIV
+    const uploader = document.createElement('upload');
+
+    uploader.innerHTML = `
+            <button class="close" onclick="UploadEvent()">X</button>
+        <h2>File upload</h2>
+        <form id="upload-form">
+        <div class="drop-zone" id="drop-zone">
+            Drag & Drop or click to Upload an Excel-File
+            <input type="file" id="file-input" accept=".xlsx, .xls" style="display: none;" required>
+        </div>
+        <div id="error-message" class="error-message"></div>
+        </form>
+
+    `;
+    popupDiv.appendChild(uploader);
+
+
+
+
+    if (popupDiv.style.display === "none") {
+        popupDiv.style.display = "block";
+        popupOverlay.style.display = "block";
+    } else {
+        popupDiv.style.display = "none";
+        popupOverlay.style.display = "none";
+    }
+
+    
+        const fileInput = document.querySelector('#file-input');
+        const dropZone = document.querySelector('#drop-zone');
+    
+        dropZone.addEventListener('dragover', (event) => {
+            event.preventDefault();
+            dropZone.classList.add('dragover');
+        });
+    
+        dropZone.addEventListener('click', () => fileInput.click());
+    
+        dropZone.addEventListener('dragleave', () => dropZone.classList.remove('dragover'));
+    
+        dropZone.addEventListener('drop', (event) => {
+            event.preventDefault();
+            dropZone.classList.remove('dragover');
+            var files = event.dataTransfer.files;
+    
+            if (files.length) {
+                var type = backend.fileProcessor.processFiles(files);
+            }
+        });
+    
+        fileInput.addEventListener('change', () => backend.fileProcessor.processFiles(fileInput.files));
+    
+
+}
+
+
+
