@@ -62,7 +62,6 @@ const contactList = [     // {number: int, Name: string}
   { number: 4209479995, name: 'Bruce Baylor' } // Duplicate name
 ];
 
-
 /*const conversationData = [   // { From: int, To: int, Message: string, Timestamp: string, IsCall: Boolean, CallStart: string, CallEnd: string },
   { From: 4209479995, To: 4201843991, Message: "Dont give up on me future ex wifey. been busy. 4200843991 (420)2801082 hope your doing well", Timestamp: '2024-08-10T06:42:27.576Z', IsCall: false, CallStart: null, CallEnd: null },
   { From: 4209479995, To: 4202801082, Message: null, Timestamp: '2024-08-31T21:58:18.519Z', IsCall: true, CallStart: '2024-08-17T19:15:14.331Z', CallEnd: '2024-08-17T19:15:20.872Z' },
@@ -88,28 +87,3 @@ const contactList = [     // {number: int, Name: string}
 
 
 ];*/
-
-// { From: int, To: int, Message: string, Timestamp: string, IsCall: Boolean, CallStart: string, CallEnd: string },
-
-// var texts = backend.dataController.getData(backend.helpers.getAllSheetTypes().TEXTS);
-// var calls = backend.dataController.getData(backend.helpers.getAllSheetTypes().CALLS);
-// const conversationData = [
-//     ...texts.map(item => ({
-//         From: item.number_from,
-//         To: item.number_to,
-//         Message: item.message,
-//         Timestamp: item.timestamp,
-//         IsCall: false,
-//         CallStart: null,
-//         CallEnd: null
-//     })),
-//     ...calls.map(item => ({
-//         From: item.call_from,
-//         To: item.call_to,
-//         Message: null,
-//         IsCall: true,
-//         Timestamp: item.initiated_at,
-//         CallStart: item.established_at,
-//         CallEnd: item.ended_at
-//     }))
-// ];
