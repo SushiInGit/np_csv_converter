@@ -4,6 +4,8 @@ Fun Project from SushiInHell
 
 Based of RY Jarnovk's Project.
 
+Discord: https://discord.gg/e3t8EHKGp3
+
 ### New feature ideas
 
 - Phonebook and bank records
