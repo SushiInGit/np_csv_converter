@@ -4,7 +4,7 @@ var backend = backend ?? {};
 backend.dataController = function () {
 
     function getDataFromLocalStorage(sheetType) {
-        return JSON.parse(localStorage.getItem(sheetType));
+        return JSON.parse(localStorage.getItem(sheetType) ?? "[]");
     }
 
     function saveDataToLocalStorage(key, value) {
@@ -27,12 +27,12 @@ backend.dataController = function () {
         }
     }
 
-    function savePhonenumbersToLocalStorage(phonuNumbers) {
+    function savePhonenumbersToLocalStorage(value) {
         localStorage.setItem("phonenumbers", JSON.stringify(value));
     }
 
     function getPhonenumbersFromLocalStorage() {
-        return JSON.parse(localStorage.getItem("phonenumbers"));
+        return JSON.parse(localStorage.getItem("phonenumbers") ?? "[]");
     }
 
     return {

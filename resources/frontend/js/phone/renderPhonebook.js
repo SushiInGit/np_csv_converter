@@ -5,7 +5,8 @@ function renderPhonebook(records) {
     const sortPhoneRecord = sortPhoneRecords(records);
     const duplicates = findDuplicates(records);
 
-    contactList.forEach((phonelist, index) => {
+    // contactList.forEach((phonelist, index) => {
+    backend.dataController.getPhonenumbers().forEach((phonelist, index) => {
         const phonebooklist = document.createElement('div');
         phonebooklist.classList.add('phonebook-list-item');
 

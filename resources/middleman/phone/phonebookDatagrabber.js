@@ -42,7 +42,8 @@ const rawData = [
     }))
 ];
 
-const phoneRecords = contactList;  /// WIP -> at the end Dell
+// const phoneRecords = contactList;  /// WIP -> at the end Dell
+const phoneRecords = backend.dataController.getPhonenumbers();  /// WIP -> at the end Dell
 /*
 console.log(rawData);
 console.log(phoneRecords)

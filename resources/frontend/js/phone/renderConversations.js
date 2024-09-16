@@ -1,6 +1,7 @@
 // Function to find name from phone records
 function findNameByNumber(number) {
-    for (const record of contactList) {
+    // for (const record of contactList) {
+    for (const record of backend.dataController.getPhonenumbers()) {
         if (Array.isArray(record.number)) {
             if (record.number.includes(number)) {
                 return record.name;
