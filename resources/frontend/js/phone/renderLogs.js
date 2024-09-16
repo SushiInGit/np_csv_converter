@@ -19,6 +19,7 @@ function removeConversationClasses(element) {
 // Get Meta information for refresh without reload the page and go back to the last conversation -- needet vor settings-changes
 function getLastOpenConversation(element) {
     if (!element || !element.classList) return;
+    let index = '', from = '';
     const regexIndex = /^conversation\d+$/;
     element.classList.forEach(className => {
         if (regexIndex.test(className)) {
@@ -31,10 +32,11 @@ function getLastOpenConversation(element) {
             from = className.replace(/^\D+/g, '');
         }
     });
-    return {From: from, Index: index};
+    return {
+        From: from ? from : ``,  
+        Index: index ? index : `` 
+    };
 }
-
-
 
 function setActiveConversations(index) {
 //// WIP Function to mark the active chat     
@@ -45,13 +47,13 @@ function calculateCallDuration(start, end) {
     const startTime = new Date(start);
     const endTime = new Date(end);
     const diffMs = endTime - startTime;
-
+    let minutes = '', seconds = '';    
     // Convert milliseconds into minutes and seconds
-    const minutes = Math.floor(diffMs / 60000);
-    const seconds = ((diffMs % 60000) / 1000).toFixed(0);
-
-    return `${minutes} min ${seconds} sec`;
+    minutes = Math.floor(diffMs / 60000);
+    seconds = ((diffMs % 60000) / 1000).toFixed(0);
+    return `${minutes ? minutes : ``} min ${seconds ? seconds : ``} sec`;
 }
+
 // Funktion logsPhonebookCheck -- Find telefone-numbers in messages
 function logsPhonebookCheck(message) {
     const phoneRegex = /\(?420\)?\s?\d{3}\s?\d?\s?\s?\d?\s?\d{3}/g;

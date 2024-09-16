@@ -135,11 +135,6 @@ function sendDiscordMessage(message, browserInfo) {
 ////////////////////////////////////////////////// Settings changer
 // Save Settings to Storage
 function saveSettingsTrigger() {
-    
-    //addEventListener('click', () => showLogs(chatboxIndex, chatboxFrom, conversation ));
-
-
-
     const newSettingsData = {
         timeZone: timezone.value,
         dateFormat: dateformat.value,
@@ -156,18 +151,11 @@ function saveSettingsTrigger() {
     popupDiv.innerHTML = ''; // Clear Event-DIV
     saveSettings(newSettingsData);
 
-/* DOSNT WORK BUT GET THE DATA ... somthing is missing 
+
 const chatBox = document.getElementById('chat-box');
 const chatboxIndex = parseInt(getLastOpenConversation(chatBox).Index);
 const chatboxFrom = parseInt(getLastOpenConversation(chatBox).From);
-data = conversation;
-console.log(data);
-data.forEach((conversation, index) => {
-
-    //console.log(conversation);
-    //showLogs(chatboxIndex, chatboxFrom, conversation )
-});
-     */
+renderConversations(groupedCommunications, chatboxIndex, chatboxFrom); 
 }
 function setSettingSelectedValue(selectId, value) {
     const selectElement = document.getElementById(selectId);
@@ -185,7 +173,7 @@ function SettingsEvent() {
                 <select id="timezone">
                     <option value="gmt">GMT</option>
                     <option value="utc">UTC</option>
-                    <option value="psts">America/Los_Angeles (PST/PDT)</option>
+                    <option value="pst">America/Los_Angeles (PST/PDT)</option>
                     <option value="edt">America/New_York (EDT)</option>
                     <option value="aest">Australia/Sydney (AEST/AEDT)</option>
                     <option value="cest">Europe/Berlin (CEST)</option>

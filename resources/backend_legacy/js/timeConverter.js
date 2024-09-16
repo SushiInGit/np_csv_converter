@@ -29,8 +29,11 @@ function processTimestamp(timestamp) {
         timeZones: {
             gmt: 'GMT',
             utc: 'UTC',
+            edt: 'America/New_York',
             pst: 'America/Los_Angeles',
-            cest: 'Europe/Berlin'
+            cest: 'Europe/Berlin',
+            aest: 'Australia/Sydney',
+            bst: 'Europe/London'
         }
     };
 
