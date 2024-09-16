@@ -28,12 +28,18 @@ function processTimestamp(timestamp) {
             'YYYY-MM-DD'
         ],
         timeZones: {
-            gmt: 'GMT',
             utc: 'UTC',
-            edt: 'America/New_York',
+            gmt: 'GMT',
+            est: 'EST',
+            pt: 'PT',
+            ast: 'AST',
+            jst: 'JST',
+            cst: 'CST',
+            ist: 'IST',
             pst: 'America/Los_Angeles',
-            cest: 'Europe/Berlin',
+            edt: 'America/New_York',
             aest: 'Australia/Sydney',
+            cest: 'Europe/Berlin',
             bst: 'Europe/London'
         }
     };

@@ -39,10 +39,10 @@ document.addEventListener("DOMContentLoaded", function () {
     var chatBoxResult = containsOnlyCommentsOrEmptyTextNodes(messageBox);
     var conversationListResult = containsOnlyCommentsOrEmptyTextNodes(conversationList);
 
-    if (chatBoxResult && conversationListResult) { 
+    if (chatBoxResult && conversationListResult) {
         UploadEvent();
         //console.log("('chat-box' & 'conversation-list') is empty");
-    } 
+    }
     /*else if (chatBoxResult) {
         console.log("'chat-box' is empty");
     } else if (conversationListResult) {
@@ -152,10 +152,10 @@ function saveSettingsTrigger() {
     saveSettings(newSettingsData);
 
 
-const chatBox = document.getElementById('chat-box');
-const chatboxIndex = parseInt(getLastOpenConversation(chatBox).Index);
-const chatboxFrom = parseInt(getLastOpenConversation(chatBox).From);
-renderConversations(groupedCommunications, chatboxIndex, chatboxFrom); 
+    const chatBox = document.getElementById('chat-box');
+    const chatboxIndex = parseInt(getLastOpenConversation(chatBox).Index);
+    const chatboxFrom = parseInt(getLastOpenConversation(chatBox).From);
+    renderConversations(groupedCommunications, chatboxIndex, chatboxFrom);
 }
 function setSettingSelectedValue(selectId, value) {
     const selectElement = document.getElementById(selectId);
@@ -171,8 +171,14 @@ function SettingsEvent() {
             <div id="timezoneDiv">
                 <label for="timezone">Timezone:</label>
                 <select id="timezone">
-                    <option value="gmt">GMT</option>
-                    <option value="utc">UTC</option>
+                    <option value="utc">Coordinated Universal Time (UTC)</option>
+                    <option value="gmt">Greenwich Mean Time (GMT)</option>
+                    <option value="est">Eastern Standard Time (EST)</option>
+                    <option value="pt">Pacific Time (PT)</option>
+                    <option value="ast">Arabia Standard Time (AST)</option>
+                    <option value="jst">Japan Standard Time (JST)</option>
+                    <option value="cst">China Standart Time (CST)</option>
+                    <option value="ist">Indian Standard Time (IST)</option>
                     <option value="pst">America/Los_Angeles (PST/PDT)</option>
                     <option value="edt">America/New_York (EDT)</option>
                     <option value="aest">Australia/Sydney (AEST/AEDT)</option>
