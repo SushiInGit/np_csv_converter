@@ -202,17 +202,19 @@ function SettingsEvent() {
                     <option value="24Hour">24Hour</option>
                 </select>
             </div>
-            <div id="timeFirstDiv">
-                <label for="timeFirst">Date/Time order</label>
-                <select id="timeFirst">
-                <option value="dateAndTime">Date then Time</option>
-                <option value="timeAndDate">Time then Date</option>
-                </select>
-
-            </div>
+            
             <br>
             <button class="ok" onclick="saveSettingsTrigger()">Save</button>
     `;
+/* 
+    <div id="timeFirstDiv">
+    <label for="timeFirst">Date/Time order</label>
+    <select id="timeFirst">
+    <option value="dateAndTime">Date then Time</option>
+    <option value="timeAndDate">Time then Date</option>
+    </select>
+    </div>
+*/
     popupDiv.appendChild(settings);
 
 
