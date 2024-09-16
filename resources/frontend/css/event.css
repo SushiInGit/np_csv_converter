@@ -44,16 +44,15 @@
     }
 
     #use12hClockDiv {
-        display: table;
         padding-top: 5px;
         padding-bottom: 5px;
-        vertical-align: middle;
+        vertical-align: middle;;
 
     }
 
     #timeFirstDiv {
-        display: table;
         padding-top: 5px;
+        padding-bottom: 5px;
         vertical-align: middle;
     }
 

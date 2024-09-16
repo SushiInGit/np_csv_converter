@@ -1,3 +1,45 @@
+// Indicator of the active conversation (remove old indicator)
+function removeConversationClasses(element) {
+    if (!element || !element.classList) return;
+    const regexIndex = /^conversation\d+$/;
+    element.classList.forEach(className => {
+        if (regexIndex.test(className)) {
+            element.classList.remove(className);
+        }
+    });
+    const regexFrom = /^from\d+$/;
+    element.classList.forEach(className => {
+        if (regexFrom.test(className)) {
+            element.classList.remove(className);
+        }
+    });
+}
+
+
+// Get Meta information for refresh without reload the page and go back to the last conversation -- needet vor settings-changes
+function getLastOpenConversation(element) {
+    if (!element || !element.classList) return;
+    const regexIndex = /^conversation\d+$/;
+    element.classList.forEach(className => {
+        if (regexIndex.test(className)) {
+            index = className.replace(/^\D+/g, '');
+        }
+    });
+    const regexFrom = /^from\d+$/;
+    element.classList.forEach(className => {
+        if (regexFrom.test(className)) {
+            from = className.replace(/^\D+/g, '');
+        }
+    });
+    return {From: from, Index: index};
+}
+
+
+
+function setActiveConversations(index) {
+//// WIP Function to mark the active chat     
+}
+
 // Function to calculate the difference between two ISO timestamps
 function calculateCallDuration(start, end) {
     const startTime = new Date(start);
@@ -22,9 +64,12 @@ function logsPhonebookCheck(message) {
 function showLogs(index, From, conversations) {  // All Data comes from renderConversations()
     //console.log(From);                         // Number thats not the simOwner
     //console.log(conversations.communications); // Array of Data 
-
     const chatBox = document.getElementById('chat-box');
+    removeConversationClasses(chatBox); // Indicator of the active conversation (remove old indicator)
+    chatBox.classList.add(`conversation${index}`); // Indicator of the active conversation
+    chatBox.classList.add(`from${From}`);
     const header = document.getElementById('chat-header');
+
 
     conversation = conversations.communications;
     let lastDate = null;
@@ -67,9 +112,8 @@ function showLogs(index, From, conversations) {  // All Data comes from renderCo
             callMessageContainer.classList.add('text');
             callIndicator.classList.add('callindicator');
             callText.classList.add('call-message-container');
-
-            const callDuration = calculateCallDuration(historyLog.CallStart, historyLog.CallEnd);
-            const fixedDate = processTimestamp(historyLog.timestamp);
+            const callDuration = calculateCallDuration(Date.parse(historyLog.CallStart), Date.parse(historyLog.CallEnd));
+            const fixedDate = processTimestamp(Date.parse(historyLog.Timestamp));
 
             if (historyLog.CallStart != null) {
                 callDurationContainer.textContent = `Call duration: ${callDuration}`;
@@ -143,6 +187,8 @@ function showLogs(index, From, conversations) {  // All Data comes from renderCo
             chatBox.appendChild(messageDiv);
         } /// End else of if (historyLog.IsCall) {}
     });
+    getLastOpenConversation(chatBox);
+    setActiveConversations(index);
 
 
 }

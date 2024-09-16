@@ -20,6 +20,8 @@ function renderConversations(data) {
 
     data.forEach((conversation, index) => {
         const link = document.createElement('div');
+        link.id = `conversation-member`; 
+        link.classList.add(`conversation${index}`);
         link.classList.add('chat-list-item');
         headerconversationList.innerHTML = `<div>${findNameByNumber(parseInt(simOwner.Number))}'s Phone History</div>`;
         if (conversation.From === simOwner.Number || conversation.To === simOwner.Number) {

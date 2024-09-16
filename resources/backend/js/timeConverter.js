@@ -7,10 +7,11 @@ function loadSettings() {
     // Fallback Settings
     if (!savedPreferences) {
         return {
-            timeZone: 'GMT',
+            timeZone: 'gmt',
             timeFormat: '24Hour', 
             dateFormat: 'YYYY-MM-DD', 
-            displayOrder: 'timeAndDate' 
+            displayOrder: 'dateAndTime' 
+            //displayOrder: 'timeAndDate' 
         };
     }
     return JSON.parse(savedPreferences);
@@ -92,16 +93,16 @@ function processTimestamp(timestamp) {
     };
 }
 
-
+/*
 const preferences = {
     timeZone: 'GMT',
     timeFormat: '12Hour', 
     dateFormat: 'YYYY-MM-DD',
-    displayOrder: 'a' 
+    displayOrder: 'dateAndTime' 
 };
 
 saveSettings(preferences);
-
+*/
 /////////////////////////////////////////////////////////////////////
 // Test
 // const timestamp = '2024-08-02T04:51:30.000Z';
