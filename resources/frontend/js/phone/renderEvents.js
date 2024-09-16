@@ -293,9 +293,9 @@ function PhonebookImportEvent() {
     phonebook.innerHTML = `
             <button class="close" onclick="PhonebookImportEvent()">X</button>
             <h2>Import Phone contacts</h2>
-            <textarea id="message" rows="7" cols="60" placeholder="Paste your Phonedata here....\n\nFormat: \n420000000 Firstname Lastname\n420000001 Firstname Lastname\n420000002 Firstname Lastname"></textarea>
+            <textarea rows="7" cols="60" placeholder="Paste your Phonedata here....\n\nFormat: \n4200000000 Firstname Lastname\n4200000001 Firstname Lastname\n4200000002 Firstname Lastname"></textarea>
             <br>
-            <button class="ok" onclick="">Integrate Phonedata</button>
+            <button class="ok" onclick="backend.phonebookUpload.uploadPhonebookData(document.querySelector('phonebook textarea').value)">Integrate Phonedata</button>
     `;
     popupDiv.appendChild(phonebook);
 

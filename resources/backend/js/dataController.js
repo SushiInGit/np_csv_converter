@@ -27,6 +27,14 @@ backend.dataController = function () {
         }
     }
 
+    function savePhonenumbersToLocalStorage(phonuNumbers) {
+        localStorage.setItem("phonenumbers", JSON.stringify(value));
+    }
+
+    function getPhonenumbersFromLocalStorage() {
+        return JSON.parse(localStorage.getItem("phonenumbers"));
+    }
+
     return {
 
         getData: (key) => { return getDataFromLocalStorage(key) },
@@ -35,7 +43,11 @@ backend.dataController = function () {
 
         clearData: () => removeDataFromLocalStorage(),
 
-        clearDataBySheetType: (key) => removeDataFromLocalStorage(key)
+        clearDataBySheetType: (key) => removeDataFromLocalStorage(key),
+
+        savePhonenumbers: (phonuNumbers) => savePhonenumbersToLocalStorage(phonuNumbers),
+
+        getPhonenumbers: () => getPhonenumbersFromLocalStorage()
 
     }
 }();
