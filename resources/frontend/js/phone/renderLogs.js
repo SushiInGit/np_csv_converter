@@ -51,7 +51,7 @@ function calculateCallDuration(start, end) {
     // Convert milliseconds into minutes and seconds
     minutes = Math.floor(diffMs / 60000);
     seconds = ((diffMs % 60000) / 1000).toFixed(0);
-    return `${minutes ? minutes : ``} min ${seconds ? seconds : ``} sec`;
+    return `${minutes ? minutes : `0`} min ${seconds ? seconds : `0`} sec`;
 }
 
 // Funktion logsPhonebookCheck -- Find telefone-numbers in messages

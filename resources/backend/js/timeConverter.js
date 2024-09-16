@@ -92,19 +92,3 @@ function processTimestamp(timestamp) {
                      : `${formatTime(localDate, use24HourFormat)} ${formatDate(localDate, selectedDateFormat)}`
     };
 }
-
-/*
-const preferences = {
-    timeZone: 'GMT',
-    timeFormat: '12Hour', 
-    dateFormat: 'YYYY-MM-DD',
-    displayOrder: 'dateAndTime' 
-};
-
-saveSettings(preferences);
-*/
-/////////////////////////////////////////////////////////////////////
-// Test
-// const timestamp = '2024-08-02T04:51:30.000Z';
-// console.log(processTimestamp(timestamp));
-// console.log(processTimestamp(timestamp).displayOrder);
