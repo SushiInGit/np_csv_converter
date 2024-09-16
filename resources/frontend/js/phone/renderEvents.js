@@ -139,7 +139,7 @@ function saveSettingsTrigger() {
         timeZone: timezone.value,
         dateFormat: dateformat.value,
         timeFormat: use12hClock.value,
-        displayOrder: timeFirst.value
+        //displayOrder: timeFirst.value 
     };
     if (popupDiv.style.display === "none") {
         popupDiv.style.display = "block";
@@ -223,12 +223,12 @@ function SettingsEvent() {
     const timezone = document.getElementById('timezone').value;
     const dateformat = (document.getElementById('dateformat').value);
     const use12hClock = document.getElementById('use12hClock').value;
-    const timeFirst = document.getElementById('timeFirst').value;
+    //const timeFirst = document.getElementById('timeFirst').value;
 
     setSettingSelectedValue('timezone', `${(loadSettings().timeZone)}`);
     setSettingSelectedValue('dateformat', `${(loadSettings().dateFormat)}`);
     setSettingSelectedValue('use12hClock', `${(loadSettings().timeFormat)}`);
-    setSettingSelectedValue('timeFirst', `${(loadSettings().displayOrder)}`);
+    //setSettingSelectedValue('timeFirst', `${(loadSettings().displayOrder)}`);
 
     if (popupDiv.style.display === "none") {
         popupDiv.style.display = "block";
