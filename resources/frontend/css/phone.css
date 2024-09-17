@@ -227,44 +227,6 @@ body {
     font-size: 1.2em;
 }
 
-.phonebook-list {
-    flex-grow: 1;
-    overflow-y: auto;
-    padding: 10px;
-}
-
-.phonebook-list-item {
-    display: flex;
-    align-items: center;
-    padding: 10px;
-    margin-bottom: 10px;
-    background-color: #191e28;
-    border-radius: 8px;
-    color: #ffffff;
-    cursor: pointer;
-}
-
-.phonebook-list-item:hover {
-    background-color: #222b3c;
-}
-
-.phonebook-list-item .phonebook-info {
-    flex-grow: 1;
-}
-
-.phonebook-list-item .phonebook-info .name {
-    font-weight: bold;
-}
-
-.phonebook-list-item .phonebook-info .message-preview {
-    color: #aebac1;
-    font-size: 0.9em;
-}
-
-.phonebook-list-item .time {
-    font-size: 0.8em;
-    color: #aebac1;
-}
 
 
 /* Message box */
@@ -530,6 +492,8 @@ footer {
 #popupDiv {
     display: none;
     position: fixed;
+    flex-direction: column;
+    max-height: 80%;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);

@@ -1,73 +1,52 @@
+function isEmpty(data) {
+    if (Array.isArray(data)) {
+        return data.length === 0;
+    } else if (typeof data === 'object' && data !== null) {
+        return Object.keys(data).length === 0;
+    }
+    return false;
+}
+
+
 // Function to render the list of conversations
-function renderPhonebook(records) {
+function renderPhonebook() {
+    records = backend.dataController.getPhonenumbers();
     const phonebookList = document.getElementById('phonebook-list');
     phonebookList.innerHTML = '';
-    const sortPhoneRecord = sortPhoneRecords(records);
-    const duplicates = findDuplicates(records);
+    const phonebookhead = document.createElement('div');
 
-    // contactList.forEach((phonelist, index) => {
-    backend.dataController.getPhonenumbers().forEach((phonelist, index) => {
-        const phonebooklist = document.createElement('div');
-        phonebooklist.classList.add('phonebook-list-item');
+    phonebookhead.classList.add('phonebook-head');
+    phonebookhead.innerHTML = `
+      <div class="phonebook-head">
+      Found ${records.length} entrys.
+        <br>
+      <input type="text" id="search" class="search-bar" placeholder="Searching contracts...">
+      </div>
+  `;
 
-        if (duplicates.includes(index)) {
-            phonebooklist.classList.add('duplicate');
-        }
+    phonebookList.appendChild(phonebookhead);
 
-        phonebooklist.innerHTML = `
+    const phonebookbody = document.createElement('div');
+    phonebookbody.classList.add('phonebook-body');
+
+    if (isEmpty(records) === false) {   // Add card for ea record
+
+        records.forEach((contacts, index) => {
+            const phonebooklist = document.createElement('div');
+            phonebooklist.classList.add('phonebook-list-item');
+            phonebooklist.innerHTML = `
             <div class="phonebook-info">
-                <div class="name">${(phonelist.name)} <br> ${(phonelist.number)}</div>
+                <div class="name">${(contacts.name)} <br> ${(contacts.number)}</div>
             </div>
         `;
-        phonebookList.appendChild(phonebooklist);
-    });
+            phonebookbody.appendChild(phonebooklist);
+            phonebookList.appendChild(phonebookbody);
+
+        })
+
+    };
 }
 
-
-
-// Function to detect duplicates in the phoneRecords array by number and name
-function findDuplicates(records) {
-    const duplicateIndices = new Set();  // Set to store indices of duplicate entries
-    const seenNumbers = new Set();
-    const seenNames = new Set();
-    // Loop through phoneRecords and check for duplicates
-    for (let i = 0; i < records.length; i++) {
-        const record = records[i];
-
-        // Normalize the number field into an array (whether it's a single number or multiple numbers)
-        const numbers = Array.isArray(record.number) ? record.number : [record.number];
-
-        // Check for duplicate numbers
-        for (const number of numbers) {
-            if (seenNumbers.has(number)) { ////// WIP: Add Original aswell
-                seenNumbers.add(number);
-                duplicateIndices.add(i);
-            } else {
-                seenNumbers.add(number);
-            }
-        }
-        // Check for duplicate names
-        /*
-        if (seenNames.has(record.name)) {
-            duplicateIndices.add(i); 
- 
-        } else {
-            seenNames.add(record.name); 
-        }
-        */
-    }
-    return Array.from(duplicateIndices);
-}
-
-
-// Function to normalize phone number to a string for comparison
-function normalizeNumber(number) {
-
-    if (Array.isArray(number)) {
-        return number[0].toString();  // If multiple numbers, take the first one
-    }
-    return number.toString();
-}
 
 
 
@@ -75,8 +54,8 @@ function normalizeNumber(number) {
 function sortPhoneRecords(records) {
     return records.sort((a, b) => {
         // Normalize the phone numbers
-        const numA = normalizeNumber(a.number);
-        const numB = normalizeNumber(b.number);
+        const numA = a.number;
+        const numB = b.number;
         // compare the names alphabetically
         if (a.name < b.name) return -1;
         if (a.name > b.name) return 1;

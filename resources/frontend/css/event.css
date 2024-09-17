@@ -1,7 +1,32 @@
-#popupDiv {
+ .sidemenu-container {  /* --------Start of Sidemenu---------  */
+    a {
+        position: relative;
+        text-decoration: none;
+    }
+    a::after {
+        content: attr(data-alt);
+        font-size: 16px;
+        position: absolute;
+        bottom: calc(100% - 8px);
+        right: 50px;
+        background-color: #333333;
+        color: #ffffff;
+        padding: 5px;
+        border-radius: 5px;
+        white-space: nowrap;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s ease;
+    }
 
-    /* --------Start of Events---------  */
-    .close {
+    a:hover::after {
+        opacity: 1;
+    }
+} /* --------End of Sidemenu---------  */
+ 
+
+#popupDiv { /* --------Start of Events---------  */
+     .close {
         cursor: pointer;
         padding: 8px 12px;
         background-color: #e74c3c;
@@ -31,7 +56,8 @@
         background-color: #2ecc71;
     }
 
-    #timezoneDiv {
+    /* --------Start of Settings ---------  */
+        #timezoneDiv {
         padding-top: 5px;
         padding-bottom: 5px;
         vertical-align: middle;
@@ -46,7 +72,8 @@
     #use12hClockDiv {
         padding-top: 5px;
         padding-bottom: 5px;
-        vertical-align: middle;;
+        vertical-align: middle;
+        ;
     }
 
     #timeFirstDiv {
@@ -58,10 +85,10 @@
     #offsetDiv {
         padding-top: 5px;
         padding-bottom: 5px;
-        vertical-align: middle;;
+        vertical-align: middle;
+        ;
     }
 
-    /* Label styling for dark mode */
     label {
         display: table-cell;
         color: #ffffff;
@@ -76,7 +103,6 @@
         color: #ffffff;
         border: 1px solid #555555;
         border-radius: 5px;
-        /*appearance: none;*/
         text-align: center;
         text-align-last: center;
     }
@@ -102,8 +128,6 @@
         pointer-events: none;
     }
 
-
-
     input[type="checkbox"] {
         display: table-cell;
         width: 20px;
@@ -127,8 +151,9 @@
 
     input[type="checkbox"]:hover {
         background-color: #444444;
-    }
+    } /* --------End of Settings---------  */
 
+    /* --------Start of Fileupload---------  */
     .upload-button {
         background-color: transparent;
         border: none;
@@ -165,36 +190,34 @@
         border: 1px solid;
         border-color: #ff1a1a;
         box-shadow: 0 0 15px 5px rgba(252, 20, 20, 0.7);
+    }/* --------End of Fileupload---------  */
+
+    /* --------Start of contact-viewer---------  */
+
+    .phonebook-list {
+    display: block;
     }
 
+    .phonebook-head {
+        font-weight: 700;
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+    .phonebook-body {
+        height: 30vh; 
+        overflow-y: auto; 
+    }
+
+    
+    .phonebook-list-item {
+        padding: 10px;
+        margin-bottom: 10px;
+        background-color: #35384F;
+        border-radius: 8px;
+        color: #ffffff;
+    }
+  
+/* --------End of contact-viewer----------  */
 
 
-    /* --------End of Events---------  */
-}
-
-
-a {
-    position: relative;
-    text-decoration: none;
-}
-.sidemenu-container{
-a::after {
-    content: attr(data-alt);
-    font-size: 16px;
-    position: absolute;
-    bottom: calc(100% - 8px);
-    right: 50px;
-    background-color: #333333;
-    color: #ffffff;
-    padding: 5px;
-    border-radius: 5px;
-    white-space: nowrap;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.3s ease;
-}
-
-a:hover::after {
-    opacity: 1;
-}
-}
+}/* --------End of Events---------  */
