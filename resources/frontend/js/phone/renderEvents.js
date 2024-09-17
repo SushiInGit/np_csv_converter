@@ -331,10 +331,10 @@ function PhonebookShowEvent() {
     contacts.innerHTML = `
             <button class="close" onclick="PhonebookShowEvent(), clearPopupDiv()">X</button>
             <h2>Phone Directory</h2>
-            <div class="phonebook-list" id="phonebook-list"></div>
+            <div class="contacts" id="contacts"></div>
 `;
     popupDiv.appendChild(contacts);
-    renderPhonebook();
+    renderPhonebook(backend.dataController.getPhonenumbers());
     if (popupDiv.style.display === "none") {
         popupDiv.style.display = "block";
         popupOverlay.style.display = "block";

@@ -194,22 +194,21 @@
 
     /* --------Start of contact-viewer---------  */
 
-    .phonebook-list {
+    .contacts {
     display: block;
     }
 
-    .phonebook-head {
+    .head {
         font-weight: 700;
         padding-top: 10px;
         padding-bottom: 10px;
     }
-    .phonebook-body {
+    .list {
         height: 30vh; 
         overflow-y: auto; 
     }
-
     
-    .phonebook-list-item {
+    .entry {
         padding: 10px;
         margin-bottom: 10px;
         background-color: #35384F;
