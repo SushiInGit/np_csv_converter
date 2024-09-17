@@ -34,7 +34,7 @@ function createEntryHead(parentDIV) {
     child.innerHTML = `Found ${records.length} entrys. <br>`;
     const childSearch = document.createElement('div');
     childSearch.classList.add('search');
-    childSearch.innerHTML = `<input type="text" id="search" class="search-bar" placeholder="Searching contracts...">`;
+    childSearch.innerHTML = `<input type="text" id="search" required><label for="">Searching contracts...</label>`;
     parentDIV.appendChild(child);
     parentDIV.appendChild(childSearch);
     document.getElementById('search').addEventListener('input', function () {

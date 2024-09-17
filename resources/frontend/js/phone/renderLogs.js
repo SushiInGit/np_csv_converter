@@ -167,8 +167,8 @@ function showLogs(index, From, conversations) {  // All Data comes from renderCo
             textDiv.classList.add('text');
             // textDiv.innerHTML = historyLog.Message;
 
-            textDiv.innerHTML = logsPhonebookCheck(historyLog.Message);
-
+            //textDiv.innerHTML = logsPhonebookCheck(historyLog.Message);
+            textDiv.innerHTML = (historyLog.Message);
             const timestampDiv = document.createElement('div');
             fixedDate = processTimestamp(historyLog.Timestamp);
             timestampDiv.classList.add('timestamp');
@@ -190,6 +190,5 @@ function showLogs(index, From, conversations) {  // All Data comes from renderCo
     });
     getLastOpenConversation(chatBox);
     setActiveConversations(index);
-
-
+    processMessages();
 }

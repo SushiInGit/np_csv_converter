@@ -16,35 +16,44 @@
 }
 
 .message .phonenumber {
-    color: #774d77;
+    color: #a169a1;
+    position: relative;
+    display: inline-flex;
     font-weight: 700;
-
-    &::before {
-        content: attr(data-name);
-        display: block;
-        position: absolute;
-        color: #774d77;
-        margin-top: 12px;
-        margin-left: 8px;
+    text-decoration: underline dotted rgba(255, 255, 255, 0.281);
+    white-space:nowrap;
+    &::before{
+        display: none;
+    }
+    &::after {
+        background-color: #333333;
+        color: #ffffff;
         opacity: 0;
-
-        background-color: #292c3d;
-        border: none;
         border-radius: 3px;
-        padding: 4px 6px;
     }
 
-    &:hover::before {
+    &:hover::after {
+        position: absolute;
+        display: inline-flex;
+        content: attr(data-name);
         opacity: 1;
+        padding: 6px 6px;
+        margin: 6px 6px;
+        border: 1px solid #774d77;
+        margin-top: -5px;
+        margin-left: -20px;
+        z-index: 10;
+        white-space:nowrap;
     }
+       
 } 
 
 #errorMessagePIC {
     position: absolute;
     display: none;
-    color: red;
+    color: rgb(255, 255, 255);
     font-size: 14px;
-    background-color: white;
+    background-color: rgb(75, 3, 3);
     border: 1px solid red;
     padding: 5px;
     z-index: 1000;

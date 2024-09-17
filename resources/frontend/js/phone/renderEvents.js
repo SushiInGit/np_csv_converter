@@ -62,7 +62,7 @@ function BugReportEvent() {
 
     bugtracker.innerHTML = `
             <button class="close" onclick="BugReportEvent()">X</button>
-            <h2>Send Bugreport</h2>
+            <h2>Send Bugreport</h2><br>
             <textarea id="message" rows="4" cols="60" placeholder="Enter your message...."></textarea>
             <br>
             <button class="ok" onclick="sendToDiscord()">Send Bugreport</button>
@@ -173,7 +173,7 @@ function SettingsEvent() {
 
     settings.innerHTML = `
             <button class="close" onclick="SettingsEvent(), clearPopupDiv()">X</button>
-            <h2>Settings</h2>
+            <h2>Settings</h2><br>
             <div id="timezoneDiv">
                 <label for="timezone">Timezone:</label>
                 <select id="timezone">
@@ -260,7 +260,7 @@ function UploadEvent() {
 
     uploader.innerHTML = `
             <button class="close" onclick="UploadEvent(), clearPopupDiv()">X</button>
-        <h2>File upload</h2>
+        <h2>File upload</h2><br>
         <form id="upload-form">
         <div class="drop-zone" id="drop-zone">
             Drag & Drop or click to Upload an Excel-File
@@ -308,7 +308,7 @@ function PhonebookImportEvent() {
 
     phonebook.innerHTML = `
             <button class="close" onclick="PhonebookImportEvent(), clearPopupDiv()">X</button>
-            <h2>Import Phone contacts</h2>
+            <h2>Import Phone contacts</h2><br>
             <textarea rows="7" cols="60" placeholder="Paste your Phonedata here....\n\nFormat: \n4200000000 Firstname Lastname\n4200000001 Firstname Lastname\n4200000002 Firstname Lastname"></textarea>
             <br>
             <button class="ok" onclick="backend.phonebookHelper.uploadPhonebookData(document.querySelector('phonebook textarea').value); clearPopupDiv(); window.location.reload();">Integrate Phonedata</button>

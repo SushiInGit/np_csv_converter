@@ -112,8 +112,8 @@ body {
 .chat-list-item .time {
     font-size: 0.8em;
     color: #aebac1;
-    width: 100px;
-    min-width: 100px;
+    width: 110px;
+    min-width: 110px;
 }
 
 /* Chat container */
