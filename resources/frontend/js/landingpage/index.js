@@ -13,7 +13,7 @@ function redirect(click) {
         window.location.href = "phone.html";
     }
     if (click === 'bank') {
-        alert("Function: Bank Subpoena is WIP.\nComming soon (tm)...");
+        alert("\nFunction: Bank Subpoena is WIP.\nComing soon (tm)...\nfrfr just trustme bwo!");
         window.location.href = "";
     }
 }
