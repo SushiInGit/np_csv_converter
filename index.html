@@ -1,62 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Project NP CSV-Converter</title>
-  <script src="resources/backend/vendors/xlsx.full.min.js"></script>
-  <script defer src="resources/frontend/js/fileUploader.js"></script>
-  <link rel="stylesheet" href="resources/frontend/css/uploader.css">
-  <!-- // Debug --> <script src="resources/backend/js/debugLogger.js"></script> <!-- Debug \\ -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" />
+    <title>NP-Converter</title>
+    <link rel="icon" href="resources/frontend/favicon/favicon.ico" sizes="32x32">
+    <link rel="icon" href="resources/frontend/favicon/icon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="resources/frontend/favicon/apple-touch-icon.png">
+    <link rel="stylesheet" href="resources/frontend/css/landingpage.css">
+    <script defer src="resources/frontend/js/landingpage/index.js"></script>
 </head>
+
 <body>
-
-
-<div class="welcomeDiv">
-    <h1>Welcome!</h2>
-    <p>
-        To get the most out of this website, please upload a CSV or Excel file. Once the file is uploaded, you’ll unlock full access to all the features and tools available.<br />
-        Simply click the upload button to get started.<br />
-        <br />
-        If you encounter any issues during the upload process, feel free to reach out for support.
-    </p>
-</div>
-
-<div class="modalDropbox">
-    <div id="dropboxContainer" class="modalDropboxInside">
-        <h2>File upload</h2>
-        <form id="upload-form">
-        <select id="option-select" class="optionselect">
-            <option value="0">Phone records</option>
-        </select>
-        <div class="drop-zone" id="drop-zone">
-            Drag & Drop or click to Upload an Excel-File
-            <input type="file" id="file-input" accept=".xlsx, .xls" style="display: none;" required>
+    <figure class='tablet'>
+        <div class="notch">
+            <div class="left" id="user-time"></div>
+            <div class="center">
+                NP Converter
+            </div>
+            <div class="right material-icons">
+                <i class="material-icons" id="icon">vibration wifi battery_full_alt</i>
+            </div>
         </div>
-        <div id="error-message" class="error-message"></div>
-        </form>
+        <div class="container">
+
+            <div class="element" id="phone">
+                <div class="imageDiv">
+                    <img src="resources/frontend/image/sim.png">
+                </div>
+                <div class="elementBody">
+                    <div class="infoDiv">
+                        <h3>Phone Analyser<br><span>Subpoena Cell Phone Records</span></h3>
+                    </div>
+                </div>
+            </div>
+
+            <div class="element" id="bank">
+                <div class="imageDiv">
+                    <img src="resources/frontend/image/bank.png">
+                </div>
+                <div class="elementBody">
+                    <div class="infoDiv">
+                        <h3>Bank Analyser<br><span>Subpoena Bank Records</span></h3>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </figure>
+    <div class="footer">
+        Project located on <a href="https://github.com/SushiInGit/np_csv_converter/">GitHub</a> -
+        by <a href="https://github.com/RYJarnovk">RY Jarnovk</a> & <a
+            href="https://github.com/SushiInGit">SushiInPeace</a>
     </div>
-</div>
-
-
-
 </body>
-</html>
 
-<script>
-if(logger.doDEVMODE){
-    const selectPicker = document.getElementById('option-select');
-    const addOption1 = document.createElement("option");
-    const addOption2 = document.createElement("option");
-    const addOption3 = document.createElement("option");
-    addOption1.value = "69";
-    addOption1.text = "Legacy Table";
-    addOption2.value = "1337";
-    addOption2.text = "DEV MODE";
-    addOption3.value = "42069";
-    addOption3.text = "Breakpoint /---/ no redirect";
-    selectPicker.add(addOption1, null);
-    selectPicker.add(addOption2, null);
-    selectPicker.add(addOption3, null);
-}
-</script>
+</html>
