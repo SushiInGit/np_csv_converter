@@ -79,12 +79,12 @@ function showLogs(index, From, conversations) {  // All Data comes from renderCo
     if (isNaN(findNameByNumber(From))) {
         header.querySelector('.name').textContent = `${findNameByNumber(From)} ( ${(From)} )`;
     } else {
-        header.querySelector('.name').textContent = `Unkown ( ${(From)} )`;
+        header.querySelector('.name').textContent = `Unknown ( ${(From)} )`;
     }
     if (isNaN(findNameByNumber(simOwner.Number))) {
         header.querySelector('.status').textContent = `Chat to ${findNameByNumber(simOwner.Number)} ( ${(simOwner.Number)} )`;
     } else {
-        header.querySelector('.status').textContent = `Chat to Unkown ( ${findNameByNumber(simOwner.Number)} )`;
+        header.querySelector('.status').textContent = `Chat to Unknown ( ${findNameByNumber(simOwner.Number)} )`;
     }
     chatBox.innerHTML = '';  // Clear previous messages
 

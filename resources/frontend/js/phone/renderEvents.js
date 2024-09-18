@@ -309,9 +309,10 @@ function PhonebookImportEvent() {
     phonebook.innerHTML = `
             <button class="close" onclick="PhonebookImportEvent(), clearPopupDiv()">X</button>
             <h2>Import Phone contacts</h2><br>
-            <textarea rows="7" cols="60" placeholder="Paste your Phonedata here....\n\nFormat: \n4200000000 Firstname Lastname\n4200000001 Firstname Lastname\n4200000002 Firstname Lastname"></textarea>
+            <p><small>This option replaces the existing phone directory with new contacts.</small></p><br>
+            <textarea rows="7" cols="63" placeholder="Paste your Phonedata here....\n\nFormat: \n4200000000 Firstname Lastname\n4200000001 Firstname Lastname\n4200000002 Firstname Lastname"></textarea>
             <br>
-            <button class="ok" onclick="backend.phonebookHelper.uploadPhonebookData(document.querySelector('phonebook textarea').value); clearPopupDiv(); window.location.reload();">Integrate Phonedata</button>
+            <button class="ok" onclick="backend.phonebookHelper.uploadPhonebookData(document.querySelector('phonebook textarea').value); clearPopupDiv(); window.location.reload();">Update contacts</button>
     `;
     popupDiv.appendChild(phonebook);
 
