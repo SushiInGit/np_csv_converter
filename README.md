@@ -9,7 +9,7 @@ Join us: https://discord.gg/e3t8EHKGp3
 
 #
 
-### Update Log:
+### Update History:
 
 ```
 2024-09-18:
@@ -19,8 +19,17 @@ Join us: https://discord.gg/e3t8EHKGp3
 --> Activity Data
 --> Fileupload directly on the page
 --> Import of phone directory data
+```
 ``` 
-
+2024-09-10:
+* First version of a css styled viewer
+* Table normalizer 
+``` 
+```
+2024-09-07:
+* Project start
+* Simple output excel into tables script
+``` 
 #
 
 ### New feature soon
