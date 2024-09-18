@@ -274,5 +274,26 @@
 
     }
 /* --------End of contact-viewer----------  */
+/* Container styles */
+.activity {
+    width: 800px;
+    margin: 50px auto;
+    text-align: center;
 
+
+.chart-container {
+    position: relative;
+    height: 400px;
+    width: 100%;
+    margin-top: 20px;
+}
+
+#time-range-output {
+    margin-top: 20px;
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #4e4e4e;
+}
+
+}
 }/* --------End of Events---------  */

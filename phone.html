@@ -18,7 +18,7 @@
     <script defer src="resources/backend/js/phoneRecordsHelper.js"></script>
     <script src="resources/backend/vendors/xlsx.full.min.js"></script>
 
-
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded" />
 
@@ -61,7 +61,7 @@
                 <div class="menu-item">
                     <a onclick="WIPShowEvent(`search`)" data-alt="Opens search-system"><span class="material-symbols-rounded">manage_search</span></a> <!-- Search Function -->
                     <a onclick="PhonebookShowEvent()" data-alt="Opens phone directory"><span class="material-symbols-rounded">deskphone</span></a> <!-- Phonebook -->
-                    <a onclick="WIPShowEvent(`activity`)" data-alt="Metadata informations"><span class="material-symbols-outlined">browse_activity</span></a> <!-- Metadata -->
+                    <a onclick="activityEvent()" data-alt="Metadata informations"><span class="material-symbols-outlined">browse_activity</span></a> <!-- Metadata -->
                 </div>
             </div>
             <div class="menu-bottom">
@@ -99,6 +99,7 @@
     <!-- // Start render process -->
     <script defer src="resources/frontend/js/phone/initPhoneRender.js"></script>
     <script defer src="resources/frontend/js/phone/imgprev.js"></script>
+    <script defer src="resources/frontend/js/phone/renderActivity.js"></script>
 
 </body>
 

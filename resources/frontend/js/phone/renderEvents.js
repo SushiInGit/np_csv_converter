@@ -362,3 +362,37 @@ function WIPShowEvent(name) {
         popupOverlay.style.display = "none";
     }
 }
+////////////////////////////////////////////////// Activity
+function activityEvent(name) {
+    clearPopupDiv(); // Clear Event-DIV
+    const activity = document.createElement('activity');
+
+    activity.innerHTML = `        
+         <button class="close" onclick="activityEvent(''), clearPopupDiv()">X</button>
+            <h2>Activity Chart</h2><br>
+        <div class="activity">
+
+
+        <!-- Chart Container -->
+        <div class="chart-container">
+            <canvas id="activityChart"></canvas>
+        </div>
+
+        <!-- Textual Output for Active Time Range -->
+        <div id="time-range-output"></div>
+    </div>
+
+`;
+
+    popupDiv.appendChild(activity);
+    if (popupDiv.style.display === "none") {
+        popupDiv.style.display = "block";
+        popupOverlay.style.display = "block";
+    } else {
+        popupDiv.style.display = "none";
+        popupOverlay.style.display = "none";
+    }
+    generateActivityChart(activityDataText);
+ // findActiveTimeRange(activityData);
+
+}
