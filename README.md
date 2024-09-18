@@ -2,6 +2,13 @@
 
 Project by RY Jarnovk and SushiInHell
 
+#
+
+### Discord
+Join us: https://discord.gg/e3t8EHKGp3
+
+#
+
 ### Update Log:
 
 ```
@@ -14,11 +21,15 @@ Project by RY Jarnovk and SushiInHell
 --> Import of phone directory data
 ``` 
 
+#
+
 ### New feature soon
 
 - Recolering of the phone page
-- Global search (Messages)
+- Global search for phone subpoena (messages)
 - Bank record viewer
+
+#
 
 ### Features completed
 
