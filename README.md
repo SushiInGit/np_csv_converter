@@ -1,20 +1,29 @@
 # np_csv_converter
 
-Fun Project from SushiInHell
+Project by RY Jarnovk and SushiInHell
 
-Based of RY Jarnovk's Project.
+### Update Log:
 
-### New feature ideas
+```
+2024-09-18:
+* Rework of the landingpage
+* New features for the phone subpoena
+--> Phone Directory + search
+--> Activity Data
+--> Fileupload directly on the page
+--> Import of phone directory data
+``` 
 
-- Phonebook and bank records
+### New feature soon
+
+- Recolering of the phone page
+- Global search (Messages)
+- Bank record viewer
 
 ### Features completed
 
-- Saving / Localstorage for selected time settings
-- Improve useablility in changing settings while table is loaded
-- UTC time column next to formatted time with show/hide toggle
+- Changing Timezones
+- Phone Directory + Importer
+- Load Call/Message subpoena from excel files
+- Analyse of SimOwner activity
 
-### To-Do / Bug Fixes
-
-- imagePreview-css glitch at the bottem of the webpage\
-\[ Bandit Fix: *before* transform: translateY(-50%); ->  *after* transform: translateY(-80%); ]

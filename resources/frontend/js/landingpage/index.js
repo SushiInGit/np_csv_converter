@@ -2,6 +2,7 @@ function createClick() {
     const elementPhone = document.getElementById('phone');
     elementPhone.style.cursor = "pointer";
     elementPhone.addEventListener('click', () => redirect('phone'));
+    
     const elementBank = document.getElementById('bank');
     elementBank.style.cursor = "pointer";
     elementBank.addEventListener('click', () => redirect('bank'));

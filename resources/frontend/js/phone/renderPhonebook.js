@@ -44,7 +44,6 @@ function createEntryHead(parentDIV) {
             contact.number.toString().includes(searchTerm)
 
         );
-        console.log(filteredContacts);
         createEntryListSearch(filteredContacts);
     });
 }
