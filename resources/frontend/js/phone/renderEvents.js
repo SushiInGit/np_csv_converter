@@ -370,17 +370,13 @@ function activityEvent(name) {
     activity.innerHTML = `        
          <button class="close" onclick="activityEvent(''), clearPopupDiv()">X</button>
             <h2>Activity Chart</h2><br>
-        <div class="activity">
-
-
-        <!-- Chart Container -->
-        <div class="chart-container">
-            <canvas id="activityChart"></canvas>
-        </div>
-
-        <!-- Textual Output for Active Time Range -->
-        <div id="time-range-output"></div>
-    </div>
+            <div class="activity">
+                <div class="chart-container">
+                    <canvas id="activityChart"></canvas>
+                </div>
+                <div id="time-range-output"></div>
+            </div>
+        <center>Feature is WIP <br>View is based of Outgoing activity from Sim Owner</center>
 
 `;
 
@@ -392,7 +388,5 @@ function activityEvent(name) {
         popupDiv.style.display = "none";
         popupOverlay.style.display = "none";
     }
-    generateActivityChart(activityDataText);
- // findActiveTimeRange(activityData);
-
+    generateActivityChart(activityDataText, activityDataCalls, simOwner.Number);
 }
