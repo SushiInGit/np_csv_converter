@@ -90,7 +90,6 @@ body {
 
 .container .element .imageDiv img {
     max-height: 350px;
-
 }
 
 .notch {
@@ -100,36 +99,87 @@ body {
     display: flex;
     height: 25px;
     width: 100%;
-    background: rgb(21,18,36);
+    background: rgb(21, 18, 36);
     background: linear-gradient(0deg, rgba(46, 45, 53, 0.3) 0%, rgba(61, 56, 63, 0.3) 50%);
     color: #000;
 }
-.notch .left, .center, .right {
+
+.notch .left,
+.center,
+.right {
     font-family: 'Arial', sans-serif;
     color: #fff;
     flex: 1;
-    font-weight: 700; 
+    font-weight: 700;
     opacity: 0.7;
 }
+
 .notch .left {
     padding-left: 10px;
     text-align: left;
     font-size: 18px;
 }
+
 .notch .center {
     text-align: center;
     font-size: 18px;
 }
+
 .notch .right {
     padding-right: 10px;
     text-align: right;
     font-size: 18px;
 }
+
 .notch .right .material-icons {
     padding-right: 20px;
     width: 40px;
     font-size: 18px;
 }
+
+.footer {
+    font-family: "Poppins", sans-serif;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    padding: 5px;
+    width: 100%;
+    text-align: center;
+    color: #fff;
+    font-size: 12px;
+    background: rgb(21, 18, 36);
+    background: linear-gradient(180deg, rgba(46, 45, 53, 0.3) 0%, rgba(61, 56, 63, 0.3) 50%);
+    opacity: 0.8;
+
+    a {
+        color: #d4a5ff;
+        text-decoration: none;
+        position: relative;
+        transition: color 0.3s ease;
+    }
+
+    a:hover {
+        color: #fff;
+    }
+
+    a::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: -3px;
+        width: 100%;
+        height: 2px;
+        background: linear-gradient(90deg, transparent, #d4a5ff, transparent);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    a:hover::after {
+        opacity: 1;
+    }
+}
+
+/*          ---- TABLET ----         */
 .tablet {
     display: block;
     color: #fff;
