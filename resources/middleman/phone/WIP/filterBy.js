@@ -31,9 +31,9 @@ middleman.filterBy = function () {
     function strictFilter(data, filter) {
         const pointer = data[0].communications;
         let output = pointer.filter(object => {
+            
             if (object.Message.includes(filter.toString().toLowerCase()) === true) {
-                console.log("--> ", object.Message);
-                if (pointer !== null) {
+                   if (pointer !== null) {
                     return JSON.stringify(pointer)
                         .toString()
                         .toLowerCase()

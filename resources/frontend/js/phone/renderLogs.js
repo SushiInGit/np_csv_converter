@@ -64,6 +64,7 @@ function logsPhonebookCheck(message) {
 }
 
 function showLogs(index, From, conversations) {  // All Data comes from renderConversations()
+    console.log(conversations);
     //console.log(From);                         // Number thats not the simOwner
     //console.log(conversations.communications); // Array of Data 
     const chatBox = document.getElementById('chat-box');
@@ -168,7 +169,8 @@ function showLogs(index, From, conversations) {  // All Data comes from renderCo
             // textDiv.innerHTML = historyLog.Message;
 
             //textDiv.innerHTML = logsPhonebookCheck(historyLog.Message);
-            textDiv.innerHTML = (historyLog.Message);
+            console.log(historyLog); ///////////// find me
+            textDiv.innerHTML = `${(historyLog.Message)}`;
             const timestampDiv = document.createElement('div');
             fixedDate = processTimestamp(historyLog.Timestamp);
             timestampDiv.classList.add('timestamp');
