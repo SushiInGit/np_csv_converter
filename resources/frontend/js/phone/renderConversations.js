@@ -28,8 +28,8 @@ function renderConversations(data, custemIndex, custemFrom) {
                 link.id = `conversation-member`;
                 link.classList.add(`conversation${index}`);
                 link.classList.add('chat-list-item');
-                headerconversationList.innerHTML = `<div>${findNameByNumber(parseInt(simOwner.Number))}'s Phone History</div>`;
-                return (conversation?.From === simOwner?.Number || conversation?.To === simOwner?.Number) ? renderConversationsOutput(conversation, index, conversationList, link) : '';
+                headerconversationList.innerHTML = `<div>${findNameByNumber(parseInt(middleman.simOwner.number()))}'s Phone History</div>`;
+                return (conversation?.simOwner === middleman.simOwner.number() || conversation?.To === middleman.simOwner.number()) ? renderConversationsOutput(conversation, index, conversationList, link) : '';
             });
         } else {
             data.forEach((conversation, index) => {
@@ -43,18 +43,19 @@ function renderConversations(data, custemIndex, custemFrom) {
     }
 }
 function renderConversationsOutput(conversation, index, conversationList, divBox) {
-    if (conversation.From === simOwner.Number || conversation.To === simOwner.Number) {
+    
+    if (conversation.simOwner === middleman.simOwner.number() || conversation.To === middleman.simOwner.number()) {      
         divBox.innerHTML = `
     <div class="chat-info">
         <div class="name">${findNameByNumber(conversation.To)}</div>
         <div class="message-preview">${conversation.To}</div>
     </div>
-    <div class="time">✉️ Message: ${(findConversationInformation(conversation.communications).messageCount)}<br />
-    📞 Calls: ${(findConversationInformation(conversation.communications).callCount)}
+    <div class="time">✉️ Message: ${middleman.phoneData.infoCountMessage(conversation.communications)}<br />
+    📞 Calls: ${(middleman.phoneData.infoCountIscall(conversation.communications))}
     </div>`;
     divBox.addEventListener('click', () => showLogs(index, (conversation.To), conversation));
         conversationList.appendChild(divBox);
     } else {
-        console.log(`Error: Skipping conversation at index #${index} \nFound a number not associated with the SimOwner: ${simOwner.Number} \nCall details From: ${conversation.From} to: ${conversation.To}`);
+        console.log(`Error: Skipping conversation at index #${index} \nFound a number not associated with the SimOwner: ${middleman.simOwner.number()} \nCall details From: ${conversation.From} to: ${conversation.To}`);
     }
 }

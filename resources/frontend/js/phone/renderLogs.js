@@ -38,9 +38,6 @@ function getLastOpenConversation(element) {
     };
 }
 
-function setActiveConversations(index) {
-//// WIP Function to mark the active chat     
-}
 
 // Function to calculate the difference between two ISO timestamps
 function calculateCallDuration(start, end) {
@@ -55,16 +52,15 @@ function calculateCallDuration(start, end) {
 }
 
 // Funktion logsPhonebookCheck -- Find telefone-numbers in messages
-function logsPhonebookCheck(message) {
+/*function logsPhonebookCheck(message) {
     const phoneRegex = /\(?420\)?\s?\d{3}\s?\d?\s?\s?\d?\s?\d{3}/g;
     const wrappedHtmlString = message.replace(phoneRegex, (match) => {
         return `<span class="phonenumber" data-name="${findNameByNumber(parseInt(match))}">${match}</span>`;
     });
     return wrappedHtmlString;
 }
-
+*/
 function showLogs(index, From, conversations) {  // All Data comes from renderConversations()
-    console.log(conversations);
     //console.log(From);                         // Number thats not the simOwner
     //console.log(conversations.communications); // Array of Data 
     const chatBox = document.getElementById('chat-box');
@@ -82,10 +78,10 @@ function showLogs(index, From, conversations) {  // All Data comes from renderCo
     } else {
         header.querySelector('.name').textContent = `Unknown ( ${(From)} )`;
     }
-    if (isNaN(findNameByNumber(simOwner.Number))) {
-        header.querySelector('.status').textContent = `Chat to ${findNameByNumber(simOwner.Number)} ( ${(simOwner.Number)} )`;
+    if (isNaN(findNameByNumber(middleman.simOwner.number()))) {
+        header.querySelector('.status').textContent = `Chat to ${findNameByNumber(middleman.simOwner.number())} ( ${(middleman.simOwner.number())} )`;
     } else {
-        header.querySelector('.status').textContent = `Chat to Unknown ( ${findNameByNumber(simOwner.Number)} )`;
+        header.querySelector('.status').textContent = `Chat to Unknown ( ${findNameByNumber(middleman.simOwner.number())} )`;
     }
     chatBox.innerHTML = '';  // Clear previous messages
 
@@ -123,7 +119,7 @@ function showLogs(index, From, conversations) {  // All Data comes from renderCo
                 callTimeContainer.textContent = `${fixedDate.timeShowOffset} ${fixedDate.timeZone}`;
                 callTimeContainer.classList.add('time');
 
-                if (parseInt(simOwner.Number) === parseInt(historyLog.From)) {
+                if (parseInt(middleman.simOwner.number()) === parseInt(historyLog.From)) {
                     // callBetween.textContent = `Incoming call: ${historyLog.to}`;
                     callBetween.textContent = `Incoming call`;
                     callIndicator.classList.add('callIn');
@@ -143,7 +139,7 @@ function showLogs(index, From, conversations) {  // All Data comes from renderCo
                 callDurationContainer.classList.add('call-status');
                 callTimeContainer.textContent = `${fixedDate.timeShowOffset} ${fixedDate.timeZone}`;
                 callTimeContainer.classList.add('time');
-                if (parseInt(simOwner.Number) === parseInt(historyLog.From)) {
+                if (parseInt(middleman.simOwner.number()) === parseInt(historyLog.From)) {
                     callBetween.textContent = `Incoming call`;
                 } else {
                     callBetween.textContent = `Outgoing call`;
@@ -162,15 +158,11 @@ function showLogs(index, From, conversations) {  // All Data comes from renderCo
         } else {
             const messageDiv = document.createElement('div');
             messageDiv.classList.add('message');
-            messageDiv.classList.add(historyLog.From === simOwner.Number ? 'from' : 'to');
+            messageDiv.classList.add(historyLog.From === middleman.simOwner.number() ? 'from' : 'to');
 
             const textDiv = document.createElement('div');
             textDiv.classList.add('text');
-            // textDiv.innerHTML = historyLog.Message;
-
-            //textDiv.innerHTML = logsPhonebookCheck(historyLog.Message);
-            console.log(historyLog); ///////////// find me
-            textDiv.innerHTML = `${(historyLog.Message)}`;
+            textDiv.innerHTML = `${(middleman.addhtmlTags.conversationFilter(historyLog.Message))}`;
             const timestampDiv = document.createElement('div');
             fixedDate = processTimestamp(historyLog.Timestamp);
             timestampDiv.classList.add('timestamp');
@@ -178,8 +170,8 @@ function showLogs(index, From, conversations) {  // All Data comes from renderCo
 
             const numberDiv = document.createElement('div');
             numberDiv.classList.add('number');
-            numberDiv.classList.add(historyLog.From === simOwner.Number ? 'from' : 'to');
-            numberDiv.textContent += (historyLog.From === simOwner.Number ? '✉️ from' : '✉️ from');
+            numberDiv.classList.add(historyLog.From === middleman.simOwner.number() ? 'from' : 'to');
+            numberDiv.textContent += (historyLog.From === middleman.simOwner.number() ? '✉️ from' : '✉️ from');
             numberDiv.textContent += "\n";
             numberDiv.textContent += (findNameByNumber(historyLog.From));
 
@@ -191,6 +183,5 @@ function showLogs(index, From, conversations) {  // All Data comes from renderCo
         } /// End else of if (historyLog.IsCall) {}
     });
     getLastOpenConversation(chatBox);
-    setActiveConversations(index);
-    processMessages();
+
 }

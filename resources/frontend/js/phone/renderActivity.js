@@ -90,7 +90,5 @@ function generateActivityChart(text, calls, simowner) {
     });
 }
 
-
-
-const activityDataText = texts;
-const activityDataCalls = calls;
+const activityDataText = backend.dataController.getData(backend.helpers.getAllSheetTypes().TEXTS);
+const activityDataCalls = backend.dataController.getData(backend.helpers.getAllSheetTypes().CALLS);

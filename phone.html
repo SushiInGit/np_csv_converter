@@ -62,17 +62,24 @@
             <div class="sidemenu-header"></div>
             <div class="menu-top">
                 <div class="menu-item">
-                    <a onclick="WIPShowEvent(`search`)" data-alt="Opens search-system"><span class="material-symbols-rounded">manage_search</span></a> <!-- Search Function -->
-                    <a onclick="PhonebookShowEvent()" data-alt="Opens phone directory"><span class="material-symbols-rounded">deskphone</span></a> <!-- Phonebook -->
-                    <a onclick="activityEvent()" data-alt="Metadata informations"><span class="material-symbols-outlined">browse_activity</span></a> <!-- Metadata -->
+                    <a onclick="WIPShowEvent(`search`)" data-alt="Opens search-system"><span
+                            class="material-symbols-rounded">manage_search</span></a> <!-- Search Function -->
+                    <a onclick="PhonebookShowEvent()" data-alt="Opens phone directory"><span
+                            class="material-symbols-rounded">deskphone</span></a> <!-- Phonebook -->
+                    <a onclick="activityEvent()" data-alt="Metadata informations"><span
+                            class="material-symbols-outlined">browse_activity</span></a> <!-- Metadata -->
                 </div>
             </div>
             <div class="menu-bottom">
                 <div class="menu-item">
-                    <a onclick="UploadEvent()"  data-alt="Upload phone subpoena excel-file"><span class="material-symbols-rounded">backup</span></a> <!-- Dataupload -->
-                    <a onclick="PhonebookImportEvent()"  data-alt="Import phone contacts"><span class="material-symbols-rounded">on_device_training</span></a> <!-- Phone contacts -->
-                    <a onclick="BugReportEvent()" data-alt="Report a bug"><span class="material-symbols-rounded">bug_report</span> </a> <!-- Bugreport -->
-                    <a onclick="SettingsEvent()" data-alt="Time convertion settings"><span class="material-symbols-rounded">settings_cinematic_blur</span></a> <!-- Settings -->
+                    <a onclick="UploadEvent()" data-alt="Upload phone subpoena excel-file"><span
+                            class="material-symbols-rounded">backup</span></a> <!-- Dataupload -->
+                    <a onclick="PhonebookImportEvent()" data-alt="Import phone contacts"><span
+                            class="material-symbols-rounded">on_device_training</span></a> <!-- Phone contacts -->
+                    <a onclick="BugReportEvent()" data-alt="Report a bug"><span
+                            class="material-symbols-rounded">bug_report</span> </a> <!-- Bugreport -->
+                    <a onclick="SettingsEvent()" data-alt="Time convertion settings"><span
+                            class="material-symbols-rounded">settings_cinematic_blur</span></a> <!-- Settings -->
                 </div>
             </div>
         </div>
@@ -82,14 +89,18 @@
     <footer>
         <p>
             Project located on <a href="https://github.com/SushiInGit/np_csv_converter/">GitHub</a> -
-            by <a href="https://github.com/RYJarnovk">RY Jarnovk</a> & <a href="https://github.com/SushiInGit">SushiInPeace</a>
+            by <a href="https://github.com/RYJarnovk">RY Jarnovk</a> & <a
+                href="https://github.com/SushiInGit">SushiInPeace</a>
         </p>
     </footer>
 
     <!--  // Middleman  -->
-    <script defer src="resources/middleman/phone/phonebookDatagrabber.js"></script>
-    <script defer src="resources/middleman/phone/getInformations.js"></script>
-    <script defer src="resources/middleman/phone/groupedCommunication.js"></script>
+    <script defer src="resources/middleman/phone/phoneData.js"></script>
+    <script defer src="resources/middleman/phone/simOwner.js"></script>
+    <script defer src="resources/middleman/phone/groupeCommunications.js"></script>
+    <script defer src="resources/middleman/phone/filterBy.js"></script>
+    <script defer src="resources/middleman/phone/addhtmlTags.js"></script>
+    <script defer src="resources/middleman/phone/helper.js"></script>
 
     <!--  // Frontend  -->
     <script defer src="resources/frontend/js/phone/renderLogs.js"></script>
@@ -99,7 +110,6 @@
 
     <!-- // Start render process -->
     <script defer src="resources/frontend/js/phone/initPhoneRender.js"></script>
-    <script defer src="resources/frontend/js/phone/imgprev.js"></script>
     <script defer src="resources/frontend/js/phone/renderActivity.js"></script>
 
 </body>

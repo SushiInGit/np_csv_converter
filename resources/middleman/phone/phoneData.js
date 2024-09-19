@@ -40,9 +40,9 @@ middleman.phoneData = function () {
 
     return { 
         all: () => { return phoneData },
-        infoCountIscall: () => { return findConversationInformation(phoneData).callCount },
-        infoCountMessage: () => { return findConversationInformation(phoneData).messageCount },
-        infoCountOverall: () => { return findConversationInformation(phoneData).everythingCount }
+        infoCountIscall: (messages) => { return findConversationInformation(messages).callCount },
+        infoCountMessage: (messages) => { return findConversationInformation(messages).messageCount },
+        infoCountOverall: (messages) => { return findConversationInformation(messages).everythingCount }
 
     }
 }();

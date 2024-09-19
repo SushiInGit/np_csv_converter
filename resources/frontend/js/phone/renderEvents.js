@@ -160,7 +160,7 @@ function saveSettingsTrigger() {
     const chatBox = document.getElementById('chat-box');
     const chatboxIndex = parseInt(getLastOpenConversation(chatBox).Index);
     const chatboxFrom = parseInt(getLastOpenConversation(chatBox).From);
-    renderConversations(groupedCommunications, chatboxIndex, chatboxFrom);
+    renderConversations(middleman.groupeCommunications.output(), chatboxIndex, chatboxFrom);
 }
 function setSettingSelectedValue(selectId, value) {
     const selectElement = document.getElementById(selectId);
@@ -389,5 +389,5 @@ function activityEvent(name) {
         popupDiv.style.display = "none";
         popupOverlay.style.display = "none";
     }
-    generateActivityChart(activityDataText, activityDataCalls, simOwner.Number);
+    generateActivityChart(activityDataText, activityDataCalls, middleman.simOwner.number());
 }
