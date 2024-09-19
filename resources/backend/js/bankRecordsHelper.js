@@ -94,7 +94,7 @@ backend.bankRecordsHelper = function () {
                         columnTracker++;
                     }
                     else if (columnTracker == 10) {
-                        bankRecordLine.date = value; // Todo format date to ISO
+                        bankRecordLine.date = new Date(value).toISOString();
                         columnTracker++;
                     }
                     else if (columnTracker == 11) {
