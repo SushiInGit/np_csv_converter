@@ -30,7 +30,7 @@ backend.fileProcessor = function () {
     function processSheets(sheets) {
         for (const sheetName in sheets) {
             var sheet = sheets[sheetName];
-            var keys = Object.keys(sheet[0]);
+            var keys = Array.from(new Set(sheet.reduce((acc, row) => acc.concat(Object.keys(row).filter(key => !key.startsWith("__EMPTY"))), [])));
 
             var allSheetTypes = backend.helpers.getAllSheetTypes();
             var sheetType = getSheetType(keys);
@@ -45,8 +45,6 @@ backend.fileProcessor = function () {
                     break;
 
                 case allSheetTypes.CALLS:
-                    // backend.dataController.clearDataBySheetType(sheetType);
-
                     // Data for phonecalls is already clean
                     // No need for any formatting
                     // Return the data as is
@@ -55,17 +53,12 @@ backend.fileProcessor = function () {
                     break;
 
                 case allSheetTypes.BANKRECORDS:
-                    // backend.dataController.clearDataBySheetType(sheetType);
-
-                    // Todo
-                    cleanData = backend.dataController.normalizeBankRecords(sheet);
-                    redirectUrl = "bank.html"; // ???
+                    cleanData = backend.bankRecordsHelper.normalizeBankRecords(sheet);
+                    redirectUrl = "bank.html";
                     break;
 
                 case allSheetTypes.GENERIC:
                 default:
-                    // backend.dataController.clearDataBySheetType(sheetType);
-
                     // Handle default
                     cleanData = sheet;
                     redirectUrl = ""; // ???
@@ -83,13 +76,16 @@ backend.fileProcessor = function () {
 
         var textsHeaders = ["number_from", "number_to", "message", "timestamp"];
         var callsHeaders = ["call_from", "call_to", "initiated_at", "established_at", "ended_at"];
-        var callsHeaders = ["call_to", "initiated_at", "established_at", "ended_at"];
+        var bankRecordsHeaders = ["id", "type", "direction", "from_account_id", "from_civ_name", "from_account_name", "to_account_id", "to_civ_name", "to_account_name", "amount", "date", "tax_percentage", "tax_type", "tax_id", "comment"];
 
-        if (textsHeaders.every(checkHeader => sheetHeaders.includes(checkHeader)))
+        if (sheetHeaders.every(checkHeader => textsHeaders.includes(checkHeader)))
             return allSheetTypes.TEXTS;
             
-        if (callsHeaders.every(checkHeader => sheetHeaders.includes(checkHeader)))
+        if (sheetHeaders.every(checkHeader => callsHeaders.includes(checkHeader)))
             return allSheetTypes.CALLS;
+
+        if (sheetHeaders.every(checkHeader => bankRecordsHeaders.includes(checkHeader)))
+            return allSheetTypes.BANKRECORDS;
 
         // If we can not identify the sheet, return generic
         return allSheetTypes.GENERIC;
