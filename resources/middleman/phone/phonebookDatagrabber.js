@@ -1,24 +1,4 @@
-/// INIT sheets
-/*
-const excel = {};
 
-for (let i = 0; i < sessionStorage.length; i++) {
-    const key = sessionStorage.key(i);
-    const value = sessionStorage.getItem(key);
-    const storageKey = `excelSheet${i + 1}`;
-    //sessionStorage.removeItem(storageKey);
-    //console.log(JSON.parse(value));
-    const storedData = JSON.parse(value);
-    excel[`sheet${i}`] = { storedData };
-}
-
-const rawData1 = normalizeTexts(excel.sheet0.storedData);
-const rawData2 = normalizePhonecalls(excel.sheet1.storedData);
-const rawData = rawData1.concat(rawData2);
-*/
-//import { contactList, conversationData } from './sampleData.js';
-
-// const rawData = conversationData;  /// WIP -> at the end DELL
 var texts = backend.dataController.getData(backend.helpers.getAllSheetTypes().TEXTS);
 var calls = backend.dataController.getData(backend.helpers.getAllSheetTypes().CALLS);
 const rawData = [
@@ -44,10 +24,7 @@ const rawData = [
 
 // const phoneRecords = contactList;  /// WIP -> at the end Dell
 const phoneRecords = backend.dataController.getPhonenumbers();  /// WIP -> at the end Dell
-/*
-console.log(rawData);
-console.log(phoneRecords)
-*/
+ 
 //  Filter/Combine/Clear object
 function groupConversations(data) {
     const conversationMap = {};
