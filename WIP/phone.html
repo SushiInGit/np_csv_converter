@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NP Converter</title>
+    <link rel="icon" href="resources/frontend/favicon/favicon.ico" sizes="32x32">
+    <link rel="icon" href="resources/frontend/favicon/icon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="resources/frontend/favicon/apple-touch-icon.png">
+    <!-- CSS-->
+    <link rel="stylesheet" href="resources/frontend/css/phone.css">
+    <link rel="stylesheet" href="resources/frontend/css/menu.css">
+    <link rel="stylesheet" href="resources/frontend/css/commCard.css">
+    <!-- JS -->
+    <script defer src="resources/frontend/js/phone/toggleResize.js"></script>
+    <script defer src="resources/frontend/js/phone/tablet.js"></script>
+    <script defer src="resources/frontend/js/phone/commColor.js"></script>
+    
+
+<body>
+    <figure class='tablet'>
+        <div class="notch">
+            <div class="left" id="user-time"></div>
+            <div class="center">
+                NP Converter
+            </div>
+            <div class="right material-icons">
+                <i class="material-icons" id="icon">vibration wifi battery_full_alt</i>
+            </div>
+        </div>
+     <!-- Header -->
+    <header></header>
+       <!-- Body -->
+      <div class="wrapper">
+        <div class="container" id="container">
+          <div class="dyn-grid" id="dynGrid">
+            <div class="commBox" id="leftBox">
+              <!-- usercard-->
+
+
+
+              <div class="commBody"><br>
+                <center>
+                user XYZ Nr 162473<br><br>
+                {Iam a Searchbar}<br><br></center>
+              <div class="record">
+                <div class="colorBar"></div>
+                <div class="commTo">
+                  <p>User 12345678901</p>
+                </div>
+                <ul class="commInfos">
+                    <li class="number"><div class="comm-material-symbols-outlined">call</div> (420)1264 392</li>
+                    <li class="calls"><div class="comm-material-symbols-outlined">chat</div> 150</li>
+                    <li class="text"><div class="comm-material-symbols-outlined">voice_selection</div> 50</li>
+                </ul>
+              </div>
+              
+              <div class="record">
+                <div class="colorBar"></div>
+                <div class="commTo">
+                  <p>User 09876543210</p>
+                </div>
+                <ul class="commInfos">
+                  <li class="number"><div class="comm-material-symbols-outlined">call</div> (420)1234 210</li>
+                  <li class="calls"><div class="comm-material-symbols-outlined">chat</div> 150</li>
+                  <li class="text"><div class="comm-material-symbols-outlined">voice_selection</div> 50</li>
+                </ul>
+              </div>
+            
+              <div class="record">
+                <div class="colorBar"></div>
+                <div class="commTo">
+                  <p>User 12309845678</p>
+                </div>
+                <ul class="commInfos">
+                  <li class="number"><div class="comm-material-symbols-outlined">call</div> <p> (420)2345 678</p></li>
+                  <li class="calls"><div class="comm-material-symbols-outlined">chat</div><p> 100</p></li>
+                  <li class="text"><div class="comm-material-symbols-outlined">voice_selection</div><p> 30</p></li>
+                </ul>
+              </div>
+</div>
+
+
+
+
+
+
+               <!-- usercard-->
+            </div>
+            <div> <!-- cleardiv --></div>
+            <div class="middle-box" id="middleBox">Center</div>
+            <div class="menu">
+                
+                <div class="menu-top">
+                    <div class="menu-item">
+                        <a onclick="WIPShowEvent(`search`)" data-alt="Opens search-system"><span
+                                class="material-symbols-rounded">manage_search</span></a> <!-- Search Function -->
+                        <a onclick="PhonebookShowEvent()" data-alt="Opens phone directory"><span
+                                class="material-symbols-rounded">deskphone</span></a> <!-- Phonebook -->
+                        <a onclick="activityEvent()" data-alt="Metadata informations"><span
+                                class="material-symbols-rounded">browse_activity</span></a> <!-- Metadata -->
+                    </div>
+                </div>
+                <div class="menu-bottom">
+                    <div class="menu-item">
+                        <a onclick="UploadEvent()" data-alt="Upload phone subpoena excel-file"><span
+                                class="material-symbols-rounded">backup</span></a> <!-- Dataupload -->
+                        <a onclick="PhonebookImportEvent()" data-alt="Import phone contacts"><span
+                                class="material-symbols-rounded">on_device_training</span></a> <!-- Phone contacts -->
+                        <a onclick="BugReportEvent()" data-alt="Report a bug"><span
+                                class="material-symbols-rounded">bug_report</span> </a> <!-- Bugreport -->
+                        <a onclick="SettingsEvent()" data-alt="Time convertion settings"><span
+                                class="material-symbols-rounded">settings_cinematic_blur</span></a> <!-- Settings -->
+                    </div>
+                </div>
+
+            </div>
+          </div>
+
+        </div>
+        <div class="toggle-left" id="toggleleft" onclick="toggleLeft()">&#x25C0;</div> 
+        <div class="toggle-mobile hidden" id="mobileToggle" onclick="toggleLeft()">&#x25B6;</div>
+      </div>
+    </figure>
+      <!-- Footer -->
+      <footer>
+        Project located on <a href="https://github.com/SushiInGit/np_csv_converter/">GitHub</a> -
+        by <a href="https://github.com/RYJarnovk">RY Jarnovk</a> & <a
+            href="https://github.com/SushiInGit">SushiInPeace</a>
+        </footer>
+</body>
+</head>
+
+</html>

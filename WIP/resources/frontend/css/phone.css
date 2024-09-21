@@ -1,0 +1,305 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins");
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded');
+
+:root {
+    --body-bg-color: rgb(22, 22, 23);
+    --main-bg-color: rgb(51, 51, 51);
+    --menu-bg-color: rgba(41, 44, 61, 0.424);
+    --header-bg-color: rgb(26, 6, 44);
+    --footer-bg-color: rgb(51, 51, 51);
+    --global-text-color: rgb(255, 255, 255);
+    --notch-text-color: rgba(230, 218, 240, 0.637);
+    --commBox-bg-color: rgba(41, 44, 61, 0.424);
+    --output-bg-color: rgba(18, 18, 18, 0.561);
+    
+
+    /*--- toggle */
+    --toggle-bg-color: #292c3d;
+    --toggle-arrow-color: #eee;
+    /*------------------------------
+    --record-bg-color: #222;
+    --record-shadow-color: #000;
+    --comm-bg-color: #333;
+    --comm-bg-infos: #222;
+    --comm-text-color: #e5e5e5;
+    --comm-border-color: #555;
+    ----------------------------------*/
+}
+
+@media (max-width: 800px) {
+    .wrapper {
+        padding: 0;
+    }
+
+    .toggle-mobile {
+        display: flex;
+    }
+}
+
+body {
+    background: var(--body-bg-color) !important;
+    background: linear-gradient(315deg, rgba(22, 22, 23, 1) 0%, rgba(34, 34, 34, 1) 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 90vh;
+
+}
+
+body,
+html {
+    margin: 0;
+    padding: 0;
+}
+
+.wrapper {
+    position: relative;
+    box-sizing: border-box;
+    max-width: 100%;
+    height: calc(100% - 25px);
+}
+
+header {
+    width: 100%;
+    height: 25px;
+    background-color: var(--header-bg-color);
+    color: var(--global-text-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header h1 {
+    font-size: 1.5rem;
+    margin: 0;
+}
+
+.container {
+    display: grid;
+    grid-template-columns: 1fr 70px;
+    width: 100%;
+    min-height: 100%;
+    position: relative;
+}
+
+.dyn-grid {
+    display: grid;
+    grid-template-columns: 340px 1fr;
+    transition: grid-template-columns 0.5s ease;
+}
+
+.commBox {
+    background-color: var(--commBox-bg-color);
+    color: #ffffff;
+    display: grid;
+    width: 340px;
+    left: 0px;
+    transition: left 1s ease;
+    position: absolute;
+    height: 100%;
+    transition: transform 0.5s ease, width 0.5s ease;
+    overflow-x: hidden;
+    white-space: nowrap;
+    opacity: 0.7;
+}
+
+.commBox.hidden {
+    width: 0px;
+    transition: transform 0.5s ease, width 0.5s ease;
+}
+
+.middle-box {
+    background-color: var(--output-bg-color);
+    display: grid;
+    padding-left: 10px;
+    padding-right: 10px;
+    width: calc(100% - 20px);
+    grid-template-columns: 340px 1fr;
+    transition: transform 0.5s ease, width 0.5s ease;
+}
+
+.menu {
+    background-color: var(--menu-bg-color);
+    opacity: 0.7;
+    width: 70px;
+    height: 100%;
+    position: absolute;
+    right: 0;
+}
+
+.toggle-left {
+    position: absolute;
+    top: 50%;
+    left: 0px;
+    transition: left 1s ease;
+    background-color: var(--toggle-bg-color);
+    color: var(--toggle-arrow-color);
+    width: 20px;
+    height: 40px;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    z-index: 10;
+    opacity: 0.2;
+    transition: opacity 0.3s;
+    z-index: 10;
+}
+
+.toggle-left:hover {
+    opacity: 1.0;
+}
+.toggle-left.hidden {
+    z-index: 9;
+    opacity: 0.0;
+    transition: transform 0.5s ease, width 0.5s ease;
+}
+
+.toggle-mobile {
+    position: absolute;
+    top: 50%;
+    left: 0px;
+    background-color: var(--toggle-bg-color);
+    color: var(--toggle-arrow-color);
+    width: 20px;
+    height: 40px;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    z-index: 10;
+    opacity: 0.3;
+    transition: opacity 0.3s;
+    z-index: 10;
+}
+
+.toggle-mobile:hover {
+    opacity: 1.0;
+}
+.toggle-mobile.hidden {
+    z-index: 9;
+    opacity: 0;
+    transition: transform 0.5s ease, width 0.5s ease;
+}
+
+footer {
+    font-family: "Poppins", sans-serif;
+    position: absolute;
+    left: 0;
+    bottom: 0px;
+    width: 100%;
+    line-height: 20px;
+    text-align: center;
+    color: #fff;
+    font-size: 12px;
+    background: rgb(21, 18, 36);
+    background: linear-gradient(180deg, rgba(46, 45, 53, 0.3) 0%, rgba(61, 56, 63, 0.3) 50%);
+    opacity: 0.8;
+
+    a {
+        color: #d4a5ff;
+        text-decoration: none;
+        position: relative;
+        transition: color 0.3s ease;
+    }
+
+    a:hover {
+        color: #fff;
+    }
+
+    a::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: -3px;
+        width: 100%;
+        height: 2px;
+        background: linear-gradient(90deg, transparent, #d4a5ff, transparent);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    a:hover::after {
+        opacity: 1;
+    }
+}
+
+.notch {
+    position: absolute;
+    justify-content: space-between;
+    align-items: center;
+    display: flex;
+    height: 25px;
+    width: 100%;
+    background: rgb(21, 18, 36);
+    background: linear-gradient(0deg, rgba(46, 45, 53, 0.3) 0%, rgba(61, 56, 63, 0.3) 50%);
+    color: #000;
+    white-space: nowrap;
+}
+
+.notch .left,
+.center,
+.right {
+    font-family: 'Arial', sans-serif;
+    color: var(--notch-text-color);
+    flex: 1;
+    font-weight: 700;
+    opacity: 0.7;
+    
+}
+
+.notch .left {
+    padding-left: 10px;
+    text-align: left;
+    font-size: 18px;
+}
+
+.notch .center {
+    text-align: center;
+    font-size: 18px;
+}
+
+.notch .right {
+    padding-right: 10px;
+    text-align: right;
+    font-size: 18px;
+}
+
+.notch .right .material-icons {
+    padding-right: 20px;
+    width: 40px;
+    font-size: 18px;
+}
+
+/*          ---- TABLET ----         */
+.tablet {
+    display: block;
+    color: #fff;
+    background-color: rgb(23, 23, 31);
+    background-color: linear-gradient(90deg, rgba(23, 23, 31, 1) 0%, rgba(12, 10, 21, 1) 50%, rgba(36, 38, 55, 1) 100%);
+    background-size: auto 200%, cover;
+    background-repeat: no-repeat, no-repeat;
+    border: solid #111;
+    margin: 8vh;
+    position: relative;
+    box-shadow: 0 0.5em 2em 0.2em rgba(0, 0, 0, 0.73), 0 0 0 0.5px #000 inset;
+    transition: all 0.1s linear, line-height 0s linear;
+    background-position: 50% 100%, center;
+    transform-origin: bottom center;
+}
+
+.tablet {
+    top:  4vh;
+    height: 95%;
+    width: 95%;
+    border-width: 3vmin;
+    border-radius: 4.2857142857vmin;
+    background: rgb(23, 16, 34);
+    background: linear-gradient(90deg, rgba(23, 16, 34, 1) 0%, rgba(40, 19, 47, 1) 50%, rgba(12, 10, 21, 1) 100%);
+    z-index: 100;
+}
