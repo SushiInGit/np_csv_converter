@@ -3,27 +3,24 @@
 @import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded');
 
 :root {
-    --body-bg-color: rgb(22, 22, 23);
-    --main-bg-color: rgb(51, 51, 51);
+    --html-body-bg-color: rgb(22, 22, 23);
+    --sides-bg-color: #161522ee;  /*  left/right menu */
+
+    --html-body-bg-color: rgb(22, 22, 23);
     --menu-bg-color: rgba(41, 44, 61, 0.424);
     --header-bg-color: rgb(26, 6, 44);
     --footer-bg-color: rgb(51, 51, 51);
-    --global-text-color: rgb(255, 255, 255);
+    --global-text-color: rgb(231, 228, 228);
     --notch-text-color: rgba(230, 218, 240, 0.637);
-    --commBox-bg-color: rgba(41, 44, 61, 0.424);
-    --output-bg-color: rgba(18, 18, 18, 0.561);
-    
+
+    --commBox-bg-color: rgba(18, 18, 18, 0.575);
 
     /*--- toggle */
     --toggle-bg-color: #292c3d;
     --toggle-arrow-color: #eee;
     /*------------------------------
-    --record-bg-color: #222;
-    --record-shadow-color: #000;
-    --comm-bg-color: #333;
-    --comm-bg-infos: #222;
-    --comm-text-color: #e5e5e5;
-    --comm-border-color: #555;
+   --commBox-bg-color: rgba(41, 44, 61, 0.424);
+       --output-bg-color: rgba(18, 18, 18, 0.849);
     ----------------------------------*/
 }
 
@@ -38,7 +35,7 @@
 }
 
 body {
-    background: var(--body-bg-color) !important;
+    background: var(--html-body-bg-color) !important;
     background: linear-gradient(315deg, rgba(22, 22, 23, 1) 0%, rgba(34, 34, 34, 1) 100%);
     display: flex;
     justify-content: center;
@@ -83,14 +80,15 @@ header h1 {
     position: relative;
 }
 
-.dyn-grid {
+.grid {
     display: grid;
     grid-template-columns: 340px 1fr;
     transition: grid-template-columns 0.5s ease;
 }
 
 .commBox {
-    background-color: var(--commBox-bg-color);
+    background-color: var(--sides-bg-color);
+    opacity: 0.9;
     color: #ffffff;
     display: grid;
     width: 340px;
@@ -101,7 +99,6 @@ header h1 {
     transition: transform 0.5s ease, width 0.5s ease;
     overflow-x: hidden;
     white-space: nowrap;
-    opacity: 0.7;
 }
 
 .commBox.hidden {
@@ -111,6 +108,9 @@ header h1 {
 
 .middle-box {
     background-color: var(--output-bg-color);
+    border-top: 1px solid #0000001e;
+    border-right: 1px solid #0000001e;
+    border-left: 1px solid #0000001e;
     display: grid;
     padding-left: 10px;
     padding-right: 10px;
@@ -120,8 +120,8 @@ header h1 {
 }
 
 .menu {
-    background-color: var(--menu-bg-color);
-    opacity: 0.7;
+    background-color: var(--sides-bg-color);
+    opacity: 0.9;
     width: 70px;
     height: 100%;
     position: absolute;
@@ -285,7 +285,7 @@ footer {
     background-size: auto 200%, cover;
     background-repeat: no-repeat, no-repeat;
     border: solid #111;
-    margin: 8vh;
+    margin: clamp(30px, 8vh, 100vh);
     position: relative;
     box-shadow: 0 0.5em 2em 0.2em rgba(0, 0, 0, 0.73), 0 0 0 0.5px #000 inset;
     transition: all 0.1s linear, line-height 0s linear;

@@ -11,12 +11,13 @@
     <!-- CSS-->
     <link rel="stylesheet" href="resources/frontend/css/phone.css">
     <link rel="stylesheet" href="resources/frontend/css/menu.css">
-    <link rel="stylesheet" href="resources/frontend/css/commCard.css">
+    <link rel="stylesheet" href="resources/frontend/css/appUser.css">
     <!-- JS -->
     <script defer src="resources/frontend/js/phone/toggleResize.js"></script>
     <script defer src="resources/frontend/js/phone/tablet.js"></script>
     <script defer src="resources/frontend/js/phone/commColor.js"></script>
-    
+
+     
 
 <body>
     <figure class='tablet'>
@@ -34,57 +35,174 @@
        <!-- Body -->
       <div class="wrapper">
         <div class="container" id="container">
-          <div class="dyn-grid" id="dynGrid">
+          <div class="grid" id="dynGrid">
             <div class="commBox" id="leftBox">
               <!-- usercard-->
+<div class="commBody">
+  <hr>
+ <div class="commSimOwner">From: User 1234</div>
+ <hr>
+  <div class="searchbar">Search...</div>
+  <hr>
+  
+<div class="card">
+  <div class="left">
+    <svg id="icon-left" xmlns="http://www.w3.org/2000/svg" height="30px" viewBox="0 -960 960 960" width="30px" fill="var(--comm-avatar-color, #e8eaed)">
+      <path d="M480-40q-186 0-313-68T40-275q0-79 73.5-135T310-481v60q-96 9-153 49t-57 97q0 69 114 122t266 53q152 0 266-53t114-122q0-58-57.5-97.5T650-421v-60q122 14 196 70.5T920-275q0 100-127 167.5T480-40ZM370-204v-454H160v-60h640v60H590v454h-60v-205H430v205h-60Zm110.2-574q-29.2 0-50.2-20.8-21-20.79-21-50 0-29.2 20.8-50.2 20.79-21 50-21 29.2 0 50.2 20.8 21 20.79 21 50 0 29.2-20.8 50.2-20.79 21-50 21Z"/>
+    </svg>
+  </div>
+  <div class="middle"><div class="phonenumber">4201234567</div>
+    <p>Max Mustermann</p>
+  </div>
+  <div class="right">
+    <div class="icon-box">
+      <svg xmlns="http://www.w3.org/2000/svg" height="25" viewBox="0 -960 960 960" width="25" fill="var(--comm-border-color, #e8eaed)">
+        <path d="M80-79v-60q50 0 98.5-9t95.5-26q-49-24-81.5-66T160-336v-89h160v-130h141L317-833l55-27 143 278q16 30-1.44 58.5T462-495h-82v60q0 28.87-20.56 49.44Q338.88-365 310-365h-90v29q0 38 23.5 67.5T304-229l12 3q32.8 8.22 36.9 41.11Q357-152 327-135q-57 32-119.55 44T80-79Zm564-114-42-42q23-23 35.5-52.12 12.5-29.12 12.5-63Q650-384 637.5-413T602-465l42-42q30 30 48 70.74 18 40.73 18 86.74t-18 86.26Q674-223 644-193ZM758-79l-43-43q44-44 69.5-102.4Q810-282.81 810-350q0-67-25.5-125.5T715-578l43-43q52 52 82 121.42 30 69.41 30 149.58 0 80-30 149.5T758-79Z"/>
+      </svg>
+      <p>-1337</p>
+    </div>
+    <div class="breaker"></div>
+    <div class="icon-box">
+      <svg xmlns="http://www.w3.org/2000/svg" height="25" viewBox="0 -960 960 960" width="25" fill="var(--comm-border-color, #e8eaed)">
+<path d="M240-399h313v-60H240v60Zm0-130h480v-60H240v60Zm0-130h480v-60H240v60ZM80-80v-740q0-24 18-42t42-18h680q24 0 42 18t18 42v520q0 24-18 42t-42 18H240L80-80Zm134-220h606v-520H140v600l74-80Zm-74 0v-520 520Z"/>
+      </svg>
+      <p>69</p>
+    </div>
+  </div>
+</div>
 
-
-
-              <div class="commBody"><br>
-                <center>
-                user XYZ Nr 162473<br><br>
-                {Iam a Searchbar}<br><br></center>
-              <div class="record">
-                <div class="colorBar"></div>
-                <div class="commTo">
-                  <p>User 12345678901</p>
-                </div>
-                <ul class="commInfos">
-                    <li class="number"><div class="comm-material-symbols-outlined">call</div> (420)1264 392</li>
-                    <li class="calls"><div class="comm-material-symbols-outlined">chat</div> 150</li>
-                    <li class="text"><div class="comm-material-symbols-outlined">voice_selection</div> 50</li>
-                </ul>
-              </div>
-              
-              <div class="record">
-                <div class="colorBar"></div>
-                <div class="commTo">
-                  <p>User 09876543210</p>
-                </div>
-                <ul class="commInfos">
-                  <li class="number"><div class="comm-material-symbols-outlined">call</div> (420)1234 210</li>
-                  <li class="calls"><div class="comm-material-symbols-outlined">chat</div> 150</li>
-                  <li class="text"><div class="comm-material-symbols-outlined">voice_selection</div> 50</li>
-                </ul>
-              </div>
-            
-              <div class="record">
-                <div class="colorBar"></div>
-                <div class="commTo">
-                  <p>User 12309845678</p>
-                </div>
-                <ul class="commInfos">
-                  <li class="number"><div class="comm-material-symbols-outlined">call</div> <p> (420)2345 678</p></li>
-                  <li class="calls"><div class="comm-material-symbols-outlined">chat</div><p> 100</p></li>
-                  <li class="text"><div class="comm-material-symbols-outlined">voice_selection</div><p> 30</p></li>
-                </ul>
-              </div>
+<div class="card">
+  <div class="left">
+    <svg id="icon-left" xmlns="http://www.w3.org/2000/svg" height="30px" viewBox="0 -960 960 960" width="30px" fill="var(--comm-avatar-color, #e8eaed)">
+      <path d="M480-40q-186 0-313-68T40-275q0-79 73.5-135T310-481v60q-96 9-153 49t-57 97q0 69 114 122t266 53q152 0 266-53t114-122q0-58-57.5-97.5T650-421v-60q122 14 196 70.5T920-275q0 100-127 167.5T480-40ZM370-204v-454H160v-60h640v60H590v454h-60v-205H430v205h-60Zm110.2-574q-29.2 0-50.2-20.8-21-20.79-21-50 0-29.2 20.8-50.2 20.79-21 50-21 29.2 0 50.2 20.8 21 20.79 21 50 0 29.2-20.8 50.2-20.79 21-50 21Z"/>
+    </svg>
+  </div>
+  <div class="middle"><div class="phonenumber">4209876543</div>
+    <p>Jack Black the one and Only</p>
+  </div>
+  <div class="right">
+    <div class="icon-box">
+      <svg xmlns="http://www.w3.org/2000/svg" height="25" viewBox="0 -960 960 960" width="25" fill="var(--comm-border-color, #e8eaed)">
+        <path d="M80-79v-60q50 0 98.5-9t95.5-26q-49-24-81.5-66T160-336v-89h160v-130h141L317-833l55-27 143 278q16 30-1.44 58.5T462-495h-82v60q0 28.87-20.56 49.44Q338.88-365 310-365h-90v29q0 38 23.5 67.5T304-229l12 3q32.8 8.22 36.9 41.11Q357-152 327-135q-57 32-119.55 44T80-79Zm564-114-42-42q23-23 35.5-52.12 12.5-29.12 12.5-63Q650-384 637.5-413T602-465l42-42q30 30 48 70.74 18 40.73 18 86.74t-18 86.26Q674-223 644-193ZM758-79l-43-43q44-44 69.5-102.4Q810-282.81 810-350q0-67-25.5-125.5T715-578l43-43q52 52 82 121.42 30 69.41 30 149.58 0 80-30 149.5T758-79Z"/>
+      </svg>
+      <p>42233</p>
+    </div>
+    <div class="breaker"></div>
+    <div class="icon-box">
+      <svg xmlns="http://www.w3.org/2000/svg" height="25" viewBox="0 -960 960 960" width="25" fill="var(--comm-border-color, #e8eaed)">
+<path d="M240-399h313v-60H240v60Zm0-130h480v-60H240v60Zm0-130h480v-60H240v60ZM80-80v-740q0-24 18-42t42-18h680q24 0 42 18t18 42v520q0 24-18 42t-42 18H240L80-80Zm134-220h606v-520H140v600l74-80Zm-74 0v-520 520Z"/>
+      </svg>
+      <p>33</p>
+    </div>
+  </div>
 </div>
 
 
+<div class="card">
+  <div class="left">
+    <svg id="icon-left" xmlns="http://www.w3.org/2000/svg" height="30px" viewBox="0 -960 960 960" width="30px" fill="var(--comm-avatar-color, #e8eaed)">
+      <path d="M480-40q-186 0-313-68T40-275q0-79 73.5-135T310-481v60q-96 9-153 49t-57 97q0 69 114 122t266 53q152 0 266-53t114-122q0-58-57.5-97.5T650-421v-60q122 14 196 70.5T920-275q0 100-127 167.5T480-40ZM370-204v-454H160v-60h640v60H590v454h-60v-205H430v205h-60Zm110.2-574q-29.2 0-50.2-20.8-21-20.79-21-50 0-29.2 20.8-50.2 20.79-21 50-21 29.2 0 50.2 20.8 21 20.79 21 50 0 29.2-20.8 50.2-20.79 21-50 21Z"/>
+    </svg>
+  </div>
+  <div class="middle"><div class="phonenumber">4209876543</div>
+    <p>Mr Unknwown</p>
+  </div>
+  <div class="right">
+    <div class="icon-box">
+      <svg xmlns="http://www.w3.org/2000/svg" height="25" viewBox="0 -960 960 960" width="25" fill="var(--comm-border-color, #e8eaed)">
+        <path d="M80-79v-60q50 0 98.5-9t95.5-26q-49-24-81.5-66T160-336v-89h160v-130h141L317-833l55-27 143 278q16 30-1.44 58.5T462-495h-82v60q0 28.87-20.56 49.44Q338.88-365 310-365h-90v29q0 38 23.5 67.5T304-229l12 3q32.8 8.22 36.9 41.11Q357-152 327-135q-57 32-119.55 44T80-79Zm564-114-42-42q23-23 35.5-52.12 12.5-29.12 12.5-63Q650-384 637.5-413T602-465l42-42q30 30 48 70.74 18 40.73 18 86.74t-18 86.26Q674-223 644-193ZM758-79l-43-43q44-44 69.5-102.4Q810-282.81 810-350q0-67-25.5-125.5T715-578l43-43q52 52 82 121.42 30 69.41 30 149.58 0 80-30 149.5T758-79Z"/>
+      </svg>
+      <p>42233</p>
+    </div>
+    <div class="breaker"></div>
+    <div class="icon-box">
+      <svg xmlns="http://www.w3.org/2000/svg" height="25" viewBox="0 -960 960 960" width="25" fill="var(--comm-border-color, #e8eaed)">
+<path d="M240-399h313v-60H240v60Zm0-130h480v-60H240v60Zm0-130h480v-60H240v60ZM80-80v-740q0-24 18-42t42-18h680q24 0 42 18t18 42v520q0 24-18 42t-42 18H240L80-80Zm134-220h606v-520H140v600l74-80Zm-74 0v-520 520Z"/>
+      </svg>
+      <p>33</p>
+    </div>
+  </div>
+</div>
 
+<div class="card">
+  <div class="left">
+    <svg id="icon-left" xmlns="http://www.w3.org/2000/svg" height="30px" viewBox="0 -960 960 960" width="30px" fill="var(--comm-avatar-color, #e8eaed)">
+      <path d="M480-40q-186 0-313-68T40-275q0-79 73.5-135T310-481v60q-96 9-153 49t-57 97q0 69 114 122t266 53q152 0 266-53t114-122q0-58-57.5-97.5T650-421v-60q122 14 196 70.5T920-275q0 100-127 167.5T480-40ZM370-204v-454H160v-60h640v60H590v454h-60v-205H430v205h-60Zm110.2-574q-29.2 0-50.2-20.8-21-20.79-21-50 0-29.2 20.8-50.2 20.79-21 50-21 29.2 0 50.2 20.8 21 20.79 21 50 0 29.2-20.8 50.2-20.79 21-50 21Z"/>
+    </svg>
+  </div>
+  <div class="middle"><div class="phonenumber">4209331103</div>
+    <p>Css i rly hate it</p>
+  </div>
+  <div class="right">
+    <div class="icon-box">
+      <svg xmlns="http://www.w3.org/2000/svg" height="25" viewBox="0 -960 960 960" width="25" fill="var(--comm-border-color, #e8eaed)">
+        <path d="M80-79v-60q50 0 98.5-9t95.5-26q-49-24-81.5-66T160-336v-89h160v-130h141L317-833l55-27 143 278q16 30-1.44 58.5T462-495h-82v60q0 28.87-20.56 49.44Q338.88-365 310-365h-90v29q0 38 23.5 67.5T304-229l12 3q32.8 8.22 36.9 41.11Q357-152 327-135q-57 32-119.55 44T80-79Zm564-114-42-42q23-23 35.5-52.12 12.5-29.12 12.5-63Q650-384 637.5-413T602-465l42-42q30 30 48 70.74 18 40.73 18 86.74t-18 86.26Q674-223 644-193ZM758-79l-43-43q44-44 69.5-102.4Q810-282.81 810-350q0-67-25.5-125.5T715-578l43-43q52 52 82 121.42 30 69.41 30 149.58 0 80-30 149.5T758-79Z"/>
+      </svg>
+      <p>42233</p>
+    </div>
+    <div class="breaker"></div>
+    <div class="icon-box">
+      <svg xmlns="http://www.w3.org/2000/svg" height="25" viewBox="0 -960 960 960" width="25" fill="var(--comm-border-color, #e8eaed)">
+<path d="M240-399h313v-60H240v60Zm0-130h480v-60H240v60Zm0-130h480v-60H240v60ZM80-80v-740q0-24 18-42t42-18h680q24 0 42 18t18 42v520q0 24-18 42t-42 18H240L80-80Zm134-220h606v-520H140v600l74-80Zm-74 0v-520 520Z"/>
+      </svg>
+      <p>33</p>
+    </div>
+  </div>
+</div>
 
+<div class="card">
+  <div class="left">
+    <svg id="icon-left" xmlns="http://www.w3.org/2000/svg" height="30px" viewBox="0 -960 960 960" width="30px" fill="var(--comm-avatar-color, #e8eaed)">
+      <path d="M480-40q-186 0-313-68T40-275q0-79 73.5-135T310-481v60q-96 9-153 49t-57 97q0 69 114 122t266 53q152 0 266-53t114-122q0-58-57.5-97.5T650-421v-60q122 14 196 70.5T920-275q0 100-127 167.5T480-40ZM370-204v-454H160v-60h640v60H590v454h-60v-205H430v205h-60Zm110.2-574q-29.2 0-50.2-20.8-21-20.79-21-50 0-29.2 20.8-50.2 20.79-21 50-21 29.2 0 50.2 20.8 21 20.79 21 50 0 29.2-20.8 50.2-20.79 21-50 21Z"/>
+    </svg>
+  </div>
+  <div class="middle"><div class="phonenumber">4203171103</div>
+    <p>I neeed cookies :cry:</p>
+  </div>
+  <div class="right">
+    <div class="icon-box">
+      <svg xmlns="http://www.w3.org/2000/svg" height="25" viewBox="0 -960 960 960" width="25" fill="var(--comm-border-color, #e8eaed)">
+        <path d="M80-79v-60q50 0 98.5-9t95.5-26q-49-24-81.5-66T160-336v-89h160v-130h141L317-833l55-27 143 278q16 30-1.44 58.5T462-495h-82v60q0 28.87-20.56 49.44Q338.88-365 310-365h-90v29q0 38 23.5 67.5T304-229l12 3q32.8 8.22 36.9 41.11Q357-152 327-135q-57 32-119.55 44T80-79Zm564-114-42-42q23-23 35.5-52.12 12.5-29.12 12.5-63Q650-384 637.5-413T602-465l42-42q30 30 48 70.74 18 40.73 18 86.74t-18 86.26Q674-223 644-193ZM758-79l-43-43q44-44 69.5-102.4Q810-282.81 810-350q0-67-25.5-125.5T715-578l43-43q52 52 82 121.42 30 69.41 30 149.58 0 80-30 149.5T758-79Z"/>
+      </svg>
+      <p>42233</p>
+    </div>
+    <div class="breaker"></div>
+    <div class="icon-box">
+      <svg xmlns="http://www.w3.org/2000/svg" height="25" viewBox="0 -960 960 960" width="25" fill="var(--comm-border-color, #e8eaed)">
+<path d="M240-399h313v-60H240v60Zm0-130h480v-60H240v60Zm0-130h480v-60H240v60ZM80-80v-740q0-24 18-42t42-18h680q24 0 42 18t18 42v520q0 24-18 42t-42 18H240L80-80Zm134-220h606v-520H140v600l74-80Zm-74 0v-520 520Z"/>
+      </svg>
+      <p>33</p>
+    </div>
+  </div>
+</div>
 
+<div class="card">
+  <div class="left">
+    <svg id="icon-left" xmlns="http://www.w3.org/2000/svg" height="30px" viewBox="0 -960 960 960" width="30px" fill="var(--comm-avatar-color, #e8eaed)">
+      <path d="M480-40q-186 0-313-68T40-275q0-79 73.5-135T310-481v60q-96 9-153 49t-57 97q0 69 114 122t266 53q152 0 266-53t114-122q0-58-57.5-97.5T650-421v-60q122 14 196 70.5T920-275q0 100-127 167.5T480-40ZM370-204v-454H160v-60h640v60H590v454h-60v-205H430v205h-60Zm110.2-574q-29.2 0-50.2-20.8-21-20.79-21-50 0-29.2 20.8-50.2 20.79-21 50-21 29.2 0 50.2 20.8 21 20.79 21 50 0 29.2-20.8 50.2-20.79 21-50 21Z"/>
+    </svg>
+  </div>
+  <div class="middle"><div class="phonenumber">4201310303</div>
+    <p>Pepeshy</p>
+  </div>
+  <div class="right">
+    <div class="icon-box">
+      <svg xmlns="http://www.w3.org/2000/svg" height="25" viewBox="0 -960 960 960" width="25" fill="var(--comm-border-color, #e8eaed)">
+        <path d="M80-79v-60q50 0 98.5-9t95.5-26q-49-24-81.5-66T160-336v-89h160v-130h141L317-833l55-27 143 278q16 30-1.44 58.5T462-495h-82v60q0 28.87-20.56 49.44Q338.88-365 310-365h-90v29q0 38 23.5 67.5T304-229l12 3q32.8 8.22 36.9 41.11Q357-152 327-135q-57 32-119.55 44T80-79Zm564-114-42-42q23-23 35.5-52.12 12.5-29.12 12.5-63Q650-384 637.5-413T602-465l42-42q30 30 48 70.74 18 40.73 18 86.74t-18 86.26Q674-223 644-193ZM758-79l-43-43q44-44 69.5-102.4Q810-282.81 810-350q0-67-25.5-125.5T715-578l43-43q52 52 82 121.42 30 69.41 30 149.58 0 80-30 149.5T758-79Z"/>
+      </svg>
+      <p>42233</p>
+    </div>
+    <div class="breaker"></div>
+    <div class="icon-box">
+      <svg xmlns="http://www.w3.org/2000/svg" height="25" viewBox="0 -960 960 960" width="25" fill="var(--comm-border-color, #e8eaed)">
+<path d="M240-399h313v-60H240v60Zm0-130h480v-60H240v60Zm0-130h480v-60H240v60ZM80-80v-740q0-24 18-42t42-18h680q24 0 42 18t18 42v520q0 24-18 42t-42 18H240L80-80Zm134-220h606v-520H140v600l74-80Zm-74 0v-520 520Z"/>
+      </svg>
+      <p>33</p>
+    </div>
+  </div>
+</div>
+
+</div>
 
                <!-- usercard-->
             </div>

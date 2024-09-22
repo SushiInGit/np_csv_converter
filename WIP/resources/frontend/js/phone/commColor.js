@@ -30,25 +30,15 @@ function darkenColor(color, percent) {
 
 
 function applyColorsToRecords() {
-    const records = document.querySelectorAll('.record');
-
-
+    const records = document.querySelectorAll('.card');
     records.forEach(record => {
-        const numberElement = record.querySelector('.number');
-        const colorBar = record.querySelector('.colorBar');
-        if (numberElement) {
+        const numberElement = record.querySelector('.phonenumber');
+        const avatarElement = record.querySelector('.left svg#icon-left');
+        if (records) {
             const phoneNumber = numberElement.textContent.replace(/\D/g, '');
             const color = generateColorFromNumber(phoneNumber);
             const darkColor = darkenColor(color, 20);
-            colorBar.style.backgroundColor = color;
-            //record.style.backgroundColor = color;
-            //record.style.boxShadow = `0 0 7px ${darkColor}`;
-
-            const commInfos = record.querySelector('ul.commInfos');
-            if (commInfos) {
-              //  commInfos.style.backgroundColor = darkColor;
-
-            }
+            avatarElement.style.fill = color;
         }
     });
 }
