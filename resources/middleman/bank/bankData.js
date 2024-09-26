@@ -5,12 +5,21 @@ middleman.bankData = function () {
 
     function getFormattedData() {
 
-        var rawBankData = backend.dataController.getData(backend.helpers.getAllSheetTypes().BANKRECORDS);
+        let rawBankData = backend.dataController.getData(backend.helpers.getAllSheetTypes().BANKRECORDS).map((transaction, index) => {
+            return {
+                ...transaction,
+                index: index
+            };
+        });
+
+        var recordsOwner = findBankRecordsOwner(rawBankData);
 
         return {
             records: rawBankData,
-            recordsOwner: findBankRecordsOwner(rawBankData),
-            count: rawBankData.length
+            recordsOwner: recordsOwner,
+            count: rawBankData.length,
+            groupedOutgoing: rawBankData.filter(transaction => transaction.from_account_id == recordsOwner.account_id),
+            groupedIncoming: rawBankData.filter(transaction => transaction.from_account_id !== recordsOwner.account_id && transaction.to_account_id == recordsOwner.account_id)
         }
     }
 
@@ -45,9 +54,63 @@ middleman.bankData = function () {
         return recurringAccount;
     }
 
+    function getGroupedData() {
+        var formattedBankData = getFormattedData();
+
+        var recordsOwner = formattedBankData.recordsOwner;
+
+        var groupedBankData = [];
+        var groupIndex = 0;
+
+
+        // for (var record in formattedBankData.records) {
+        formattedBankData.records.forEach((record) => {
+
+            var groupedRecord;
+            var to;
+
+            if (record.from_account_id == formattedBankData.recordsOwner.account_id) {
+                groupedRecord = groupedBankData.find(transaction => transaction.to.account_id == record.to_account_id);
+
+                to = {
+                    account_id: record.to_account_id,
+                    account_name: record.to_account_name,
+                    civ_name: record.to_civ_name
+                }
+            }
+            else {
+                groupedRecord = groupedBankData.find(transaction => transaction.to.account_id == record.from_account_id);
+
+                to = {
+                    account_id: record.from_account_id,
+                    account_name: record.from_account_name,
+                    civ_name: record.from_civ_name
+                }
+            }
+
+            if (!groupedRecord) {
+                groupedRecord = {
+                    recordsOwner: formattedBankData.recordsOwner.account_id,
+                    groupIndex: groupIndex++,
+                    to: to,
+                    records: []
+                }
+
+                groupedBankData.push(groupedRecord);
+            }
+            
+            groupedRecord.records.push(record);
+            
+        });
+
+        return groupedBankData;
+    }
+
     return {
 
-        get: () => { return getFormattedData() }
+        get: () => { return getFormattedData() },
+
+        getGrouped: () => { return getGroupedData() }
 
     }
 
