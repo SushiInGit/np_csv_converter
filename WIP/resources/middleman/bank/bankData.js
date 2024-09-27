@@ -20,6 +20,19 @@ middleman.bankData = function () {
         var groupedOutgoingTotalAmount = groupedOutgoing.reduce((sum, record) => sum + record.amount, 0);
         var groupedIncomingTotalAmount = groupedIncoming.reduce((sum, record) => sum + record.amount, 0);
 
+        const { earliestRecord, latestRecord } = rawBankData.reduce((acc, record) => {
+            const currentDate = new Date(record.date);
+
+            if (!acc.earliestRecord || currentDate < acc.earliestRecord) {
+                acc.earliestRecord = currentDate;
+            }
+            if (!acc.latestRecord || currentDate > acc.latestRecord) {
+                acc.latestRecord = currentDate;
+            }
+
+            return acc;
+        }, { earliestRecord: null, latestRecord: null });
+
         return {
             records: rawBankData,
             recordsOwner: recordsOwner,
@@ -29,7 +42,9 @@ middleman.bankData = function () {
             groupedOutgoingTotalAmount: groupedOutgoingTotalAmount,
             groupedIncoming: groupedIncoming,
             groupedIncomingCount: groupedIncoming.length,
-            groupedIncomingTotalAmount: groupedIncomingTotalAmount
+            groupedIncomingTotalAmount: groupedIncomingTotalAmount,
+            earliestRecord: earliestRecord.toISOString(),
+            latestRecord: latestRecord.toISOString()
         }
     }
 
