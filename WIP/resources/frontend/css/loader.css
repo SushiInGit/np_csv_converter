@@ -1,0 +1,57 @@
+@property --angle {
+    syntax: "<angle>";
+    initial-value: 1deg;
+    inherits: false;
+}
+
+@keyframes loaderspin {
+    from {
+        --angle: 0deg;
+    }
+
+    to {
+        --angle: 360deg;
+    }
+}
+
+.loader {
+    margin: 0 auto;
+    width: calc(100% - 10px);
+    height: calc(100% - 10px);
+    background: var(--body-bg-color);
+    background: linear-gradient(315deg, var(--body-gradient-start) 0%, var(--body-gradient-end) 100%);
+    position: relative;
+}
+
+.loader.inactive::after,
+.loader.inactive::before {
+    transition: opacity 2s;
+    opacity: 0 !important;
+}
+.loader.active::after,
+.loader.active::before {
+    transition: opacity 2s;
+    opacity: 1 !important;
+}
+
+.loader::after,
+.loader::before {
+    content: '';
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background-image: conic-gradient(from var(--angle), transparent, transparent, transparent, transparent,
+            #00000000, #66246C, #b12ada, #66246C, #00000000);
+    top: 50%;
+    left: 50%;
+    translate: -50% -50%;
+    z-index: -1;
+    padding: 5px;
+    animation: 6s loaderspin linear infinite;
+    opacity: 0;
+}
+
+.loader::before {
+    filter: blur(3.5rem);
+    opacity: 0.1;
+}
