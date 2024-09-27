@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const bannerRight = document.querySelector(".banner .right.noselect");
     if (bannerRight) {
         bannerRight.innerHTML = `
-           Data found: ${middleman.bankData.get().recordsOwner.count} 
+           Data found: ${middleman.bankData.get().count} 
         `;
     }
 
