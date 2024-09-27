@@ -69,5 +69,3 @@ function UploadEvent() {
     fileInput.addEventListener('change', () => backend.fileProcessor.processFiles(fileInput.files));
 }
 
-
-UploadEvent();
