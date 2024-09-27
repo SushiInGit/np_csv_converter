@@ -39,7 +39,7 @@ document.addEventListener("DOMContentLoaded", function () {
         bannerCenter.innerHTML = `
             <h2>${middleman.bankData.get().recordsOwner.account_name} of ${middleman.bankData.get().recordsOwner.civ_name}</h2>
             <h3>Bank-Nr. ${middleman.bankData.get().recordsOwner.account_id}</h3>
-            <b> ${isoDateEarlyFix} -  ${isoDateLateFix}</b>
+            <b> ${isoDateEarlyFix} to ${isoDateLateFix}</b>
         `;
     }
 
