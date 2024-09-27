@@ -24,13 +24,22 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
+    const earliestRecord = middleman.bankData.get().earliestRecord;
+    const latestRecord = middleman.bankData.get().latestRecord;
+
+
+    const isoDateEarly = new Date(earliestRecord);
+    const isoDateEarlyFix = isoDateEarly.toISOString().split('T').join(' ').slice(0, 10);
+    const isoDateLate = new Date(latestRecord);
+    const isoDateLateFix = isoDateLate.toISOString().split('T').join(' ').slice(0, 10);
+   
 
     const bannerCenter = document.querySelector(".banner .center.noselect");
     if (bannerCenter) {
         bannerCenter.innerHTML = `
-   <h2>${middleman.bankData.get().recordsOwner.account_name} of ${middleman.bankData.get().recordsOwner.civ_name}</h2>
+            <h2>${middleman.bankData.get().recordsOwner.account_name} of ${middleman.bankData.get().recordsOwner.civ_name}</h2>
             <h3>Bank-Nr. ${middleman.bankData.get().recordsOwner.account_id}</h3>
-   
+            <b> ${isoDateEarlyFix} -  ${isoDateLateFix}</b>
         `;
     }
 
