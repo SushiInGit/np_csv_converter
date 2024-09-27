@@ -16,9 +16,9 @@ document.addEventListener("DOMContentLoaded", function () {
         const totalDifference = formatDifference(middleman.bankData.get().groupedIncomingTotalAmount, middleman.bankData.get().groupedOutgoingTotalAmount);
         bannerRight.innerHTML = `
             Transactions: ${middleman.bankData.get().count} <br>
-            Total Income: +$${middleman.bankData.get().groupedIncomingTotalAmount} <br> 
-            Total Expense: -$${middleman.bankData.get().groupedOutgoingTotalAmount} 
-            Balance: ${totalDifference}
+            Total Income: $${middleman.bankData.get().groupedIncomingTotalAmount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") } <br> 
+            Total Expense: $${middleman.bankData.get().groupedOutgoingTotalAmount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") } 
+            Balance: ${totalDifference.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") }
         `;
     }
 
