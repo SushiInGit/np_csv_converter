@@ -376,7 +376,7 @@ container {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-image: url(/resources/frontend/image/chibiAI.png);
+    background-image: url("https://sushiingit.github.io/np_csv_converter/resources/frontend/image/chibiAI.png");
     background-repeat: no-repeat;
     background-size: auto 140px;
     flex-direction: column;
