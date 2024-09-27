@@ -10,7 +10,7 @@ window.addEventListener("load", (event) => {
     var headers = [
         "ID", "Comment", "Type", "Direction", "From: Account ID", 
         "From: Account Name", "From: Accounttype", "To: Account ID", 
-        "To: Account Name", "To: Accounttype", "Amount", "Date", 
+        "To: Account Name", "To: Accounttype", "Amount", "Date (UTC)", 
         "Tax %", "Tax-Type", "Tax-ID"
     ];
     var headersClass = [
@@ -50,7 +50,7 @@ window.addEventListener("load", (event) => {
             var headerClass = headers[counter]; 
             var headerClassIndex = headersClass[counter];
             
-            if (headerClass === "Date") {
+            if (headerClass === "Date (UTC)") {
                 var date = new Date(item); // Convert to Date object
                 td.textContent = date.toISOString().split('T').join(' ').slice(0, 19); // Format as UTC
             } else {
