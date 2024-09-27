@@ -4,7 +4,8 @@
 window.addEventListener("load", (event) => {
 
     var table = document.querySelector("#bankRecordsTable");
-    var data = backend.dataController.getData(backend.helpers.getAllSheetTypes().BANKRECORDS);
+    var data = middleman.bankData.get().records;
+    // var data = backend.dataController.getData(backend.helpers.getAllSheetTypes().BANKRECORDS);
 
     data.forEach((row) => {
         var tr = document.createElement("tr");
