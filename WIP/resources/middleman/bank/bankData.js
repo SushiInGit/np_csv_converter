@@ -14,12 +14,22 @@ middleman.bankData = function () {
 
         var recordsOwner = findBankRecordsOwner(rawBankData);
 
+        var groupedOutgoing = rawBankData.filter(transaction => transaction.from_account_id == recordsOwner.account_id);
+        var groupedIncoming = rawBankData.filter(transaction => transaction.from_account_id !== recordsOwner.account_id && transaction.to_account_id == recordsOwner.account_id);
+
+        var groupedOutgoingTotalAmount = groupedOutgoing.reduce((sum, record) => sum + record.amount, 0);
+        var groupedIncomingTotalAmount = groupedIncoming.reduce((sum, record) => sum + record.amount, 0);
+
         return {
             records: rawBankData,
             recordsOwner: recordsOwner,
             count: rawBankData.length,
-            groupedOutgoing: rawBankData.filter(transaction => transaction.from_account_id == recordsOwner.account_id),
-            groupedIncoming: rawBankData.filter(transaction => transaction.from_account_id !== recordsOwner.account_id && transaction.to_account_id == recordsOwner.account_id)
+            groupedOutgoing: groupedOutgoing,
+            groupedOutgoingCount: groupedOutgoing.length,
+            groupedOutgoingTotalAmount: groupedOutgoingTotalAmount,
+            groupedIncoming: groupedIncoming,
+            groupedIncomingCount: groupedIncoming.length,
+            groupedIncomingTotalAmount: groupedIncomingTotalAmount
         }
     }
 
