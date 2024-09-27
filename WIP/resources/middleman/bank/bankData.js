@@ -72,8 +72,6 @@ middleman.bankData = function () {
         var groupedBankData = [];
         var groupIndex = 0;
 
-
-        // for (var record in formattedBankData.records) {
         formattedBankData.records.forEach((record) => {
 
             var groupedRecord;
@@ -110,10 +108,28 @@ middleman.bankData = function () {
             }
             
             groupedRecord.records.push(record);
-            
+        });
+
+        groupedBankData.forEach((group) => {
+
+            var groupedOutgoing = group.records.filter(transaction => transaction.from_account_id == recordsOwner.account_id);
+            var groupedOutgoingTotalAmount = groupedOutgoing.reduce((sum, record) => sum + record.amount, 0);
+
+            group.recordsOutgoing = groupedOutgoing;
+            group.recordsOutgoingCount = groupedOutgoing.length;
+            group.recordsOutgoingAmount = groupedOutgoingTotalAmount;
+
+            var groupedIncoming = group.records.filter(transaction => transaction.from_account_id !== recordsOwner.account_id && transaction.to_account_id == recordsOwner.account_id);
+            var groupedIncomingTotalAmount = groupedIncoming.reduce((sum, record) => sum + record.amount, 0);
+
+            group.recordsIncoming = groupedIncoming;
+            group.recordsIncomingCount = groupedIncoming.length;
+            group.recordsIncomingAmount = groupedIncomingTotalAmount;
+
         });
 
         return groupedBankData;
+
     }
 
     return {
