@@ -35,7 +35,6 @@ window.addEventListener("load", (event) => {
 
     var tbody = document.createElement("tbody");
 
-   // Function to process rows in chunks
    function processRows(chunkSize = 100, startIndex = 0) {
     let endIndex = Math.min(startIndex + chunkSize, data.length);
     
@@ -64,19 +63,17 @@ window.addEventListener("load", (event) => {
         tbody.appendChild(tr);
     }
 
-    // Append the processed rows to the table
+
     table.appendChild(tbody);
 
-    // Check if more rows need to be processed
     if (endIndex < data.length) {
-        // Process the next chunk asynchronously
         setTimeout(() => processRows(chunkSize, endIndex), 0);
     }
     treeselect ();
 }
 
-// Start processing rows in chunks
-processRows(200);
+
+processRows(100);
 
 });
 

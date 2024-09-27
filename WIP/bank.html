@@ -11,10 +11,12 @@
   <link rel="apple-touch-icon" href="resources/frontend/favicon/apple-touch-icon.png">
 
   <!-- CSS -->
-  <link rel="stylesheet" href="resources/frontend/css/bank.css">
-  <link rel="stylesheet" href="resources/frontend/css/bankTable.css">
-  <link rel="stylesheet" href="resources/frontend/css/loader.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@riophae/vue-treeselect@0.4.0/dist/vue-treeselect.min.css">
+  <link rel="preload" href="resources/frontend/css/bank.css" as="style" onload="this.rel='stylesheet'">
+  <link rel="preload" href="resources/frontend/css/bankTable.css" as="style" onload="this.rel='stylesheet'">
+  <link rel="preload" href="resources/frontend/css/loader.css" as="style" onload="this.rel='stylesheet'">
+  <link rel="preload" href="resources/frontend/css/popup.css" as="style" onload="this.rel='stylesheet'">
+  <link rel="preload" href="https://cdn.jsdelivr.net/npm/@riophae/vue-treeselect@0.4.0/dist/vue-treeselect.min.css"
+    as="style" onload="this.rel='stylesheet'">
   <!-- JS -->
   <script defer src="resources/frontend/js/bank/loader.js"></script>
   <script defer src="resources/frontend/js/bank/search.js"></script>
@@ -29,15 +31,17 @@
   <script defer src="resources/backend/js/bankRecordsHelper.js"></script>
   <script src="resources/backend/vendors/xlsx.full.min.js"></script>
   <script defer src="resources/middleman/bank/bankData.js"></script>
-  <script src="resources/frontend/js/bank/renderTable.js"></script>
-
+  <script defer src="resources/frontend/js/bank/renderTable.js"></script>
+  <script defer src="resources/frontend/js/bank/popup.js"></script>
 
   <!-- HTML -->
 
 <body>
   <!-- Error -->
-  <error id="error" class="noselect hide">Error Smilie :]</error>
+  <error id="error" class="noselect show">Error Smilie :]</error>
 
+  <!-- PopUp -->
+  <popup id="popup" class="noselect" show>lalal</popup>
   <!-- Loader -->
   <div class="loader active"></div>
 
@@ -47,19 +51,12 @@
       <div class="header noselect">
         <div class="left">
           <div class="icon-container" data-tooltip="Upload Bank subpoena">
-            <span class="icon">cloud</span>
+            <a href="javascript:void(0);" onclick="UploadEvent();" class="icon"><span class="icon">cloud</span></a>
           </div>
         </div>
         <div class="center">
           <div class="search-container">
-            <span id="searchbar" contenteditable="true" autocorrect="off" autocomplete="off" spellcheck="false"
-              placeholder="Search... (global or with syntax)"></span>
-            <svg xmlns="http://www.w3.org/2000/svg" class="search-icon noselect" height="24px" viewBox="0 -960 960 960"
-              width="24px">
-              <path
-                d="M200-800v241-1 400-640 200-200Zm80 400h140q9-23 22-43t30-37H280v80Zm0 160h127q-5-20-6.5-40t.5-40H280v80ZM200-80q-33 0-56.5-23.5T120-160v-640q0-33 23.5-56.5T200-880h320l240 240v100q-19-8-39-12.5t-41-6.5v-41H480v-200H200v640h241q16 24 36 44.5T521-80H200Zm460-120q42 0 71-29t29-71q0-42-29-71t-71-29q-42 0-71 29t-29 71q0 42 29 71t71 29ZM864-40 756-148q-21 14-45.5 21t-50.5 7q-75 0-127.5-52.5T480-300q0-75 52.5-127.5T660-480q75 0 127.5 52.5T840-300q0 26-7 50.5T812-204L920-96l-56 56Z" />
-            </svg>
-            <div class="suggestions" id="suggestionsBox"></div>
+            <!-- Searchbar-->>
           </div>
         </div>
         <div class="right">
@@ -71,8 +68,6 @@
           <h3>NP CONVERTER<br /> Beta Ver. 20240927</h3>
         </div>
         <div class="center noselect">
-          <h2>#BANKOWNER</h2>
-          <h3>2024-01-01 -- 2024-01-01</h3>
         </div>
         <div class="right noselect">
         </div>
@@ -80,11 +75,14 @@
       </div>
       <div class="menu">
         <div class="header noselect">Bank Views</div>
-        Div 3
+        Comming soon .. <br>
+        (Grouped Transactions)
       </div>
       <div class="output">
         <div class="header noselect">
-          <div class="filter"><div id="treeselect"></div></div>
+          <div class="filter">
+            <div id="treeselect"></div>
+          </div>
         </div>
         <div class="messages" id="messagesBox">
 
@@ -106,6 +104,7 @@
   <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@riophae/vue-treeselect@0.4.0/dist/vue-treeselect.umd.min.js"></script>
   <script src="resources/frontend/js/bank/filterTable.js"></script>
+  <script src="resources/frontend/js/bank/injectData.js"></script>
 </body>
 </head>
 

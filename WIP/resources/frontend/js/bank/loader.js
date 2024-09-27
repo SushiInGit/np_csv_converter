@@ -18,8 +18,8 @@
         window.addEventListener('load', function (e) {
             deactivateLoader();
         });
-    }
 
+    }
 
     
     // Effect
@@ -41,4 +41,6 @@
     }
 
 })(document.querySelector('.loader'));
+
+/////////////////////////////////////////////
 
