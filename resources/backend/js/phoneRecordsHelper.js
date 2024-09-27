@@ -13,42 +13,42 @@ backend.phoneRecordsHelper = function () {
         }
 
         try {
+            var messageRecordLine = { ...defaultMessageRecordLine };
+            var columnTracker = 0;
+
             dataArray.forEach(function (row, rowNumber) {
-                    var messageRecordLine = { ...defaultMessageRecordLine };
-                    var columnTracker = 0;
+                Object.values(row).forEach(function (value, index) {
+                    if (columnTracker == 0) {
+                        messageRecordLine.number_from = value;
+                        columnTracker++;
+                    }
+                    else if (columnTracker == 1) {
+                        messageRecordLine.number_to = value;
+                        columnTracker++;
+                    }
+                    else if (columnTracker >= 2) {
+                        if (!backend.helpers.isValidISODateCheck(value)) {
+                            if (typeof value === 'object' && value !== null) {
+                                value = value.text;
+                            }
 
-                    Object.values(row).forEach(function (value, index) {
-                        if (columnTracker == 0) {
-                            messageRecordLine.number_from = value;
-                            columnTracker++;
-                        }
-                        else if (columnTracker == 1) {
-                            messageRecordLine.number_to = value;
-                            columnTracker++;
-                        }
-                        else if (columnTracker >= 2) {
-                            if (!backend.helpers.isValidISODateCheck(value)) {
-                                if (typeof value === 'object' && value !== null) {
-                                    value = value.text;
-                                }
-
-                                if (messageRecordLine.message === "") {
-                                    messageRecordLine.message += `${value}`;
-                                }
-                                else {
-                                    messageRecordLine.message += `  ${value}`;
-                                }
+                            if (messageRecordLine.message === "") {
+                                messageRecordLine.message += `${value}`;
                             }
                             else {
-                                messageRecordLine.timestamp = new Date(value).toISOString();
-                                messageRecordLine.message = messageRecordLine.message.trim();
-                                messageRecordsArray.push(messageRecordLine);
-                                messageRecordLine = { ...defaultMessageRecordLine };
-                                columnTracker = 0;
+                                messageRecordLine.message += `  ${value}`;
                             }
                         }
+                        else {
+                            messageRecordLine.timestamp = new Date(value).toISOString();
+                            messageRecordLine.message = messageRecordLine.message.trim();
+                            messageRecordsArray.push(messageRecordLine);
+                            messageRecordLine = { ...defaultMessageRecordLine };
+                            columnTracker = 0;
+                        }
+                    }
 
-                    });
+                });
 
             });
 

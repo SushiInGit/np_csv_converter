@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Page Metadata -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NP Converter</title>
+  <link rel="icon" href="resources/frontend/favicon/favicon.ico" sizes="32x32">
+  <link rel="icon" href="resources/frontend/favicon/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="resources/frontend/favicon/apple-touch-icon.png">
+
+  <!-- CSS -->
+  <link rel="preload" href="resources/frontend/css/bank.css" as="style" onload="this.rel='stylesheet'">
+  <link rel="preload" href="resources/frontend/css/bankTable.css" as="style" onload="this.rel='stylesheet'">
+  <link rel="preload" href="resources/frontend/css/loader.css" as="style" onload="this.rel='stylesheet'">
+  <link rel="preload" href="resources/frontend/css/popup.css" as="style" onload="this.rel='stylesheet'">
+  <link rel="preload" href="https://cdn.jsdelivr.net/npm/@riophae/vue-treeselect@0.4.0/dist/vue-treeselect.min.css"
+    as="style" onload="this.rel='stylesheet'">
+  <!-- JS -->
+  <script defer src="resources/frontend/js/bank/loader.js"></script>
+
+
+
+  <!-- JS BANK -->
+  <script src="resources/backend/js/timeConverter.js"></script>
+  <script defer src="resources/backend/js/helpers.js"></script>
+  <script defer src="resources/backend/js/dataController.js"></script>
+  <script defer src="resources/backend/js/fileProcessor.js"></script>
+  <script defer src="resources/backend/js/bankRecordsHelper.js"></script>
+  <script src="resources/backend/vendors/xlsx.full.min.js"></script>
+  <script defer src="resources/middleman/bank/bankData.js"></script>
+  <script defer src="resources/frontend/js/bank/renderTable.js"></script>
+  <script defer src="resources/frontend/js/bank/popup.js"></script>
+
+  <!-- HTML -->
+
+<body>
+  <!-- Error -->
+  <error id="error" class="noselect hide">Error Smilie :]</error>
+
+  <!-- PopUp -->
+  <popup id="popup" class="noselect hide" show>lalal</popup>
+  <!-- Loader -->
+  <div class="loader active"></div>
+
+  <!-- Container -->
+  <container>
+    <div class="grid-wrapper">
+      <div class="header noselect">
+        <div class="left">
+          <div class="icon-container" data-tooltip="Upload Bank subpoena">
+            <a href="javascript:void(0);" onclick="UploadEvent();" class="icon"><span class="icon">cloud</span></a>
+          </div>
+        </div>
+        <div class="center">
+          <div class="search-container">
+            <!-- Searchbar-->
+          </div>
+        </div>
+        <div class="right">
+
+        </div>
+      </div>
+      <div class="banner">
+        <div class="left noselect">
+          <h3>NP CONVERTER<br /> Beta Ver. 20240927</h3>
+        </div>
+        <div class="center noselect">
+        </div>
+        <div class="right noselect">
+        </div>
+
+      </div>
+      <div class="menu">
+        <div class="header noselect">Bank Views</div>
+          <center>Coming soon...</center>
+      </div>
+      <div class="output">
+        <div class="header noselect">
+          <div class="filter">
+            <div id="treeselect"></div>
+          </div>
+        </div>
+        <div class="messages" id="messagesBox">
+
+          <div class="table">
+            <table id="bankRecordsTable"></table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </container>
+
+  <!-- Footer -->
+  <footer class="noselect">
+    Project located on <a href="https://github.com/SushiInGit/np_csv_converter/">GitHub</a> -
+    by <a href="https://github.com/RYJarnovk">RY Jarnovk</a> & <a href="https://github.com/SushiInGit">SushiInPeace</a>
+  </footer>
+
+  <!-- Vue.js und Treeselect JS (UMD-Bundle) -->
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@riophae/vue-treeselect@0.4.0/dist/vue-treeselect.umd.min.js"></script>
+  <script src="resources/frontend/js/bank/filterTable.js"></script>
+  <script src="resources/frontend/js/bank/injectData.js"></script>
+</body>
+</head>
+
+</html>
