@@ -1,8 +1,24 @@
+function formatDifference(incomingTotal, outgoingTotal) {
+    if (typeof incomingTotal === 'number' && typeof outgoingTotal === 'number') {
+        const totalDifference = incomingTotal - outgoingTotal;
+        
+        return totalDifference >= 0 ? `+$${totalDifference}` : `-$${Math.abs(totalDifference)}`;
+    } else {
+        throw new Error('???');
+    }
+}
+
+
+
 document.addEventListener("DOMContentLoaded", function () {
     const bannerRight = document.querySelector(".banner .right.noselect");
     if (bannerRight) {
+        const totalDifference = formatDifference(middleman.bankData.get().groupedIncomingTotalAmount, middleman.bankData.get().groupedOutgoingTotalAmount);
         bannerRight.innerHTML = `
-           Data found: ${middleman.bankData.get().count} 
+            Transactions: ${middleman.bankData.get().count} <br>
+            Total Income: +$${middleman.bankData.get().groupedIncomingTotalAmount} <br> 
+            Total Expense: -$${middleman.bankData.get().groupedOutgoingTotalAmount} 
+            Balance: ${totalDifference}
         `;
     }
 
