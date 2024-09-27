@@ -17,6 +17,18 @@ middleman.bankData = function () {
         var groupedOutgoing = rawBankData.filter(transaction => transaction.from_account_id == recordsOwner.account_id);
         var groupedIncoming = rawBankData.filter(transaction => transaction.from_account_id !== recordsOwner.account_id && transaction.to_account_id == recordsOwner.account_id);
 
+        // maybe fix by sushi
+        let totalIn = 0;
+        let totalOut = 0;
+        rawBankData.forEach((transaction) => {
+            if (transaction.direction === 'in') {
+                totalIn += transaction.amount;
+            } else if (transaction.direction === 'out') {
+                totalOut += transaction.amount;
+            }
+        });
+        //
+
         var groupedOutgoingTotalAmount = groupedOutgoing.reduce((sum, record) => sum + record.amount, 0);
         var groupedIncomingTotalAmount = groupedIncoming.reduce((sum, record) => sum + record.amount, 0);
 
@@ -44,7 +56,9 @@ middleman.bankData = function () {
             groupedIncomingCount: groupedIncoming.length,
             groupedIncomingTotalAmount: groupedIncomingTotalAmount,
             earliestRecord: earliestRecord.toISOString(),
-            latestRecord: latestRecord.toISOString()
+            latestRecord: latestRecord.toISOString(),
+            totalIn: totalIn,
+            totalOut: totalOut
         }
     }
 
@@ -121,7 +135,7 @@ middleman.bankData = function () {
 
                 groupedBankData.push(groupedRecord);
             }
-            
+
             groupedRecord.records.push(record);
         });
 

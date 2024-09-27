@@ -13,11 +13,11 @@ function formatDifference(incomingTotal, outgoingTotal) {
 document.addEventListener("DOMContentLoaded", function () {
     const bannerRight = document.querySelector(".banner .right.noselect");
     if (bannerRight) {
-        const totalDifference = formatDifference(middleman.bankData.get().groupedIncomingTotalAmount, middleman.bankData.get().groupedOutgoingTotalAmount);
+        const totalDifference = formatDifference(middleman.bankData.get().totalIn, middleman.bankData.get().totalOut);
         bannerRight.innerHTML = `
             Transactions: ${middleman.bankData.get().count} <br>
-            Total Income: $${middleman.bankData.get().groupedIncomingTotalAmount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") } <br> 
-            Total Expense: $${middleman.bankData.get().groupedOutgoingTotalAmount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") } 
+            Total Income: $${middleman.bankData.get().totalIn.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") } <br> 
+            Total Expense: $${middleman.bankData.get().totalOut.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") } <br>
             Balance: ${totalDifference.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") }
         `;
     }
@@ -42,6 +42,5 @@ document.addEventListener("DOMContentLoaded", function () {
             <b> ${isoDateEarlyFix} to ${isoDateLateFix}</b>
         `;
     }
-
 
 });

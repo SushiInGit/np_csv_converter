@@ -84,3 +84,11 @@ function treeselect () {
             `
     });
 };
+
+
+Vue.config.warnHandler = function (msg, vm, trace) {
+    if (msg.includes('Cannot find element: #treeselect')) {
+      return; // Suppress this warning
+    }
+    console.warn(`[Vue warn]: ${msg}\n${trace}`);
+  };
