@@ -1,5 +1,5 @@
 // Vue Treeselect-Komponente initialisieren
-window.onload = function () {
+function treeselect () {
     new Vue({
         el: '#treeselect',
         components: {

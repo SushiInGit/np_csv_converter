@@ -35,25 +35,49 @@ window.addEventListener("load", (event) => {
 
     var tbody = document.createElement("tbody");
 
-    data.forEach((row) => {
+   // Function to process rows in chunks
+   function processRows(chunkSize = 100, startIndex = 0) {
+    let endIndex = Math.min(startIndex + chunkSize, data.length);
+    
+    for (let i = startIndex; i < endIndex; i++) {
+        var row = data[i];
         var tr = document.createElement("tr");
-        var counter = 0;
-
-        Object.values(row).forEach((item) => {
-            counter++; 
-            if (counter === 16) { // DOWN SHOW CUSTOM INDEX
+        Object.values(row).forEach((item, counter) => {
+            if (counter === 15) { // Skip custom index
                 return; 
             }
-            var headerClassIndex = headersClass[counter - 1];
+
             var td = document.createElement("td");
-            td.textContent = item;
+            var headerClass = headers[counter]; 
+            var headerClassIndex = headersClass[counter];
+            
+            if (headerClass === "Date") {
+                var date = new Date(item); // Convert to Date object
+                td.textContent = date.toISOString().split('T').join(' ').slice(0, 19); // Format as UTC
+            } else {
+                td.textContent = item;
+            }
+            
             td.className = headerClassIndex; 
             tr.appendChild(td);
         });
         tbody.appendChild(tr);
-    });
+    }
 
+    // Append the processed rows to the table
     table.appendChild(tbody);
+
+    // Check if more rows need to be processed
+    if (endIndex < data.length) {
+        // Process the next chunk asynchronously
+        setTimeout(() => processRows(chunkSize, endIndex), 0);
+    }
+    treeselect ();
+}
+
+// Start processing rows in chunks
+processRows(200);
+
 });
 
 
