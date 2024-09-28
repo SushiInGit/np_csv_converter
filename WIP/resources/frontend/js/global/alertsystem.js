@@ -40,8 +40,26 @@ frontend.showalert = function (type, message, duration) {
       alert.addEventListener('animationend', () => alert.remove());
     }, duration * 1000);
   }
+
+
+// Capture Error from Console.log 
+  window.onerror = function(message, source, lineno, colno, error) {
+    if (message.startsWith("Uncaught Error: ")) {
+      frontend.showalert('error',`${message}.`, 7);
+    } else if (message.startsWith("Uncaught TypeError: Cannot read properties of undefined")) {
+      frontend.showalert('error',`Error: This File is not a spreadsheet or corrupted.`, 7);
+    }  else if (message.startsWith("localStorage.bankRecords.Empty")) {
+      frontend.showalert('info',`It seems that you have not uploaded an XLSX file.`, 7);
+    }
+    //return true;  //silence errors on active
+};
+
+
+
+  /*
   frontend.showalert('info','blubb iam a info', 15);
   frontend.showalert('success','miau yes success', 15);
   frontend.showalert('warning','chirp warning chirp', 15);
   frontend.showalert('error','404', 15);
   frontend.showalert('info','blubb again', 15);
+  */

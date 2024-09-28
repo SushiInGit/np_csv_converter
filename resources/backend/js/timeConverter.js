@@ -1,5 +1,6 @@
 function saveSettings(preferences) {
     localStorage.setItem('timestampPreferences', JSON.stringify(preferences));
+    frontend.showalert('success','Settings saved!', 4);
 }
 
 function loadSettings() {
@@ -112,6 +113,7 @@ function processTimestamp(timestamp) {
     };
 
     if (!checkValidISO(timestamp)) {
+        frontend.showalert('warning','Invalid ISO timestamp.', 4);
         return 'Invalid ISO timestamp';
     }
 

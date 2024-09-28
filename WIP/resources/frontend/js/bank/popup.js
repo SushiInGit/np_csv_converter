@@ -1,3 +1,5 @@
+var frontend = frontend ?? {};
+
 const popupDiv = document.getElementById("popup");
 const errorDiv = document.getElementById("error");
 const loader = document.querySelector('.loader');
@@ -15,6 +17,7 @@ function getBrowserInfo() {
 ////////////////////////////////////////
 
 if (!localStorage.bankRecords || localStorage.bankRecords === '[]' || localStorage.bankRecords === '') {
+    console.error("localStorage.bankRecords.Empty");
     UploadEvent();
 }
 
@@ -73,7 +76,13 @@ function UploadEvent() {
         </form>
     </div>
     `;
-
+    const excelMimeTypes = [
+        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',  // .xlsx
+        'application/vnd.ms-excel'                                            // .xls
+    ];
+    function isExcelFile(file) {
+        return excelMimeTypes.includes(file.type);
+    }
     const fileInput = document.querySelector('#file-input');
     const dropZone = document.querySelector('#drop-zone');
 
@@ -90,6 +99,11 @@ function UploadEvent() {
         var files = event.dataTransfer.files;
         if (files.length) {
             var type = backend.fileProcessor.processFiles(files);
+            if (!isExcelFile(type)) {
+                //alert('Error: Unsupported file type. Please upload an Excel file.');
+                frontend.showalert('warning','Warning: Unsupported file type. Please upload an Excel file.', 7);
+                return;  
+            }
         }
     });
     fileInput.addEventListener('change', () => backend.fileProcessor.processFiles(fileInput.files));
@@ -159,17 +173,18 @@ function sendDiscordMessage(message, browserInfo) {
         .then(response => {
             if (response.ok) {
                 closePopupDiv();  // Clear Event-DIV
-                //alert('Bugreport message is send!');
+                //alert('Bugreport message is send!')
+                frontend.showalert('success','Bugreport message is send.', 4);
 
             } else {
                 closePopupDiv();  // Clear Event-DIV
-                alert('Error: Bugreport cant be send. Try again later.');
+                frontend.showalert('warning','Error: Bugreport cant be send. Try again later.', 7);
+               // alert('Error: Bugreport cant be send. Try again later.');
             }
         })
         .catch(error => {
             closePopupDiv();  // Clear Event-DIV
-            console.error('Error:', error);
-            alert('Error: Bugreport cant be send. Try again later.');
+            frontend.showalert('warning','Error: Bugreport cant be send. Try again later.', 7);
         });
 
     BugReportEvent();
