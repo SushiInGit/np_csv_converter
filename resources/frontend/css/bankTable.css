@@ -1,11 +1,11 @@
 
 .table {
     padding-left: 5px;
-    width: calc(98% -20px);
+    width: calc(100% - 5px) !important;
     height: 95%;
 }
 table {
-    width: 98%;
+    width: calc(100% - 5px);
     border-collapse: collapse;
     font-size: 14px;
     text-align: left;
@@ -34,7 +34,7 @@ table {
         }
 
         tr:hover {
-            background-color: #00000079;
+            background-color: #000000ad;
         }
     }
     .in, .amount-in, .amount-in:not(:first-child)::before {

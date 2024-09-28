@@ -1,5 +1,8 @@
+var frontend = frontend ?? {};
+
+frontend.treeselect = function () {
+
 // Vue Treeselect-Komponente initialisieren
-function treeselect () {
     new Vue({
         el: '#treeselect',
         components: {
@@ -84,3 +87,12 @@ function treeselect () {
             `
     });
 };
+
+
+Vue.config.warnHandler = function (msg, vm, trace) {
+    if (msg.includes('Cannot find element: #treeselect')) {
+      return; // Suppress this warning
+    }
+    console.warn(`[Vue warn]: ${msg}\n${trace}`);
+  };
+ 

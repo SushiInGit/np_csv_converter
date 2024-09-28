@@ -69,6 +69,7 @@
 
     }
 }
+
 body {
     background: var(--body-bg-color);
     background: linear-gradient(315deg, var(--body-gradient-start) 0%, var(--body-gradient-end) 100%);
@@ -184,7 +185,7 @@ container {
     justify-content: center;
     align-items: center;
     border: 2px solid var(--global-border-color);
-     cursor: pointer; 
+    cursor: pointer;
 
 }
 
@@ -202,6 +203,7 @@ container {
     border-color: var(--global-hover);
     color: var(--global-hover) !important;
 }
+
 .header .icon-container:not(:last-child),
 .header .icon-container:not(:first-child) {
     margin-left: 5px;
@@ -210,27 +212,27 @@ container {
 
 .header .icon-container::after {
     content: attr(data-tooltip);
-    font-family: "Poppins", sans-serif; 
+    font-family: "Poppins", sans-serif;
     position: absolute;
     transform: translateY(110%);
     background: var(--bg-shade-search);
     box-shadow: 0 4px 10px var(--global-border-color);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
-    color: var(--global-hover); 
-    padding: 5px; 
-    border-radius: 13px; 
+    color: var(--global-hover);
+    padding: 5px;
+    border-radius: 13px;
     border: solid var(--global-border-size) var(--global-border-color);
-    white-space: nowrap; 
-    opacity: 0; 
-    visibility: hidden; 
-    transition: opacity 0.3s ease, visibility 0.3s ease; 
-    z-index: 1; 
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    z-index: 1;
 }
 
 .header .icon-container:hover::after {
-    opacity: 1; 
-    visibility: visible; 
+    opacity: 1;
+    visibility: visible;
 }
 
 .header .center #searchbar {
@@ -387,6 +389,8 @@ container {
     border-radius: 13px;
     background-color: var(--bg-shade-light);
     border: solid var(--global-border-size) var(--global-border-color);
+    position: relative;
+    height: 100%;
 }
 
 .menu .header {
@@ -397,6 +401,53 @@ container {
     text-align: center;
     border-radius: 13px 13px 0px 0px;
     border: 0px;
+}
+
+.menu .list {
+    display: block;
+    width: auto;
+    height: calc(100% - 70px) !important;
+    padding-left: 5px;
+    padding-right: 5px;
+    box-sizing: border-box;
+    position: relative;
+    overflow: hidden;
+}
+
+.menu .list .pov {
+    height: 100%;
+    box-sizing: border-box;
+    overflow: auto;
+}
+
+.menu .list .pov hr {
+    display: block;
+    position: relative;
+    opacity: 0.7;
+    width: 100%;
+    height: 3px;
+    border: none;
+    background: linear-gradient(to right, transparent, rgba(0, 0, 0, 0.5), transparent);
+}
+
+.menu .list .pov .user {
+    display: block;
+    width: 100%;
+    text-align: center;
+    line-height: 1.2;
+    position: relative;
+}
+
+.menu .list .pov .user:hover {
+    cursor: pointer;
+    color: var(--text-color) !important;
+    opacity: 0.6;
+}
+
+.menu .list .pov .user.active {
+    cursor: pointer;
+    text-shadow: var(--bg-shade-search);
+    color: var(--global-hover) !important;
 }
 
 .output {
@@ -429,6 +480,7 @@ container {
     text-align: right !important;
     padding-right: 20px;
 }
+
 .output .messages {
     height: calc(100% - 60px);
     width: 100%;
@@ -436,9 +488,10 @@ container {
     overflow-y: scroll;
 
 }
+
 .output .messages .table {
-height: 100%;
-width: 100%;
+    height: 100%;
+    width: 100%;
 }
 
 
