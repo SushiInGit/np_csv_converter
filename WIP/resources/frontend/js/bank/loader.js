@@ -1,10 +1,5 @@
 (function (loader) {
-    const errorElement = document.getElementById('error');
 
-
-    if (errorElement.classList.contains('show')) {
-        activateLoader();
-    } else {
 
         // Trigger if no error popup
         document.addEventListener("DOMContentLoaded", function (e) {
@@ -19,7 +14,7 @@
             deactivateLoader();
         });
 
-    }
+    
 
     
     // Effect

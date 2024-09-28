@@ -15,6 +15,7 @@
   <link rel="preload" href="resources/frontend/css/bankTable.css" as="style" onload="this.rel='stylesheet'">
   <link rel="preload" href="resources/frontend/css/loader.css" as="style" onload="this.rel='stylesheet'">
   <link rel="preload" href="resources/frontend/css/popup.css" as="style" onload="this.rel='stylesheet'">
+  <link rel="preload" href="resources/frontend/css/alertsystem.css" as="style" onload="this.rel='stylesheet'">
   <link rel="preload" href="https://cdn.jsdelivr.net/npm/@riophae/vue-treeselect@0.4.0/dist/vue-treeselect.min.css"
     as="style" onload="this.rel='stylesheet'">
   <!-- JS -->
@@ -34,13 +35,13 @@
   <script defer src="resources/middleman/bank/stateAccounts.js"></script>
   <script defer src="resources/frontend/js/bank/renderViews.js"></script>
   <script defer src="resources/frontend/js/bank/renderTable.js"></script>
-
+  <script defer src="resources/frontend/js/alertsystem.js"></script>
 
   <!-- HTML -->
 
 <body>
   <!-- Error -->
-  <error id="error" class="noselect hide">If u see this tell us in Discord.<br>Close with "ESC Key"</error>
+  <div id="alert-container" class="noselect"></div>
 
   <!-- PopUp -->
   <popup id="popup" class="noselect hide" show></popup>
