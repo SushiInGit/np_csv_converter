@@ -29,9 +29,12 @@
   <script defer src="resources/backend/js/fileProcessor.js"></script>
   <script defer src="resources/backend/js/bankRecordsHelper.js"></script>
   <script src="resources/backend/vendors/xlsx.full.min.js"></script>
-  <script defer src="resources/middleman/bank/bankData.js"></script>
-  <script defer src="resources/frontend/js/bank/renderTable.js"></script>
   <script defer src="resources/frontend/js/bank/popup.js"></script>
+  <script defer src="resources/middleman/bank/bankData.js"></script>
+  <script defer src="resources/middleman/bank/stateAccounts.js"></script>
+  <script defer src="resources/frontend/js/bank/renderViews.js"></script>
+  <script defer src="resources/frontend/js/bank/renderTable.js"></script>
+
 
   <!-- HTML -->
 
@@ -74,7 +77,7 @@
       </div>
       <div class="menu">
         <div class="header noselect">Bank Views</div>
-          <center>Coming soon...</center>
+        <div class="list noselect"><div class="pov"></div></div>
       </div>
       <div class="output">
         <div class="header noselect">
@@ -99,7 +102,7 @@
   </footer>
 
   <!-- Vue.js und Treeselect JS (UMD-Bundle) -->
-  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@riophae/vue-treeselect@0.4.0/dist/vue-treeselect.umd.min.js"></script>
   <script src="resources/frontend/js/bank/filterTable.js"></script>
   <script src="resources/frontend/js/bank/injectData.js"></script>

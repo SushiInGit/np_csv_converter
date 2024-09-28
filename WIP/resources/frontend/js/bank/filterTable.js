@@ -1,5 +1,8 @@
+var frontend = frontend ?? {};
+
+frontend.treeselect = function () {
+
 // Vue Treeselect-Komponente initialisieren
-function treeselect () {
     new Vue({
         el: '#treeselect',
         components: {
@@ -92,3 +95,4 @@ Vue.config.warnHandler = function (msg, vm, trace) {
     }
     console.warn(`[Vue warn]: ${msg}\n${trace}`);
   };
+ 
