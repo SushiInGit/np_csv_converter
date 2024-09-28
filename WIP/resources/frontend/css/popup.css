@@ -1,3 +1,8 @@
+:root {
+    --popup-size-height: 300px;
+    --popup-size-width: 400px;
+}
+
 popup {
     background: var(--body-bg-color);
     background: linear-gradient(315deg, var(--body-gradient-start) 0%, var(--body-gradient-end) 100%);
@@ -8,14 +13,36 @@ popup {
     color: #fff;
     margin: 0px;
     padding: 0;
-    height: 300px;
-    width: 300px;
+    height: var(--popup-size-height);
+    width: var(--popup-size-width);
+    border: solid var(--global-border-size) var(--global-border-color);
     z-index: 10001;
     opacity: 1;
 }
+
+popup.upload {
+    height: 170px !important;
+}
+
+popup.bug {
+    height: 300px !important;
+}
+
+popup.bug textarea {
+    resize: none;
+    overflow: auto;
+}
+
+popup.settings {
+    height: 340px !important;
+}
+
 popup.show {
-    opacity: 1 !important;
-    width: 200px !important;
+    width: var(--popup-size-width) !important;
+    opacity: 0.99 !important;
+    box-shadow: 0 4px 10px var(--global-border-color);
+    backdrop-filter: blur(310px);
+    -webkit-backdrop-filter: blur(310px);
 }
 
 popup.hide {
@@ -37,6 +64,29 @@ popup .close {
 
 popup .close:hover {
     background-color: #eb5b4b;
+}
+
+popup .head {
+
+    align-items: center;
+    justify-content: center;
+}
+
+popup .head h2 {
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+popup .element {
+    top: 70px;
+    left: 10px;
+    width: calc(100% - 20px);
+    position: absolute;
+    align-items: center;
+    justify-content: center;
 }
 
 popup .ok {
@@ -92,8 +142,98 @@ popup .dropZoneError {
     border-color: #ff1a1a;
     box-shadow: 0 0 15px 5px rgba(252, 20, 20, 0.7);
 }
+
 popup .h2 {
- text-align: center;
+    text-align: center;
 }
 
 /* --------End of Fileupload---------  */
+
+/* --------Start of Settings ---------  */
+popup #timezoneDiv {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    vertical-align: middle;
+}
+
+popup #dateformatDiv {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    vertical-align: middle;
+}
+
+popup #use12hClockDiv {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    vertical-align: middle;
+    ;
+}
+
+popup #timeFirstDiv {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    vertical-align: middle;
+}
+
+popup #offsetDiv {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    vertical-align: middle;
+    ;
+}
+
+popup label {
+    display: table-cell;
+    color: #ffffff;
+    vertical-align: middle;
+    padding-right: 15px;
+}
+
+popup select {
+    width: 100%;
+    padding: 10px;
+    background-color: #333333;
+    color: #ffffff;
+    border: 1px solid #555555;
+    border-radius: 5px;
+    text-align: center;
+    text-align-last: center;
+}
+
+popup select option {
+    text-align: left;
+}
+
+popup select:hover {
+    background-color: #444444;
+}
+
+popup select:focus {
+    outline: none;
+    border-color: #777777;
+}
+
+popup select::after {
+    content: '\25BC';
+    position: absolute;
+    right: 10px;
+    color: #ffffff;
+    pointer-events: none;
+}
+
+
+/* --------End of Settings---------  */
+
+
+popup  .element textarea {
+    border: 1px solid #1c1e29;
+    background-color: #0707078a;
+    outline: none;
+    color: #ccc;
+    display: block;
+}
+
+popup .element textarea::placeholder {
+    color: #cccccca6;
+}
+/* --------End of Bugreport --------  */

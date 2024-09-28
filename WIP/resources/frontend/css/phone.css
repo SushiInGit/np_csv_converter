@@ -24,52 +24,35 @@
     user-select: none;
 }
 
-/* ------------------- BODY/HTML ------------------- */
-* {
-    &::-webkit-scrollbar {
-        width: 8px;
-        height: 8px;
-    }
-
-    &::-webkit-scrollbar-track {
-        border-radius: 10px;
-        background: rgba(0, 0, 0, 0.2);
-    }
-
-    &::-webkit-scrollbar-thumb {
-        border-radius: 10px;
-        background: rgba(0, 0, 0, 0.4);
-    }
-
-    &::-webkit-scrollbar-thumb:hover {
-        background: rgba(0, 0, 0, 0.6);
-    }
-
-    &::-webkit-scrollbar-thumb:active {
-        background: rgba(0, 0, 0, 0.9);
-    }
-
-    &.chat-container * {
-        &::-webkit-scrollbar-track {
-            background: rgba(72, 66, 94, 0.2);
-        }
-
-        &::-webkit-scrollbar-thumb {
-            background: rgba(72, 66, 94, 0.6);
-        }
-
-        &::-webkit-scrollbar-thumb:hover {
-            background: rgba(72, 66, 94, 0.4);
-        }
-
-        &::-webkit-scrollbar-thumb:active {
-            background: rgba(72, 66, 94, 0.4);
-            /*background: rgba(72,66,94, 0.9);*/
-        }
-
-    }
+/* ------------------- Scrollbar ------------------- */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
 }
 
+::-webkit-scrollbar-track {
+    border-radius: 10px;
+    background: rgba(0, 0, 0, 0.2);
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background: rgba(0, 0, 0, 0.4);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 0, 0, 0.6);
+}
+
+::-webkit-scrollbar-thumb:active {
+    background: rgba(0, 0, 0, 0.9);
+}
+
+::-webkit-scrollbar-corner {
+    background: rgba(0, 0, 0, 0.2) !important;
+}
+
+/* ------------------- BODY/HTML ------------------- */
 body {
     background: var(--body-bg-color);
     background: linear-gradient(315deg, var(--body-gradient-start) 0%, var(--body-gradient-end) 100%);
@@ -184,7 +167,7 @@ container {
     justify-content: center;
     align-items: center;
     border: 2px solid var(--global-border-color);
-     cursor: pointer; 
+    cursor: pointer;
 
 }
 
@@ -202,6 +185,7 @@ container {
     border-color: var(--global-hover);
     color: var(--global-hover) !important;
 }
+
 .header .icon-container:not(:last-child),
 .header .icon-container:not(:first-child) {
     margin-left: 5px;
@@ -210,27 +194,27 @@ container {
 
 .header .icon-container::after {
     content: attr(data-tooltip);
-    font-family: "Poppins", sans-serif; 
+    font-family: "Poppins", sans-serif;
     position: absolute;
     transform: translateY(110%);
     background: var(--bg-shade-search);
     box-shadow: 0 4px 10px var(--global-border-color);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
-    color: var(--global-hover); 
-    padding: 5px; 
-    border-radius: 13px; 
+    color: var(--global-hover);
+    padding: 5px;
+    border-radius: 13px;
     border: solid var(--global-border-size) var(--global-border-color);
-    white-space: nowrap; 
-    opacity: 0; 
-    visibility: hidden; 
-    transition: opacity 0.3s ease, visibility 0.3s ease; 
-    z-index: 1; 
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    z-index: 1;
 }
 
 .header .icon-container:hover::after {
-    opacity: 1; 
-    visibility: visible; 
+    opacity: 1;
+    visibility: visible;
 }
 
 .header .center #searchbar {

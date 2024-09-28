@@ -40,10 +40,10 @@
 
 <body>
   <!-- Error -->
-  <error id="error" class="noselect hide">Error Smilie :]</error>
+  <error id="error" class="noselect hide">If u see this tell us in Discord.<br>Close with "ESC Key"</error>
 
   <!-- PopUp -->
-  <popup id="popup" class="noselect hide" show>lalal</popup>
+  <popup id="popup" class="noselect hide" show></popup>
   <!-- Loader -->
   <div class="loader active"></div>
 
@@ -62,7 +62,12 @@
           </div>
         </div>
         <div class="right">
-
+          <div class="icon-container" data-tooltip="Time convertion settings">
+            <a href="javascript:void(0);" onclick="SettingsEvent();" class="icon"><span class="icon">settings</span></a>
+          </div>
+          <div class="icon-container" data-tooltip="Bug Report">
+            <a href="javascript:void(0);" onclick="BugReportEvent();" class="icon"><span class="icon">bug_report</span></a>
+          </div>
         </div>
       </div>
       <div class="banner">
@@ -72,6 +77,7 @@
         <div class="center noselect">
         </div>
         <div class="right noselect">
+          
         </div>
 
       </div>
@@ -101,7 +107,7 @@
     by <a href="https://github.com/RYJarnovk">RY Jarnovk</a> & <a href="https://github.com/SushiInGit">SushiInPeace</a>
   </footer>
 
-  <!-- Vue.js und Treeselect JS (UMD-Bundle) -->
+  <!-- Vue.js and Treeselect JS (UMD-Bundle) -->
   <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@riophae/vue-treeselect@0.4.0/dist/vue-treeselect.umd.min.js"></script>
   <script src="resources/frontend/js/bank/filterTable.js"></script>

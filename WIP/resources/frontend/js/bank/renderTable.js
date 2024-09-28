@@ -14,7 +14,7 @@ frontend.renderTable = function (data) {
         var headers = [
             "ID", "Comment", "Type", "Direction", "From: Account ID",
             "From: Account Name", "From: Accounttype", "To: Account ID",
-            "To: Account Name", "To: Accounttype", "Amount", "Date (UTC)",
+            "To: Account Name", "To: Accounttype", "Amount", `Date (${processTimestamp(Date.now()).timeZone})`,
             "Tax %", "Tax-Type", "Tax-ID"
         ];
 
@@ -69,9 +69,9 @@ frontend.renderTable = function (data) {
                             item = middleman.stateAccounts(row.from_account_id, row.from_civ_name);
                         }
 
-                        if (headerClass === "Date (UTC)") {
+                        if (headerClass === `Date (${processTimestamp(Date.now()).timeZone})`) {
                             var date = new Date(item); // Convert to Date object
-                            td.textContent = date.toISOString().split('T').join(' ').slice(0, 19); // Format as UTC
+                            td.textContent =  `${processTimestamp(date).displayOrder}`
                         } else {
                             td.textContent = item;
                         }
@@ -112,9 +112,9 @@ frontend.renderTable = function (data) {
                         item = middleman.stateAccounts(row.from_account_id, row.from_civ_name);
                     }
 
-                    if (headerClass === "Date (UTC)") {
+                    if (headerClass === `Date (${processTimestamp(Date.now()).timeZone})`) {
                         var date = new Date(item); // Convert to Date object
-                        td.textContent = date.toISOString().split('T').join(' ').slice(0, 19); // Format as UTC
+                         td.textContent =  `${processTimestamp(date).displayOrder}`
                     } else {
                         td.textContent = item;
                     }

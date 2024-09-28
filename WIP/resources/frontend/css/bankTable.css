@@ -34,7 +34,7 @@ table {
         }
 
         tr:hover {
-            background-color: #00000079;
+            background-color: #000000ad;
         }
     }
     .in, .amount-in, .amount-in:not(:first-child)::before {
