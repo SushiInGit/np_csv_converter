@@ -1,6 +1,15 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins");
 @import url('https://fonts.googleapis.com/icon?family=Material+Icons+Outlined');
 
+
+:root {
+    --alert-error-color: hsla(6, 78%, 57%, 0.85);
+    --alert-warning-color: hsla(37, 90%, 51%, 0.85);
+    --alert-success-color: hsla(145, 64%, 41%, 0.85);
+    --alert-info-color:  hsla(204, 70%, 53%, 0.85);
+}
+
+
 /* alert Container */
 #alert-container {
     font-family: "Poppins", sans-serif;
@@ -13,7 +22,6 @@
     display: flex;
     flex-direction: column;
     gap: 5px;
-
 }
 
 /* Base alert Style */
@@ -29,11 +37,11 @@
     gap: 5px;
     animation: slide-in 0.5s ease;
     opacity: 0.9;
+    background-color: var(--body-bg-color);
     border: solid var(--global-border-size) var(--global-border-color);
     box-shadow: 0 4px 10px var(--global-border-color);
-    backdrop-filter: blur(30px);
-    -webkit-backdrop-filter: blur(30px);
     position: relative;
+    cursor: pointer;
 }
 
 /* Countdown Bar */
@@ -47,24 +55,39 @@
     width: 100%;
 }
 
+
 /* alert Types */
  .alert-error {
-    background-color: hsla(6, 78%, 57%, 0.85);
+    border-color: var(--alert-error-color);
 }
 
  .alert-warning {
-    background-color: hsla(37, 90%, 51%, 0.85);
+    border-color: var(--alert-warning-color);
 }
 
  .alert-success {
-    background-color: hsla(145, 64%, 41%, 0.85);
+    border-color:  var(--alert-success-color);
 }
 
  .alert-info {
-    background-color: hsla(204, 70%, 53%, 0.85);
+    border-color: var(--alert-info-color);
 }
 
- .material-icons-outlined {
+/* alert counddown-bars */
+.alert.alert-error .countdown-bar{
+    background-color: var(--alert-error-color);
+}
+.alert.alert-warning .countdown-bar{
+    background-color: var(--alert-warning-color);
+}
+.alert.alert-success .countdown-bar{
+    background-color: var(--alert-success-color);
+}
+.alert.alert-info .countdown-bar{
+    background-color: var(--alert-info-color);
+}
+
+ .svg {
     font-family: 'Material Icons Outlined';
     font-size: 24px;
     font-size: inherit;

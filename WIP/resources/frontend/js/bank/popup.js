@@ -17,10 +17,13 @@ function getBrowserInfo() {
 ////////////////////////////////////////
 
 if (!localStorage.bankRecords || localStorage.bankRecords === '[]' || localStorage.bankRecords === '') {
-    console.error("localStorage.bankRecords.Empty");
+    frontend.showalert('warning', `It looks like you haven't uploaded an XLSX file yet. You can update it later by clicking on the cloud icon in the top left.`, 15);
     UploadEvent();
 }
-
+if (!localStorage.timestampPreferences || localStorage.timestampPreferences === '[]' || localStorage.timestampPreferences === '') {
+    frontend.showalert('info', `It seems you haven't set up your time settings yet. You can do so by clicking the gear icon in the top right.`, 15);
+    UploadEvent();
+}
 ////////////////////////////////////////
 
 
@@ -204,7 +207,9 @@ function saveSettingsTrigger() {
 
     clearPopupDiv(); // Clear Event-DIV
     saveSettings(newSettingsData);
-    window.location.reload();
+    //window.location.reload();
+    frontend.showalert('success',`Settings saved successfully.`, 4);
+    frontend.showalert('info',`To see the changes, please reload the page or reopen the last transaction. Sorry for the inconvenience, this issue will hopefully be fixed by the devs soon.`, 15);
 
 }
 function setSettingSelectedValue(selectId, value) {
