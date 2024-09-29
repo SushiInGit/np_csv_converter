@@ -17,28 +17,27 @@ function getBrowserInfo() {
 ////////////////////////////////////////
 
 if (!localStorage.bankRecords || localStorage.bankRecords === '[]' || localStorage.bankRecords === '') {
-    frontend.showalert('warning', `It looks like you haven't uploaded an XLSX file yet. You can update it later by clicking on the cloud icon in the top left.`, 15);
-    UploadEvent();
+    global.alertsystem('warning', `It looks like you haven't uploaded an XLSX file yet. You can update it later by clicking on the cloud icon in the top left.`, 15);
+    helpEvent();
 }
 if (!localStorage.timestampPreferences || localStorage.timestampPreferences === '[]' || localStorage.timestampPreferences === '') {
-    frontend.showalert('info', `It seems you haven't set up your time settings yet. You can do so by clicking the gear icon in the top right.`, 15);
-    UploadEvent();
+    global.alertsystem('info', `It seems you haven't set up your time settings yet. You can do so by clicking the gear icon in the top right.`, 15);
 }
+
 ////////////////////////////////////////
 
 
 
 document.addEventListener("keydown", function (event) {   // Close Popups
     if (event.key === "Escape") {
-        errorDiv.classList.remove("show");
-        errorDiv.classList.add("hide");
         closePopupDiv();
     }
 });
+
 function showPopup() {
     popupDiv.classList.remove("hide");
     popupDiv.classList.add("show");
-    loader.classList.add("active"); 
+    loader.classList.add("active");
     loader.classList.remove("inactive");
 }
 
@@ -46,23 +45,37 @@ function clearPopupDiv() {
     popupDiv.innerHTML = '';
     popupDiv.classList.remove("show");
     popupDiv.classList.add("hide");
+    const classesToRemove = ["hide", "show", "upload", "bug", "settings", "help"];
+    classesToRemove.forEach(className => {
+        popupDiv.classList.remove(className);
+    });
+}
+
+function deactivateLoader() {
+    try {
+        loader.classList.remove("active");
+    } catch (error) {
+        //console.error("Error removing 'active' class:", error);
+    } finally {
+        loader.classList.add("inactive");
+    }
 }
 
 function closePopupDiv() {
     popupDiv.innerHTML = '';
-    loader.classList.remove("active"); 
-    loader.classList.add("inactive");
+    deactivateLoader();
+    const classesToRemove = ["hide", "show", "upload", "bug", "settings", "help"];
+
+    classesToRemove.forEach(className => {
+        popupDiv.classList.remove(className);
+    });
     popupDiv.classList.add("hide");
-    popupDiv.classList.remove("show");
-    popupDiv.classList.remove("upload");
-    popupDiv.classList.remove("bug");
-    popupDiv.classList.remove("settings");
 }
 
 function UploadEvent() {
-    popupDiv.classList.add("upload");
     clearPopupDiv(); // Clear Event-DIV
     showPopup();
+    popupDiv.classList.add("upload");
     loader.classList.add("active");
     popupDiv.innerHTML = `
     <div class="head">
@@ -104,8 +117,8 @@ function UploadEvent() {
             var type = backend.fileProcessor.processFiles(files);
             if (!isExcelFile(type)) {
                 //alert('Error: Unsupported file type. Please upload an Excel file.');
-                frontend.showalert('warning','Warning: Unsupported file type. Please upload an Excel file.', 7);
-                return;  
+                global.alertsystem('warning', 'Warning: Unsupported file type. Please upload an Excel file.', 7);
+                return;
             }
         }
     });
@@ -177,17 +190,17 @@ function sendDiscordMessage(message, browserInfo) {
             if (response.ok) {
                 closePopupDiv();  // Clear Event-DIV
                 //alert('Bugreport message is send!')
-                frontend.showalert('success','Bug report has been sent.', 4);
+                global.alertsystem('success', 'Bug report has been sent.', 4);
 
             } else {
                 closePopupDiv();  // Clear Event-DIV
-                frontend.showalert('warning','Error: Bugreport cant be send. Try again later.', 7);
-               // alert('Error: Bugreport cant be send. Try again later.');
+                global.alertsystem('warning', 'Error: Bugreport cant be send. Try again later.', 7);
+                // alert('Error: Bugreport cant be send. Try again later.');
             }
         })
         .catch(error => {
             closePopupDiv();  // Clear Event-DIV
-            frontend.showalert('warning','Error: Bugreport cant be send. Try again later.', 7);
+            global.alertsystem('warning', 'Error: Bugreport cant be send. Try again later.', 7);
         });
 
     BugReportEvent();
@@ -202,14 +215,14 @@ function saveSettingsTrigger() {
         dateFormat: dateformat.value,
         timeFormat: use12hClock.value,
         offsetShow: showoffset.value,
-        displayOrder: timeFirst.value 
+        displayOrder: timeFirst.value
     };
 
     clearPopupDiv(); // Clear Event-DIV
     saveSettings(newSettingsData);
     //window.location.reload();
-    frontend.showalert('success',`Settings saved successfully.`, 4);
-    frontend.showalert('info',`To see the changes, please reload the page or reopen the last transaction. Sorry for the inconvenience, this issue will hopefully be fixed by the devs soon.`, 15);
+    global.alertsystem('success', `Settings saved successfully.`, 4);
+    global.alertsystem('info', `To see the changes, please reload the page or reopen the last transaction. Sorry for the inconvenience, this issue will hopefully be fixed by the devs soon.`, 15);
 
 }
 function setSettingSelectedValue(selectId, value) {
@@ -222,7 +235,7 @@ function SettingsEvent() {
     showPopup();
     loader.classList.add("active");
     const settings = document.createElement('settings');
-    
+
 
     settings.innerHTML = `
                <div class="head">
@@ -300,4 +313,26 @@ function SettingsEvent() {
     setSettingSelectedValue('showoffset', `${(loadSettings().offsetShow)}`);
     setSettingSelectedValue('timeFirst', `${(loadSettings().displayOrder)}`);
 
+}
+
+////////////////////////////////////////////////// Help RM-Reader
+function helpEvent() {
+    clearPopupDiv(); // Clear Event-DIV
+    const help = document.createElement('help');
+    popupDiv.classList.add("help");
+    showPopup();
+    loader.classList.add("active");
+    help.innerHTML = `
+            <div class="head">
+            <button class="close" onclick="UploadEvent(), closePopupDiv(), deactivateLoader()">X</button>
+            <h2>Help & Information</h2>
+            </div>
+            <div class="element">
+            <div id="markdownContent"></div>
+            <div id="errorMessage"></div>
+            </div>
+    `;
+
+    popupDiv.appendChild(help);
+    global.markdownReader('bank.md');
 }
