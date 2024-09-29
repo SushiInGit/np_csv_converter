@@ -14,7 +14,7 @@
 #alert-container {
     font-family: "Poppins", sans-serif;
     position: fixed;
-    top: 10px;
+    top: 75px;
     right: 10px;
     /*left: 50%;         <<<<<<<--- center it if i want to later
     transform: translateX(-50%);   */
