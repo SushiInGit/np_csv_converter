@@ -18,6 +18,7 @@ popup {
     border: solid var(--global-border-size) var(--global-border-color);
     z-index: 10001;
     opacity: 1;
+    font-family: "Poppins", sans-serif;
 }
 
 popup.upload {
@@ -25,7 +26,7 @@ popup.upload {
 }
 
 popup.bug {
-    height: 300px !important;
+    height: 325px !important;
 }
 
 popup.bug textarea {
@@ -34,7 +35,11 @@ popup.bug textarea {
 }
 
 popup.settings {
-    height: 340px !important;
+    height: 360px !important;
+}
+
+popup.help {
+    height: 400px !important;
 }
 
 popup.show {
@@ -150,46 +155,46 @@ popup .h2 {
 /* --------End of Fileupload---------  */
 
 /* --------Start of Settings ---------  */
-popup #timezoneDiv {
+popup.settings #timezoneDiv {
     padding-top: 5px;
     padding-bottom: 5px;
     vertical-align: middle;
 }
 
-popup #dateformatDiv {
+popup.settings #dateformatDiv {
     padding-top: 5px;
     padding-bottom: 5px;
     vertical-align: middle;
 }
 
-popup #use12hClockDiv {
-    padding-top: 5px;
-    padding-bottom: 5px;
-    vertical-align: middle;
-    ;
-}
-
-popup #timeFirstDiv {
-    padding-top: 5px;
-    padding-bottom: 5px;
-    vertical-align: middle;
-}
-
-popup #offsetDiv {
+popup.settings #use12hClockDiv {
     padding-top: 5px;
     padding-bottom: 5px;
     vertical-align: middle;
     ;
 }
 
-popup label {
+popup.settings #timeFirstDiv {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    vertical-align: middle;
+}
+
+popup.settings #offsetDiv {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    vertical-align: middle;
+    ;
+}
+
+popup.settings label {
     display: table-cell;
     color: #ffffff;
     vertical-align: middle;
     padding-right: 15px;
 }
 
-popup select {
+popup.settings select {
     width: 100%;
     padding: 10px;
     background-color: #333333;
@@ -200,20 +205,20 @@ popup select {
     text-align-last: center;
 }
 
-popup select option {
+popup.settings select option {
     text-align: left;
 }
 
-popup select:hover {
+popup.settings select:hover {
     background-color: #444444;
 }
 
-popup select:focus {
+popup.settings select:focus {
     outline: none;
     border-color: #777777;
 }
 
-popup select::after {
+popup.settings select::after {
     content: '\25BC';
     position: absolute;
     right: 10px;
@@ -223,9 +228,11 @@ popup select::after {
 
 
 /* --------End of Settings---------  */
+popup.bug .element {
+    height: 170px;
+}
 
-
-popup  .element textarea {
+popup.bug .element textarea {
     border: 1px solid #1c1e29;
     background-color: #0707078a;
     outline: none;
@@ -233,7 +240,36 @@ popup  .element textarea {
     display: block;
 }
 
-popup .element textarea::placeholder {
+popup.bug .element textarea::placeholder {
     color: #cccccca6;
 }
+
 /* --------End of Bugreport --------  */
+
+
+popup.help .element #markdownContent {
+    border: 1px solid var(--bg-shade-light);
+    background-color: hsla(0, 0%, 0%, 0.2);
+    transition: background-color 0.3s, border-color 0.3s;
+    height: 320px;
+    position: relative;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+popup.help .element #markdownContent a {
+    color: var(--text-color);
+    text-decoration: none;
+}
+
+popup.help .element #markdownContent a:hover {
+    color: var(--global-hover);
+    text-decoration: underline;
+}
+
+popup.help .element #errorMessage {
+    color: red;
+    font-weight: bold;
+}
+
+/* --------End of Help --------  */

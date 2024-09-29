@@ -22,7 +22,8 @@
   <!-- JS Core -->
   <script defer src="resources/frontend/js/bank/loader.js"></script>
   <script defer src="resources/frontend/js/global/alertsystem.js"></script>
-
+  <script defer src="resources/frontend/js/global/markdownReader.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/2.1.3/marked.min.js"></script>
   <!-- JS BANK -->
   <script src="resources/backend/js/timeConverter.js"></script>
   <script defer src="resources/backend/js/helpers.js"></script>
@@ -40,7 +41,7 @@
   <!-- Alert System -->
   <div id="alert-container" class="noselect"></div>
   <!-- PopUp -->
-  <popup id="popup" class="noselect hide" show></popup>
+  <popup id="popup" class="noselect hide"></popup>
   <!-- Loader -->
   <div class="loader active"></div>
 
@@ -65,6 +66,10 @@
           <div class="icon-container" data-tooltip="Bug Report">
             <a href="javascript:void(0);" onclick="BugReportEvent();" class="icon"><span
                 class="icon">bug_report</span></a>
+          </div>
+          <div class="icon-container" data-tooltip="How to use">
+            <a href="javascript:void(0);" onclick="helpEvent();" class="icon"><span
+                class="icon">question_mark</span></a>
           </div>
         </div>
       </div>
