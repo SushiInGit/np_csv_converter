@@ -1,3 +1,5 @@
+var frontend = frontend ?? {};
+
 const popupDiv = document.getElementById("popup");
 const errorDiv = document.getElementById("error");
 const loader = document.querySelector('.loader');
@@ -15,9 +17,13 @@ function getBrowserInfo() {
 ////////////////////////////////////////
 
 if (!localStorage.bankRecords || localStorage.bankRecords === '[]' || localStorage.bankRecords === '') {
+    frontend.showalert('warning', `It looks like you haven't uploaded an XLSX file yet. You can update it later by clicking on the cloud icon in the top left.`, 15);
     UploadEvent();
 }
-
+if (!localStorage.timestampPreferences || localStorage.timestampPreferences === '[]' || localStorage.timestampPreferences === '') {
+    frontend.showalert('info', `It seems you haven't set up your time settings yet. You can do so by clicking the gear icon in the top right.`, 15);
+    UploadEvent();
+}
 ////////////////////////////////////////
 
 
@@ -73,7 +79,13 @@ function UploadEvent() {
         </form>
     </div>
     `;
-
+    const excelMimeTypes = [
+        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',  // .xlsx
+        'application/vnd.ms-excel'                                            // .xls
+    ];
+    function isExcelFile(file) {
+        return excelMimeTypes.includes(file.type);
+    }
     const fileInput = document.querySelector('#file-input');
     const dropZone = document.querySelector('#drop-zone');
 
@@ -90,6 +102,11 @@ function UploadEvent() {
         var files = event.dataTransfer.files;
         if (files.length) {
             var type = backend.fileProcessor.processFiles(files);
+            if (!isExcelFile(type)) {
+                //alert('Error: Unsupported file type. Please upload an Excel file.');
+                frontend.showalert('warning','Warning: Unsupported file type. Please upload an Excel file.', 7);
+                return;  
+            }
         }
     });
     fileInput.addEventListener('change', () => backend.fileProcessor.processFiles(fileInput.files));
@@ -159,17 +176,18 @@ function sendDiscordMessage(message, browserInfo) {
         .then(response => {
             if (response.ok) {
                 closePopupDiv();  // Clear Event-DIV
-                //alert('Bugreport message is send!');
+                //alert('Bugreport message is send!')
+                frontend.showalert('success','Bugreport message is send.', 4);
 
             } else {
                 closePopupDiv();  // Clear Event-DIV
-                alert('Error: Bugreport cant be send. Try again later.');
+                frontend.showalert('warning','Error: Bugreport cant be send. Try again later.', 7);
+               // alert('Error: Bugreport cant be send. Try again later.');
             }
         })
         .catch(error => {
             closePopupDiv();  // Clear Event-DIV
-            console.error('Error:', error);
-            alert('Error: Bugreport cant be send. Try again later.');
+            frontend.showalert('warning','Error: Bugreport cant be send. Try again later.', 7);
         });
 
     BugReportEvent();
@@ -189,7 +207,9 @@ function saveSettingsTrigger() {
 
     clearPopupDiv(); // Clear Event-DIV
     saveSettings(newSettingsData);
-    window.location.reload();
+    //window.location.reload();
+    frontend.showalert('success',`Settings saved successfully.`, 4);
+    frontend.showalert('info',`To see the changes, please reload the page or reopen the last transaction. Sorry for the inconvenience, this issue will hopefully be fixed by the devs soon.`, 15);
 
 }
 function setSettingSelectedValue(selectId, value) {

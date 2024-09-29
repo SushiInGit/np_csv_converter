@@ -10,7 +10,14 @@ Join us: https://discord.gg/e3t8EHKGp3
 #
 
 ### Update History:
-
+```
+2024-09-29:
+* Started with the Designrework for Phone and Bank 
+* Bank Subpoena added as beta version 
+--> Added Alert symstem
+--> Splitting transaction in groupes
+--> User Time settings added
+```
 ```
 2024-09-18:
 * Rework of the landingpage
