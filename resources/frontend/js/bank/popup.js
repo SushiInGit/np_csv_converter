@@ -44,11 +44,11 @@ function showPopup() {
 function clearPopupDiv() {
     popupDiv.innerHTML = '';
     popupDiv.classList.remove("show");
-    popupDiv.classList.add("hide");
     const classesToRemove = ["hide", "show", "upload", "bug", "settings", "help"];
     classesToRemove.forEach(className => {
         popupDiv.classList.remove(className);
     });
+    popupDiv.classList.add("hide");
 }
 
 function deactivateLoader() {
@@ -220,7 +220,7 @@ function saveSettingsTrigger() {
 
     clearPopupDiv(); // Clear Event-DIV
     saveSettings(newSettingsData);
-    //window.location.reload();
+
     global.alertsystem('success', `Settings saved successfully.`, 4);
     global.alertsystem('info', `To see the changes, please reload the page or reopen the last transaction. Sorry for the inconvenience, this issue will hopefully be fixed by the devs soon.`, 15);
 
@@ -294,7 +294,7 @@ function SettingsEvent() {
                         <option value="timeAndDate">Time then Date</option>
                     </select>
                 </div>          
-            <button class="ok" onclick="saveSettingsTrigger(), clearPopupDiv()">Save</button>
+            <button class="ok" onclick="saveSettingsTrigger(), clearPopupDiv(), clearPopupDiv()">Save</button>
             </div>
     `;
 
