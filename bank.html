@@ -2,78 +2,124 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NP Converter</title>
-    <link rel="stylesheet" type="text/css" href="resources/frontend/css/font-awesome.5.13.1.all.min.css">
-    <link rel="icon" href="resources/frontend/favicon/favicon.ico" sizes="32x32">
-    <link rel="icon" href="resources/frontend/favicon/icon.svg" type="image/svg+xml">
-    <link rel="apple-touch-icon" href="resources/frontend/favicon/apple-touch-icon.png">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="resources/backend/js/timeConverter.js"></script>
-    <script defer src="resources/backend/js/helpers.js"></script>
-    <script defer src="resources/backend/js/dataController.js"></script>
-    <script defer src="resources/backend/js/fileProcessor.js"></script>
-    <script defer src="resources/backend/js/bankRecordsHelper.js"></script>
-    <script defer src="resources/middleman/bank/bankData.js"></script>
-    <script src="resources/backend/vendors/xlsx.full.min.js"></script>
+  <!-- Page Metadata -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NP Converter</title>
+  <link rel="icon" href="resources/frontend/favicon/favicon.ico" sizes="32x32">
+  <link rel="icon" href="resources/frontend/favicon/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="resources/frontend/favicon/apple-touch-icon.png">
 
-    <script src="resources/frontend/js/bank/renderTable.js"></script>
+  <!-- CSS -->
+  <link rel="preload" href="resources/frontend/css/global/loader.css" as="style" onload="this.rel='stylesheet'">
+  <link rel="preload" href="resources/frontend/css/global/alertsystem.css" as="style" onload="this.rel='stylesheet'">
+  <link rel="preload" href="resources/frontend/css/bank/bank.css" as="style" onload="this.rel='stylesheet'">
+  <link rel="preload" href="resources/frontend/css/bank/bankTable.css" as="style" onload="this.rel='stylesheet'">
+  <link rel="preload" href="resources/frontend/css/bank/popup.css" as="style" onload="this.rel='stylesheet'">
+  <link rel="preload" href="https://cdn.jsdelivr.net/npm/@riophae/vue-treeselect@0.4.0/dist/vue-treeselect.min.css"
+    as="style" onload="this.rel='stylesheet'">
 
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded" />
-
-    <style>
-        body {
-            color: #ddd;
-            background-color: #222;
-            font-family: Arial;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 25px 0;
-            font-size: 14px;
-            text-align: left;
-
-            th, td {
-                padding: 3px 6px;
-                border: 1px solid #ddd;
-            }
-
-            thead {
-                background-color: #f2f2f2;
-
-                th {
-                    font-weight: bold;
-                }
-            }
-
-            tbody {
-                tr:nth-child(even) {
-                    background-color: #f9f9f9;
-                }
-
-                tr:hover {
-                    background-color: #f1f1f1;
-                }
-            }
-        }
-    </style>
-
-    <script>
-        window.addEventListener("load", (event) => {
-            var fileInput = document.querySelector("#bankUpload");
-            fileInput.addEventListener('change', () => backend.fileProcessor.processFiles(fileInput.files));
-        });
-    </script>
-</head>
+  <!-- JS Core -->
+  <script defer src="resources/frontend/js/bank/loader.js"></script>
+  <script defer src="resources/frontend/js/global/alertsystem.js"></script>
+  <script defer src="resources/frontend/js/global/markdownReader.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/2.1.3/marked.min.js"></script>
+  <!-- JS BANK -->
+  <script src="resources/backend/js/timeConverter.js"></script>
+  <script defer src="resources/backend/js/helpers.js"></script>
+  <script defer src="resources/backend/js/dataController.js"></script>
+  <script defer src="resources/backend/js/fileProcessor.js"></script>
+  <script defer src="resources/backend/js/bankRecordsHelper.js"></script>
+  <script src="resources/backend/vendors/xlsx.full.min.js"></script>
+  <script defer src="resources/frontend/js/bank/popup.js"></script>
+  <script defer src="resources/middleman/bank/bankData.js"></script>
+  <script defer src="resources/middleman/bank/stateAccounts.js"></script>
+  <script defer src="resources/frontend/js/bank/renderViews.js"></script>
+  <script defer src="resources/frontend/js/bank/renderTable.js"></script>
 
 <body>
-    <input id="bankUpload" type="file" />
-    <table id="bankRecordsTable"></table>
+  <!-- Alert System -->
+  <div id="alert-container" class="noselect"></div>
+  <!-- PopUp -->
+  <popup id="popup" class="noselect hide"></popup>
+  <!-- Loader -->
+  <div class="loader active"></div>
+
+  <!-- Container -->
+  <container>
+    <div class="grid-wrapper">
+      <div class="header noselect">
+        <div class="left">
+          <div class="icon-container" data-tooltip="Upload Bank subpoena">
+            <a href="javascript:void(0);" onclick="UploadEvent();" class="icon"><span class="icon">cloud</span></a>
+          </div>
+        </div>
+        <div class="center">
+          <div class="search-container">
+            <!-- Searchbar-->
+          </div>
+        </div>
+        <div class="right">
+          <div class="icon-container" data-tooltip="Time convertion settings">
+            <a href="javascript:void(0);" onclick="SettingsEvent();" class="icon"><span class="icon">settings</span></a>
+          </div>
+          <div class="icon-container" data-tooltip="Bug Report">
+            <a href="javascript:void(0);" onclick="BugReportEvent();" class="icon"><span
+                class="icon">bug_report</span></a>
+          </div>
+          <div class="icon-container" data-tooltip="How to use">
+            <a href="javascript:void(0);" onclick="helpEvent();" class="icon"><span
+                class="icon">question_mark</span></a>
+          </div>
+        </div>
+      </div>
+      <div class="banner">
+        <div class="left noselect">
+          <h3>NP CONVERTER<br /> Beta Ver. 20240929</h3>
+        </div>
+        <div class="center noselect">
+        </div>
+        <div class="right noselect">
+
+        </div>
+
+      </div>
+      <div class="menu">
+        <div class="header noselect">Bank Views</div>
+        <div class="list noselect">
+          <div class="pov"></div>
+        </div>
+      </div>
+      <div class="output">
+        <div class="header noselect">
+          <div class="filter">
+            <div id="treeselect"></div>
+          </div>
+        </div>
+        <div class="messages" id="messagesBox">
+
+          <div class="table">
+            <table id="bankRecordsTable"></table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </container>
+
+  <!-- Footer -->
+  <footer class="noselect">
+    Project located on <a target="_blank" href="https://github.com/SushiInGit/np_csv_converter/">GitHub</a> -
+    by <a target="_blank" href="https://github.com/RYJarnovk">RY Jarnovk</a> & <a target="_blank"
+      href="https://github.com/SushiInGit">SushiInPeace</a>
+    - Join us on <a target="_blank" href="https://discord.gg/e3t8EHKGp3">Discord</a>.
+  </footer>
+
+  <!-- Vue.js and Treeselect JS (UMD-Bundle) -->
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@riophae/vue-treeselect@0.4.0/dist/vue-treeselect.umd.min.js"></script>
+  <script src="resources/frontend/js/bank/filterTable.js"></script>
+  <script src="resources/frontend/js/bank/injectData.js"></script>
 </body>
+</head>
 
 </html>

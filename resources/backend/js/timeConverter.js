@@ -35,7 +35,7 @@ function processTimestamp(timestamp) {
             utc: 'UTC',
             gmt: 'GMT',
             est: 'EST',
-            pt: 'PT',
+            pt: 'America/Los_Angeles',
             ast: 'AST',
             jst: 'JST',
             cst: 'CST',

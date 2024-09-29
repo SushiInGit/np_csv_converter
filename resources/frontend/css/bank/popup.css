@@ -1,0 +1,275 @@
+:root {
+    --popup-size-height: 300px;
+    --popup-size-width: 400px;
+}
+
+popup {
+    background: var(--body-bg-color);
+    background: linear-gradient(315deg, var(--body-gradient-start) 0%, var(--body-gradient-end) 100%);
+    position: absolute;
+    display: block;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    margin: 0px;
+    padding: 0;
+    height: var(--popup-size-height);
+    width: var(--popup-size-width);
+    border: solid var(--global-border-size) var(--global-border-color);
+    z-index: 10001;
+    opacity: 1;
+    font-family: "Poppins", sans-serif;
+}
+
+popup.upload {
+    height: 170px !important;
+}
+
+popup.bug {
+    height: 325px !important;
+}
+
+popup.bug textarea {
+    resize: none;
+    overflow: auto;
+}
+
+popup.settings {
+    height: 360px !important;
+}
+
+popup.help {
+    height: 400px !important;
+}
+
+popup.show {
+    width: var(--popup-size-width) !important;
+    opacity: 0.99 !important;
+    box-shadow: 0 4px 10px var(--global-border-color);
+    backdrop-filter: blur(310px);
+    -webkit-backdrop-filter: blur(310px);
+}
+
+popup.hide {
+    opacity: 0 !important;
+    width: 0px !important;
+}
+
+popup .close {
+    cursor: pointer;
+    padding: 8px 14px;
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+}
+
+popup .close:hover {
+    background-color: #eb5b4b;
+}
+
+popup .head {
+
+    align-items: center;
+    justify-content: center;
+}
+
+popup .head h2 {
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+popup .element {
+    top: 70px;
+    left: 10px;
+    width: calc(100% - 20px);
+    position: absolute;
+    align-items: center;
+    justify-content: center;
+}
+
+popup .ok {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #27ae60;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+popup .ok:hover {
+    background-color: #2ecc71;
+}
+
+
+/* --------Start of Fileupload---------  */
+popup .upload-button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    color: #fff;
+    transition: color 0.3s ease;
+}
+
+popup .upload-button:hover {
+    color: #f5f5f5;
+}
+
+popup .drop-zone {
+    border: 2px dashed #ccc;
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    color: #aaa;
+    cursor: pointer;
+}
+
+popup .drop-zone.dragover {
+    border-color: #000;
+    background-color: #f0f0f0;
+}
+
+popup .error-message {
+    color: red;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+popup .dropZoneError {
+    border: 1px solid;
+    border-color: #ff1a1a;
+    box-shadow: 0 0 15px 5px rgba(252, 20, 20, 0.7);
+}
+
+popup .h2 {
+    text-align: center;
+}
+
+/* --------End of Fileupload---------  */
+
+/* --------Start of Settings ---------  */
+popup.settings #timezoneDiv {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    vertical-align: middle;
+}
+
+popup.settings #dateformatDiv {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    vertical-align: middle;
+}
+
+popup.settings #use12hClockDiv {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    vertical-align: middle;
+    ;
+}
+
+popup.settings #timeFirstDiv {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    vertical-align: middle;
+}
+
+popup.settings #offsetDiv {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    vertical-align: middle;
+    ;
+}
+
+popup.settings label {
+    display: table-cell;
+    color: #ffffff;
+    vertical-align: middle;
+    padding-right: 15px;
+}
+
+popup.settings select {
+    width: 100%;
+    padding: 10px;
+    background-color: #333333;
+    color: #ffffff;
+    border: 1px solid #555555;
+    border-radius: 5px;
+    text-align: center;
+    text-align-last: center;
+}
+
+popup.settings select option {
+    text-align: left;
+}
+
+popup.settings select:hover {
+    background-color: #444444;
+}
+
+popup.settings select:focus {
+    outline: none;
+    border-color: #777777;
+}
+
+popup.settings select::after {
+    content: '\25BC';
+    position: absolute;
+    right: 10px;
+    color: #ffffff;
+    pointer-events: none;
+}
+
+
+/* --------End of Settings---------  */
+popup.bug .element {
+    height: 170px;
+}
+
+popup.bug .element textarea {
+    border: 1px solid #1c1e29;
+    background-color: #0707078a;
+    outline: none;
+    color: #ccc;
+    display: block;
+}
+
+popup.bug .element textarea::placeholder {
+    color: #cccccca6;
+}
+
+/* --------End of Bugreport --------  */
+
+
+popup.help .element #markdownContent {
+    border: 1px solid var(--bg-shade-light);
+    background-color: hsla(0, 0%, 0%, 0.2);
+    transition: background-color 0.3s, border-color 0.3s;
+    height: 320px;
+    position: relative;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+popup.help .element #markdownContent a {
+    color: var(--text-color);
+    text-decoration: none;
+}
+
+popup.help .element #markdownContent a:hover {
+    color: var(--global-hover);
+    text-decoration: underline;
+}
+
+popup.help .element #errorMessage {
+    color: red;
+    font-weight: bold;
+}
+
+/* --------End of Help --------  */
