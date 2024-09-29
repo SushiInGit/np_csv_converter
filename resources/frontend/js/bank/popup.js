@@ -44,11 +44,11 @@ function showPopup() {
 function clearPopupDiv() {
     popupDiv.innerHTML = '';
     popupDiv.classList.remove("show");
-    popupDiv.classList.add("hide");
     const classesToRemove = ["hide", "show", "upload", "bug", "settings", "help"];
     classesToRemove.forEach(className => {
         popupDiv.classList.remove(className);
     });
+    popupDiv.classList.add("hide");
 }
 
 function deactivateLoader() {
