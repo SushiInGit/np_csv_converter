@@ -177,7 +177,7 @@ function sendDiscordMessage(message, browserInfo) {
             if (response.ok) {
                 closePopupDiv();  // Clear Event-DIV
                 //alert('Bugreport message is send!')
-                frontend.showalert('success','Bugreport message is send.', 4);
+                frontend.showalert('success','Bug report has been sent.', 4);
 
             } else {
                 closePopupDiv();  // Clear Event-DIV
