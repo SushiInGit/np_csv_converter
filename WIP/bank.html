@@ -11,14 +11,15 @@
   <link rel="apple-touch-icon" href="resources/frontend/favicon/apple-touch-icon.png">
 
   <!-- CSS -->
-  <link rel="preload" href="resources/frontend/css/bank.css" as="style" onload="this.rel='stylesheet'">
-  <link rel="preload" href="resources/frontend/css/bankTable.css" as="style" onload="this.rel='stylesheet'">
-  <link rel="preload" href="resources/frontend/css/loader.css" as="style" onload="this.rel='stylesheet'">
-  <link rel="preload" href="resources/frontend/css/popup.css" as="style" onload="this.rel='stylesheet'">
-  <link rel="preload" href="resources/frontend/css/alertsystem.css" as="style" onload="this.rel='stylesheet'">
+  <link rel="preload" href="resources/frontend/css/global/loader.css" as="style" onload="this.rel='stylesheet'">
+  <link rel="preload" href="resources/frontend/css/global/alertsystem.css" as="style" onload="this.rel='stylesheet'">
+  <link rel="preload" href="resources/frontend/css/bank/bank.css" as="style" onload="this.rel='stylesheet'">
+  <link rel="preload" href="resources/frontend/css/bank/bankTable.css" as="style" onload="this.rel='stylesheet'">
+  <link rel="preload" href="resources/frontend/css/bank/popup.css" as="style" onload="this.rel='stylesheet'">
   <link rel="preload" href="https://cdn.jsdelivr.net/npm/@riophae/vue-treeselect@0.4.0/dist/vue-treeselect.min.css"
     as="style" onload="this.rel='stylesheet'">
-  <!-- JS -->
+
+  <!-- JS Core -->
   <script defer src="resources/frontend/js/bank/loader.js"></script>
   <script defer src="resources/frontend/js/global/alertsystem.js"></script>
 
@@ -28,20 +29,16 @@
   <script defer src="resources/backend/js/dataController.js"></script>
   <script defer src="resources/backend/js/fileProcessor.js"></script>
   <script defer src="resources/backend/js/bankRecordsHelper.js"></script>
-    <script src="resources/backend/vendors/xlsx.full.min.js"></script>
+  <script src="resources/backend/vendors/xlsx.full.min.js"></script>
   <script defer src="resources/frontend/js/bank/popup.js"></script>
   <script defer src="resources/middleman/bank/bankData.js"></script>
   <script defer src="resources/middleman/bank/stateAccounts.js"></script>
   <script defer src="resources/frontend/js/bank/renderViews.js"></script>
   <script defer src="resources/frontend/js/bank/renderTable.js"></script>
-  
-
-  <!-- HTML -->
 
 <body>
-  <!-- Error -->
+  <!-- Alert System -->
   <div id="alert-container" class="noselect"></div>
-
   <!-- PopUp -->
   <popup id="popup" class="noselect hide" show></popup>
   <!-- Loader -->
@@ -66,24 +63,27 @@
             <a href="javascript:void(0);" onclick="SettingsEvent();" class="icon"><span class="icon">settings</span></a>
           </div>
           <div class="icon-container" data-tooltip="Bug Report">
-            <a href="javascript:void(0);" onclick="BugReportEvent();" class="icon"><span class="icon">bug_report</span></a>
+            <a href="javascript:void(0);" onclick="BugReportEvent();" class="icon"><span
+                class="icon">bug_report</span></a>
           </div>
         </div>
       </div>
       <div class="banner">
         <div class="left noselect">
-          <h3>NP CONVERTER<br /> Beta Ver. 20240927</h3>
+          <h3>NP CONVERTER<br /> Beta Ver. 20240929</h3>
         </div>
         <div class="center noselect">
         </div>
         <div class="right noselect">
-          
+
         </div>
 
       </div>
       <div class="menu">
         <div class="header noselect">Bank Views</div>
-        <div class="list noselect"><div class="pov"></div></div>
+        <div class="list noselect">
+          <div class="pov"></div>
+        </div>
       </div>
       <div class="output">
         <div class="header noselect">
@@ -104,8 +104,9 @@
   <!-- Footer -->
   <footer class="noselect">
     Project located on <a target="_blank" href="https://github.com/SushiInGit/np_csv_converter/">GitHub</a> -
-    by <a target="_blank" href="https://github.com/RYJarnovk">RY Jarnovk</a> & <a target="_blank" href="https://github.com/SushiInGit">SushiInPeace</a>
-     - Join us on <a target="_blank" href="https://discord.gg/e3t8EHKGp3">Discord</a>.
+    by <a target="_blank" href="https://github.com/RYJarnovk">RY Jarnovk</a> & <a target="_blank"
+      href="https://github.com/SushiInGit">SushiInPeace</a>
+    - Join us on <a target="_blank" href="https://discord.gg/e3t8EHKGp3">Discord</a>.
   </footer>
 
   <!-- Vue.js and Treeselect JS (UMD-Bundle) -->

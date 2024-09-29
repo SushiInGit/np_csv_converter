@@ -1,6 +1,12 @@
 function saveSettings(preferences) {
     localStorage.setItem('timestampPreferences', JSON.stringify(preferences));
-    frontend.showalert('success','Settings saved!', 4);
+    try {
+        frontend.showalert('success','Settings saved!', 4);
+        return 'Settings saved!';
+    } catch (error) {
+        console.log('Settings saved!');
+        return 'Settings saved!';
+    }
 }
 
 function loadSettings() {
@@ -113,8 +119,13 @@ function processTimestamp(timestamp) {
     };
 
     if (!checkValidISO(timestamp)) {
-        frontend.showalert('warning','Invalid ISO timestamp.', 4);
-        return 'Invalid ISO timestamp';
+        try {
+            frontend.showalert('warning', 'Invalid ISO timestamp.', 4);
+            return 'Invalid ISO timestamp';
+        } catch (error) {
+            console.log('Invalid ISO timestamp:', error);
+            return 'Invalid ISO timestamp';
+        }
     }
 
     const date = new Date(timestamp);
