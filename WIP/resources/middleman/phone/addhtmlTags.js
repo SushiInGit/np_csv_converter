@@ -35,7 +35,8 @@ middleman.addhtmlTags = function () {
         if (middleman.helper.isPhoneNumberWrapped(message, match)) {
           return match; // Return the original phone number if it's already wrapped
         }
-        return `<b>${match}</b>`; // Wrap the phone number in <b> tags if not wrapped
+       // return `<b>${match}</b>`; // Wrap the phone number in <b> tags if not wrapped
+       return `${match}`;
       });
 
     };

@@ -4,9 +4,10 @@
 :root {
     --speechbubble-color: var(--bg-shade-mid);
     --speechbubble-border-color: var(--global-border-color);
-    --speechbubble-text: #9fa2a7;
-    --speechbubble-highlight-datemarker: #ffffffe7;
-    --speechbubble-highlight-to: #56b273;
+    --speechbubble-text: #efeff0;
+    --speechbubble-text-color-italic: #9fa2a7c0;
+    --speechbubble-highlight-datemarker: #ffffff83;
+    --speechbubble-highlight-to: #6106da;
     --speechbubble-highlight-from: #b388dd;
     --speechbubble-call-cancel: #9d3535;
     --speechbubble-call-incoming: #bf7b17;
@@ -18,7 +19,10 @@
     position: relative;
     display: block;
     width: 100%;
+    scroll-snap-type: y mandatory;
+    scroll-behavior: smooth;
 }
+
 .output .messages .commOutput {
     display: grid;
     grid-template-columns: 1fr repeat(3, 180px) 1fr;
@@ -34,6 +38,7 @@
     line-height: 1.75;
     padding: 5px 15px;
     border: 1px solid var(--speechbubble-border-color);
+    scroll-snap-align: end;
 }
 
 .output .messages .commOutput .call.callIn {
@@ -51,10 +56,36 @@
     border-right: 5px solid var(--speechbubble-call-cancel) !important;
 }
 
-.output .messages .commOutput .call .callindicator {
-    font-family: 'Material Icons Outlined';
-    background-color: rgb(26, 23, 228);
+.output .messages .commOutput .call.callIn .callindicator.callIn {
+    position: absolute;
+    margin-top: 10px !important;
+
+    svg,
+    svg * {
+        fill: var(--speechbubble-call-incoming);
+    }
 }
+
+.output .messages .commOutput .call.callOut .callindicator.callOut {
+    position: absolute;
+    margin-top: 10px !important;
+
+    ssvg,
+    svg * {
+        fill: var(--speechbubble-call-outgoing);
+    }
+}
+
+.output .messages .commOutput .call.callFail .callindicator.callFail {
+    position: absolute;
+    margin-top: -15px !important;
+
+    svg,
+    svg * {
+        fill: var(--speechbubble-call-cancel);
+    }
+}
+
 
 .output .messages .commOutput .date-marker {
     height: 20px;
@@ -67,6 +98,7 @@
     border: 1px solid var(--speechbubble-border-color);
     border-left: 5px solid var(--speechbubble-highlight-datemarker);
     border-right: 5px solid var(--speechbubble-highlight-datemarker);
+    scroll-snap-align: end;
 }
 
 .output .messages .commOutput .message.to {
@@ -78,6 +110,7 @@
     padding: 15px 25px;
     border: 1px solid var(--speechbubble-border-color);
     border-left: 5px solid var(--speechbubble-highlight-to);
+    scroll-snap-align: end;
 }
 
 .output .messages .commOutput .message.from {
@@ -89,4 +122,19 @@
     padding: 15px 25px;
     border: 1px solid var(--speechbubble-border-color);
     border-right: 5px solid var(--speechbubble-highlight-from);
+    scroll-snap-align: end;
+}
+
+.output .messages .commOutput .message .number {
+    color: var(--speechbubble-text-color-italic);
+    padding-bottom: 5px;
+    font-style: italic;
+    font-size: smaller;
+}
+
+.output .messages .commOutput .message .timestamp {
+    color: var(--speechbubble-text-color-italic);
+    padding-top: 10px;
+    font-style: italic;
+    font-size: smaller;
 }
