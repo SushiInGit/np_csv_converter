@@ -5,6 +5,20 @@ middleman.groupeCommunications = function () {
     const simOwner = middleman.simOwner.number();
     const data = middleman.phoneData.all();
 
+    ///////////////////////////////////////////////////
+    //           Set Name for From/To                //
+    ///////////////////////////////////////////////////
+    data.forEach(from => {
+        const name = middleman.findNames(from.From);
+        from.From_Name = name;
+    });
+
+    data.forEach(to => {
+        const name = middleman.findNames(to.To);
+        to.To_Name = name;
+    });
+    ///////////////////////////////////////////////////
+
     function prioritizeFrom(simOwner, data) {
         if (data.From === simOwner || data.To === simOwner) {
             return {

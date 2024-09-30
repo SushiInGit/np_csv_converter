@@ -13,6 +13,7 @@
   <link rel="preload" href="resources/frontend/css/global/loader.css" as="style" onload="this.rel='stylesheet'">
   <link rel="preload" href="resources/frontend/css/global/alertsystem.css" as="style" onload="this.rel='stylesheet'">
   <link rel="preload" href="resources/frontend/css/phone/main.css" as="style" onload="this.rel='stylesheet'">
+  <link rel="preload" href="resources/frontend/css/phone/logs.css" as="style" onload="this.rel='stylesheet'">
   <!-- JS Core -->
   <script defer src="resources/frontend/js/bank/loader.js"></script>
   <script defer src="resources/frontend/js/global/alertsystem.js"></script>
@@ -28,6 +29,7 @@
   <!--  Middleman  -->
   <script defer src="resources/middleman/phone/phoneData.js"></script>
   <script defer src="resources/middleman/phone/simOwner.js"></script>
+  <script defer src="resources/middleman/phone/findNames.js"></script>
   <script defer src="resources/middleman/phone/groupeCommunications.js"></script>
   <script defer src="resources/middleman/phone/filterBy.js"></script>
   <script defer src="resources/middleman/phone/addhtmlTags.js"></script>
@@ -104,10 +106,12 @@
       </div>
       <div class="output">
         <div class="header noselect">
-          <div class="left">To: #Username</div>
-          <div class="right"> [ Data includes xxx Messages | xxx Calls ]</div>
+          <div class="left"></div>
+          <div class="right"></div>
         </div>
-        <div class="messages" id="messagesBox"></div>
+        <div class="messages">
+          <div class="commOutput" id="messagesBox"></div>
+        </div>
       </div>
     </div>
   </container>
