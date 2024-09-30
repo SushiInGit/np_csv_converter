@@ -394,6 +394,8 @@ container {
     height: 100%;
     box-sizing: border-box;
     overflow: auto;
+    scroll-snap-type: y mandatory;
+    scroll-behavior: smooth;
 }
 
 .menu .list .pov hr {
@@ -412,6 +414,7 @@ container {
     text-align: center;
     line-height: 1.2;
     position: relative;
+    scroll-snap-align: end;
 }
 
 .menu .list .pov .user:hover {
