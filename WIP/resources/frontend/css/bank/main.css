@@ -313,6 +313,7 @@ container {
     align-items: center;
     background-color: var(--bg-shade-mid);
     border: solid var(--global-border-size) var(--global-border-color);
+    overflow: hidden;
 }
 
 .banner h2 {
@@ -328,6 +329,8 @@ container {
     display: block;
     margin-top: 0;
     margin-bottom: 0;
+    white-space: nowrap;
+
 }
 
 .banner .left,
@@ -344,6 +347,7 @@ container {
 
 .banner .right {
     text-align: right;
+    overflow: hidden;
 }
 
 .banner .center {

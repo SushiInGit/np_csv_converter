@@ -104,18 +104,18 @@ function placeCaretAtEnd(el) {
 }
 
 function filterMessages(inputText) {
-    messagesBox.innerHTML = '';
+    //messagesBox.innerHTML = '';
 
     const regex = /(\w+):\s*(.+)/g;
     const matches = [...inputText.matchAll(regex)];
 
 
     if (!inputText || inputText.trim() === '') {
-        frontend.renderViews(middleman.groupeCommunications.output());
+        frontend.renderList(middleman.groupeCommunications.output());
         return; 
     }
     if (matches.length === 0) {
-        frontend.renderViews(middleman.filterBy.All(inputText));
+        frontend.renderList(middleman.filterBy.All(inputText));
         return;
     } 
 
@@ -124,11 +124,11 @@ function filterMessages(inputText) {
         const value = match[2].toLowerCase();
         console.log(key);
         if (key === "to") {
-            frontend.renderViews(middleman.filterBy.Number(value));
+            frontend.renderList(middleman.filterBy.Number(value));
         } else if (key === "has") {
-            frontend.renderViews(middleman.filterBy.Message(value));
+            frontend.renderList(middleman.filterBy.Message(value));
         } else if (key === "name") {
-            frontend.renderViews(middleman.filterBy.Name(value));
+            frontend.renderList(middleman.filterBy.Name(value));
         } 
     });
 }

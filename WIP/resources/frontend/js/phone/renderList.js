@@ -1,27 +1,14 @@
 
 var frontend = frontend ?? {};
 
-frontend.renderViews = function (phoneGrouped) {
-
-    function findNameByNumber(number) {
-        for (const record of backend.dataController.getPhonenumbers()) {
-            if (Array.isArray(record.number)) {
-                if (record.number.includes(number)) {
-                    return record.name;
-                }
-            } else if (record.number === number) {
-                return record.name;
-            }
-        }
-        return "Unknown Contact";
-    }
+frontend.renderList = function (phoneGrouped) {
 
     phoneGrouped.sort((a, b) => {
         return a.To - b.To;
     });
-
+    
     phoneGrouped.forEach(conversation => {
-        const name = findNameByNumber(conversation.To);
+        const name = middleman.findNames(conversation.To);
         conversation.Name = name;
     });
 
@@ -44,6 +31,7 @@ frontend.renderViews = function (phoneGrouped) {
             const allDivs = document.querySelectorAll('.pov .user');
             allDivs.forEach(div => div.classList.remove('active'));
             this.classList.add('active');
+            frontend.renderChat(data);
 
         });
         viewsDiv.appendChild(divBox);
@@ -51,31 +39,4 @@ frontend.renderViews = function (phoneGrouped) {
 
 }
 
-frontend.renderViews(middleman.groupeCommunications.output());
-
-
-// Function to render the list of conversations
-/*
-function renderConversationsList(data) {
-    console.log(data);
-    const viewsDiv = document.querySelector(".menu .list.noselect .pov");
-    viewsDiv.innerHTML = ``;
-    if (conversation.simOwner === middleman.simOwner.number() || conversation.To === middleman.simOwner.number()) {      
-
-        let divBox= document.createElement('div');
-        divBox.classList.add("number");
-        divBox.classList.add(conversation.To);
-        divBox.innerHTML = `<hr>${findNameByNumber(conversation.To)}<br>${String(conversation.To).replace(/^(\d{3})(\d{3})(\d{4})$/, "($1) $2 $3")}`;
-
-
-    divBox.addEventListener('click', () => showLogs(index, (conversation.To), conversation));
-    viewsDiv.appendChild(divBox);
-    } else {
-        console.log(`Error: Skipping conversation at index #${index} \nFound a number not associated with the SimOwner: ${middleman.simOwner.number()} \nCall details From: ${conversation.From} to: ${conversation.To}`);
-    }
-}
-
-
-renderConversationsList(middleman.groupeCommunications.output());
-
-*/
+frontend.renderList(middleman.groupeCommunications.output());
