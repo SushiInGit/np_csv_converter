@@ -15,14 +15,14 @@ frontend.renderTable = function (data) {
             "ID", "Comment", "Type", "Direction", "From: Account ID",
             "From: Account Name", "From: Accounttype", "To: Account ID",
             "To: Account Name", "To: Accounttype", "Amount", `Date (${processTimestamp(Date.now()).timeZone})`,
-            "Tax %", "Tax-Type", "Tax-ID"
+            "Tax %", "Tax-Type", "Tax-ID", "Amount without Tax", "Tax Amount"
         ];
 
         var headersClass = [
             "id", "comment", "type", "direction", "from_account_id",
             "from_civ_name", "from_account_name", "to_account_id",
             "to_civ_name", "to_account_name", "amount", "date",
-            "tax_percentage", "tax_type", "tax_id"
+            "tax_percentage", "tax_type", "tax_id", "original_amount", "tax_amount"
         ];
 
         // Create thead
@@ -53,10 +53,6 @@ frontend.renderTable = function (data) {
                     var row = data[i];
                     var tr = document.createElement("tr");
                     Object.values(row).forEach((item, counter) => {
-                        if (counter === 15) { // Skip custom index
-                            return;
-                        }
-
                         var td = document.createElement("td");
                         var headerClass = headers[counter];
                         var headerClassIndex = headersClass[counter];   
@@ -96,10 +92,6 @@ frontend.renderTable = function (data) {
             data.forEach((row) => {
                 var tr = document.createElement("tr");
                 Object.values(row).forEach((item, counter) => {
-                    if (counter === 15) { // Skip custom index
-                        return;
-                    }
-                    
                     var td = document.createElement("td");
                     var headerClass = headers[counter];
                     var headerClassIndex = headersClass[counter];
