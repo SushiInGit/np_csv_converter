@@ -103,6 +103,12 @@ color: var(--speechbubble-text);
     scroll-snap-align: end;
 }
 
+.output .messages .commOutput .message {
+    word-wrap: break-word;
+    overflow-wrap: break-word; 
+    white-space: normal;
+}
+
 .output .messages .commOutput .message.to {
     text-align: left;
     background-color: var(--speechbubble-color);
@@ -144,6 +150,11 @@ color: var(--speechbubble-text);
 .output .messages .commOutput .message .embedbody .embed {
     padding-top: 15px;
 }
-.output .messages .commOutput .message .embedbody .embed img{
+.output .messages .commOutput .message .embedbody .embed img {
     padding-right: 15px;
+    filter: blur(5px);
+    transition: filter 0.3s;
+}
+.output .messages .commOutput .message .embedbody .embed img:hover {
+    filter: blur(0);
 }
