@@ -22,7 +22,9 @@
     scroll-snap-type: y mandatory;
     scroll-behavior: smooth;
 }
-
+.output .messages a, .output .messages a:visited {
+color: var(--speechbubble-text);
+}
 .output .messages .commOutput {
     display: grid;
     grid-template-columns: 1fr repeat(3, 180px) 1fr;
@@ -137,4 +139,11 @@
     padding-top: 10px;
     font-style: italic;
     font-size: smaller;
+}
+
+.output .messages .commOutput .message .embedbody .embed {
+    padding-top: 15px;
+}
+.output .messages .commOutput .message .embedbody .embed img{
+    padding-right: 15px;
 }

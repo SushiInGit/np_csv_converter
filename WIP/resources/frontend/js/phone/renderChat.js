@@ -119,21 +119,29 @@ frontend.renderChat = function (data) {
             messageDiv.classList.add('message');
             messageDiv.classList.add(Log.From === middleman.simOwner.number() ? 'from' : 'to');
             pointerFromTo = Log.From === middleman.simOwner.number() ? 'from' : 'to';
+
+
             if (pointerFromTo === "to") {
                 messageDiv.style.gridArea = `${gridLine} / 1 / ${gridRow} / 3`;
                 messageDiv.style.borderLeft = `5px solid ${frontend.colorByNumber.getDarkerShade(frontend.colorByNumber.getLighterShade(Log.From), 50)}`; // Other Person
                 gridLine++;
                 gridRow++;
             }
+
             if (pointerFromTo === "from") {
                 messageDiv.style.gridArea = `${gridLine} / 4 / ${gridRow} / 6`;
                 messageDiv.style.borderRight = `5px solid ${frontend.colorByNumber.getDarkerShade(frontend.colorByNumber.getLighterShade(middleman.simOwner.number()), 50)}`;
                 gridLine++;
                 gridRow++;
             }
+
             const textDiv = document.createElement('div');
             textDiv.classList.add('text');
             textDiv.innerHTML = `${(middleman.addhtmlTags.conversationFilter(Log.Message))}`;
+            const embed = document.createElement('div');
+            embed.classList.add('embedbody');
+            const embedElement = middleman.embedPic((middleman.addhtmlTags.conversationFilter(Log.Message))); /////// Test embed
+            embed.appendChild(embedElement); 
             const timestampDiv = document.createElement('div');
             fixedDate = processTimestamp(Log.Timestamp);
             timestampDiv.classList.add('timestamp');
@@ -146,10 +154,14 @@ frontend.renderChat = function (data) {
             numberDiv.textContent += "\n";
             numberDiv.textContent += ((Log.From_Name));
 
+            
             messageDiv.appendChild(numberDiv);
             messageDiv.appendChild(textDiv);
             // messageDiv.appendChild(phonebookDiv);
+
             messageDiv.appendChild(timestampDiv);
+            messageDiv.appendChild(embed);
+            
             commOutput.appendChild(messageDiv);
         }
     });
