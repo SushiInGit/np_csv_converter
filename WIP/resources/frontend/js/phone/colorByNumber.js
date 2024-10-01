@@ -6,8 +6,13 @@ frontend.colorByNumber = function () {
 
     function lighterColor(number) {
         numberString =  String(number);
+        /*
         const lastSix = numberString.slice(-6);
         let colorCode = '#' + parseInt(lastSix).toString(16).padStart(6, '0');
+        */
+        const no420 = numberString.slice(-7);
+        let colorCode = '#' + parseInt(no420).toString(16)
+
         const r = parseInt(colorCode.slice(1, 3), 16);
         const g = parseInt(colorCode.slice(3, 5), 16);
         const b = parseInt(colorCode.slice(5, 7), 16);
