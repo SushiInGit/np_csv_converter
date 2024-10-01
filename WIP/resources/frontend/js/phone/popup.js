@@ -16,11 +16,14 @@ function getBrowserInfo() {
 }
 ////////////////////////////////////////
 
-if (!localStorage.bankRecords || localStorage.bankRecords === '[]' || localStorage.bankRecords === '') {
+if (!localStorage.calls || localStorage.calls === '[]' || localStorage.calls === '' || 
+    !localStorage.texts || localStorage.texts === '[]' || localStorage.texts === '' ) {
     global.alertsystem('warning', `It looks like you haven't uploaded an XLSX file yet. You can update it later by clicking on the cloud icon in the top left.`, 15);
     helpEvent();
 }
-if (!localStorage.timestampPreferences || localStorage.timestampPreferences === '[]' || localStorage.timestampPreferences === '') {
+if (!localStorage.timestampPreferences || 
+    localStorage.timestampPreferences === '[]' || 
+    localStorage.timestampPreferences === '') {
     global.alertsystem('info', `It seems you haven't set up your time settings yet. You can do so by clicking the gear icon in the top right.`, 15);
 }
 
@@ -88,7 +91,6 @@ function UploadEvent() {
                 Drag & Drop or click to Upload an Excel-File
                 <input type="file" id="file-input" accept=".xlsx, .xls" style="display: none;" required>
             </div>
-        <div id="error-message" class="error-message"></div>
         </form>
     </div>
     `;
@@ -333,5 +335,5 @@ function helpEvent() {
     `;
 
     popupDiv.appendChild(help);
-    global.markdownReader('bank.md');
+    global.markdownReader('phone.md');
 }

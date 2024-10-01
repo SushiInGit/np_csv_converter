@@ -14,6 +14,7 @@
   <link rel="preload" href="resources/frontend/css/global/alertsystem.css" as="style" onload="this.rel='stylesheet'">
   <link rel="preload" href="resources/frontend/css/phone/main.css" as="style" onload="this.rel='stylesheet'">
   <link rel="preload" href="resources/frontend/css/phone/logs.css" as="style" onload="this.rel='stylesheet'">
+  <link rel="preload" href="resources/frontend/css/phone/popup.css" as="style" onload="this.rel='stylesheet'">
   <!-- JS Core -->
   <script defer src="resources/frontend/js/bank/loader.js"></script>
   <script defer src="resources/frontend/js/global/alertsystem.js"></script>
@@ -36,6 +37,7 @@
   <script defer src="resources/middleman/phone/helper.js"></script>
   <script defer src="resources/middleman/phone/embedPic.js"></script>
   <!--  JS Frontend -->
+  <script defer src="resources/frontend/js/phone/popup.js"></script>
   <script defer src="resources/frontend/js/phone/colorByNumber.js"></script>
   <script defer src="resources/frontend/js/phone/search.js"></script>
   <script defer src="resources/frontend/js/phone/renderList.js"></script>
@@ -57,7 +59,7 @@
       <div class="header noselect">
         <div class="left">
           <div class="icon-container" data-tooltip="Upload subpoena">
-            <span class="icon">cloud</span>
+            <a href="javascript:void(0);" onclick="UploadEvent();" class="icon"><span class="icon">cloud</span></a>
           </div>
           <div class="icon-container" data-tooltip="Import phone contacts">
             <span class="icon">aod</span>
@@ -79,12 +81,12 @@
           </div>
         </div>
         <div class="right">
-
           <div class="icon-container" data-tooltip="Time convertion settings">
-            <span class="icon">settings</span>
+            <a href="javascript:void(0);" onclick="SettingsEvent();" class="icon"><span class="icon">settings</span></a>
           </div>
           <div class="icon-container" data-tooltip="Bug Report">
-            <span class="icon">bug_report</span>
+            <a href="javascript:void(0);" onclick="BugReportEvent();" class="icon"><span
+                class="icon">bug_report</span></a>
           </div>
           <div class="icon-container" data-tooltip="How to use">
             <a href="javascript:void(0);" onclick="helpEvent();" class="icon"><span
