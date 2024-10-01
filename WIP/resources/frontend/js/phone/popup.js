@@ -16,13 +16,13 @@ function getBrowserInfo() {
 }
 ////////////////////////////////////////
 
-if (!localStorage.calls || localStorage.calls === '[]' || localStorage.calls === '' || 
-    !localStorage.texts || localStorage.texts === '[]' || localStorage.texts === '' ) {
+if (!localStorage.calls || localStorage.calls === '[]' || localStorage.calls === '' ||
+    !localStorage.texts || localStorage.texts === '[]' || localStorage.texts === '') {
     global.alertsystem('warning', `It looks like you haven't uploaded an XLSX file yet. You can update it later by clicking on the cloud icon in the top left.`, 15);
     helpEvent();
 }
-if (!localStorage.timestampPreferences || 
-    localStorage.timestampPreferences === '[]' || 
+if (!localStorage.timestampPreferences ||
+    localStorage.timestampPreferences === '[]' ||
     localStorage.timestampPreferences === '') {
     global.alertsystem('info', `It seems you haven't set up your time settings yet. You can do so by clicking the gear icon in the top right.`, 15);
 }
@@ -48,7 +48,7 @@ function clearPopupDiv() {
     popupDiv.innerHTML = '';
     popupDiv.classList.remove("show");
     popupDiv.classList.add("hide");
-    const classesToRemove = ["hide", "show", "upload", "bug", "settings", "help"];
+    const classesToRemove = ["hide", "show", "upload", "bug", "settings", "help", "import"];
     classesToRemove.forEach(className => {
         popupDiv.classList.remove(className);
     });
@@ -67,7 +67,7 @@ function deactivateLoader() {
 function closePopupDiv() {
     popupDiv.innerHTML = '';
     deactivateLoader();
-    const classesToRemove = ["hide", "show", "upload", "bug", "settings", "help"];
+    const classesToRemove = ["hide", "show", "upload", "bug", "settings", "help", "import"];
 
     classesToRemove.forEach(className => {
         popupDiv.classList.remove(className);
@@ -336,4 +336,97 @@ function helpEvent() {
 
     popupDiv.appendChild(help);
     global.markdownReader('phone.md');
+}
+
+////////////////////////////////////////////////// Import Phone contacts
+function savePBI(textarea) {
+    backend.phonebookHelper.uploadPhonebookData(textarea.value);
+    closePopupDiv();
+    deactivateLoader();
+    global.alertsystem('success', 'Contacts are ready to go! <br>Loading now—thank you for your patience.', 4);
+    setTimeout(() => {
+        window.location.reload();
+    }, 4000);
+};
+
+function forceSavePBI() {
+    try {
+        const textarea = document.querySelector('#popup .element #textarea');
+        const riskButton = document.querySelector('#popup .element .risk');
+        console.log(textarea);
+        if (!textarea || !textarea.value) {
+            throw new Error("The phone contacts textbox appears to be empty. ");
+        }
+
+        const lines = textarea.value.trim().split('\n');
+        const phoneNumberPattern = /^(420\d{7}|\(420\)\s?\d{3}\s?\d{4}|\d{10}) (.+)$/;
+        let skippedLines = 0; 
+        
+        for (let i = 0; i < lines.length; i++) {
+            const line = lines[i].trim();
+  
+            if (!phoneNumberPattern.test(line)) {
+                skippedLines++; 
+            }
+        }
+
+        if (skippedLines > 0) {
+            throw new Error(`Skipped ${skippedLines} broken contacts`);
+        }
+        savePBI(textarea);
+
+    } catch (error) {
+        global.alertsystem('warning', error.message, 4);
+        savePBI(textarea);
+    }
+}
+
+function sendPBI() {
+    try {
+        const textarea = document.querySelector('#popup .element #textarea');
+        const riskButton = document.querySelector('#popup .element .risk');
+        console.log(textarea);
+        if (!textarea || !textarea.value) {
+            throw new Error("The phone contacts textbox appears to be empty. ");
+        }
+
+        const lines = textarea.value.trim().split('\n');
+        const phoneNumberPattern = /^(420\d{7}|\(420\)\s?\d{3}\s?\d{4}|\d{10}) (.+)$/;
+
+        for (let i = 0; i < lines.length; i++) {
+            const line = lines[i].trim(); // T
+
+            if (!phoneNumberPattern.test(line)) {
+                riskButton.classList.remove("hide");
+                riskButton.classList.add("show");
+                throw new Error(`Line ${i + 1} is incorrect: '${line}'.<br>Each phone contact must be in the format:<br>'4201234567 John Doe' or '(420) 123 4567 John Doe'.`);
+            }
+        }
+        savePBI(textarea);
+    } catch (error) {
+        global.alertsystem('error', error.message, 7);
+    }
+}
+
+function pbookImportEvent() {
+    clearPopupDiv(); // Clear Event-DIV
+    const phonebook = document.createElement('import');
+    popupDiv.classList.add("import");
+    showPopup();
+    loader.classList.add("active");
+    phonebook.innerHTML = `
+           <div class="head">
+            <button class="close" onclick="UploadEvent(), closePopupDiv(), deactivateLoader()">X</button>
+            <h2>Import Phone contacts</h2>
+            </div>
+            <div class="element">
+            <small>This option <u>replaces</u> the existing phone directory with new contacts.</small><br>
+            <div id="importer" class="importer">
+            <div id="line-numbers" class="importer__lines"></div>
+            <textarea id="textarea"class="importer__textarea" rows="10" cols="48" placeholder="Paste your Phonedata here....\n\nFormat: \n4200000000 Firstname Lastname\n4200000001 Firstname Lastname\n4200000002 Firstname Lastname"></textarea>
+            </div>
+            <button class="ok" onclick="sendPBI();">Update contacts</button> <button class="risk hide" onclick="forceSavePBI();">Update anyway</button>
+            </div>
+    `;
+    popupDiv.appendChild(phonebook);
 }

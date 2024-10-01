@@ -17,7 +17,6 @@ middleman.embedPic = function (message) {
         imgElement.src = href;
         imgElement.alt = `Preview: ${href}`;
   
-        imgElement.style.maxWidth = '200px';
         imgElement.style.minHeight = '200px';
         imgElement.style.maxHeight = '200px';
 

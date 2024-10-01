@@ -34,6 +34,15 @@ popup.bug textarea {
     overflow: auto;
 }
 
+popup.import {
+    height: 375px !important;
+}
+
+popup.import textarea {
+    resize: none;
+    overflow: auto;
+}
+
 popup.settings {
     height: 360px !important;
 }
@@ -106,6 +115,30 @@ popup .ok {
 
 popup .ok:hover {
     background-color: #2ecc71;
+}
+
+popup .risk {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #ae2727;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+popup .risk.hide {
+    opacity: 0;
+    display: none;
+}
+
+popup .risk.show {
+    opacity: 1;
+    display: inline;
+}
+
+popup .risk:hover {
+    background-color: #d85252;
 }
 
 
@@ -273,3 +306,44 @@ popup.help .element #errorMessage {
 }
 
 /* --------End of Help --------  */
+
+popup.import .element {
+    height: 170px;
+}
+
+popup.import .element .importer {
+    display: flex;
+    color: #ccccccb6;
+    border: 1px solid #1c1e29;
+    background-color: #0707078a;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    height: 170px;
+}
+
+popup.import .element .importer__textarea {
+    border: none;
+    outline: none;
+    width: 100%;
+    background-color: #0707078a;
+    color: #ccc;
+    overflow: auto;
+    padding-left: 5px;
+}
+
+popup.import .element .importer__lines {
+    border-right: 1px solid rgba(255, 255, 255, 0.719);
+    padding: calc(0.8rem + 5px);
+    padding-right: 5px;
+    text-align: right;
+    overflow: hidden;
+    min-width: calc(0.8rem + 5px);
+    ;
+}
+
+popup.import .element textarea::placeholder {
+    color: #cccccca6;
+}
+
+
+/* --------End of Phonebook Import --------  */

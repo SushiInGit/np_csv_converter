@@ -19,6 +19,7 @@
   <script defer src="resources/frontend/js/bank/loader.js"></script>
   <script defer src="resources/frontend/js/global/alertsystem.js"></script>
   <script defer src="resources/frontend/js/global/markdownReader.js"></script>
+  <script src="resources/backend/vendors/marked.min.js"></script>
   <!-- JS -->
   <script defer src="resources/backend/js/helpers.js"></script>
   <script defer src="resources/backend/js/dataController.js"></script>
@@ -62,7 +63,7 @@
             <a href="javascript:void(0);" onclick="UploadEvent();" class="icon"><span class="icon">cloud</span></a>
           </div>
           <div class="icon-container" data-tooltip="Import phone contacts">
-            <span class="icon">aod</span>
+            <a href="javascript:void(0);" onclick="pbookImportEvent();" class="icon"><span class="icon">aod</span></a>
           </div>
           <div class="icon-container" data-tooltip="Metadata informations">
             <span class="icon">bar_chart_4_bars</span>

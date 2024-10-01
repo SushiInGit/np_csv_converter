@@ -16,5 +16,5 @@ If you encounter any bugs or have suggestions for features or changes, please jo
 Have fun using this tool, and feel free to share it with others!
 *****  
     
-    
-**Greetings from the Dev Team (RY Jarnovk and SushiInPeace)**
+**Greetings from the Dev Team**   
+*RY Jarnovk and SushiInPeace*

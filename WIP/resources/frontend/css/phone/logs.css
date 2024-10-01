@@ -149,11 +149,13 @@ color: var(--speechbubble-text);
 
 .output .messages .commOutput .message .embedbody .embed {
     padding-top: 15px;
+
 }
 .output .messages .commOutput .message .embedbody .embed img {
+    height: 200px  !important;
     padding-right: 15px;
-    filter: blur(5px);
-    transition: filter 0.3s;
+    filter: blur(10px);
+    transition: all 0.3s ease; 
 }
 .output .messages .commOutput .message .embedbody .embed img:hover {
     filter: blur(0);
