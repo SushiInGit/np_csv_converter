@@ -43,13 +43,7 @@ document.addEventListener("DOMContentLoaded", function () {
         UploadEvent();
         //console.log("('chat-box' & 'conversation-list') is empty");
     }
-    /*else if (chatBoxResult) {
-        console.log("'chat-box' is empty");
-    } else if (conversationListResult) {
-        console.log("'conversation-list' is empty");
-    } else {
-        console.log("('chat-box' & 'conversation-list') have data in it");
-    } */
+
 });
 
 function clearPopupDiv() {

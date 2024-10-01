@@ -16,8 +16,8 @@ function getBrowserInfo() {
 }
 ////////////////////////////////////////
 
-if (!localStorage.calls || localStorage.calls === '[]' || localStorage.calls === '' ||
-    !localStorage.texts || localStorage.texts === '[]' || localStorage.texts === '') {
+if( (!localStorage.calls || localStorage.calls === '[]' || localStorage.calls === '') && 
+    (!localStorage.texts || localStorage.texts === '[]' || localStorage.texts === '') ) {
     global.alertsystem('warning', `It looks like you haven't uploaded an XLSX file yet. You can update it later by clicking on the cloud icon in the top left.`, 15);
     helpEvent();
 }

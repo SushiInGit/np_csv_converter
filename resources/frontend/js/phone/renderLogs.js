@@ -51,15 +51,7 @@ function calculateCallDuration(start, end) {
     return `${minutes ? minutes : `0`} min ${seconds ? seconds : `0`} sec`;
 }
 
-// Funktion logsPhonebookCheck -- Find telefone-numbers in messages
-/*function logsPhonebookCheck(message) {
-    const phoneRegex = /\(?420\)?\s?\d{3}\s?\d?\s?\s?\d?\s?\d{3}/g;
-    const wrappedHtmlString = message.replace(phoneRegex, (match) => {
-        return `<span class="phonenumber" data-name="${findNameByNumber(parseInt(match))}">${match}</span>`;
-    });
-    return wrappedHtmlString;
-}
-*/
+
 function showLogs(index, From, conversations) {  // All Data comes from renderConversations()
     //console.log(From);                         // Number thats not the simOwner
     //console.log(conversations.communications); // Array of Data 

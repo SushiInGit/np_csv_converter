@@ -132,24 +132,3 @@ function filterMessages(inputText) {
         } 
     });
 }
-
-
-    /*
-    return message.toLowerCase().includes(searchTerm) ||
-           matches.some(match => {
-               const key = match[1].toLowerCase();
-               const value = match[2].toLowerCase();
-               console.log(key, value);
-               switch (key) {
-                   case 'to':
-                       return message.To.toLowerCase().includes(value);
-                   case 'has':
-                       return message.communications.toLowerCase().includes(value);
-                   default:
-                       return false;
-               }
-           });
-           */
-
-
-

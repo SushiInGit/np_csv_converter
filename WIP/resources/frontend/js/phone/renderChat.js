@@ -30,7 +30,7 @@ frontend.renderChat = function (data) {
     // Output-Header Left/Right
     const headerLeft = document.querySelector(".output .header.noselect .left");
     const headerRight = document.querySelector(".output .header.noselect .right");
-    headerLeft.innerHTML = `To: ${data.Name} - ${String(data.To).replace(/^(\d{3})(\d{3})(\d{4})$/, "($1) $2 $3")}`;
+    headerLeft.innerHTML = `${data.Name} - ${String(data.To).replace(/^(\d{3})(\d{3})(\d{4})$/, "($1) $2 $3")}`;
     headerRight.innerHTML = `[ Messages: ${isCallFalseCount} | Calls: ${isCallTrueCount} ]`;
 
 

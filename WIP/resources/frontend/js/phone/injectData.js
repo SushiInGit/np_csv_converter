@@ -29,7 +29,7 @@ if (localStorage.text && localStorage.text !== '[]' || localStorage.calls && loc
         const bannerCenter = document.querySelector(".banner .center.noselect");
         if (bannerCenter) {
             bannerCenter.innerHTML = `
-            <h2>SimOwner: ${simownerName(middleman.simOwner.number())}</h2>
+            <h2>${simownerName(middleman.simOwner.number())}</h2>
             <h3>${String(middleman.simOwner.number()).replace(/^(\d{3})(\d{3})(\d{4})$/, "($1) $2 $3")}</h3>
             <b>${processTimestamp(middleman.phoneData.all()[0].Timestamp).date} to ${processTimestamp(middleman.phoneData.all()[(Object.keys(middleman.phoneData.all()).length - 1)].Timestamp).date}</b>
         `;
