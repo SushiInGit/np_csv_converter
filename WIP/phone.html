@@ -28,6 +28,7 @@
   <script defer src="resources/backend/js/phoneRecordsHelper.js"></script>
   <script defer src="resources/backend/js/timeConverter.js"></script>
   <script src="resources/backend/vendors/xlsx.full.min.js"></script>
+  <script src="resources/backend/vendors/chart.js"></script>
   <!--  Middleman  -->
   <script defer src="resources/middleman/phone/phoneData.js"></script>
   <script defer src="resources/middleman/phone/simOwner.js"></script>
@@ -44,6 +45,7 @@
   <script defer src="resources/frontend/js/phone/renderList.js"></script>
   <script defer src="resources/frontend/js/phone/renderChat.js"></script>
   <script defer src="resources/frontend/js/phone/injectData.js"></script>
+  <script defer src="resources/frontend/js/phone/renderActivity.js"></script>
 
 <body>
   <!-- Alert System -->
@@ -66,7 +68,7 @@
             <a href="javascript:void(0);" onclick="pbookImportEvent();" class="icon"><span class="icon">aod</span></a>
           </div>
           <div class="icon-container" data-tooltip="Metadata informations">
-            <span class="icon">bar_chart_4_bars</span>
+            <a href="javascript:void(0);" onclick="activityEvent();" class="icon"><span class="icon">bar_chart_4_bars</span></a>
           </div>
         </div>
         <div class="center">

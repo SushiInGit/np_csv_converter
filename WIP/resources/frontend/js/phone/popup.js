@@ -47,11 +47,11 @@ function showPopup() {
 function clearPopupDiv() {
     popupDiv.innerHTML = '';
     popupDiv.classList.remove("show");
-    popupDiv.classList.add("hide");
-    const classesToRemove = ["hide", "show", "upload", "bug", "settings", "help", "import"];
+    const classesToRemove = ["hide", "show", "upload", "bug", "settings", "help", "import", "activity"];
     classesToRemove.forEach(className => {
         popupDiv.classList.remove(className);
     });
+    popupDiv.classList.add("hide");
 }
 
 function deactivateLoader() {
@@ -67,8 +67,7 @@ function deactivateLoader() {
 function closePopupDiv() {
     popupDiv.innerHTML = '';
     deactivateLoader();
-    const classesToRemove = ["hide", "show", "upload", "bug", "settings", "help", "import"];
-
+    const classesToRemove = ["hide", "show", "upload", "bug", "settings", "help", "import", "activity"];
     classesToRemove.forEach(className => {
         popupDiv.classList.remove(className);
     });
@@ -429,4 +428,35 @@ function pbookImportEvent() {
             </div>
     `;
     popupDiv.appendChild(phonebook);
+}
+
+////////////////////////////////////////////////// Activity Chart
+function activityEvent() {
+    clearPopupDiv(); // Clear Event-DIV
+    const activity = document.createElement('activity');
+    popupDiv.classList.add("activity");
+    showPopup();
+    loader.classList.add("active");
+    activity.innerHTML = `
+           <div class="head">
+            <button class="close" onclick="UploadEvent(), closePopupDiv(), deactivateLoader()">X</button>
+            <h2>Activity Chart</h2>
+            </div>
+            <div class="element">
+            <center>View is based of Outgoing activity from Sim Owner</center><br>
+
+                <div class="chart-container">
+                    <canvas id="activityChart"></canvas>
+                </div>
+                <div id="time-range-output"></div>
+                                    <center>Feature is WIP</center>
+            </div>
+
+        </div>
+
+`;
+
+    popupDiv.appendChild(activity);
+ 
+    generateActivityChart(activityDataText, activityDataCalls, middleman.simOwner.number());
 }

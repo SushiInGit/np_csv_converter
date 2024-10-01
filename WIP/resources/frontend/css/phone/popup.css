@@ -22,7 +22,7 @@ popup {
 }
 
 popup.upload {
-    height: 170px !important;
+    height: 180px !important;
 }
 
 popup.bug {
@@ -51,8 +51,12 @@ popup.help {
     height: 400px !important;
 }
 
+popup.activity {
+    height: 430px !important;
+    width: 500px !important;
+}
 popup.show {
-    width: var(--popup-size-width) !important;
+    width: var(--popup-size-width);
     opacity: 0.99 !important;
     box-shadow: 0 4px 10px var(--global-border-color);
     backdrop-filter: blur(310px);
@@ -347,3 +351,27 @@ popup.import .element textarea::placeholder {
 
 
 /* --------End of Phonebook Import --------  */
+
+
+/* Container styles */
+.activity {
+    width: 100%;
+    margin: 50px auto;
+    text-align: center;
+
+
+.chart-container {
+    position: relative;
+    height: 250px;
+    width: 100%;
+}
+
+#time-range-output {
+    margin-top: 20px;
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #4e4e4e;
+}
+
+}
+/* --------End of Events---------  */
