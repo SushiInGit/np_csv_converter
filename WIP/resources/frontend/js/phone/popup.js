@@ -352,7 +352,7 @@ function forceSavePBI() {
     try {
         const textarea = document.querySelector('#popup .element #textarea');
         const riskButton = document.querySelector('#popup .element .risk');
-        console.log(textarea);
+        //console.log(textarea);
         if (!textarea || !textarea.value) {
             throw new Error("The phone contacts textbox appears to be empty. ");
         }
@@ -384,7 +384,7 @@ function sendPBI() {
     try {
         const textarea = document.querySelector('#popup .element #textarea');
         const riskButton = document.querySelector('#popup .element .risk');
-        console.log(textarea);
+        //console.log(textarea);
         if (!textarea || !textarea.value) {
             throw new Error("The phone contacts textbox appears to be empty. ");
         }

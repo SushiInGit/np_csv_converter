@@ -122,7 +122,7 @@ function filterMessages(inputText) {
     matches.some(match => {
         const key = match[1].toLowerCase();
         const value = match[2].toLowerCase();
-        console.log(key);
+        //console.log(key);
         if (key === "to") {
             frontend.renderList(middleman.filterBy.Number(value));
         } else if (key === "has") {
