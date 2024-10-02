@@ -1,7 +1,5 @@
 (function (loader) {
 
-
-        // Trigger if no error popup
         document.addEventListener("DOMContentLoaded", function (e) {
             deactivateLoader()
         });
@@ -14,9 +12,6 @@
             deactivateLoader();
         });
 
-    
-
-    
     // Effect
     function activateLoader() {
         loader.className = ('loader active');
@@ -36,6 +31,3 @@
     }
 
 })(document.querySelector('.loader'));
-
-/////////////////////////////////////////////
-

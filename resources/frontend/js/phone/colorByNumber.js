@@ -3,13 +3,9 @@ var frontend = frontend ?? {};
 
 frontend.colorByNumber = function () {
 
-
     function lighterColor(number) {
         numberString =  String(number);
-        /*
-        const lastSix = numberString.slice(-6);
-        let colorCode = '#' + parseInt(lastSix).toString(16).padStart(6, '0');
-        */
+
         const no420 = numberString.slice(-7);
         let colorCode = '#' + parseInt(no420).toString(16)
 
@@ -40,10 +36,7 @@ frontend.colorByNumber = function () {
         return "#" + (r.toString(16).padStart(2, '0')) + (g.toString(16).padStart(2, '0')) + (b.toString(16).padStart(2, '0'));
     }
     return {
-
         getLighterShade: (number) => lighterColor(number),
-
         getDarkerShade: (colorCode, percent) => { return darkenColor(colorCode, percent) }
-
     }
 }();

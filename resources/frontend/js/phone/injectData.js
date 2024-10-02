@@ -13,7 +13,6 @@ function simownerName(number) {
 
 if ((localStorage.texts && localStorage.texts !== '[]') || (localStorage.calls && localStorage.calls !== '[]')) {
 
-
     document.addEventListener("DOMContentLoaded", function () {
         const bannerRight = document.querySelector(".banner .right.noselect");
         let dialoguePartners = Object.keys(middleman.groupeCommunications.output()).length + 1;
@@ -135,18 +134,13 @@ function importChange() {
         textarea.addEventListener('scroll', () => {
             lineNumbersEle.scrollTop = textarea.scrollTop;
         });
-        
+
     }
 };
-
-
-
-
 
 const observer = new MutationObserver(() => {
     importChange();
 });
-
 
 const config = {
     attributes: true,

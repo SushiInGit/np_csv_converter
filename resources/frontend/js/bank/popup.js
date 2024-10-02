@@ -26,9 +26,7 @@ if (!localStorage.timestampPreferences || localStorage.timestampPreferences === 
 
 ////////////////////////////////////////
 
-
-
-document.addEventListener("keydown", function (event) {   // Close Popups
+document.addEventListener("keydown", function (event) { 
     if (event.key === "Escape") {
         closePopupDiv();
     }
@@ -41,21 +39,12 @@ function showPopup() {
     loader.classList.remove("inactive");
 }
 
-function clearPopupDiv() {
-    popupDiv.innerHTML = '';
-    popupDiv.classList.remove("show");
-    const classesToRemove = ["hide", "show", "upload", "bug", "settings", "help"];
-    classesToRemove.forEach(className => {
-        popupDiv.classList.remove(className);
-    });
-    popupDiv.classList.add("hide");
-}
-
 function deactivateLoader() {
     try {
         loader.classList.remove("active");
     } catch (error) {
         //console.error("Error removing 'active' class:", error);
+        return;
     } finally {
         loader.classList.add("inactive");
     }
@@ -65,7 +54,6 @@ function closePopupDiv() {
     popupDiv.innerHTML = '';
     deactivateLoader();
     const classesToRemove = ["hide", "show", "upload", "bug", "settings", "help"];
-
     classesToRemove.forEach(className => {
         popupDiv.classList.remove(className);
     });
@@ -73,7 +61,7 @@ function closePopupDiv() {
 }
 
 function UploadEvent() {
-    clearPopupDiv(); // Clear Event-DIV
+    closePopupDiv(); 
     showPopup();
     popupDiv.classList.add("upload");
     loader.classList.add("active");
@@ -96,6 +84,7 @@ function UploadEvent() {
         'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',  // .xlsx
         'application/vnd.ms-excel'                                            // .xls
     ];
+
     function isExcelFile(file) {
         return excelMimeTypes.includes(file.type);
     }
@@ -116,7 +105,6 @@ function UploadEvent() {
         if (files.length) {
             var type = backend.fileProcessor.processFiles(files);
             if (!isExcelFile(type)) {
-                //alert('Error: Unsupported file type. Please upload an Excel file.');
                 global.alertsystem('warning', 'Warning: Unsupported file type. Please upload an Excel file.', 7);
                 return;
             }
@@ -127,7 +115,7 @@ function UploadEvent() {
 
 ////////////////////////////////////////////////// Bug Reporter
 function BugReportEvent() {
-    clearPopupDiv(); // Clear Event-DIV
+    closePopupDiv(); 
     const bugtracker = document.createElement('bugtracker');
     popupDiv.classList.add("bug");
     showPopup();
@@ -159,7 +147,7 @@ function sendDiscordMessage(message, browserInfo) {
     const payload = {
         embeds: [
             {
-                color: 5763719, // bluecolor
+                color: 5763719, 
                 fields: [
                     {
                         name: "Bugreport - Bank",
@@ -188,24 +176,21 @@ function sendDiscordMessage(message, browserInfo) {
     })
         .then(response => {
             if (response.ok) {
-                closePopupDiv();  // Clear Event-DIV
-                //alert('Bugreport message is send!')
+                closePopupDiv(); 
                 global.alertsystem('success', 'Bug report has been sent.', 4);
 
             } else {
-                closePopupDiv();  // Clear Event-DIV
+                closePopupDiv();  
                 global.alertsystem('warning', 'Error: Bugreport cant be send. Try again later.', 7);
-                // alert('Error: Bugreport cant be send. Try again later.');
             }
         })
         .catch(error => {
-            closePopupDiv();  // Clear Event-DIV
+            closePopupDiv();
             global.alertsystem('warning', 'Error: Bugreport cant be send. Try again later.', 7);
         });
 
     BugReportEvent();
 }
-
 
 ////////////////////////////////////////////////// Settings changer
 // Save Settings to Storage
@@ -218,9 +203,8 @@ function saveSettingsTrigger() {
         displayOrder: timeFirst.value
     };
 
-    clearPopupDiv(); // Clear Event-DIV
+    closePopupDiv();
     saveSettings(newSettingsData);
-    //window.location.reload();
     global.alertsystem('success', `Settings saved successfully.`, 4);
     global.alertsystem('info', `To see the changes, please reload the page or reopen the last transaction. Sorry for the inconvenience, this issue will hopefully be fixed by the devs soon.`, 15);
 
@@ -230,7 +214,7 @@ function setSettingSelectedValue(selectId, value) {
     selectElement.value = value;
 }
 function SettingsEvent() {
-    clearPopupDiv(); // Clear Event-DIV
+    closePopupDiv(); 
     popupDiv.classList.add("settings");
     showPopup();
     loader.classList.add("active");
@@ -294,7 +278,7 @@ function SettingsEvent() {
                         <option value="timeAndDate">Time then Date</option>
                     </select>
                 </div>          
-            <button class="ok" onclick="saveSettingsTrigger(), clearPopupDiv()">Save</button>
+            <button class="ok" onclick="saveSettingsTrigger(), closePopupDiv()">Save</button>
             </div>
     `;
 
@@ -317,7 +301,7 @@ function SettingsEvent() {
 
 ////////////////////////////////////////////////// Help RM-Reader
 function helpEvent() {
-    clearPopupDiv(); // Clear Event-DIV
+    closePopupDiv();
     const help = document.createElement('help');
     popupDiv.classList.add("help");
     showPopup();

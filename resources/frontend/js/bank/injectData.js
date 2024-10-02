@@ -10,8 +10,6 @@ if (localStorage.bankRecords) {
         }
     }
 
-
-
     document.addEventListener("DOMContentLoaded", function () {
         const bannerRight = document.querySelector(".banner .right.noselect");
         if (bannerRight) {
@@ -24,17 +22,13 @@ if (localStorage.bankRecords) {
         `;
         }
 
-
-
         const earliestRecord = middleman.bankData.get().earliestRecord;
         const latestRecord = middleman.bankData.get().latestRecord;
-
 
         const isoDateEarly = new Date(earliestRecord);
         const isoDateEarlyFix = isoDateEarly.toISOString().split('T').join(' ').slice(0, 10);
         const isoDateLate = new Date(latestRecord);
         const isoDateLateFix = isoDateLate.toISOString().split('T').join(' ').slice(0, 10);
-
 
         const bannerCenter = document.querySelector(".banner .center.noselect");
         if (bannerCenter) {
@@ -44,6 +38,5 @@ if (localStorage.bankRecords) {
             <b> ${isoDateEarlyFix} to ${isoDateLateFix}</b>
         `;
         }
-
     });
 };

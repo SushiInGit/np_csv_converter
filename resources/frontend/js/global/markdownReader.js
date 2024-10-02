@@ -21,7 +21,3 @@ global.markdownReader = function (fileName) {
             document.getElementById('markdownContent').textContent = 'Error loading Markdown file: ' + error.message;
         });
 };
-
-
-//window.onload = () => global.markdownReader('README.md');
-

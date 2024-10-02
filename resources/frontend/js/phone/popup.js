@@ -29,8 +29,6 @@ if (!localStorage.timestampPreferences ||
 
 ////////////////////////////////////////
 
-
-
 document.addEventListener("keydown", function (event) {   // Close Popups
     if (event.key === "Escape") {
         closePopupDiv();
@@ -44,21 +42,12 @@ function showPopup() {
     loader.classList.remove("inactive");
 }
 
-function clearPopupDiv() {
-    popupDiv.innerHTML = '';
-    popupDiv.classList.remove("show");
-    const classesToRemove = ["hide", "show", "upload", "bug", "settings", "help", "import", "activity"];
-    classesToRemove.forEach(className => {
-        popupDiv.classList.remove(className);
-    });
-    popupDiv.classList.add("hide");
-}
-
 function deactivateLoader() {
     try {
         loader.classList.remove("active");
     } catch (error) {
         //console.error("Error removing 'active' class:", error);
+        return;
     } finally {
         loader.classList.add("inactive");
     }
@@ -75,7 +64,7 @@ function closePopupDiv() {
 }
 
 function UploadEvent() {
-    clearPopupDiv(); // Clear Event-DIV
+    closePopupDiv(); // Clear Event-DIV
     showPopup();
     popupDiv.classList.add("upload");
     loader.classList.add("active");
@@ -128,7 +117,7 @@ function UploadEvent() {
 
 ////////////////////////////////////////////////// Bug Reporter
 function BugReportEvent() {
-    clearPopupDiv(); // Clear Event-DIV
+    closePopupDiv(); // Clear Event-DIV
     const bugtracker = document.createElement('bugtracker');
     popupDiv.classList.add("bug");
     showPopup();
@@ -145,7 +134,6 @@ function BugReportEvent() {
             </div>
     `;
     popupDiv.appendChild(bugtracker);
-
 }
 
 function sendToDiscord() {
@@ -154,13 +142,12 @@ function sendToDiscord() {
     sendDiscordMessage(message, browserInfo);
 }
 
-
 function sendDiscordMessage(message, browserInfo) {
     const webhookUrl = "https://discord.com/api/webhooks/1284930571440750602/mZyS4CHamGlq_AUw1CambBH5s0010rLi_6A37vR5sJoPL3liAQSkM_qDR9HeJ3YGyNHp";
     const payload = {
         embeds: [
             {
-                color: 5763719, // bluecolor
+                color: 5763719, 
                 fields: [
                     {
                         name: "Bugreport - Bank",
@@ -189,24 +176,21 @@ function sendDiscordMessage(message, browserInfo) {
     })
         .then(response => {
             if (response.ok) {
-                closePopupDiv();  // Clear Event-DIV
-                //alert('Bugreport message is send!')
+                closePopupDiv();
                 global.alertsystem('success', 'Bug report has been sent.', 4);
 
             } else {
-                closePopupDiv();  // Clear Event-DIV
+                closePopupDiv(); 
                 global.alertsystem('warning', 'Error: Bugreport cant be send. Try again later.', 7);
-                // alert('Error: Bugreport cant be send. Try again later.');
             }
         })
         .catch(error => {
-            closePopupDiv();  // Clear Event-DIV
+            closePopupDiv(); 
             global.alertsystem('warning', 'Error: Bugreport cant be send. Try again later.', 7);
         });
 
     BugReportEvent();
 }
-
 
 ////////////////////////////////////////////////// Settings changer
 // Save Settings to Storage
@@ -225,12 +209,10 @@ function lastActiveReload() {
         if (matchingData.length > 0) {
             frontend.renderChat(matchingData[0]);
         } else {
-            //console.log('No data found for this groupeid');
             return;
         }
 
     } catch (error) {
-        //console.log(error.message);
         return;
     }
 }
@@ -244,9 +226,8 @@ function saveSettingsTrigger() {
         displayOrder: timeFirst.value
     };
 
-    clearPopupDiv(); // Clear Event-DIV
+    closePopupDiv(); 
     saveSettings(newSettingsData);
-    //window.location.reload();
     global.alertsystem('success', `Settings saved successfully.`, 4);
     //global.alertsystem('info', `To see the changes, please reload the page or reopen the last transaction. Sorry for the inconvenience, this issue will hopefully be fixed by the devs soon.`, 15);
     lastActiveReload();
@@ -256,13 +237,11 @@ function setSettingSelectedValue(selectId, value) {
     selectElement.value = value;
 }
 function SettingsEvent() {
-    clearPopupDiv(); // Clear Event-DIV
+    closePopupDiv(); 
     popupDiv.classList.add("settings");
     showPopup();
     loader.classList.add("active");
     const settings = document.createElement('settings');
-
-
     settings.innerHTML = `
                <div class="head">
     <button class="close" onclick="UploadEvent(), closePopupDiv(), deactivateLoader()">X</button>
@@ -320,7 +299,7 @@ function SettingsEvent() {
                         <option value="timeAndDate">Time then Date</option>
                     </select>
                 </div>          
-            <button class="ok" onclick="saveSettingsTrigger(), clearPopupDiv()">Save</button>
+            <button class="ok" onclick="saveSettingsTrigger(), closePopupDiv()">Save</button>
             </div>
     `;
 
@@ -343,7 +322,7 @@ function SettingsEvent() {
 
 ////////////////////////////////////////////////// Help RM-Reader
 function helpEvent() {
-    clearPopupDiv(); // Clear Event-DIV
+    closePopupDiv(); 
     const help = document.createElement('help');
     popupDiv.classList.add("help");
     showPopup();
@@ -377,7 +356,6 @@ function forceSavePBI() {
     try {
         const textarea = document.querySelector('#popup .element #textarea');
         const riskButton = document.querySelector('#popup .element .risk');
-        //console.log(textarea);
         if (!textarea || !textarea.value) {
             throw new Error("The phone contacts textbox appears to be empty. ");
         }
@@ -409,7 +387,6 @@ function sendPBI() {
     try {
         const textarea = document.querySelector('#popup .element #textarea');
         const riskButton = document.querySelector('#popup .element .risk');
-        //console.log(textarea);
         if (!textarea || !textarea.value) {
             throw new Error("The phone contacts textbox appears to be empty. ");
         }
@@ -433,7 +410,7 @@ function sendPBI() {
 }
 
 function pbookImportEvent() {
-    clearPopupDiv(); // Clear Event-DIV
+    closePopupDiv(); 
     const phonebook = document.createElement('import');
     popupDiv.classList.add("import");
     showPopup();
@@ -457,7 +434,7 @@ function pbookImportEvent() {
 
 ////////////////////////////////////////////////// Activity Chart
 function activityEvent() {
-    clearPopupDiv(); // Clear Event-DIV
+    closePopupDiv(); // Clear Event-DIV
     const activity = document.createElement('activity');
     popupDiv.classList.add("activity");
     showPopup();

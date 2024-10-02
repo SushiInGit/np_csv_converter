@@ -37,18 +37,16 @@ searchbarText.addEventListener('blur', function () {
     }, 100);
 });
 
-
 searchbarText.addEventListener('input', function () {
     const inputText = this.innerText.toLowerCase();
     showSuggestions(inputText);
     filterMessages(inputText);
     highlightSyntax(inputText);
 });
+
 searchbarText.addEventListener('focus', function () {
     const inputText = this.innerText.toLowerCase();
     showSuggestions(inputText);
-
-
 });
 
 searchbarText.addEventListener('keydown', function (event) {
@@ -56,7 +54,6 @@ searchbarText.addEventListener('keydown', function (event) {
         event.preventDefault();
     }
 });
-
 
 function showSuggestions(inputText = '') {
     suggestionsBox.innerHTML = '';
@@ -104,11 +101,9 @@ function placeCaretAtEnd(el) {
 }
 
 function filterMessages(inputText) {
-    //messagesBox.innerHTML = '';
 
     const regex = /(\w+):\s*(.+)/g;
     const matches = [...inputText.matchAll(regex)];
-
 
     if (!inputText || inputText.trim() === '') {
         frontend.renderList(middleman.groupeCommunications.output());
@@ -122,7 +117,6 @@ function filterMessages(inputText) {
     matches.some(match => {
         const key = match[1].toLowerCase();
         const value = match[2].toLowerCase();
-        //console.log(key);
         if (key === "to") {
             frontend.renderList(middleman.filterBy.Number(value));
         } else if (key === "has") {
