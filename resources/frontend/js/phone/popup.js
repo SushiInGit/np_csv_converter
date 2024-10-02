@@ -16,8 +16,8 @@ function getBrowserInfo() {
 }
 ////////////////////////////////////////
 
-if( (!localStorage.calls || localStorage.calls === '[]' || localStorage.calls === '') && 
-    (!localStorage.texts || localStorage.texts === '[]' || localStorage.texts === '') ) {
+if ((!localStorage.calls || localStorage.calls === '[]' || localStorage.calls === '') &&
+    (!localStorage.texts || localStorage.texts === '[]' || localStorage.texts === '')) {
     global.alertsystem('warning', `It looks like you haven't uploaded an XLSX file yet. You can update it later by clicking on the cloud icon in the top left.`, 15);
     helpEvent();
 }
@@ -210,6 +210,29 @@ function sendDiscordMessage(message, browserInfo) {
 
 ////////////////////////////////////////////////// Settings changer
 // Save Settings to Storage
+function lastActiveReload() {
+    try {
+        const activeUser = document.querySelector('.user.active');
+        if (!activeUser) {
+            throw new Error('No active coomunication found.');
+        }
+        const classList = activeUser.classList;
+        const idDigits = [...classList].find(cls => cls.startsWith('id__')).replace('id__', '');
+
+        const groupCommOutput = middleman.groupeCommunications.output();
+        const matchingData = groupCommOutput.filter(entry => entry.groupIndex === parseInt(idDigits));
+
+        if (matchingData.length > 0) {
+            frontend.renderChat(matchingData[0]);
+        } else {
+            console.log('No data found for this groupeid');
+        }
+
+    } catch (error) {
+        console.log(error.message);
+    }
+}
+
 function saveSettingsTrigger() {
     const newSettingsData = {
         timeZone: timezone.value,
@@ -223,8 +246,8 @@ function saveSettingsTrigger() {
     saveSettings(newSettingsData);
     //window.location.reload();
     global.alertsystem('success', `Settings saved successfully.`, 4);
-    global.alertsystem('info', `To see the changes, please reload the page or reopen the last transaction. Sorry for the inconvenience, this issue will hopefully be fixed by the devs soon.`, 15);
-
+    //global.alertsystem('info', `To see the changes, please reload the page or reopen the last transaction. Sorry for the inconvenience, this issue will hopefully be fixed by the devs soon.`, 15);
+    lastActiveReload();
 }
 function setSettingSelectedValue(selectId, value) {
     const selectElement = document.getElementById(selectId);
@@ -359,13 +382,13 @@ function forceSavePBI() {
 
         const lines = textarea.value.trim().split('\n');
         const phoneNumberPattern = /^(420\d{7}|\(420\)\s?\d{3}\s?\d{4}|\d{10}) (.+)$/;
-        let skippedLines = 0; 
-        
+        let skippedLines = 0;
+
         for (let i = 0; i < lines.length; i++) {
             const line = lines[i].trim();
-  
+
             if (!phoneNumberPattern.test(line)) {
-                skippedLines++; 
+                skippedLines++;
             }
         }
 
@@ -454,6 +477,6 @@ function activityEvent() {
 `;
 
     popupDiv.appendChild(activity);
- 
+
     generateActivityChart(activityDataText, activityDataCalls, middleman.simOwner.number());
 }

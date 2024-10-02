@@ -15,10 +15,13 @@ frontend.renderList = function (phoneGrouped) {
     const viewsDiv = document.querySelector(".menu .list.noselect .pov");
     viewsDiv.innerHTML = ``;
     hrCount = 0;
+
     phoneGrouped.forEach((data) => {
         let divBox = document.createElement('div');
         divBox.classList.add("user");
-        divBox.classList.add(data.To);
+        divBox.classList.add(`nr__${data.To}`);
+        divBox.classList.add(`id__${data.groupIndex}`);
+
         if (hrCount === 0) {
             divBox.innerHTML = `${data.Name}<br>${String(data.To).replace(/^(\d{3})(\d{3})(\d{4})$/, "($1) $2 $3")}`;
             hrCount++;
