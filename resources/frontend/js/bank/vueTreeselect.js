@@ -1,6 +1,7 @@
 var frontend = frontend ?? {};
 
 frontend.treeselect = function () {
+
     new Vue({
         el: '#treeselect',
         components: {
@@ -81,7 +82,7 @@ frontend.treeselect = function () {
                 amountCells.forEach((cell, index) => {
                     const directionCell = document.querySelectorAll('#bankRecordsTable .direction')[index];
                     const direction = directionCell.textContent.trim();
-                    const amount = `${cell.textContent.trim()}`;
+                    const amount = `${(cell.textContent.trim()).replace(/\B(?=(\d{3})+(?!\d))/g, ".")}`;
                     cell.innerHTML = amount;
                     if (direction === 'in') {
                         cell.classList.add('amount-in');
@@ -95,7 +96,7 @@ frontend.treeselect = function () {
                 amountCells.forEach((cell, index) => {
                     const directionCell = document.querySelectorAll('#bankRecordsTable .direction')[index];
                     const direction = directionCell.textContent.trim();
-                    const amount = `${cell.textContent.trim()}`;
+                    const amount = `${cell.textContent.trim().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}`;
                     cell.innerHTML = amount;
                     if (direction === 'in') {
                         cell.classList.add('amount-in');
@@ -109,7 +110,7 @@ frontend.treeselect = function () {
                 amountCells.forEach((cell, index) => {
                     const directionCell = document.querySelectorAll('#bankRecordsTable .direction')[index];
                     const direction = directionCell.textContent.trim();
-                    const amount = `${cell.textContent.trim()}`;
+                    const amount = `${cell.textContent.trim().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}`;
                     cell.innerHTML = amount;
                     if (direction === 'in') {
                         cell.classList.add('amount-in');
