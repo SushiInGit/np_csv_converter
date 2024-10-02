@@ -225,11 +225,13 @@ function lastActiveReload() {
         if (matchingData.length > 0) {
             frontend.renderChat(matchingData[0]);
         } else {
-            console.log('No data found for this groupeid');
+            //console.log('No data found for this groupeid');
+            return;
         }
 
     } catch (error) {
-        console.log(error.message);
+        //console.log(error.message);
+        return;
     }
 }
 
