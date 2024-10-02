@@ -8,7 +8,7 @@ function generateActivityChart(text, calls, simowner) {
     text.forEach(entry => {
         if (entry.number_from === simowner) {
             const timestamp = new Date(entry.timestamp);
-            const time = `${timestamp.getHours().toString().padStart(2, '0')}`;
+            const time = `${(processTimestamp(timestamp).time).substring(0, 2)}`;
 
             if (!textCount[time]) {
                 textCount[time] = 0;
@@ -20,14 +20,18 @@ function generateActivityChart(text, calls, simowner) {
     calls.forEach(entry => {
         if (entry.call_from === simowner) {
             const established_at = new Date(entry.established_at);
-            const time = `${established_at.getHours().toString().padStart(2, '0')}`;
+            showOnlyHoures = (processTimestamp(established_at).time);
+            if (typeof showOnlyHoures === 'string') {
+                const time =  showOnlyHoures.substring(0, 2); 
 
             if (!callCount[time]) {
                 callCount[time] = 0;
             }
             callCount[time]++;
+        }
         };
     });
+
 
 
     let labelsText = Object.keys(textCount).sort((a, b) => {
@@ -43,6 +47,12 @@ function generateActivityChart(text, calls, simowner) {
         return aHours - bHours || aMinutes - bMinutes;
     });
 
+    let FulllabelsText = [];
+    for (let i = 0; i <= 24; i++) {
+        let hour = i.toString().padStart(2, '0'); // Format hours as 00, 01, 02, ..., 24
+        FulllabelsText.push(`${hour}:00`);
+    }
+
     let countsText = labelsText.map(label => textCount[label]);
     let countsCall = labelsCall.map(label => callCount[label]);
 
@@ -53,14 +63,14 @@ function generateActivityChart(text, calls, simowner) {
         data: {
             labels: labelsText,
             datasets: [{
-                label: 'Activity Count by Time (Text)',
+                label: 'Activity Count by Text',
                 data: countsText,
                 backgroundColor: 'rgba(106, 13, 173, 0.6)',
                 borderColor: 'rgba(106, 13, 173, 1)',
                 borderWidth: 1
             },
             {
-                label: 'Activity Count by Time (Calls)',
+                label: 'Activity Count by Calls',
                 data: countsCall,
                 backgroundColor: 'rgba(13, 173, 106, 0.6)',
                 borderColor: 'rgba(13, 173, 106, 1)',
@@ -73,8 +83,12 @@ function generateActivityChart(text, calls, simowner) {
                 x: {
                     title: {
                         display: true,
-                        text: 'Time (Hour) UTC'
+                        text: `Time (Hour) ${processTimestamp(Date.now()).timeZone}`
+                    },
+                    ticks: {
+                        stepSize: 2 
                     }
+
                 },
                 y: {
                     title: {

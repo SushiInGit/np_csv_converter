@@ -3,7 +3,7 @@ var middleman = middleman ?? {};
 
 middleman.filterBy = function () {
     const groupData = middleman.groupeCommunications.output()
-
+ 
     function findCommunicationsByNumber(data, filter) {
         if (Object.keys(data).length !== 0) {
             let output = data.filter(object => {
@@ -15,7 +15,17 @@ middleman.filterBy = function () {
             return output;
         }
     }
-
+    function findCommunicationsByName(data, filter) {
+        if (Object.keys(data).length !== 0) {
+            let output = data.filter(object => {
+                return JSON.stringify(object.Name)
+                    .toString()
+                    .toLowerCase()
+                    .includes(filter);
+            });
+            return output;
+        }
+    }
     function findCommunicationsByText(data, filter) {
         if (Object.keys(data).length !== 0) {
             let output = data.filter(object => {
@@ -60,6 +70,7 @@ middleman.filterBy = function () {
         Number: (filter) => { return findCommunicationsByNumber(groupData, filter) },
         Message: (filter) => { return findCommunicationsByText(groupData, filter) },
         MessageStrict: (filter) => { return strictFilter(findCommunicationsByText(groupData, filter), filter) },
-        All: (filter) => { return findCommunicationsByAll(filter) }
+        All: (filter) => { return findCommunicationsByAll(filter) },
+        Name: (filter) => { return findCommunicationsByName(groupData, filter) }
     }
 }();

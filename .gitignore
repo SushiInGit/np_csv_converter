@@ -5,5 +5,5 @@
 /.vs
 /.vscode
 /demo
-/-LOCAL
+/__*
 .vscode

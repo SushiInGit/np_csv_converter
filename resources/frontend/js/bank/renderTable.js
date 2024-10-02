@@ -130,12 +130,3 @@ frontend.renderTable = function (data) {
 };
 
 
-
-/*
-const data = frontend.renderTable(middleman.bankData.get().records);
-frontend.renderTable(data).then((table) => {
-    console.log("Table loaded");
-}).catch((error) => {
-    console.error("Error:", error);
-});
-*/

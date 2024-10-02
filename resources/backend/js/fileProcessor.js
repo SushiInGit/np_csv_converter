@@ -38,37 +38,40 @@ backend.fileProcessor = function () {
 
             var redirectUrl = "";
 
-            switch (sheetType) {
-                case allSheetTypes.TEXTS:
-                    cleanData = backend.phoneRecordsHelper.normalizeTexts(sheet);
-                    redirectUrl = "phone.html"
-                    break;
+            if (!!keys.length) {
+                switch (sheetType) {
+                    case allSheetTypes.TEXTS:
+                        cleanData = backend.phoneRecordsHelper.normalizeTexts(sheet);
+                        redirectUrl = "phone.html"
+                        break;
 
-                case allSheetTypes.CALLS:
-                    // Data for phonecalls is already clean
-                    // No need for any formatting
-                    // Return the data as is
-                    cleanData = sheet;
-                    redirectUrl = "phone.html"
-                    break;
+                    case allSheetTypes.CALLS:
+                        // Data for phonecalls is already clean
+                        // No need for any formatting
+                        // Return the data as is
+                        cleanData = sheet;
+                        redirectUrl = "phone.html"
+                        break;
 
-                case allSheetTypes.BANKRECORDS:
-                    cleanData = backend.bankRecordsHelper.normalizeBankRecords(sheet);
-                    redirectUrl = "bank.html";
-                    break;
+                    case allSheetTypes.BANKRECORDS:
+                        cleanData = backend.bankRecordsHelper.normalizeBankRecords(sheet);
+                        redirectUrl = "bank.html";
+                        break;
 
-                case allSheetTypes.GENERIC:
-                default:
-                    // Handle default
-                    cleanData = sheet;
-                    redirectUrl = ""; // ???
-                    break;
+                    case allSheetTypes.GENERIC:
+                    default:
+                        // Handle default
+                        cleanData = sheet;
+                        redirectUrl = ""; // ???
+                        break;
+                }
+
+                // Save cleanData to localstorage, overwrites the current data
+                backend.dataController.saveData(sheetType, cleanData);
             }
-
-            // Save cleanData to localstorage, overwrites the current data
-            backend.dataController.saveData(sheetType, cleanData);
-            window.location.href = redirectUrl;
         }
+
+        window.location.href = redirectUrl;
     }
 
     function getSheetType(sheetHeaders) {

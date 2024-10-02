@@ -220,7 +220,7 @@ function saveSettingsTrigger() {
 
     clearPopupDiv(); // Clear Event-DIV
     saveSettings(newSettingsData);
-
+    //window.location.reload();
     global.alertsystem('success', `Settings saved successfully.`, 4);
     global.alertsystem('info', `To see the changes, please reload the page or reopen the last transaction. Sorry for the inconvenience, this issue will hopefully be fixed by the devs soon.`, 15);
 
@@ -294,7 +294,7 @@ function SettingsEvent() {
                         <option value="timeAndDate">Time then Date</option>
                     </select>
                 </div>          
-            <button class="ok" onclick="saveSettingsTrigger(), clearPopupDiv(), clearPopupDiv()">Save</button>
+            <button class="ok" onclick="saveSettingsTrigger(), clearPopupDiv()">Save</button>
             </div>
     `;
 
@@ -329,7 +329,6 @@ function helpEvent() {
             </div>
             <div class="element">
             <div id="markdownContent"></div>
-            <div id="errorMessage"></div>
             </div>
     `;
 
