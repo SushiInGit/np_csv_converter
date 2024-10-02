@@ -67,10 +67,7 @@ global.alertsystem = function (type, message, duration) {
       });
     }
   });
-  
 };
-
-
 
 // Capture Error from Console.log 
 window.onerror = function (message, source, lineno, colno, error) {
@@ -83,12 +80,3 @@ window.onerror = function (message, source, lineno, colno, error) {
   }
   //return true;  //silence errors in console on active
 };
-
-
-/*
-
-global.alertsystem('info', 'blubb iam a info', 35);
-global.alertsystem('success', 'miau yes success', 35);
-global.alertsystem('warning', 'chirp warning chirp', 35);
-global.alertsystem('error', '404', 35);
-*/

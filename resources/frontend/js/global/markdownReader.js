@@ -18,10 +18,6 @@ global.markdownReader = function (fileName) {
             document.getElementById('markdownContent').innerHTML = htmlWithLinks;
         })
         .catch(error => {
-            document.getElementById('errorMessage').textContent = 'Error loading Markdown file: ' + error.message;
+            document.getElementById('markdownContent').textContent = 'Error loading Markdown file: ' + error.message;
         });
 };
-
-
-//window.onload = () => global.markdownReader('README.md');
-

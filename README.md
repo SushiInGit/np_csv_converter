@@ -11,6 +11,15 @@ Join us: https://discord.gg/e3t8EHKGp3
 
 ### Update History:
 ```
+2024-10-02:
+* Designrework on both pages online
+* Alert System for more information
+* Phone Subpoena changes
+--> Added search System
+--> Optimize how rendering works
+--> Cross-settings between phone and bank
+```
+```
 2024-09-29:
 * Started with the Designrework for Phone and Bank 
 * Bank Subpoena added as beta version 

@@ -127,6 +127,8 @@ container {
 .header .right {
     height: 100%;
     width: 200px;
+    padding-left: 15px;
+    padding-right: 15px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -138,6 +140,7 @@ container {
     display: flex;
     justify-content: center;
     align-items: center;
+    white-space: nowrap;
 }
 
 .header .center .search-container {
@@ -160,7 +163,6 @@ container {
     align-items: center;
     border: 2px solid var(--global-border-color);
     cursor: pointer;
-
 }
 
 .header .icon-container .icon {
@@ -313,6 +315,7 @@ container {
     align-items: center;
     background-color: var(--bg-shade-mid);
     border: solid var(--global-border-size) var(--global-border-color);
+    white-space: nowrap;
 }
 
 .banner h2 {
@@ -340,6 +343,7 @@ container {
     align-items: center;
     padding-right: 10px;
     padding-left: 10px;
+    overflow: hidden;
 }
 
 .banner .right {
@@ -392,6 +396,8 @@ container {
     height: 100%;
     box-sizing: border-box;
     overflow: auto;
+    scroll-snap-type: y mandatory;
+    scroll-behavior: smooth;
 }
 
 .menu .list .pov hr {
@@ -410,6 +416,7 @@ container {
     text-align: center;
     line-height: 1.2;
     position: relative;
+    scroll-snap-align: end;
 }
 
 .menu .list .pov .user:hover {
@@ -439,33 +446,40 @@ container {
     align-items: center;
     border-radius: 13px 13px 0px 0px;
     border: 0px;
+    white-space: nowrap;
 }
 
 .output .header .left {
-    width: 50%;
+    width: 100%;
     justify-content: left !important;
     text-align: left !important;
     padding-left: 20px;
+    left: 0px;
 }
 
 .output .header .right {
-    width: 50%;
+    width: 100%;
     justify-content: right !important;
     text-align: right !important;
     padding-right: 20px;
+    right: 0px;
+    overflow: hidden;
 }
 
 .output .messages {
-    height: calc(100% - 60px);
+    position: relative;
+    max-height: calc(100% - 70px);
     width: 100%;
     overflow-x: auto;
     overflow-y: auto;
-
 }
 
-.output .messages .table {
+.output .messages .commOutput {
+    position: relative;
+    margin-left: 10px;
+    margin-right: 10px;
     height: 100%;
-    width: 100%;
+    width: calc(100% - 20px);
 }
 
 

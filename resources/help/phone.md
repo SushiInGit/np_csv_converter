@@ -12,8 +12,8 @@ Here are some important tips to help you get started:
     For example:  
     `4209479995 John Doe`
 
-- **Metadata Information**:  
-  This section provides detailed graphs and other insights about the SIM card owner, helping you analyze various activities and patterns (indicated by the graph icon [top left]).
+- **Activity Chart**:  
+  This section provides a detailed graph about the SIM card owner, helping you analyze various activities and patterns (indicated by the graph icon [top left]).
 
 - **Timezone Settings**:  
   You can change your preferred timezone and how it is displayed by navigating to the settings (indicated by the gear icon [top right]). Customize it to suit your needs!
@@ -28,4 +28,5 @@ Have fun using this tool, and feel free to share it with others!
 *****  
     
     
-**Greetings from the Dev Team (RY Jarnovk and SushiInPeace)**
+**Greetings from the Dev Team**   
+*RY Jarnovk and SushiInPeace*

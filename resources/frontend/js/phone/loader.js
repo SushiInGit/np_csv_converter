@@ -1,5 +1,12 @@
 (function (loader) {
+    const errorElement = document.getElementById('error');
 
+
+    if (errorElement.classList.contains('show')) {
+        activateLoader();
+    } else {
+
+        // Trigger if no error popup
         document.addEventListener("DOMContentLoaded", function (e) {
             deactivateLoader()
         });
@@ -11,7 +18,10 @@
         window.addEventListener('load', function (e) {
             deactivateLoader();
         });
+    }
 
+
+    
     // Effect
     function activateLoader() {
         loader.className = ('loader active');
@@ -31,3 +41,4 @@
     }
 
 })(document.querySelector('.loader'));
+

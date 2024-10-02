@@ -11,10 +11,10 @@ You can change your preferred timezone and how it is displayed by navigating to 
 If you encounter any bugs or have suggestions for features or changes, please join our Discord or utilize the bug report feature (represented by the bug icon [top right]). Your feedback is valuable to us!
   
          
-      
-Have fun using this tool, and feel free to share it with others!
   
-  *****  
     
+Have fun using this tool, and feel free to share it with others!
+*****  
     
-**Greetings from the Dev Team (RY Jarnovk and SushiInPeace)**
+**Greetings from the Dev Team**   
+*RY Jarnovk and SushiInPeace*

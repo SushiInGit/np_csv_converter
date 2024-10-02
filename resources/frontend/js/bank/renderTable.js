@@ -1,7 +1,7 @@
 var frontend = frontend ?? {};
 
 frontend.renderTable = function (data) {
-    window.dispatchEvent(new Event('beforeunload')); 
+    window.dispatchEvent(new Event('beforeunload'));
     return new Promise((resolve, reject) => {
         var table = document.querySelector("#bankRecordsTable");
 
@@ -12,33 +12,43 @@ frontend.renderTable = function (data) {
         }
 
         var headers = [
-            "ID", "Comment", "Type", "Direction", "From: Account ID",
-            "From: Account Name", "From: Accounttype", "To: Account ID",
-            "To: Account Name", "To: Accounttype", "Amount", `Date (${processTimestamp(Date.now()).timeZone})`,
-            "Tax %", "Tax-Type", "Tax-ID"
+            "ID", "Comment", 
+            "From: Account ID", "From: Account Name", "From: Accounttype", 
+            "To: Account ID", "To: Account Name", "To: Accounttype", 
+            "Type", "Direction", 
+            "Amount", "Amount without Tax",
+            "Tax %", "Tax Amount", 
+            "Tax-Type", "Tax-ID", 
+            `Date (${processTimestamp(Date.now()).timeZone})`
         ];
 
         var headersClass = [
-            "id", "comment", "type", "direction", "from_account_id",
-            "from_civ_name", "from_account_name", "to_account_id",
-            "to_civ_name", "to_account_name", "amount", "date",
-            "tax_percentage", "tax_type", "tax_id"
+            "id", "comment", 
+            "from_account_id", "from_civ_name", "from_account_name", 
+            "to_account_id","to_civ_name", "to_account_name",
+            "type", "direction",
+            "amount", "original_amount",
+            "tax_percentage", "tax_amount", 
+            "tax_type", "tax_id", 
+            "date"
         ];
 
         // Create thead
         var thead = document.createElement("thead");
         var headerRow = document.createElement("tr");
         var headerCount = 0;
+        
         headers.forEach((header) => {
             var th = document.createElement("th");
             th.textContent = header;
             th.className = headersClass[headerCount];
+
             headerRow.appendChild(th);
             headerCount++;
         });
-
+        
         thead.appendChild(headerRow);
-        table.appendChild(thead);  // Append thead to the table
+        table.appendChild(thead);
 
         // Create tbody only once
         var tbody = document.createElement("tbody");
@@ -53,13 +63,9 @@ frontend.renderTable = function (data) {
                     var row = data[i];
                     var tr = document.createElement("tr");
                     Object.values(row).forEach((item, counter) => {
-                        if (counter === 15) { // Skip custom index
-                            return;
-                        }
-
                         var td = document.createElement("td");
                         var headerClass = headers[counter];
-                        var headerClassIndex = headersClass[counter];   
+                        var headerClassIndex = headersClass[counter];
 
                         if (headerClass === "To: Account Name") {
                             item = middleman.stateAccounts(row.to_account_id, row.to_civ_name);
@@ -71,7 +77,7 @@ frontend.renderTable = function (data) {
 
                         if (headerClass === `Date (${processTimestamp(Date.now()).timeZone})`) {
                             var date = new Date(item); // Convert to Date object
-                            td.textContent =  `${processTimestamp(date).displayOrder}`
+                            td.textContent = `${processTimestamp(date).displayOrder}`
                         } else {
                             td.textContent = item;
                         }
@@ -96,10 +102,6 @@ frontend.renderTable = function (data) {
             data.forEach((row) => {
                 var tr = document.createElement("tr");
                 Object.values(row).forEach((item, counter) => {
-                    if (counter === 15) { // Skip custom index
-                        return;
-                    }
-                    
                     var td = document.createElement("td");
                     var headerClass = headers[counter];
                     var headerClassIndex = headersClass[counter];
@@ -114,7 +116,7 @@ frontend.renderTable = function (data) {
 
                     if (headerClass === `Date (${processTimestamp(Date.now()).timeZone})`) {
                         var date = new Date(item); // Convert to Date object
-                         td.textContent =  `${processTimestamp(date).displayOrder}`
+                        td.textContent = `${processTimestamp(date).displayOrder}`
                     } else {
                         td.textContent = item;
                     }
@@ -125,25 +127,16 @@ frontend.renderTable = function (data) {
                 tbody.appendChild(tr);
             });
             resolve(table); // Return the fully constructed table
-            window.dispatchEvent(new Event('load')); 
+            window.dispatchEvent(new Event('load'));
         } else {
             // Start processing rows in chunks
             processRows(100).then(() => {
                 frontend.treeselect();
                 resolve(table); // Return the fully constructed table
-                window.dispatchEvent(new Event('load')); 
+                window.dispatchEvent(new Event('load'));
             }).catch(reject);
         }
     });
 };
 
 
-
-/*
-const data = frontend.renderTable(middleman.bankData.get().records);
-frontend.renderTable(data).then((table) => {
-    console.log("Table loaded");
-}).catch((error) => {
-    console.error("Error:", error);
-});
-*/
