@@ -16,7 +16,13 @@ middleman.embedPic = function (message) {
         const imgElement = document.createElement('img');
         imgElement.src = href;
         imgElement.alt = `404 Image not found.`;
-  
+
+        // Add the onerror attribute for fallback
+          imgElement.onerror = function() {
+            this.onerror = null;
+            this.src = 'https://sushiingit.github.io/np_csv_converter/resources/frontend/image/404image.png'; 
+            this.style.filter = 'none'; 
+        };
         imgElement.style.minHeight = '200px';
         imgElement.style.maxHeight = '200px';
 

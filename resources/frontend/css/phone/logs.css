@@ -157,6 +157,9 @@ color: var(--speechbubble-text);
     filter: blur(10px);
     transition: all 0.3s ease; 
 }
+.output .messages .commOutput .message .embedbody .embed img:not([src]) {
+    filter: blur(0);
+}
 .output .messages .commOutput .message .embedbody .embed img:hover {
     filter: blur(0);
 }
