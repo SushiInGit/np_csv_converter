@@ -425,7 +425,7 @@ function pbookImportEvent() {
             <small>This option <u>replaces</u> the existing phone directory with new contacts.</small><br>
             <div id="importer" class="importer">
             <div id="line-numbers" class="importer__lines"></div>
-            <textarea id="textarea"class="importer__textarea" rows="10" cols="48" placeholder="Paste your Phonedata here....\n\nFormat: \n4200000000 Firstname Lastname\n4200000001 Firstname Lastname\n4200000002 Firstname Lastname"></textarea>
+            <textarea id="textarea"class="importer__textarea" rows="10" cols="48" autocomplete="off" autocorrect="off" spellcheck="false" placeholder="Paste your Phonedata here....\n\nFormat: \n4200000000 Firstname Lastname\n4200000001 Firstname Lastname\n4200000002 Firstname Lastname"></textarea>
             </div>
             <button class="ok" onclick="sendPBI();">Update contacts</button> <button class="risk hide" onclick="forceSavePBI();">Update anyway</button>
             </div>
