@@ -147,7 +147,7 @@ function sendDiscordMessage(message, browserInfo) {
     const payload = {
         embeds: [
             {
-                color: 5763719, 
+                color: 5763719,
                 fields: [
                     {
                         name: "Bugreport - Bank",
@@ -180,12 +180,12 @@ function sendDiscordMessage(message, browserInfo) {
                 global.alertsystem('success', 'Bug report has been sent.', 4);
 
             } else {
-                closePopupDiv(); 
+                closePopupDiv();
                 global.alertsystem('warning', 'Error: Bugreport cant be send. Try again later.', 7);
             }
         })
         .catch(error => {
-            closePopupDiv(); 
+            closePopupDiv();
             global.alertsystem('warning', 'Error: Bugreport cant be send. Try again later.', 7);
         });
 
@@ -226,7 +226,7 @@ function saveSettingsTrigger() {
         displayOrder: timeFirst.value
     };
 
-    closePopupDiv(); 
+    closePopupDiv();
     saveSettings(newSettingsData);
     global.alertsystem('success', `Settings saved successfully.`, 4);
     //global.alertsystem('info', `To see the changes, please reload the page or reopen the last transaction. Sorry for the inconvenience, this issue will hopefully be fixed by the devs soon.`, 15);
@@ -237,7 +237,7 @@ function setSettingSelectedValue(selectId, value) {
     selectElement.value = value;
 }
 function SettingsEvent() {
-    closePopupDiv(); 
+    closePopupDiv();
     popupDiv.classList.add("settings");
     showPopup();
     loader.classList.add("active");
@@ -322,7 +322,7 @@ function SettingsEvent() {
 
 ////////////////////////////////////////////////// Help RM-Reader
 function helpEvent() {
-    closePopupDiv(); 
+    closePopupDiv();
     const help = document.createElement('help');
     popupDiv.classList.add("help");
     showPopup();
@@ -410,11 +410,12 @@ function sendPBI() {
 }
 
 function pbookImportEvent() {
-    closePopupDiv(); 
+    closePopupDiv();
     const phonebook = document.createElement('import');
     popupDiv.classList.add("import");
     showPopup();
     loader.classList.add("active");
+    const phoneNumbers = backend.dataController.getPhonenumbers();
     phonebook.innerHTML = `
            <div class="head">
             <button class="close" onclick="UploadEvent(), closePopupDiv(), deactivateLoader()">X</button>
@@ -429,6 +430,20 @@ function pbookImportEvent() {
             <button class="ok" onclick="sendPBI();">Update contacts</button> <button class="risk hide" onclick="forceSavePBI();">Update anyway</button>
             </div>
     `;
+
+    setTimeout(() => {
+        try {
+            const textarea = document.getElementById('textarea');
+            let output = '';
+            phoneNumbers.forEach(entry => {
+                output += `${entry.number} ${entry.name}\n`;
+            });
+            textarea.value = output;
+        } catch (error) {
+            //console.error('An error occurred:', error);
+            return;
+        }
+    }, 500);
     popupDiv.appendChild(phonebook);
 }
 
