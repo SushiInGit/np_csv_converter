@@ -15,7 +15,7 @@ middleman.embedPic = function (message) {
 
         const imgElement = document.createElement('img');
         imgElement.src = href;
-        imgElement.alt = `Preview: ${href}`;
+        imgElement.alt = `404 Image not found.`;
   
         imgElement.style.minHeight = '200px';
         imgElement.style.maxHeight = '200px';
