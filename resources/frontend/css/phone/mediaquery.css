@@ -26,7 +26,7 @@
 
 }
 
-@media (max-width: 600px) {
+@media (max-width: 750px) {
     .header .center .search-container {
         width: 100%;
         max-width: 100%;
@@ -51,8 +51,19 @@
         width: 25px;
         height: 25px;
     }
-    
+
     /* Disable stuff on low ress */
+    .banner .right {
+        width: 0px;
+        opacity: 0;
+    }
+
+}
+@media (max-width: 650px) {
+
+    /* Disable stuff on low ress */
+    .header .left .chart,
+    .header .center .search-container,
     .banner .right {
         width: 0px;
         opacity: 0;
