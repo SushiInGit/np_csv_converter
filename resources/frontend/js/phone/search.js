@@ -4,9 +4,9 @@ const messagesBox = document.getElementById('messagesBox');
 let suggestionSelected = false;
 
 const searchSyntax = [
-    { syntax: "to:", description: "Search at Number." },
-    { syntax: "name:", description: "Search at Name" },
-    { syntax: "has:", description: "Included in message." }
+    { syntax: "to:", description: "Search at a Number in the Communication List." },
+    { syntax: "name:", description: "Search at a Name  in the Communication List" },
+    { syntax: "has:", description: "Included in text message." }
 ];
 
 const messages = middleman.groupeCommunications.output();
