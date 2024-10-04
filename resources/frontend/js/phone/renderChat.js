@@ -30,7 +30,7 @@ frontend.renderChat = function (data) {
     // Output-Header Left/Right
     const headerLeft = document.querySelector(".output .header.noselect .left");
     const headerRight = document.querySelector(".output .header.noselect .right");
-    headerLeft.innerHTML = `${data.Name} - ${String(data.To).replace(/^(\d{3})(\d{3})(\d{4})$/, "($1) $2 $3")}`;
+    headerLeft.innerHTML = `${data.Name}  -  <number class="select">${String(data.To).replace(/^(\d{3})(\d{3})(\d{4})$/, "($1) $2 $3")}</number>`;
     headerRight.innerHTML = `[ Messages: ${isCallFalseCount} | Calls: ${isCallTrueCount} ]`;
 
 
@@ -137,6 +137,7 @@ frontend.renderChat = function (data) {
 
             const textDiv = document.createElement('div');
             textDiv.classList.add('text');
+            textDiv.classList.add('select');
             textDiv.innerHTML = `${(middleman.addhtmlTags.conversationFilter(Log.Message))}`;
             const embed = document.createElement('div');
             embed.classList.add('embedbody');

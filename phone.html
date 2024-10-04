@@ -16,6 +16,7 @@
   <link rel="preload" href="resources/frontend/css/phone/logs.css" as="style" onload="this.rel='stylesheet'">
   <link rel="preload" href="resources/frontend/css/phone/popup.css" as="style" onload="this.rel='stylesheet'">
   <link rel="preload" href="resources/frontend/css/phone/mediaquery.css" as="style" onload="this.rel='stylesheet'">
+  <link rel="preload" href="resources/frontend/css/phone/custommenu.css" as="style" onload="this.rel='stylesheet'">
   <!-- JS Core -->
   <script defer src="resources/frontend/js/bank/loader.js"></script>
   <script defer src="resources/frontend/js/global/alertsystem.js"></script>
@@ -56,7 +57,16 @@
   <!-- Loader -->
   <div class="loader active"></div>
 
-
+  <!-- Custom context menu -->
+  <div id="context-menu" class="context-menu">
+    <div class="non-selectable" id="contextName">Unknown Contact</div>
+    <hr>
+    <button id="copy-number">Copy Number to Clipboard</button>
+    <hr>
+    <input type="text" id="name" placeholder="Enter Contact name">
+    <button id="add-contact">Add to Contacts</button>
+    <button id="delete-contact" style="display: none;">Delete Contact</button> 
+  </div>
   <!-- Container -->
   <container>
     <div class="grid-wrapper">
@@ -72,7 +82,8 @@
             <a href="javascript:void(0);" onclick="pbookImportEvent();" class="icon"><span class="icon">aod</span></a>
           </div>
           <div class="icon-container chart" data-tooltip="Activity Chart">
-            <a href="javascript:void(0);" onclick="activityEvent();" class="icon"><span class="icon">bar_chart_4_bars</span></a>
+            <a href="javascript:void(0);" onclick="activityEvent();" class="icon"><span
+                class="icon">bar_chart_4_bars</span></a>
           </div>
         </div>
         <div class="center">
@@ -134,6 +145,8 @@
       href="https://github.com/SushiInGit">SushiInPeace</a>
     - Join us on <a target="_blank" href="https://discord.gg/e3t8EHKGp3">Discord</a>.
   </footer>
+
+  <script defer src="resources/frontend/js/phone/customMenu.js"></script>
 </body>
 </head>
 
