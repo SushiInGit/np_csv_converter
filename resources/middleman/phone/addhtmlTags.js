@@ -15,7 +15,8 @@ middleman.addhtmlTags = function () {
         const isImg = middleman.helper.isImage(url);
         if (isImg) {
           const shortenedUrl = (url.length > 30 ? url.slice(0, 30) + '...' : url);
-          const imgTag = `<a href="${url}" target="_blank" class="picture">[img]${shortenedUrl}[/img]</a>`;
+          //const imgTag = `<a href="${url}" target="_blank" class="picture">[img]${shortenedUrl}[/img]</a>`;
+          const imgTag = `<a href="${url}" target="_blank" class="picture">${shortenedUrl}</a>`;
           element = element.replace(url, imgTag);
         } else {
           const shortenedUrl = url.length > 50 ? url.slice(0, 50) + '...' : url;

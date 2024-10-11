@@ -19,7 +19,7 @@ const messages = middleman.groupeCommunications.output();
 searchbarText.setAttribute('data-placeholder', searchbarText.getAttribute('placeholder'));
 
 searchbarText.addEventListener('input', () => {
-    if (searchbarText.textContent.trim() === "") {
+    if (searchbarText.textContent.trim() === "" || searchbarText.textContent.trim() === ` ` ) {
         searchbarText.setAttribute('data-placeholder', searchbarText.getAttribute('placeholder'));
     } else {
         searchbarText.removeAttribute('data-placeholder');
@@ -76,6 +76,7 @@ function showSuggestions(inputText = '') {
             
             suggestionDiv.addEventListener('click', () => {
                 selectSuggestion(syntaxItem.syntax);  
+                delSpace();
             });
 
             suggestionsBox.appendChild(suggestionDiv);
@@ -84,20 +85,31 @@ function showSuggestions(inputText = '') {
         suggestionsBox.classList.remove('show');
     }
 }
-
+function addSpace() {
+    searchbarText.innerHTML += "&nbsp;";
+    highlightSyntax(searchbarText.innerText); 
+}
+function delSpace() { // Clear dot
+    searchbarText.innerHTML = searchbarText.innerHTML.slice(0, -1); 
+    highlightSyntax(searchbarText.innerText); 
+}
 function selectSuggestion(syntax) {
     const currentText = searchbarText.innerHTML;
-    searchbarText.innerHTML = `<span class="syntax">${syntax}</span> ${currentText} .`;
+    //searchbarText.innerHTML = `<span class="syntax">${syntax}</span> ${currentText} .`;
+    searchbarText.innerHTML = `<span class="syntax">${syntax}</span>  .`;
     searchbarText.focus();
     suggestionsBox.classList.remove('show');
     highlightSyntax(searchbarText.innerText);  
 
     setTimeout(() => {
         if (searchbarText.innerHTML.endsWith('.')) {
-            searchbarText.innerHTML = searchbarText.innerHTML.slice(0, -1); 
+            delSpace(); 
+            highlightSyntax(searchbarText.innerText); 
+            setTimeout(() => {addSpace();}, 10);
             highlightSyntax(searchbarText.innerText); 
         }
     }, 10);
+
     filterMessages(searchbarText.innerText);
 }
 

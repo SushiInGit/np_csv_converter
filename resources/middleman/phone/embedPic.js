@@ -2,7 +2,8 @@ var middleman = middleman ?? {};
 
 middleman.embedPic = function (message) {
     const embed = document.createElement('div');
-    const anchorTagRegex = /<a href="(.*?)"[^>]*>\[img\](.*?)\[\/img\]<\/a>/g;
+    //const anchorTagRegex = /<a href="(.*?)"[^>]*>\[img\](.*?)\[\/img\]<\/a>/g;
+    const anchorTagRegex = /<a\s+[^>]*href="(.*?)"[^>]*class\s*=\s*["']?picture["']?[^>]*>(.*?)<\/a>/g;
     let match;
 
     while ((match = anchorTagRegex.exec(message)) !== null) {
