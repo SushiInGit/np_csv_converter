@@ -75,16 +75,16 @@ middleman.filterBy = function () {
                     const outputString = JSON.stringify(object.numbers).toLowerCase();
                     return outputString.includes(trimmedFilter.toLowerCase());
                 }
-                return false; 
+                return false;
             });
-            return output; 
+            return output;
         }
-        return []; 
+        return [];
     }
-    
+
 
     function find_hasPhone(data, filter) {
-         if (Array.isArray(data) && data.length > 0) {
+        if (Array.isArray(data) && data.length > 0) {
             let output = data.filter(object => {
                 const trimmedFilter = filter.trim();
                 if (trimmedFilter === '' || trimmedFilter === '.') {
@@ -95,13 +95,13 @@ middleman.filterBy = function () {
                     const outputString = JSON.stringify(object.phones).toLowerCase();
                     return outputString.includes(trimmedFilter.toLowerCase());
                 }
-                return false; 
+                return false;
             });
-            return output; 
+            return output;
         }
-        return []; 
+        return [];
     }
-    
+
     function find_hasLink(data, filter) {
         if (Array.isArray(data) && data.length > 0) {
             let output = data.filter(object => {
@@ -114,13 +114,13 @@ middleman.filterBy = function () {
                     const outputString = JSON.stringify(object.links).toLowerCase();
                     return outputString.includes(trimmedFilter.toLowerCase());
                 }
-                return false; 
+                return false;
             });
-            return output; 
+            return output;
         }
-        return []; 
+        return [];
     }
-    
+
     function find_number(data, filter) {
         if (Array.isArray(data) && data.length > 0) {
             const trimmedFilter = filter.trim();
@@ -141,35 +141,42 @@ middleman.filterBy = function () {
 
     function find_name(data, filter) {
         if (Array.isArray(data) && data.length > 0) {
-            const trimmedFilter = filter.trim();
-            
+            let trimmedFilter = filter.trim();
+
+            if (trimmedFilter === ".") {
+                trimmedFilter = "";
+            }
+
             let output = data.filter(object => {
+
                 if (object.Name === "Unknown Contact") {
                     return false;
                 }
-                if (trimmedFilter === '' || trimmedFilter === '.') {
-                    return true; 
+                if (trimmedFilter === '') {
+                    return true;
                 }
+
+                let filter = trimmedFilter.toLowerCase();
 
                 return JSON.stringify(object.Name)
                     .toLowerCase()
-                    .includes(trimmedFilter.toLowerCase());
+                    .includes(filter);
             });
             return output;
         }
-        return []; 
+        return [];
     }
 
     function find_message(data, filter) {
         if (Array.isArray(data) && data.length > 0) {
             const trimmedFilter = filter.trim();
-    
+
             let output = data.filter(object => {
 
-                const pointer = object.communications[0]?.Message; 
-    
+                const pointer = object.communications[0]?.Message;
+
                 if (trimmedFilter === '' || trimmedFilter === '.') {
-                    return true; 
+                    return true;
                 }
 
                 if (pointer !== null) {
@@ -177,12 +184,13 @@ middleman.filterBy = function () {
                         .toLowerCase()
                         .includes(trimmedFilter.toLowerCase());
                 }
-                return false; 
+                return false;
             });
-            return output; 
+            return output;
         }
-        return []; 
+        return [];
     }
+
     function find_noCalls(data, filter) {
         if (Array.isArray(data) && data.length > 0) {
             const trimmedFilter = filter.trim();
@@ -190,12 +198,12 @@ middleman.filterBy = function () {
                 const filteredCommunications = object.communications.filter(comm => comm.IsCall === false);
 
                 if (filteredCommunications.length === 0) {
-                    return false; 
+                    return false;
                 }
-                const pointer = object.communications[0]?.Message; 
-    
+                const pointer = object.communications[0]?.Message;
+
                 if (trimmedFilter === '' || trimmedFilter === '.') {
-                    return true; 
+                    return true;
                 }
 
                 if (pointer !== null) {
@@ -203,12 +211,13 @@ middleman.filterBy = function () {
                         .toLowerCase()
                         .includes(trimmedFilter.toLowerCase());
                 }
-                return false; 
+                return false;
             });
-            return output; 
+            return output;
         }
-        return []; 
-    }    
+        return [];
+    }
+    
     ////////// ALL Search
     function findCommunicationsByAll(filter) { // find + remove Dupes + sort it by groupIndex again (if its a number in the text and as phonenumber becouse i cancat it =] )
         const allData = findCommunicationsByNumber(groupData, filter).concat(findCommunicationsByText(groupData, filter));

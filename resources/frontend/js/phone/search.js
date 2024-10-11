@@ -105,8 +105,6 @@ function selectSuggestion(syntax) {
         if (searchbarText.innerHTML.endsWith('.')) {
             delSpace(); 
             highlightSyntax(searchbarText.innerText); 
-            setTimeout(() => {addSpace();}, 10);
-            highlightSyntax(searchbarText.innerText); 
         }
     }, 10);
 
