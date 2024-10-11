@@ -6,7 +6,7 @@ let suggestionSelected = false;
 const searchSyntax = [
     { syntax: "to:", description: "Filter conversations by a specific number in the communication list." },
     { syntax: "name:", description: "Filter conversations by a specific name, excluding unknown contacts." },
-    { syntax: "has_phone:", description: "Show conversations with links and images." },
+    { syntax: "has_phone:", description: "Show conversations with phone numbers." },
     { syntax: "has_phone_strict:", description: "Show <u><b>only</b></u> messages with phone numbers." },
     { syntax: "has_number:", description: "Show conversations with any type of numbers." },
     { syntax: "has_number_strict:", description: "Show <u><b>only</b></u> messages with numbers." },
