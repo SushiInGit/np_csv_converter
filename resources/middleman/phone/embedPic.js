@@ -10,21 +10,26 @@ middleman.embedPic = function (message) {
         embed.classList.add('embed');
 
         const link = document.createElement('a');
-        link.href = href; 
-        link.target = '_blank'; 
+        link.href = href;
+        link.target = '_blank';
 
         const imgElement = document.createElement('img');
         imgElement.src = href;
         imgElement.alt = `404 Image not found.`;
 
         // Add the onerror attribute for fallback
-          imgElement.onerror = function() {
+        imgElement.onerror = function () {
             this.onerror = null;
-            this.src = 'https://sushiingit.github.io/np_csv_converter/resources/frontend/image/404image.png'; 
-            this.style.filter = 'none'; 
+            this.src = 'https://sushiingit.github.io/np_csv_converter/resources/frontend/image/404image.png';
+            this.style.filter = 'none';
         };
-        imgElement.style.minHeight = '200px';
+
         imgElement.style.maxHeight = '200px';
+        imgElement.style.maxWidth = '200px';
+        imgElement.style.height = 'auto';
+        imgElement.style.width = 'auto';
+        imgElement.style.objectFit = 'contain';
+
 
         link.appendChild(imgElement);
         embed.appendChild(link);

@@ -4,9 +4,14 @@ const messagesBox = document.getElementById('messagesBox');
 let suggestionSelected = false;
 
 const searchSyntax = [
-    { syntax: "to:", description: "Search at a Number in the Communication List." },
-    { syntax: "name:", description: "Search at a Name  in the Communication List" },
-    { syntax: "has:", description: "Included in text message." }
+    { syntax: "to:", description: "Filter conversations by a specific number in the communication list." },
+    { syntax: "name:", description: "Filter conversations by a specific name, excluding unknown contacts." },
+    { syntax: "has_phone:", description: "Show conversations with links and images." },
+    { syntax: "has_phone_strict:", description: "Show <u><b>only</b></u> messages with phone numbers." },
+    { syntax: "has_number:", description: "Show conversations with any type of numbers." },
+    { syntax: "has_number_strict:", description: "Show <u><b>only</b></u> messages with numbers." },
+    { syntax: "has_links:", description: "Show conversations with links and images." },
+    { syntax: "no_calls:", description: "Show conversations without call logs displayed." },
 ];
 
 const messages = middleman.groupeCommunications.output();
@@ -64,17 +69,13 @@ function showSuggestions(inputText = '') {
 
     if (filteredSuggestions.length > 0) {
         suggestionsBox.classList.add('show');
-        filteredSuggestions.forEach(syntaxItem => {
+        filteredSuggestions.forEach((syntaxItem, index) => {
             const suggestionDiv = document.createElement('div');
             suggestionDiv.classList.add('suggestion');
             suggestionDiv.innerHTML = `<span class="syntax">${syntaxItem.syntax}</span> <span class="hint">${syntaxItem.description}</span>`;
-
+            
             suggestionDiv.addEventListener('click', () => {
-                const currentText = searchbarText.innerHTML;
-                searchbarText.innerHTML = `<span class="syntax">${syntaxItem.syntax}</span> ${currentText}`;
-                searchbarText.focus();
-                suggestionsBox.classList.remove('show');
-                highlightSyntax(searchbarText.innerText);
+                selectSuggestion(syntaxItem.syntax);  
             });
 
             suggestionsBox.appendChild(suggestionDiv);
@@ -84,9 +85,26 @@ function showSuggestions(inputText = '') {
     }
 }
 
+function selectSuggestion(syntax) {
+    const currentText = searchbarText.innerHTML;
+    searchbarText.innerHTML = `<span class="syntax">${syntax}</span> ${currentText} .`;
+    searchbarText.focus();
+    suggestionsBox.classList.remove('show');
+    highlightSyntax(searchbarText.innerText);  
+
+    setTimeout(() => {
+        if (searchbarText.innerHTML.endsWith('.')) {
+            searchbarText.innerHTML = searchbarText.innerHTML.slice(0, -1); 
+            highlightSyntax(searchbarText.innerText); 
+        }
+    }, 10);
+    filterMessages(searchbarText.innerText);
+}
+
+
 function highlightSyntax(inputText) {
     const regex = /(\w+:\s?)/g;
-    searchbarText.innerHTML = inputText.replace(regex, '<span class="syntax">$1</span>\n');
+    searchbarText.innerHTML = inputText.replace(regex, '<span class="syntax">$1</span> ');
     placeCaretAtEnd(searchbarText);
 }
 
@@ -119,8 +137,18 @@ function filterMessages(inputText) {
         const value = match[2].toLowerCase();
         if (key === "to") {
             frontend.renderList(middleman.filterBy.Number(value));
-        } else if (key === "has") {
-            frontend.renderList(middleman.filterBy.Message(value));
+        } else if (key === "has_phone") {
+            frontend.renderList(middleman.filterBy.hasPhone(value));
+        } else if (key === "has_number") {
+            frontend.renderList(middleman.filterBy.hasNumber(value));
+        } else if (key === "has_phone_strict") {
+            frontend.renderList(middleman.filterBy.hasPhone(value));
+        } else if (key === "has_number_strict") {
+            frontend.renderList(middleman.filterBy.hasNumber(value));
+        } else if (key === "has_links") {
+            frontend.renderList(middleman.filterBy.hasLink(value));
+        } else if (key === "no_calls") {
+            frontend.renderList(middleman.filterBy.noCalls(value));
         } else if (key === "name") {
             frontend.renderList(middleman.filterBy.Name(value));
         } 
