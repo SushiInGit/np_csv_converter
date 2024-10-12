@@ -18,7 +18,8 @@ middleman.metadata = function () {
                     if (foundUrls) {
                         links.push({
                             index: comm.Index,
-                            url: links.concat(foundUrls)
+                            url: links.concat(foundUrls),
+                            message: comm.Message
                         });
 
                     }
@@ -27,6 +28,7 @@ middleman.metadata = function () {
                     if (containsNumber) {
                         numbers.push({
                             index: comm.Index,
+                            numbers: numbers.concat(containsNumber),
                             message: comm.Message
                         });
                     }

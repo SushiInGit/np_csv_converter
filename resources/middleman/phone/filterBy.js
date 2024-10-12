@@ -142,25 +142,29 @@ middleman.filterBy = function () {
     function find_name(data, filter) {
         if (Array.isArray(data) && data.length > 0) {
             let trimmedFilter = filter.trim();
-
+           
             if (trimmedFilter === ".") {
-                trimmedFilter = "";
+                trimmedFilter = "";              
             }
 
             let output = data.filter(object => {
-
+                console.log(trimmedFilter);
+                
+                const pointer = object.communications[0]?.Message;
                 if (object.Name === "Unknown Contact") {
                     return false;
                 }
-                if (trimmedFilter === '') {
+
+                if (trimmedFilter === '' || trimmedFilter === '.') {
                     return true;
                 }
 
-                let filter = trimmedFilter.toLowerCase();
-
-                return JSON.stringify(object.Name)
-                    .toLowerCase()
-                    .includes(filter);
+                if (pointer !== null) {
+                    return JSON.stringify(pointer)
+                        .toLowerCase()
+                        .includes(trimmedFilter.toLowerCase());
+                }
+                return false;
             });
             return output;
         }
@@ -198,12 +202,12 @@ middleman.filterBy = function () {
                 const filteredCommunications = object.communications.filter(comm => comm.IsCall === false);
 
                 if (filteredCommunications.length === 0) {
-                    return false;
+                    return false; 
                 }
-                const pointer = object.communications[0]?.Message;
-
+                const pointer = object.communications[0]?.Message; 
+    
                 if (trimmedFilter === '' || trimmedFilter === '.') {
-                    return true;
+                    return true; 
                 }
 
                 if (pointer !== null) {
@@ -211,12 +215,12 @@ middleman.filterBy = function () {
                         .toLowerCase()
                         .includes(trimmedFilter.toLowerCase());
                 }
-                return false;
+                return false; 
             });
-            return output;
+            return output; 
         }
-        return [];
-    }
+        return []; 
+    }    
     
     ////////// ALL Search
     function findCommunicationsByAll(filter) { // find + remove Dupes + sort it by groupIndex again (if its a number in the text and as phonenumber becouse i cancat it =] )
