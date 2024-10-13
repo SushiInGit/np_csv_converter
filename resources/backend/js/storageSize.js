@@ -20,7 +20,6 @@ backend.storageSize = function () {
         return totalSize; // Return total size in bytes
     }
 
-
     function estimateMaxStorageSize() {
         let testKey = '__test__';
         let testValue = new Array(1024).join('a');

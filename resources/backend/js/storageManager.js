@@ -50,4 +50,4 @@ backend.storageManager = function () {
     };
 }();
 
-backend.storageManager.getStorageUsage();
+// backend.storageManager.getStorageUsage(); 
