@@ -2,22 +2,29 @@ var backend = backend ?? {};
 
 backend.storageSize = function () {
 
-    const STORAGE_KEY = 'MAX_STORAGE_MB';
+    const SETTINGS_KEY = 'np_storageSize';
     const RESERVED_MB = 1;
-    const MAX_ALLOWED_MB = 20;
+    const MAX_ALLOWED_MB = 10;
+
+    function getSettings() {
+        const settings = localStorage.getItem(SETTINGS_KEY);
+        return settings ? JSON.parse(settings) : {};
+    }
+
+    function saveSettings(settings) {
+        localStorage.setItem(SETTINGS_KEY, JSON.stringify(settings));
+    }
 
     function calculateLocalStorageSize() {
         let totalSize = 0;
-
         for (let key in localStorage) {
             if (localStorage.hasOwnProperty(key)) {
                 const value = localStorage.getItem(key);
-
                 totalSize += key.length * 2;
                 totalSize += value.length * 2;
             }
         }
-        return totalSize; // Return total size in bytes
+        return totalSize;
     }
 
     function estimateMaxStorageSize() {
@@ -32,28 +39,26 @@ backend.storageSize = function () {
                 maxBytes += testValue.length * 2;
             }
         } catch (e) {
-            // We've hit the storage limit or browser limitation
         }
 
         localStorage.removeItem(testKey);
         return Math.min(maxBytes, maxAllowedBytes);
     }
 
-
     function getMaxStorage() {
-        let maxStorageMB = localStorage.getItem(STORAGE_KEY);
+        let settings = getSettings();
 
-        if (maxStorageMB) {
-            //console.log(`Using stored max storage: ${maxStorageMB} MB (minus ${RESERVED_MB}MB reserved)`);
-            return parseFloat(maxStorageMB);
+        if (settings.MAX_STORAGE_MB) {
+            return parseFloat(settings.MAX_STORAGE_MB);
         }
 
         let maxStorageBytes = estimateMaxStorageSize();
         let maxStorageMBCalculated = (maxStorageBytes / (1024 * 1024)) - RESERVED_MB;
         maxStorageMBCalculated = Math.min(maxStorageMBCalculated, MAX_ALLOWED_MB);
-        localStorage.setItem(STORAGE_KEY, maxStorageMBCalculated.toFixed(2));
 
-        //console.log(`Estimated max storage: ${maxStorageMBCalculated.toFixed(2)} MB (max ${MAX_ALLOWED_MB}MB allowed)`);
+        settings.MAX_STORAGE_MB = maxStorageMBCalculated.toFixed(2);
+        saveSettings(settings);
+
         return maxStorageMBCalculated;
     }
 
