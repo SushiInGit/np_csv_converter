@@ -3,6 +3,10 @@ var backend = backend ?? {};
 
 backend.fileProcessor = function () {
 
+    function sanitizeFileName(name) {
+        return name.replace(/[^a-zA-Z0-9]/g, "_");
+    }
+
     function processFiles(files) {
 
         Array.from(files).forEach((file, fileIndex) => {
@@ -18,8 +22,10 @@ backend.fileProcessor = function () {
                     const worksheet = workbook.Sheets[sheetName];
                     allSheets[sheetName] = XLSX.utils.sheet_to_json(worksheet);
                 });
+                let fileName = prompt("Please enter a name for the file:", file.name);
+                fileName = sanitizeFileName(fileName);
 
-                processSheets(allSheets);
+                processSheets(allSheets, fileName);
             }
 
             reader.readAsArrayBuffer(file);
@@ -27,7 +33,7 @@ backend.fileProcessor = function () {
 
     }
 
-    function processSheets(sheets) {
+    function processSheets(sheets, fileName) {
         for (const sheetName in sheets) {
             var sheet = sheets[sheetName];
             var keys = Array.from(new Set(sheet.reduce((acc, row) => acc.concat(Object.keys(row).filter(key => !key.startsWith("__EMPTY"))), [])));
@@ -65,13 +71,22 @@ backend.fileProcessor = function () {
                         redirectUrl = ""; // ???
                         break;
                 }
-
+                
                 // Save cleanData to localstorage, overwrites the current data
-                backend.dataController.saveData(sheetType, cleanData);
+                // backend.dataController.saveData(fileName + '_' + sheetType, cleanData);
+                
+            
+                // Use the storageManager to add the data and ensure it's within the limit
+                const dataAdded = backend.storageManager.addData(fileName + '_' + sheetType, JSON.stringify(cleanData));
+
+                if (!dataAdded) {
+                    console.warn(`Unable to save data for ${fileName}. Storage limit exceeded.`);
+                    alert("Storage limit exceeded! Please free up some space.");
+                }
             }
         }
 
-        window.location.href = redirectUrl;
+       // window.location.href = redirectUrl;
     }
 
     function getSheetType(sheetHeaders) {
@@ -83,7 +98,7 @@ backend.fileProcessor = function () {
 
         if (sheetHeaders.every(checkHeader => textsHeaders.includes(checkHeader)))
             return allSheetTypes.TEXTS;
-            
+
         if (sheetHeaders.every(checkHeader => callsHeaders.includes(checkHeader)))
             return allSheetTypes.CALLS;
 
