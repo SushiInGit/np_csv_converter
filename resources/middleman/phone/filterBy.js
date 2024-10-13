@@ -148,7 +148,6 @@ middleman.filterBy = function () {
             }
 
             let output = data.filter(object => {
-                console.log(trimmedFilter);
                 
                 const pointer = object.communications[0]?.Message;
                 if (object.Name === "Unknown Contact") {

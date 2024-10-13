@@ -10,6 +10,9 @@ middleman.metadata = function () {
             let links = [];
             let numbers = [];
             let phones = [];
+           
+           const name = middleman.findNames(group.To);
+           group.Name = name;
 
             group.communications.forEach(comm => {
                 if (comm.Message) {
