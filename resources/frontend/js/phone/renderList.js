@@ -8,11 +8,6 @@ frontend.renderList = function (phoneGrouped) {
         return a.To - b.To;
     });
 
-    phoneGrouped.forEach(conversation => {
-        const name = middleman.findNames(conversation.To);
-        conversation.Name = name;
-    });
-
     const viewsDiv = document.querySelector(".menu .list.noselect .pov");
     viewsDiv.innerHTML = ``;
     hrCount = 0;
