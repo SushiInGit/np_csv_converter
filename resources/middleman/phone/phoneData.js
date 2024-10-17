@@ -2,9 +2,9 @@
 var middleman = middleman ?? {};
 
 middleman.phoneData = function () {
-
-    var texts = backend.dataController.getData(backend.helpers.getAllSheetTypes().TEXTS);
-    var calls = backend.dataController.getData(backend.helpers.getAllSheetTypes().CALLS);
+    const data = backend.storageSelector.searchRecord(backend.storageShow.showLastSearch('showPhone'), true, 'last');
+    var texts = data.texts ?? backend.dataController.getData("[]"); // Try to get Data or send empty object
+    var calls = data.calls ?? backend.dataController.getData("[]");
 
     const phoneData = [
         ...texts.map((item, index) => ({

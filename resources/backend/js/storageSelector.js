@@ -36,7 +36,7 @@ backend.storageSelector = function () {
         return groupedKeys;
     }
 
-    function searchRecord(baseName, useFallback) { // search for records with name (baseName) or useFallback===true to first dataset in getGroupedKeys()
+    function searchRecord(baseName, useFallback, fallbackOrder = 'first') { // search for records with name (baseName) or useFallback===true to first dataset in getGroupedKeys()
         const keys = getLocalStorageKeys();
         const record = {};
         const groupedData = groupStorageKeys();
@@ -54,10 +54,11 @@ backend.storageSelector = function () {
         });
 
         if (Object.keys(record).length === 0 && useFallback) {
-            const firstKey = Object.keys(groupedData)[0]; // Get the first base name
-            if (firstKey) {
-                console.log(`No data found for ${baseName}. Using data for ${firstKey} instead.`);
-                return groupedData[firstKey];
+            const baseNames = Object.keys(groupedData);
+            if (baseNames.length > 0) {
+                const fallbackBaseName = fallbackOrder === 'last' ? baseNames[baseNames.length - 1] : baseNames[0];
+                console.log(`No data found for ${baseName}. Showing ${fallbackOrder} record: ${fallbackBaseName}.`);
+                return groupedData[fallbackBaseName];
             }
             console.log(`No records found at all.`);
             return `No records found at all.`;
@@ -68,7 +69,6 @@ backend.storageSelector = function () {
             return `No data found for ${baseName}.`;
         }
 
-        console.log(`Data for ${baseName}:`, record);
         return record;
     }
 
@@ -103,4 +103,4 @@ backend.storageSelector = function () {
 backend.storageSelector.getGroupedKeys();
 //backend.storageSelector.deleteTextsAndCalls('record1');
 //backend.storageSelector.deleteBank('record1');
-backend.storageSelector.searchRecord('ab', false);
+//backend.storageSelector.searchRecord('   ', true, 'last');

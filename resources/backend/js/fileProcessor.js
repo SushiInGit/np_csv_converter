@@ -73,11 +73,11 @@ backend.fileProcessor = function () {
                 }
                 
                 // Save cleanData to localstorage, overwrites the current data
-                // backend.dataController.saveData(fileName + '_' + sheetType, cleanData);
+                //backend.dataController.saveData(sheetType, cleanData);
                 
             
                 // Use the storageManager to add the data and ensure it's within the limit
-                const dataAdded = backend.storageManager.addData(fileName + '_' + sheetType, JSON.stringify(cleanData));
+                const dataAdded = backend.storageManager.addData(fileName + '_' + sheetType, JSON.stringify(cleanData), redirectUrl);
 
                 if (!dataAdded) {
                     console.warn(`Unable to save data for ${fileName}. Storage limit exceeded.`);

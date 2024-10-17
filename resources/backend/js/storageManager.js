@@ -18,8 +18,11 @@ backend.storageManager = function () {
         };
     }
 
+    function extractBaseName(key) {
+        return key.replace(/(_calls|_texts|_bank)$/, '');
+    }
 
-    function addDataToLocalStorage(key, value) {
+    function addDataToLocalStorage(key, value, redirectUrl) {
         const newItemSize = (key.length * 2) + (value.length * 2); 
 
         const maxStorageMB = backend.storageSize.getMaxStorage();
@@ -31,6 +34,8 @@ backend.storageManager = function () {
         }
         try {
             backend.dataController.saveData(key, value);
+            backend.storageShow.saveLastSearchRecord(extractBaseName(key), true);
+            window.location.href = redirectUrl;
 
             if (backend.storageSize.calculateLocalStorageSize() > (maxStorageMB * 1024 * 1024)) {
                 console.warn("Storage limit exceeded after adding new data.");

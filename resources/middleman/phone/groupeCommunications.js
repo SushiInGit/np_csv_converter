@@ -5,9 +5,7 @@ middleman.groupeCommunications = function () {
     const simOwner = middleman.simOwner.number();
     const data = middleman.phoneData.all();
 
-    ///////////////////////////////////////////////////
-    //           Set Name for From/To                //
-    ///////////////////////////////////////////////////
+    // Set Name for From/To 
     data.forEach(from => {
         const name = middleman.findNames(from.From);
         from.From_Name = name;
@@ -17,7 +15,7 @@ middleman.groupeCommunications = function () {
         const name = middleman.findNames(to.To);
         to.To_Name = name;
     });
-    ///////////////////////////////////////////////////
+
 
     function prioritizeFrom(simOwner, data) {
         if (data.From === simOwner || data.To === simOwner) {
