@@ -3,7 +3,7 @@ var frontend = frontend ?? {};
 const popupDiv = document.getElementById("popup");
 const errorDiv = document.getElementById("error");
 const loader = document.querySelector('.loader');
-
+/*
 function getBrowserInfo() {
     const userAgent = navigator.userAgent;
     const browserInfo = `
@@ -35,7 +35,7 @@ if (!settingsData.timeZone || !settingsData.timeFormat || !settingsData.offsetSh
         `It seems you haven't set up your time settings yet. You can do so by clicking the gear icon in the top right.`,
         15);
 }
-
+*/
 ////////////////////////////////////////
 
 document.addEventListener("keydown", function (event) {   // Close Popups
@@ -72,58 +72,6 @@ function closePopupDiv() {
     popupDiv.classList.add("hide");
 }
 
-function UploadEvent() {
-    closePopupDiv(); // Clear Event-DIV
-    showPopup();
-    popupDiv.classList.add("upload");
-    loader.classList.add("active");
-    popupDiv.innerHTML = `
-    <div class="head">
-    <button class="close" onclick="UploadEvent(), closePopupDiv(), deactivateLoader()">X</button>
-    <h2>File upload</h2>
-    </div>
-    <div class="element">
-        <form id="upload-form">
-            <div class="drop-zone" id="drop-zone">
-                Drag & Drop or click to Upload an Excel-File
-                <input type="file" id="file-input" accept=".xlsx, .xls" style="display: none;" required>
-            </div>
-        </form>
-    </div>
-    `;
-    const excelMimeTypes = [
-        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',  // .xlsx
-        'application/vnd.ms-excel'                                            // .xls
-    ];
-    function isExcelFile(file) {
-        return excelMimeTypes.includes(file.type);
-    }
-    const fileInput = document.querySelector('#file-input');
-    const dropZone = document.querySelector('#drop-zone');
-
-    dropZone.addEventListener('dragover', (event) => {
-        event.preventDefault();
-        dropZone.classList.add('dragover');
-    });
-
-    dropZone.addEventListener('click', () => fileInput.click());
-    dropZone.addEventListener('dragleave', () => dropZone.classList.remove('dragover'));
-    dropZone.addEventListener('drop', (event) => {
-        event.preventDefault();
-        dropZone.classList.remove('dragover');
-        var files = event.dataTransfer.files;
-        if (files.length) {
-            var type = backend.fileProcessor.processFiles(files);
-            if (!isExcelFile(type)) {
-                //alert('Error: Unsupported file type. Please upload an Excel file.');
-                global.alertsystem('warning', 'Warning: Unsupported file type. Please upload an Excel file.', 7);
-                return;
-            }
-        }
-    });
-    fileInput.addEventListener('change', () => backend.fileProcessor.processFiles(fileInput.files));
-}
-
 ////////////////////////////////////////////////// Bug Reporter
 function BugReportEvent() {
     closePopupDiv(); // Clear Event-DIV
@@ -133,7 +81,7 @@ function BugReportEvent() {
     loader.classList.add("active");
     bugtracker.innerHTML = `
             <div class="head">
-            <button class="close" onclick="UploadEvent(), closePopupDiv(), deactivateLoader()">X</button>
+            <button class="close" onclick="closePopupDiv(), deactivateLoader()">X</button>
             <h2>Send Bugreport</h2>
             </div>
             <div class="element">

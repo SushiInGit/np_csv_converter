@@ -45,8 +45,11 @@
   <script defer src="resources/middleman/phone/addhtmlTags.js"></script>
   <script defer src="resources/middleman/phone/helper.js"></script>
   <script defer src="resources/middleman/phone/embedPic.js"></script>
+  <script defer src="resources/middleman/phone/popupModel.js"></script>
   <!--  JS Frontend -->
   <script defer src="resources/frontend/js/phone/popup.js"></script>
+  <script defer src="resources/frontend/js/phone/popupRender.js"></script>
+  <script defer src="resources/frontend/js/phone/alerts.js"></script>
   <script defer src="resources/frontend/js/phone/colorByNumber.js"></script>
   <script defer src="resources/frontend/js/phone/search.js"></script>
   <script defer src="resources/frontend/js/phone/renderList.js"></script>
@@ -81,7 +84,7 @@
             <a href="index.html" class="icon"><span class="icon">home</span></a>
           </div>
           <div class="icon-container upload" data-tooltip="Upload subpoena">
-            <a href="javascript:void(0);" onclick="UploadEvent();" class="icon"><span class="icon">cloud</span></a>
+            <a href="javascript:void(0);" onclick="frontend.popupRender.UploadEvent();" class="icon"><span class="icon">cloud</span></a>
           </div>
           <div class="icon-container pbimport" data-tooltip="Import phone contacts">
             <a href="javascript:void(0);" onclick="pbookImportEvent();" class="icon"><span class="icon">aod</span></a>

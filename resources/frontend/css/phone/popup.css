@@ -1,5 +1,4 @@
 :root {
-    --popup-size-height: 300px;
     --popup-size-width: 400px;
 }
 
@@ -13,16 +12,21 @@ popup {
     color: #fff;
     margin: 0px;
     padding: 0;
-    height: var(--popup-size-height);
+    height: auto;
     width: var(--popup-size-width);
     border: solid var(--global-border-size) var(--global-border-color);
     z-index: 10001;
     opacity: 1;
     font-family: "Poppins", sans-serif;
 }
-
-popup.upload {
-    height: 180px !important;
+popup .model {
+    position: relative;
+    display: flex;
+    height: 100%;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
 }
 
 popup.bug {
@@ -68,7 +72,7 @@ popup.hide {
     width: 0px !important;
 }
 
-popup .close {
+popup .model .close {
     cursor: pointer;
     padding: 8px 14px;
     background-color: #e74c3c;
@@ -78,20 +82,22 @@ popup .close {
     position: absolute;
     right: 10px;
     top: 10px;
+    z-index: 1;
 }
 
-popup .close:hover {
+popup .model .close:hover {
     background-color: #eb5b4b;
 }
 
 popup .head {
-
+    width: 100%;
+    height: auto;
     align-items: center;
     justify-content: center;
 }
 
 popup .head h2 {
-    position: absolute;
+    position: relative;
     left: 10px;
     top: 10px;
     margin-top: 0;
@@ -99,14 +105,15 @@ popup .head h2 {
 }
 
 popup .element {
-    top: 70px;
+    height: auto;
+    padding-top: 20px;
     left: 10px;
     width: calc(100% - 20px);
-    position: absolute;
-    align-items: center;
-    justify-content: center;
 }
-
+popup .footer {
+    height: auto;
+    padding-bottom: 20px;
+}
 popup .ok {
     margin-top: 20px;
     padding: 10px 20px;
