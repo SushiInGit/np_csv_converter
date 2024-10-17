@@ -8,8 +8,16 @@ frontend.popupRender = (function () {
             backend.storageSelector.deleteTextsAndCalls(item);
             //console.log(`Del --> ${index} / ${item}`);
             renderList();
-            if(backend.storageSelector.searchRecord(item, true, 'last') === false){
-                window.location.href = 'phone.html'; //Force-Reload becouse empty and no fallback data
+
+            if(backend.storageSelector.searchRecord(item, true, 'last') === false){ //Force-Reload becouse empty and no fallback data
+                window.location.href = 'phone.html'; 
+            }
+
+            if(backend.storageSelector.searchRecord(item, false) === false){ // Delete active/selected data
+                backend.storageSelector.searchRecord(item, true, 'last');
+                global.alertsystem('warning', `You deleted your active subpoena. If you close or reload your window, this dataset will no longer exist.`, 15);
+                const getName = backend.storageSelector.lastRecordName().lastPhone[0];
+                backend.storageShow.saveLastSearchRecord(getName, true);
             }
         }
 

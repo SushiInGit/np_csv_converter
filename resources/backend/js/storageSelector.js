@@ -82,19 +82,30 @@ backend.storageSelector = function () {
             const baseNames = Object.keys(groupedData);
             if (baseNames.length > 0) {
                 const fallbackBaseName = fallbackOrder === 'last' ? baseNames[baseNames.length - 1] : baseNames[0];
-                console.log(`No data found for ${baseName}. Showing ${fallbackOrder} record: ${fallbackBaseName}.`);
+                //console.log(`No data found for ${baseName}. Showing ${fallbackOrder} record: ${fallbackBaseName}.`);
                 return groupedData[fallbackBaseName];
             }
-            console.log(`No records found at all.`);
+            //console.log(`No records found at all.`);
             return false;
         }
 
         if (Object.keys(record).length === 0) {
-            console.log(`No data found for ${baseName}.`);
-            return `No data found for ${baseName}.`;
+            //console.log(`No data found for ${baseName}.`);
+            return false;
         }
 
         return record;
+    }
+
+    function lastRecordName() {
+        const groupedRecords = listGroupedStorageKeys();
+        const lastPhone = Object.values(groupedRecords.phoneNames);
+        const lastBanks = Object.values(groupedRecords.banksNames);
+
+        return {
+            lastPhone,
+            lastBanks
+        };
     }
 
     function deleteTextsAndCallsByBaseName(baseName) {
@@ -104,7 +115,8 @@ backend.storageSelector = function () {
                 localStorage.removeItem(key);
             }
         });
-        console.log(`All _texts and _calls records for ${baseName} have been deleted.`);
+        //console.log(`All _texts and _calls records for ${baseName} have been deleted.`);
+        return;
     }
 
     function deleteBankByBaseName(baseName) {
@@ -114,12 +126,14 @@ backend.storageSelector = function () {
                 localStorage.removeItem(key);
             }
         });
-        console.log(`All _bank records for ${baseName} have been deleted.`);
+        //console.log(`All _bank records for ${baseName} have been deleted.`);
+        return;
     }
 
     return {
         getGroupedKeys: listGroupedStorageKeys,
         searchRecord: searchRecord,
+        lastRecordName: lastRecordName,
         deleteTextsAndCalls: deleteTextsAndCallsByBaseName,
         deleteBank: deleteBankByBaseName
     };
@@ -128,4 +142,5 @@ backend.storageSelector = function () {
 //console.log(backend.storageSelector.getGroupedKeys().phoneNames);
 //backend.storageSelector.deleteTextsAndCalls('record1');
 //backend.storageSelector.deleteBank('record1');
-//backend.storageSelector.searchRecord('   ', true, 'last');
+//backend.storageSelector.searchRecord('   ', true, 'last')
+//console.log(backend.storageSelector.lastRecordName().lastPhone[0]);

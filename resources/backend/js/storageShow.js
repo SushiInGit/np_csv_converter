@@ -69,9 +69,30 @@ backend.storageShow = function () {
         };
     }
 
+    function checkIfSavedRecordsExist() {
+        const settings = getSettings();
+        const showPhoneRecord = settings.showPhone ? settings.showPhone.lastSearch : null;
+        const showBankRecord = settings.showBank ? settings.showBank.lastSearch : null;
+
+        let phone = false;
+        if (showPhoneRecord && (localStorage.getItem(`${showPhoneRecord}_calls`) || localStorage.getItem(`${showPhoneRecord}_calls`))) {
+            phone = true;
+        }
+
+        let bank = false;
+        if (showBankRecord && localStorage.getItem(`${showBankRecord}_bank`)) {
+            bank = true;
+        }
+
+        return {
+            phone,
+            bank
+        };
+    }
     return {
         saveLastSearchRecord: saveLastSearchRecord,
-        showLastSearch: showLastSearch
+        showLastSearch: showLastSearch,
+        checkIfExist: checkIfSavedRecordsExist 
     };
 
 }();

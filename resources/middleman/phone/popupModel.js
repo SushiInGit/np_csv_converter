@@ -39,7 +39,7 @@ middleman.popupModel = (function () {
             popupDiv.classList.remove(className);
         });
         loader.classList.remove('active');
-        popupDiv.classList.add("hide");
+        popupDiv.classList.add("hide");   
     }
 
 
