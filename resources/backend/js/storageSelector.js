@@ -32,8 +32,33 @@ backend.storageSelector = function () {
 
     function listGroupedStorageKeys() {
         const groupedKeys = groupStorageKeys();
-        console.log('Grouped Base Names:', groupedKeys);
-        return groupedKeys;
+        const uniquePhones = new Set();
+        const uniqueBanks = new Set();
+    
+        for (const baseName in groupedKeys) {
+            if (groupedKeys.hasOwnProperty(baseName)) {
+                const record = groupedKeys[baseName];
+    
+                // Add unique base names for texts and calls
+                if (record.texts || record.calls) {
+                    uniquePhones.add(baseName); 
+                }
+    
+                // Add unique base names for banks
+                if (record.bank) {
+                    uniqueBanks.add(baseName); 
+                }
+            }
+        }
+    
+        const phoneNames = Array.from(uniquePhones);
+        const banksNames = Array.from(uniqueBanks);
+   
+        return {
+            groupedKeys,
+            phoneNames,
+            banksNames
+        };
     }
 
     function searchRecord(baseName, useFallback, fallbackOrder = 'first') { // search for records with name (baseName) or useFallback===true to first dataset in getGroupedKeys()
@@ -61,7 +86,7 @@ backend.storageSelector = function () {
                 return groupedData[fallbackBaseName];
             }
             console.log(`No records found at all.`);
-            return `No records found at all.`;
+            return false;
         }
 
         if (Object.keys(record).length === 0) {
@@ -100,7 +125,7 @@ backend.storageSelector = function () {
     };
 }();
 
-backend.storageSelector.getGroupedKeys();
+//console.log(backend.storageSelector.getGroupedKeys().phoneNames);
 //backend.storageSelector.deleteTextsAndCalls('record1');
 //backend.storageSelector.deleteBank('record1');
 //backend.storageSelector.searchRecord('   ', true, 'last');

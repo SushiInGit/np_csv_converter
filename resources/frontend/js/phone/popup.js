@@ -201,7 +201,7 @@ function SettingsEvent() {
     const settings = document.createElement('settings');
     settings.innerHTML = `
                <div class="head">
-    <button class="close" onclick="UploadEvent(), closePopupDiv(), deactivateLoader()">X</button>
+    <button class="close" onclick=" closePopupDiv(), deactivateLoader()">X</button>
     <h2>Settings</h2>
     </div>
     <div class="element">
@@ -286,7 +286,7 @@ function helpEvent() {
     loader.classList.add("active");
     help.innerHTML = `
             <div class="head">
-            <button class="close" onclick="UploadEvent(), closePopupDiv(), deactivateLoader()">X</button>
+            <button class="close" onclick=" closePopupDiv(), deactivateLoader()">X</button>
             <h2>Help & Information</h2>
             </div>
             <div class="element">
@@ -375,7 +375,7 @@ function pbookImportEvent() {
     const phoneNumbers = backend.dataController.getPhonenumbers();
     phonebook.innerHTML = `
            <div class="head">
-            <button class="close" onclick="UploadEvent(), closePopupDiv(), deactivateLoader()">X</button>
+            <button class="close" onclick="closePopupDiv(), deactivateLoader()">X</button>
             <h2>Import Phone contacts</h2>
             </div>
             <div class="element">
@@ -413,7 +413,7 @@ function activityEvent() {
     loader.classList.add("active");
     activity.innerHTML = `
            <div class="head">
-            <button class="close" onclick="UploadEvent(), closePopupDiv(), deactivateLoader()">X</button>
+            <button class="close" onclick="closePopupDiv(), deactivateLoader()">X</button>
             <h2>Activity Chart</h2>
             </div>
             <div class="element">

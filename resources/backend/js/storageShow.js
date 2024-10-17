@@ -14,7 +14,6 @@ backend.storageShow = function () {
     }
 
     function saveShowPhone(lastRecord) {
-        console.log(lastRecord);
         const settings = getSettings();
 
         settings.showPhone = {

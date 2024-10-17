@@ -3,6 +3,58 @@ var frontend = frontend ?? {};
 frontend.popupRender = (function () {
 
     function UploadEvent() {
+
+        function del(index, item) {
+            backend.storageSelector.deleteTextsAndCalls(item);
+            //console.log(`Del function called ${index} / ${item}`);
+            renderList();
+            if(backend.storageSelector.searchRecord(item, true, 'last') === false){
+                window.location.href = 'phone.html'; //Force-Reload becouse empty
+            }
+        }
+
+        function swap(index, item) {
+            backend.storageShow.saveLastSearchRecord(item, true);
+            window.location.href = 'phone.html'
+        }
+        
+        function renderList() {
+            items = backend.storageSelector.getGroupedKeys().phoneNames;
+
+            const listContainer = document.querySelector('popup .model .footer');
+
+            listContainer.innerHTML = ''; 
+
+            if (items.length > 0) {
+                const br = document.createElement('br'); 
+                const hr = document.createElement('hr'); 
+                listContainer.appendChild(br);
+                listContainer.appendChild(hr); 
+            }
+            const itemList = document.createElement('ul'); 
+            listContainer.appendChild(itemList);
+
+            items.forEach((item, index) => {
+                const li = document.createElement('li');
+                const formattedItem = item.replace(/_/g, ' ');
+                const itemName = document.createElement('span');
+
+                itemName.innerHTML =  `${formattedItem} `; 
+                itemName.style.cursor = 'pointer'; 
+                itemName.onclick = () => swap(index, item); 
+        
+                li.appendChild(itemName); 
+        
+
+                const deleteButton = document.createElement('button');
+                deleteButton.textContent = 'X';
+                deleteButton.onclick = () => del(index, item); 
+        
+                li.appendChild(deleteButton); 
+                itemList.appendChild(li); 
+            });
+        }
+
         const popupDivName = "upload";
 
         const content = `
@@ -13,12 +65,13 @@ frontend.popupRender = (function () {
                 </div>
             </form>
         `;
-        const footer = `
-        `;
-        
+
+        const footer = ``;
+
         middleman.popupModel.createPopup(popupDivName, 'File upload', content, footer);
 
         setTimeout(() => {
+            renderList();
             const excelMimeTypes = [
                 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',  // .xlsx
                 'application/vnd.ms-excel'                                            // .xls
