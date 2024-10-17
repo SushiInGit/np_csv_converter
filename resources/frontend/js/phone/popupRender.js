@@ -6,14 +6,15 @@ frontend.popupRender = (function () {
 
         function del(index, item) {
             backend.storageSelector.deleteTextsAndCalls(item);
-            //console.log(`Del function called ${index} / ${item}`);
+            //console.log(`Del --> ${index} / ${item}`);
             renderList();
             if(backend.storageSelector.searchRecord(item, true, 'last') === false){
-                window.location.href = 'phone.html'; //Force-Reload becouse empty
+                window.location.href = 'phone.html'; //Force-Reload becouse empty and no fallback data
             }
         }
 
         function swap(index, item) {
+            //console.log(`Swap --> ${index} / ${item}`);
             backend.storageShow.saveLastSearchRecord(item, true);
             window.location.href = 'phone.html'
         }

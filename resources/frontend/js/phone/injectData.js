@@ -11,7 +11,7 @@ function simownerName(number) {
     return "Unknown Contact";
 }
 
-if ((localStorage.texts && localStorage.texts !== '[]') || (localStorage.calls && localStorage.calls !== '[]')) {
+if (backend.storageSelector.searchRecord('', true, 'last') !== false) {
 
     document.addEventListener("DOMContentLoaded", function () {
         const bannerRight = document.querySelector(".banner .right.noselect");

@@ -2,10 +2,9 @@ var frontend = frontend ?? {};
 
 frontend.alert = (function () {
     function checkUploadedFiles() {
-        if ((!localStorage.calls || localStorage.calls === '[]' || localStorage.calls === '') &&
-            (!localStorage.texts || localStorage.texts === '[]' || localStorage.texts === '')) {
+        if(backend.storageSelector.searchRecord('', true, 'last') === false) {
             global.alertsystem('warning', `It looks like you haven't uploaded an XLSX file yet. You can update it later by clicking on the cloud icon in the top left.`, 15);
-            helpEvent(); // Assuming helpEvent is defined elsewhere
+            helpEvent(); // Assuming helpEvent is defined elsewhere 
         }
     }
 
