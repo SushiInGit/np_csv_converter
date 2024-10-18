@@ -3,7 +3,7 @@ var frontend = frontend ?? {};
 
 frontend.renderList = function (phoneGrouped) {
 
-
+    
     phoneGrouped.sort((a, b) => {
         return a.To - b.To;
     });
@@ -99,5 +99,6 @@ frontend.renderList = function (phoneGrouped) {
     });
 
 }
-
-frontend.renderList(middleman.metadata.addObject(middleman.groupeCommunications.output()));
+//const simOwnerId = `4209479995`; 
+const simOwnerId = ``; 
+frontend.renderList(middleman.metadata.addObject(middleman.groupeCommunications.output(simOwnerId)));

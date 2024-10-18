@@ -48,15 +48,34 @@ backend.storageSelector = function () {
         return mostFrequentNumber;
     }
 
+
     function listGroupedStorageKeys() {
         const groupedKeys = groupStorageKeys();
         const uniquePhones = new Set();
         const uniqueBanks = new Set();
+        const combinedRecords = [];
+    
     
         for (const baseName in groupedKeys) {
             if (groupedKeys.hasOwnProperty(baseName)) {
                 const record = groupedKeys[baseName];
+                const simowner = subpoenaUser(record);
+                const existingRecord = combinedRecords.find(r => r.owner === simowner);
     
+                if (!existingRecord) {
+                    combinedRecords.push({
+                        name: simowner,
+                        texts: record.texts || [],
+                        calls: record.calls || [],
+                    });
+                } else {
+                    if (record.texts) {
+                        existingRecord.texts = existingRecord.texts.concat(record.texts);
+                    }
+                    if (record.calls) {
+                        existingRecord.calls = existingRecord.calls.concat(record.calls);
+                    }
+                }
                 // Add unique base names for texts and calls
                 if (record.texts || record.calls) {
                     const simowner = subpoenaUser(record);
@@ -151,9 +170,29 @@ backend.storageSelector = function () {
         return;
     }
 
+    function searchRecordBySimOwner(simowner) {
+        const groupedKeys = listGroupedStorageKeys(); 
+        const groupedRecordsArray = Object.values(groupedKeys.groupedKeys); 
+        
+        let combinedRecord = { texts: [], calls: [] }; 
+        groupedRecordsArray.forEach(record => {
+            if (record.owner === simowner) {
+                if (record.texts) {
+                    combinedRecord.texts = combinedRecord.texts.concat(record.texts); 
+                }
+                if (record.calls) {
+                    combinedRecord.calls = combinedRecord.calls.concat(record.calls); 
+                }
+            }
+        });
+
+        return combinedRecord.texts.length || combinedRecord.calls.length ? combinedRecord : []; 
+    }
+
     return {
         getGroupedKeys: listGroupedStorageKeys,
         searchRecord: searchRecord,
+        searchRecordBySimOwner: searchRecordBySimOwner,
         lastRecordName: lastRecordName,
         deleteTextsAndCalls: deleteTextsAndCallsByBaseName,
         deleteBank: deleteBankByBaseName

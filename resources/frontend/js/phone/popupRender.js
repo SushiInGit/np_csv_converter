@@ -5,7 +5,6 @@ frontend.popupRender = (function () {
     function UploadEvent() {
 
         function del(index, item) {
-            console.log(index, item);
             const popupDivName = "confirm-delete";
         
             const content = `
@@ -24,7 +23,7 @@ frontend.popupRender = (function () {
 
         function swap(index, item) {
             //console.log(`Swap --> ${index} / ${item}`);
-            backend.storageShow.saveLastSearchRecord(item.name, true);
+            backend.storageShow.saveLastSearchRecord(item, true);
             window.location.href = 'phone.html'
         }
 
