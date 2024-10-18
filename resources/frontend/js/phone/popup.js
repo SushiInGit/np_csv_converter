@@ -160,7 +160,7 @@ function lastActiveReload() {
         const classList = activeUser.classList;
         const idDigits = [...classList].find(cls => cls.startsWith('id__')).replace('id__', '');
 
-        const groupCommOutput = middleman.groupeCommunications.output();
+        const groupCommOutput = middleman.requestData.output();
         const matchingData = groupCommOutput.filter(entry => entry.groupIndex === parseInt(idDigits));
 
         if (matchingData.length > 0) {

@@ -15,12 +15,14 @@ if (backend.storageSelector.searchRecord('', true, 'last') !== false) {
 
     document.addEventListener("DOMContentLoaded", function () {
         const bannerRight = document.querySelector(".banner .right.noselect");
-        let dialoguePartners = Object.keys(middleman.groupeCommunications.output()).length + 1;
+        const data = middleman.requestData.all();
+        let dialoguePartners = Object.keys(middleman.requestData.output()).length + 0;
+
         if (bannerRight) {
             bannerRight.innerHTML = `
-            Total Data: ${middleman.phoneData.infoCountOverall(middleman.phoneData.all())}<br>
-            Total Calls: ${middleman.phoneData.infoCountIscall(middleman.phoneData.all())}<br> 
-            Total Messages: ${middleman.phoneData.infoCountMessage(middleman.phoneData.all())}<br>
+            Total Data: ${middleman.phoneData.infoCountOverall(data)}<br>
+            Total Calls: ${middleman.phoneData.infoCountIscall(data)}<br> 
+            Total Messages: ${middleman.phoneData.infoCountMessage(data)}<br>
             Dialogue Partners: ${dialoguePartners} 
         `;
         }
@@ -30,7 +32,7 @@ if (backend.storageSelector.searchRecord('', true, 'last') !== false) {
             bannerCenter.innerHTML = `
             <h2>${simownerName(middleman.simOwner.number())}</h2>
             <h3>${String(middleman.simOwner.number()).replace(/^(\d{3})(\d{3})(\d{4})$/, "($1) $2 $3")}</h3>
-            <b>${processTimestamp(middleman.phoneData.all()[0].Timestamp).date} to ${processTimestamp(middleman.phoneData.all()[(Object.keys(middleman.phoneData.all()).length - 1)].Timestamp).date}</b>
+            <b>${processTimestamp(data[0].Timestamp).date} to ${processTimestamp(data[(Object.keys(data).length - 1)].Timestamp).date}</b>
         `;
         }
 

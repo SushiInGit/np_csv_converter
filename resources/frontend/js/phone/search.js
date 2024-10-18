@@ -14,7 +14,7 @@ const searchSyntax = [
     { syntax: "no_calls:", description: "Show conversations without call logs displayed." },
 ];
 
-const messages = middleman.groupeCommunications.output();
+const messages = middleman.requestData.output();
 
 searchbarText.setAttribute('data-placeholder', searchbarText.getAttribute('placeholder'));
 
@@ -124,7 +124,7 @@ function filterMessages(inputText) {
     const matches = [...inputText.matchAll(regex)];
 
     if (!inputText || inputText.trim() === '') {
-        frontend.renderList(middleman.groupeCommunications.output());
+        frontend.renderList(middleman.requestData.output());
         return; 
     }
     if (matches.length === 0) {

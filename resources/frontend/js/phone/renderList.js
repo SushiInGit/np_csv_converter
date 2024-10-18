@@ -99,6 +99,7 @@ frontend.renderList = function (phoneGrouped) {
     });
 
 }
-//const simOwnerId = `4209479995`; 
-const simOwnerId = ``; 
-frontend.renderList(middleman.metadata.addObject(middleman.groupeCommunications.output(simOwnerId)));
+
+frontend.renderList(middleman.requestData.output());
+
+
