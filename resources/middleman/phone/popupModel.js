@@ -32,9 +32,44 @@ middleman.popupModel = (function () {
         }, 50);
     }
 
+    function delItem(item) {
+        if (item) {
+            backend.storageSelector.deleteTextsAndCalls(item);
+    
+            if (backend.storageSelector.searchRecord(item, true, 'last') === false) {
+               window.location.href = 'phone.html';
+            }
+    
+            if (backend.storageSelector.searchRecord(item, false) === false) {
+                backend.storageSelector.searchRecord(item, true, 'last');
+                global.alertsystem('success', `You deleted ${item.replace(/_/g, ' ')}.`, 7);
+                const getName = backend.storageSelector.lastRecordName().lastPhone[0];
+                backend.storageShow.saveLastSearchRecord(getName, true);
+            }
+
+            middleman.popupModel.closePopupDiv(); 
+            clearOldData();
+            frontend.popupRender.UploadEvent();
+            //window.location.href = 'phone.html';
+        }
+    }
+    
+    function clearOldData() { // Clears all old shown data
+        const bannerRight = document.querySelector(".banner .right.noselect");
+        const bannerCenter = document.querySelector(".banner .center.noselect");
+        const commList = document.querySelector(".menu .list.noselect");
+        const outputHead = document.querySelector(".output .header.noselect");
+        const outputMessages = document.querySelector(".output .messages");
+        bannerRight.innerHTML = '';
+        bannerCenter.innerHTML = "";
+        commList.innerHTML = "";
+        outputHead.innerHTML = "";
+        outputMessages.innerHTML = "";
+    }
+
     function closePopupDiv() {
         popupDiv.innerHTML = '';
-        const classesToRemove = ["hide", "show", "upload", "bug", "settings", "help", "import", "activity"];
+        const classesToRemove = ["hide", "show", "upload", "bug", "settings", "help", "import", "activity", "confirm-delete"];
         classesToRemove.forEach(className => {
             popupDiv.classList.remove(className);
         });
@@ -74,7 +109,9 @@ middleman.popupModel = (function () {
 
     return {
         createPopup: createPopup,
-        getBrowserInfo: getBrowserInfo
+        getBrowserInfo: getBrowserInfo,
+        closePopupDiv: closePopupDiv,
+        delItem: delItem 
     };
 
 })();

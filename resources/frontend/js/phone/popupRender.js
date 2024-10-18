@@ -5,21 +5,22 @@ frontend.popupRender = (function () {
     function UploadEvent() {
 
         function del(index, item) {
-            backend.storageSelector.deleteTextsAndCalls(item.name);
-            //console.log(`Del --> ${index} / ${item}`);
-            renderList();
+            console.log(index, item);
+            const popupDivName = "confirm-delete";
+        
+            const content = `
+                <div class="confirmation-content">
+                    <p>Are you sure you want to delete: <br><b>${item.name.replace(/_/g, ' ')}</b>?</p>
+                </div>
+            `;
+        
+            const footer = `
+                    <button class="confirmDelete" onclick="middleman.popupModel.delItem('${item.name}')" >Yes</button>
+                    <button class="cancelDelete" onclick=" closePopupDiv(), deactivateLoader()">No</button>
+            `;
 
-            if (backend.storageSelector.searchRecord(item, true, 'last') === false) { //Force-Reload becouse empty and no fallback data
-                window.location.href = 'phone.html';
-            }
-
-            if (backend.storageSelector.searchRecord(item, false) === false) { // Delete active/selected data
-                backend.storageSelector.searchRecord(item, true, 'last');
-                global.alertsystem('warning', `You deleted your active subpoena. If you close or reload your window, this dataset will no longer exist.`, 15);
-                const getName = backend.storageSelector.lastRecordName().lastPhone[0];
-                backend.storageShow.saveLastSearchRecord(getName, true);
-            }
-        }
+            middleman.popupModel.createPopup(popupDivName, 'Delete Confirmation', content, footer);
+        }      
 
         function swap(index, item) {
             //console.log(`Swap --> ${index} / ${item}`);
@@ -59,7 +60,7 @@ frontend.popupRender = (function () {
             for (const [simowner, items] of Object.entries(groupedItems)) {
                 const simownerLi = document.createElement('li');
                 const simownerName = document.createElement('span');
-                simownerName.innerHTML = `${simowner}`;
+                simownerName.innerHTML = `${middleman.findNames(simowner)} - ${String(simowner).replace(/^(\d{3})(\d{3})(\d{4})$/, "($1) $2 $3")} `;
                 simownerLi.appendChild(simownerName);
 
                 const ownerItemList = document.createElement('ul');

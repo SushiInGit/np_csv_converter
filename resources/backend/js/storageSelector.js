@@ -160,7 +160,7 @@ backend.storageSelector = function () {
     };
 }();
 
-console.log(backend.storageSelector.getGroupedKeys());
+//console.log(backend.storageSelector.getGroupedKeys());
 //backend.storageSelector.deleteTextsAndCalls('record1');
 //backend.storageSelector.deleteBank('record1');
 //backend.storageSelector.searchRecord('   ', true, 'last')
