@@ -34,5 +34,5 @@ middleman.requestData = (function () {
 })();
 
 //const simOwnerId = `4209479995`; 
-const simOwnerId = ``; 
-middleman.requestData.setDisplay(simOwnerId);
+//const simOwnerId = ``; 
+//middleman.requestData.setDisplay(simOwnerId);

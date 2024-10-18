@@ -6,25 +6,33 @@ frontend.popupRender = (function () {
 
         function del(index, item) {
             const popupDivName = "confirm-delete";
-        
+
             const content = `
                 <div class="confirmation-content">
                     <p>Are you sure you want to delete: <br><b>${item.name.replace(/_/g, ' ')}</b>?</p>
                 </div>
             `;
-        
+
             const footer = `
                     <button class="confirmDelete" onclick="middleman.popupModel.delItem('${item.name}')" >Yes</button>
                     <button class="cancelDelete" onclick=" closePopupDiv(), deactivateLoader()">No</button>
             `;
 
             middleman.popupModel.createPopup(popupDivName, 'Delete Confirmation', content, footer);
-        }      
+        }
 
-        function swap(index, item) {
-            //console.log(`Swap --> ${index} / ${item}`);
-            backend.storageShow.saveLastSearchRecord(item, true);
-            window.location.href = 'phone.html'
+        function swap(index, item, type, simowner) {
+            //console.log(`Swap --> ${index} / ${item} / ${type} / ${simowner}`);
+            if (type === "single") {
+                middleman.requestData.setDisplay('');
+                backend.storageShow.saveLastSearchRecord(item, true);
+                window.location.href = 'phone.html'
+            }
+            if (type === "all") {
+                middleman.requestData.setDisplay(simowner);
+                backend.storageShow.saveLastSearchRecord(item, true);
+                window.location.href = 'phone.html'
+            }    
         }
 
         function renderList() {
@@ -60,6 +68,8 @@ frontend.popupRender = (function () {
                 const simownerLi = document.createElement('li');
                 const simownerName = document.createElement('span');
                 simownerName.innerHTML = `${middleman.findNames(simowner)} - ${String(simowner).replace(/^(\d{3})(\d{3})(\d{4})$/, "($1) $2 $3")} `;
+                simownerName.style.cursor = 'pointer';
+                simownerName.onclick = () => swap(null, items.name, "all", simowner);
                 simownerLi.appendChild(simownerName);
 
                 const ownerItemList = document.createElement('ul');
@@ -79,7 +89,7 @@ frontend.popupRender = (function () {
 
                     itemName.innerHTML = `${formattedItem}`;
                     itemName.style.cursor = 'pointer';
-                    itemName.onclick = () => swap(index, item.name);
+                    itemName.onclick = () => swap(index, item.name, "single", simowner);
 
                     li.appendChild(itemName);
 
