@@ -30,6 +30,24 @@ backend.storageSelector = function () {
         return groupedRecords;
     }
 
+    function subpoenaUser(records) {
+        const numberCounts = {};
+        if (records.texts) {
+            records.texts.forEach(text => {
+                numberCounts[text.number_to] = (numberCounts[text.number_to] || 0) + 1;
+                numberCounts[text.number_from] = (numberCounts[text.number_from] || 0) + 1;
+            });
+        }
+        if (records.calls) {
+            records.calls.forEach(call => {
+                numberCounts[call.call_to] = (numberCounts[call.call_to] || 0) + 1;
+                numberCounts[call.call_from] = (numberCounts[call.call_from] || 0) + 1;
+            });
+        }
+        const mostFrequentNumber = Object.keys(numberCounts).reduce((a, b) => numberCounts[a] > numberCounts[b] ? a : b, null);
+        return mostFrequentNumber;
+    }
+
     function listGroupedStorageKeys() {
         const groupedKeys = groupStorageKeys();
         const uniquePhones = new Set();
@@ -41,7 +59,10 @@ backend.storageSelector = function () {
     
                 // Add unique base names for texts and calls
                 if (record.texts || record.calls) {
-                    uniquePhones.add(baseName); 
+                    const simowner = subpoenaUser(record);
+                    const name = baseName;
+                    uniquePhones.add({ name, simowner });
+                    groupedKeys[baseName]["owner"] = simowner;
                 }
     
                 // Add unique base names for banks
@@ -139,7 +160,7 @@ backend.storageSelector = function () {
     };
 }();
 
-//console.log(backend.storageSelector.getGroupedKeys().phoneNames);
+console.log(backend.storageSelector.getGroupedKeys());
 //backend.storageSelector.deleteTextsAndCalls('record1');
 //backend.storageSelector.deleteBank('record1');
 //backend.storageSelector.searchRecord('   ', true, 'last')

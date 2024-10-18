@@ -5,15 +5,15 @@ frontend.popupRender = (function () {
     function UploadEvent() {
 
         function del(index, item) {
-            backend.storageSelector.deleteTextsAndCalls(item);
+            backend.storageSelector.deleteTextsAndCalls(item.name);
             //console.log(`Del --> ${index} / ${item}`);
             renderList();
 
-            if(backend.storageSelector.searchRecord(item, true, 'last') === false){ //Force-Reload becouse empty and no fallback data
-                window.location.href = 'phone.html'; 
+            if (backend.storageSelector.searchRecord(item, true, 'last') === false) { //Force-Reload becouse empty and no fallback data
+                window.location.href = 'phone.html';
             }
 
-            if(backend.storageSelector.searchRecord(item, false) === false){ // Delete active/selected data
+            if (backend.storageSelector.searchRecord(item, false) === false) { // Delete active/selected data
                 backend.storageSelector.searchRecord(item, true, 'last');
                 global.alertsystem('warning', `You deleted your active subpoena. If you close or reload your window, this dataset will no longer exist.`, 15);
                 const getName = backend.storageSelector.lastRecordName().lastPhone[0];
@@ -23,45 +23,78 @@ frontend.popupRender = (function () {
 
         function swap(index, item) {
             //console.log(`Swap --> ${index} / ${item}`);
-            backend.storageShow.saveLastSearchRecord(item, true);
+            backend.storageShow.saveLastSearchRecord(item.name, true);
             window.location.href = 'phone.html'
         }
-        
+
         function renderList() {
             items = backend.storageSelector.getGroupedKeys().phoneNames;
-
             const listContainer = document.querySelector('popup .model .footer');
 
-            listContainer.innerHTML = ''; 
+            listContainer.innerHTML = '';
+            listContainer.style.width = 'calc(100% - 20px)';
+            listContainer.style.maxWidth = 'calc(100% - 20px)';
+            listContainer.style.wordWrap = 'break-word';
+            listContainer.style.overflowWrap = 'break-word';
+
 
             if (items.length > 0) {
-                const br = document.createElement('br'); 
-                const hr = document.createElement('hr'); 
+                const br = document.createElement('br');
+                const hr = document.createElement('hr');
+                const heading = document.createElement('h2');
+                heading.textContent = `Uploaded File's`;
                 listContainer.appendChild(br);
-                listContainer.appendChild(hr); 
+                listContainer.appendChild(hr);
+                listContainer.appendChild(heading);
             }
-            const itemList = document.createElement('ul'); 
+
+            const groupedItems = items.reduce((group, item) => {
+                (group[item.simowner] = group[item.simowner] || []).push(item);
+                return group;
+            }, {});
+
+            const itemList = document.createElement('ul');
             listContainer.appendChild(itemList);
 
-            items.forEach((item, index) => {
-                const li = document.createElement('li');
-                const formattedItem = item.replace(/_/g, ' ');
-                const itemName = document.createElement('span');
+            for (const [simowner, items] of Object.entries(groupedItems)) {
+                const simownerLi = document.createElement('li');
+                const simownerName = document.createElement('span');
+                simownerName.innerHTML = `${simowner}`;
+                simownerLi.appendChild(simownerName);
 
-                itemName.innerHTML =  `${formattedItem} `; 
-                itemName.style.cursor = 'pointer'; 
-                itemName.onclick = () => swap(index, item); 
-        
-                li.appendChild(itemName); 
-        
+                const ownerItemList = document.createElement('ul');
+                itemList.style.maxHeight = '150px';
+                itemList.style.overflowY = 'auto';
+                itemList.style.overflowX = 'hidden';
+                itemList.style.listStyleType = 'none';
+                itemList.style.padding = '0';
+                itemList.style.margin = '0';
+                itemList.style.scrollBehavior = 'smooth';
+                itemList.style.scrollSnapType = 'y mandatory';
 
-                const deleteButton = document.createElement('button');
-                deleteButton.textContent = 'X';
-                deleteButton.onclick = () => del(index, item); 
-        
-                li.appendChild(deleteButton); 
-                itemList.appendChild(li); 
-            });
+                items.forEach((item, index) => {
+                    const li = document.createElement('li');
+                    const formattedItem = item.name.replace(/_/g, ' ');
+                    const itemName = document.createElement('span');
+
+                    itemName.innerHTML = `${formattedItem}`;
+                    itemName.style.cursor = 'pointer';
+                    itemName.onclick = () => swap(index, item.name);
+
+                    li.appendChild(itemName);
+
+                    const deleteButton = document.createElement('button');
+                    deleteButton.textContent = 'X';
+                    deleteButton.onclick = () => del(item.name, item);
+
+                    li.appendChild(deleteButton);
+                    li.style.scrollSnapAlign = 'end';
+                    ownerItemList.appendChild(li);
+                });
+
+                simownerLi.appendChild(ownerItemList);
+                itemList.appendChild(simownerLi);
+            }
         }
 
         const popupDivName = "upload";

@@ -2,7 +2,7 @@ var backend = backend ?? {};
 
 backend.storageSize = function () {
 
-    const SETTINGS_KEY = 'np_storageSize';
+    const SETTINGS_KEY = 'np_settings';
     const RESERVED_MB = 1;
     const MAX_ALLOWED_MB = 10;
 
