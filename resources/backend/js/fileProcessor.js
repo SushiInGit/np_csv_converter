@@ -71,22 +71,20 @@ backend.fileProcessor = function () {
                         redirectUrl = ""; // ???
                         break;
                 }
-                
+
                 // Save cleanData to localstorage, overwrites the current data
                 //backend.dataController.saveData(sheetType, cleanData);
-                
-            
+
+
                 // Use the storageManager to add the data and ensure it's within the limit
                 const dataAdded = backend.storageManager.addData(fileName + '_' + sheetType, JSON.stringify(cleanData), redirectUrl);
-
                 if (!dataAdded) {
-                    console.warn(`Unable to save data for ${fileName}. Storage limit exceeded.`);
-                    alert("Storage limit exceeded! Please free up some space.");
+                    global.alertsystem('warning', 'Storage limit exceeded! Please free up some space and delete other subpoena files.', 14);
                 }
             }
         }
 
-       // window.location.href = redirectUrl;
+        // window.location.href = redirectUrl;
     }
 
     function getSheetType(sheetHeaders) {

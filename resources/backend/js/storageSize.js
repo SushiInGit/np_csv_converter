@@ -4,7 +4,7 @@ backend.storageSize = function () {
 
     const SETTINGS_KEY = 'np_settings';
     const RESERVED_MB = 1;
-    const MAX_ALLOWED_MB = 10;
+    const MAX_ALLOWED_MB = 21;
 
     function getSettings() {
         const settings = localStorage.getItem(SETTINGS_KEY);
@@ -67,3 +67,4 @@ backend.storageSize = function () {
         calculateLocalStorageSize: calculateLocalStorageSize
     };
 }();
+//console.log(backend.storageSize.getMaxStorage());

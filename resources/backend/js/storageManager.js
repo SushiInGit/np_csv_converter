@@ -9,8 +9,8 @@ backend.storageManager = function () {
         const usedMB = usedBytes / (1024 * 1024);
         const usedPercentage = (usedBytes / (maxStorageMB * 1024 * 1024)) * 100;
 
-        console.log(`Used storage: ${usedMB.toFixed(2)} MB`);
-        console.log(`Storage usage: ${usedPercentage.toFixed(2)}%`);
+        //console.log(`Used storage: ${usedMB.toFixed(2)} MB`);
+        //console.log(`Storage usage: ${usedPercentage.toFixed(2)}%`);
 
         return {
             usedMB: usedMB.toFixed(2),
@@ -55,4 +55,4 @@ backend.storageManager = function () {
     };
 }();
 
-// backend.storageManager.getStorageUsage(); 
+//backend.storageManager.getStorageUsage().usedPercentage; 

@@ -32,7 +32,7 @@ frontend.popupRender = (function () {
                 middleman.requestData.setDisplay(simowner);
                 backend.storageShow.saveLastSearchRecord(item, true);
                 window.location.href = 'phone.html'
-            }    
+            }
         }
 
         function renderList() {
@@ -61,8 +61,14 @@ frontend.popupRender = (function () {
                 return group;
             }, {});
 
+            const storageSpace = document.createElement('div');
+            if (items.length > 0) {
+                storageSpace.innerHTML = `<br><hr><small>Storage-Space: ${backend.storageManager.getStorageUsage().usedMB}MB of ${backend.storageSize.getMaxStorage()}MB  (${backend.storageManager.getStorageUsage().usedPercentage}% used)</small>`;
+            }
+
             const itemList = document.createElement('ul');
             listContainer.appendChild(itemList);
+            listContainer.appendChild(storageSpace);
 
             for (const [simowner, items] of Object.entries(groupedItems)) {
                 const simownerLi = document.createElement('li');
