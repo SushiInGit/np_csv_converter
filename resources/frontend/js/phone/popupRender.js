@@ -63,7 +63,7 @@ frontend.popupRender = (function () {
 
             const storageSpace = document.createElement('div');
             if (items.length > 0) {
-                storageSpace.innerHTML = `<br><hr><small>Storage-Space: ${backend.storageManager.getStorageUsage().usedMB}MB of ${backend.storageSize.getMaxStorage()}MB  (${backend.storageManager.getStorageUsage().usedPercentage}% used)</small>`;
+                storageSpace.innerHTML = `<br><hr><center><small>Storage-Space: ${backend.storageManager.getStorageUsage().usedMB}MB of ${backend.storageSize.getMaxStorage()}MB  (${backend.storageManager.getStorageUsage().usedPercentage}% used)</small></center>`;
             }
 
             const itemList = document.createElement('ul');

@@ -62,9 +62,21 @@ backend.storageSize = function () {
         return maxStorageMBCalculated;
     }
 
+    function setMaxStorage(manualSizeMB) {
+        if (manualSizeMB <= MAX_ALLOWED_MB && manualSizeMB >= RESERVED_MB) {
+            let settings = getSettings();
+            settings.MAX_STORAGE_MB = manualSizeMB.toFixed(2);
+            saveSettings(settings);
+        } else {
+            console.error(`Storage size must be between ${RESERVED_MB}MB and ${MAX_ALLOWED_MB}MB.`);
+        }
+    }
+
     return {
         getMaxStorage: getMaxStorage,
+        setMaxStorage: setMaxStorage,
         calculateLocalStorageSize: calculateLocalStorageSize
     };
 }();
-//console.log(backend.storageSize.getMaxStorage());
+
+//backend.storageSize.setMaxStorage(20); 
