@@ -138,6 +138,26 @@ popup .risk {
     cursor: pointer;
 }
 
+popup .del {
+    right: 0;
+    margin-right: 10px;
+    margin-bottom: 5px;
+    padding: 5px 10px;
+    background-color: #ae2727;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+popup upload .fileslist:hover {
+    cursor: pointer;
+    color: var(--text-color) !important;
+    opacity: 0.6;
+}
+popup .del:hover {
+    background-color: #d85252;
+}
+
 popup .risk.hide {
     opacity: 0;
     display: none;
@@ -173,6 +193,11 @@ popup .drop-zone {
     text-align: center;
     color: #aaa;
     cursor: pointer;
+}
+
+popup .drop-zone:hover {
+    color: #ccc;
+    border: 2px dashed #aaa;
 }
 
 popup .drop-zone.dragover {

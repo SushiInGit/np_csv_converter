@@ -8,15 +8,15 @@ frontend.popupRender = (function () {
             const popupDivName = "confirm-delete";
 
             const content = `
-                <div class="confirmation-content">
-                    <p>Are you sure you want to delete: <br><b>${item.name.replace(/_/g, ' ')}</b>?</p>
+                <div class="confirmation-content noselect ">
+                    <p>Are you sure you want to delete this file? <br><br><b>Owner:</b><br>${middleman.findNames(item.simowner)} - ${String(item.simowner).replace(/^(\d{3})(\d{3})(\d{4})$/, "($1) $2 $3")} <br><br><b>Filename:</b> <br>${item.name.replace(/_/g, ' ')}</p>
                 </div>
             `;
 
             const footer = `
-                    <button class="confirmDelete" onclick="middleman.popupModel.delItem('${item.name}')" >Yes</button>
-                    <button class="cancelDelete" onclick=" closePopupDiv(), deactivateLoader()">No</button>
+                    <button class="risk" onclick="middleman.popupModel.delItem('${item.name}')">Delete</button>
             `;
+                // <button class="ok" onclick=" closePopupDiv(), deactivateLoader()">Cancel</button>
 
             middleman.popupModel.createPopup(popupDivName, 'Delete Confirmation', content, footer);
         }
@@ -74,6 +74,7 @@ frontend.popupRender = (function () {
                 const simownerLi = document.createElement('li');
                 const simownerName = document.createElement('span');
                 simownerName.innerHTML = `${middleman.findNames(simowner)} - ${String(simowner).replace(/^(\d{3})(\d{3})(\d{4})$/, "($1) $2 $3")} `;
+                simownerName.className = 'fileslist';
                 simownerName.style.cursor = 'pointer';
                 simownerName.onclick = () => swap(null, items.name, "all", simowner);
                 simownerLi.appendChild(simownerName);
@@ -87,23 +88,31 @@ frontend.popupRender = (function () {
                 itemList.style.margin = '0';
                 itemList.style.scrollBehavior = 'smooth';
                 itemList.style.scrollSnapType = 'y mandatory';
+                ownerItemList.style.paddingTop = '10px';
+                ownerItemList.style.paddingLeft = '10px';
+                ownerItemList.style.marginLeft = '0px';
 
                 items.forEach((item, index) => {
                     const li = document.createElement('li');
+                    li.style.listStyleType = "none";
+
                     const formattedItem = item.name.replace(/_/g, ' ');
                     const itemName = document.createElement('span');
 
                     itemName.innerHTML = `${formattedItem}`;
                     itemName.style.cursor = 'pointer';
+                    itemName.className = 'fileslist';
                     itemName.onclick = () => swap(index, item.name, "single", simowner);
 
-                    li.appendChild(itemName);
+                    
 
                     const deleteButton = document.createElement('button');
                     deleteButton.textContent = 'X';
+                    deleteButton.className = 'del';
                     deleteButton.onclick = () => del(item.name, item);
 
                     li.appendChild(deleteButton);
+                    li.appendChild(itemName);
                     li.style.scrollSnapAlign = 'end';
                     ownerItemList.appendChild(li);
                 });
