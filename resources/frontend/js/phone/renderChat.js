@@ -15,7 +15,11 @@ frontend.renderChat = function (data) {
         seconds = ((diffMs % 60000) / 1000).toFixed(0);
         minutes = isNaN(minutes) ? 0 : minutes;
         seconds = isNaN(seconds) ? 0 : seconds;
-        return `${minutes ? minutes : `0`} min ${seconds ? seconds : `0`} sec`;
+        if (minutes === 0 && seconds === 0) {
+            return "Call could not be established!";
+        }
+    
+        return `Call duration: ${minutes ? minutes : `0`} min ${seconds ? seconds : `0`} sec`;
     }
 
     let isCallTrueCount = 0;
@@ -74,7 +78,8 @@ frontend.renderChat = function (data) {
             const fixedDate = processTimestamp(Date.parse(Log.Timestamp));
 
             if (Log.CallStart != null) {
-                callDurationContainer.textContent = `Call duration: ${callDuration}`;
+                //callDurationContainer.textContent = `Call duration: ${callDuration}`;
+                callDurationContainer.textContent = `${callDuration}`;
                 callDurationContainer.classList.add('call-status');
                 callTimeContainer.textContent = `${fixedDate.timeShowOffset} ${fixedDate.timeZone}`;
                 callTimeContainer.classList.add('time');
