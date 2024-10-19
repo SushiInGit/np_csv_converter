@@ -2,7 +2,7 @@
 var middleman = middleman ?? {};
 
 middleman.filterBy = function () {
-    const groupData = middleman.metadata.addObject(middleman.requestData.output());
+    const groupData = middleman.metadata.addObject(middleman.requestData.allMetadata());
 
     function findCommunicationsByNumber(data, filter) {
         if (Object.keys(data).length !== 0) {

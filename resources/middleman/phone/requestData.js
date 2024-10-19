@@ -6,13 +6,11 @@ middleman.requestData = (function () {
         sessionStorage.setItem('simOwnerId', simOwnerId);
     }
 
-    function output() {
+    function allMetadata() {
         const simOwnerId = sessionStorage.getItem('simOwnerId');
         if (simOwnerId) {
-            //console.log('simOwnerId:', simOwnerId);
             return middleman.metadata.addObject(middleman.groupeCommunications.output(simOwnerId));
         } else {
-            //console.log('No simOwnerId set');
             return middleman.metadata.addObject(middleman.groupeCommunications.output());
         }
     }
@@ -22,13 +20,13 @@ middleman.requestData = (function () {
         if (simOwnerId) {
             return middleman.phoneData.allBySimowner(simOwnerId);
         } else {
-            return middleman.phoneData.all();;
+            return middleman.phoneData.all();
         }
     }
     return {
-        setDisplay: setDisplay,
-        output: output,
-        all: all
+        all: all,
+        allMetadata: allMetadata,
+        setDisplay: setDisplay
     };
 
 })();

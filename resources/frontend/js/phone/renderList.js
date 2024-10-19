@@ -100,6 +100,6 @@ frontend.renderList = function (phoneGrouped) {
 
 }
 
-frontend.renderList(middleman.requestData.output());
+frontend.renderList(middleman.requestData.allMetadata());
 
 

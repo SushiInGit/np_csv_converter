@@ -16,7 +16,7 @@ if (backend.storageSelector.searchRecord('', true, 'last') !== false) {
     document.addEventListener("DOMContentLoaded", function () {
         const bannerRight = document.querySelector(".banner .right.noselect");
         const data = middleman.requestData.all();
-        let dialoguePartners = Object.keys(middleman.requestData.output()).length + 0;
+        let dialoguePartners = Object.keys(middleman.requestData.allMetadata()).length + 0;
 
         if (bannerRight) {
             bannerRight.innerHTML = `

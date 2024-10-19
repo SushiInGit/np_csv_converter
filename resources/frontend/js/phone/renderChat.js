@@ -13,6 +13,8 @@ frontend.renderChat = function (data) {
         // Convert milliseconds into minutes and seconds
         minutes = Math.floor(diffMs / 60000);
         seconds = ((diffMs % 60000) / 1000).toFixed(0);
+        minutes = isNaN(minutes) ? 0 : minutes;
+        seconds = isNaN(seconds) ? 0 : seconds;
         return `${minutes ? minutes : `0`} min ${seconds ? seconds : `0`} sec`;
     }
 
