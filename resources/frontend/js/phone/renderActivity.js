@@ -106,3 +106,5 @@ function generateActivityChart(text, calls, simowner) {
 
 const activityDataText = backend.dataController.getData(backend.helpers.getAllSheetTypes().TEXTS);
 const activityDataCalls = backend.dataController.getData(backend.helpers.getAllSheetTypes().CALLS);
+//console.log(middleman.requestData.all());
+console.log("I NEED FIX HERE--REMEBER for SUSHI");

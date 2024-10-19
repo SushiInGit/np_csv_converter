@@ -1,6 +1,6 @@
 var frontend = frontend ?? {};
 
-frontend.popupRender = (function () {
+frontend.popupUpload= (function () {
 
     function UploadEvent() {
 
@@ -173,6 +173,6 @@ frontend.popupRender = (function () {
     }
 
     return {
-        UploadEvent: UploadEvent
+        render: UploadEvent
     };
 })();

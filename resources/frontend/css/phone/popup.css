@@ -29,10 +29,6 @@ popup .model {
     flex-direction: column;
 }
 
-popup.bug {
-    height: 325px !important;
-}
-
 popup.bug textarea {
     resize: none;
     overflow: auto;
@@ -51,14 +47,10 @@ popup.settings {
     height: 360px !important;
 }
 
-popup.help {
-    height: 400px !important;
-}
-
 popup.activity {
-    height: 390px !important;
     width: 500px !important;
 }
+
 popup.show {
     width: var(--popup-size-width);
     opacity: 0.99 !important;

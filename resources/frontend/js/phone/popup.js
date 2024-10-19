@@ -277,26 +277,7 @@ function SettingsEvent() {
 
 }
 
-////////////////////////////////////////////////// Help RM-Reader
-function helpEvent() {
-    closePopupDiv();
-    const help = document.createElement('help');
-    popupDiv.classList.add("help");
-    showPopup();
-    loader.classList.add("active");
-    help.innerHTML = `
-            <div class="head">
-            <button class="close" onclick=" closePopupDiv(), deactivateLoader()">X</button>
-            <h2>Help & Information</h2>
-            </div>
-            <div class="element">
-            <div id="markdownContent"></div>
-            </div>
-    `;
 
-    popupDiv.appendChild(help);
-    global.markdownReader('phone.md');
-}
 
 ////////////////////////////////////////////////// Import Phone contacts
 function savePBI(textarea) {
@@ -404,30 +385,3 @@ function pbookImportEvent() {
     popupDiv.appendChild(phonebook);
 }
 
-////////////////////////////////////////////////// Activity Chart
-function activityEvent() {
-    closePopupDiv(); // Clear Event-DIV
-    const activity = document.createElement('activity');
-    popupDiv.classList.add("activity");
-    showPopup();
-    loader.classList.add("active");
-    activity.innerHTML = `
-           <div class="head">
-            <button class="close" onclick="closePopupDiv(), deactivateLoader()">X</button>
-            <h2>Activity Chart</h2>
-            </div>
-            <div class="element">
-            <center>View is based of Outgoing activity from Sim Owner</center><br>
-
-                <div class="chart-container">
-                    <canvas id="activityChart"></canvas>
-                </div>
-                <div id="time-range-output"></div>
-            </div>
-        </div>
-`;
-
-    popupDiv.appendChild(activity);
-
-    generateActivityChart(activityDataText, activityDataCalls, middleman.simOwner.number());
-}
