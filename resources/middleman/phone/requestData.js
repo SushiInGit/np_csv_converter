@@ -23,10 +23,19 @@ middleman.requestData = (function () {
             return middleman.phoneData.all();
         }
     }
+
+    function filterMessages(messages) {
+        return {
+          calls: messages.filter(item => item.IsCall === true),
+          texts: messages.filter(item => item.IsCall === false)
+        };
+      }
+
     return {
         all: all,
         allMetadata: allMetadata,
-        setDisplay: setDisplay
+        setDisplay: setDisplay,
+        filterMessages: filterMessages
     };
 
 })();

@@ -6,8 +6,8 @@ function generateActivityChart(text, calls, simowner) {
 
 
     text.forEach(entry => {
-        if (entry.number_from === simowner) {
-            const timestamp = new Date(entry.timestamp);
+        if (entry.From === simowner) {
+            const timestamp = new Date(entry.Timestamp);
             const time = `${(processTimestamp(timestamp).time).substring(0, 2)}`;
 
             if (!textCount[time]) {
@@ -18,8 +18,8 @@ function generateActivityChart(text, calls, simowner) {
     });
 
     calls.forEach(entry => {
-        if (entry.call_from === simowner) {
-            const established_at = new Date(entry.established_at);
+        if (entry.From === simowner) {
+            const established_at = new Date(entry.CallStart);
             showOnlyHoures = (processTimestamp(established_at).time);
             if (typeof showOnlyHoures === 'string') {
                 const time =  showOnlyHoures.substring(0, 2); 
@@ -104,7 +104,5 @@ function generateActivityChart(text, calls, simowner) {
     });
 }
 
-const activityDataText = backend.dataController.getData(backend.helpers.getAllSheetTypes().TEXTS);
-const activityDataCalls = backend.dataController.getData(backend.helpers.getAllSheetTypes().CALLS);
-//console.log(middleman.requestData.all());
-console.log("I NEED FIX HERE--REMEBER for SUSHI");
+const activityDataText = middleman.requestData.filterMessages(middleman.requestData.all()).texts;
+const activityDataCalls = middleman.requestData.filterMessages(middleman.requestData.all()).calls;

@@ -386,8 +386,12 @@ popup.import .element textarea::placeholder {
 
 .chart-container {
     position: relative;
-    height: 250px;
+    height: auto;
     width: 100%;
+}
+.chart-container .loading-message {
+    text-align: center;
+    text-wrap: wrap;
 }
 
 #time-range-output {

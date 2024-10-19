@@ -28,6 +28,7 @@
     }
 
     function deactivateLoader() {
+        
         setTimeout(function () {
             deactivate();
         }, 1000);
