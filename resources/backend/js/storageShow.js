@@ -76,7 +76,7 @@ backend.storageShow = function () {
         }
 
         let bank = false;
-        if (showBankRecord && localStorage.getItem(`${showBankRecord}_bank`)) {
+        if (showBankRecord && localStorage.getItem(`${showBankRecord}_bankRecords`)) {
             bank = true;
         }
 

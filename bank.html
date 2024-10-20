@@ -20,6 +20,10 @@
     as="style" onload="this.rel='stylesheet'">
 
   <!-- JS Core -->
+  <script defer src="resources/backend/js/storageSize.js"></script>
+  <script defer src="resources/backend/js/storageSelector.js"></script>
+  <script defer src="resources/backend/js/storageManager.js"></script>
+  <script defer src="resources/backend/js/storageShow.js"></script>
   <script defer src="resources/frontend/js/global/gitVersion.js"></script>
   <script defer src="resources/frontend/js/bank/loader.js"></script>
   <script defer src="resources/frontend/js/global/alertsystem.js"></script>
@@ -33,10 +37,11 @@
   <script defer src="resources/backend/js/bankRecordsHelper.js"></script>
   <script src="resources/backend/vendors/xlsx.full.min.js"></script>
   <script defer src="resources/frontend/js/bank/popup.js"></script>
+  <script defer src="resources/frontend/js/bank/popupLoader.js"></script>
   <script defer src="resources/middleman/bank/bankData.js"></script>
   <script defer src="resources/middleman/bank/stateAccounts.js"></script>
   <script defer src="resources/frontend/js/bank/renderViews.js"></script>
-
+  <script defer src="resources/middleman/global/popupModel.js"></script>
 
 <body>
   <!-- Alert System -->
@@ -65,14 +70,14 @@
         </div>
         <div class="right">
           <div class="icon-container" data-tooltip="Time convertion settings">
-            <a href="javascript:void(0);" onclick="SettingsEvent();" class="icon"><span class="icon">settings</span></a>
+            <a href="javascript:void(0);" onclick="frontend.popupSettings.render();" class="icon"><span class="icon">settings</span></a>
           </div>
           <div class="icon-container" data-tooltip="Bug Report">
-            <a href="javascript:void(0);" onclick="BugReportEvent();" class="icon"><span
+            <a href="javascript:void(0);" onclick="frontend.popupBug.render();" class="icon"><span
                 class="icon">bug_report</span></a>
           </div>
           <div class="icon-container" data-tooltip="Help">
-            <a href="javascript:void(0);" onclick="helpEvent();" class="icon"><span
+            <a href="javascript:void(0);" onclick="frontend.popupHelp.render();" class="icon"><span
                 class="icon">question_mark</span></a>
           </div>
         </div>

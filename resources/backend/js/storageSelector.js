@@ -11,8 +11,8 @@ backend.storageSelector = function () {
         const groupedRecords = {};
 
         keys.forEach(key => {
-            if (key.endsWith('_texts') || key.endsWith('_calls') || key.endsWith('_bank')) {
-                const baseName = key.replace(/(_texts|_calls|_bank)$/, '');
+            if (key.endsWith('_texts') || key.endsWith('_calls') || key.endsWith('_bankRecords')) {
+                const baseName = key.replace(/(_texts|_calls|_bankRecords)$/, '');
 
                 if (!groupedRecords[baseName]) {
                     groupedRecords[baseName] = [];
@@ -22,7 +22,7 @@ backend.storageSelector = function () {
                     groupedRecords[baseName].texts = JSON.parse(localStorage.getItem(key));
                 } else if (key.endsWith('_calls')) {
                     groupedRecords[baseName].calls = JSON.parse(localStorage.getItem(key));
-                } else if (key.endsWith('_bank')) {
+                } else if (key.endsWith('_bankRecords')) {
                     groupedRecords[baseName].bank = JSON.parse(localStorage.getItem(key));
                 }
             }
@@ -107,12 +107,12 @@ backend.storageSelector = function () {
         const groupedData = groupStorageKeys();
 
         keys.forEach(key => {
-            if (key.startsWith(baseName) && (key.endsWith('_texts') || key.endsWith('_calls') || key.endsWith('_bank'))) {
+            if (key.startsWith(baseName) && (key.endsWith('_texts') || key.endsWith('_calls') || key.endsWith('_bankRecords'))) {
                 if (key.endsWith('_texts')) {
                     record.texts = JSON.parse(localStorage.getItem(key));
                 } else if (key.endsWith('_calls')) {
                     record.calls = JSON.parse(localStorage.getItem(key));
-                } else if (key.endsWith('_bank')) {
+                } else if (key.endsWith('_bankRecords')) {
                     record.bank = JSON.parse(localStorage.getItem(key));
                 }
             }
@@ -162,7 +162,7 @@ backend.storageSelector = function () {
     function deleteBankByBaseName(baseName) {
         const keys = getLocalStorageKeys();
         keys.forEach(key => {
-            if (key.startsWith(baseName) && key.endsWith('_bank')) {
+            if (key.startsWith(baseName) && key.endsWith('_bankRecords')) {
                 localStorage.removeItem(key);
             }
         });

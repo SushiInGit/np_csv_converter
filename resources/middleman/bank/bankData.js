@@ -4,8 +4,12 @@ var middleman = middleman ?? {};
 middleman.bankData = function () {
 
     function getFormattedData() {
+        const bankName = backend.storageSelector.lastRecordName().lastBanks[0];
+        let bankDataNew = backend.storageSelector.searchRecord(bankName, true, 'last');
+        //let bankDataOld = backend.dataController.getData(backend.helpers.getAllSheetTypes().BANKRECORDS);
+        
 
-        let rawBankData = backend.dataController.getData(backend.helpers.getAllSheetTypes().BANKRECORDS).map((transaction, index) => {
+        let rawBankData = bankDataNew.bank.map((transaction, index) => {
             return {
                 ...transaction,
                 original_amount: Number.isInteger(transaction.amount / (100 + transaction.tax_percentage) * 100) ? transaction.amount / (100 + transaction.tax_percentage) * 100 : (transaction.amount / (100 + transaction.tax_percentage) * 100).toFixed(2),

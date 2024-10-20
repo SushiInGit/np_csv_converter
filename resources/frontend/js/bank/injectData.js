@@ -1,3 +1,5 @@
+/*
+
 if (localStorage.bankRecords) {
 
     function formatDifference(incomingTotal, outgoingTotal) {
@@ -40,3 +42,4 @@ if (localStorage.bankRecords) {
         }
     });
 };
+*/

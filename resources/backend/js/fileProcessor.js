@@ -74,15 +74,13 @@ backend.fileProcessor = function () {
 
                 // Save cleanData to localstorage, overwrites the current data
                 //backend.dataController.saveData(sheetType, cleanData);
-                if (redirectUrl === "bank.html") {
-                    backend.dataController.saveData(sheetType, cleanData);
-                } else if (redirectUrl === "phone.html") {
+
                     // Use the storageManager to add the data and ensure it's within the limit
                     const dataAdded = backend.storageManager.addData(fileName + '_' + sheetType, JSON.stringify(cleanData), redirectUrl);
                     if (!dataAdded) {
                         global.alertsystem('warning', 'Storage limit exceeded! Please free up some space and delete other subpoena files.', 14);
                     }
-                }
+               
 
 
             }

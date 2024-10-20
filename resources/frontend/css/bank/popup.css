@@ -1,5 +1,4 @@
 :root {
-    --popup-size-height: 300px;
     --popup-size-width: 400px;
 }
 
@@ -13,7 +12,7 @@ popup {
     color: #fff;
     margin: 0px;
     padding: 0;
-    height: var(--popup-size-height);
+    height: auto;
     width: var(--popup-size-width);
     border: solid var(--global-border-size) var(--global-border-color);
     z-index: 10001;
@@ -21,25 +20,24 @@ popup {
     font-family: "Poppins", sans-serif;
 }
 
+popup .model {
+    position: relative;
+    display: flex;
+    height: 100%;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
 popup.upload {
     height: 170px !important;
 }
 
-popup.bug {
-    height: 325px !important;
-}
 
 popup.bug textarea {
     resize: none;
     overflow: auto;
-}
-
-popup.settings {
-    height: 360px !important;
-}
-
-popup.help {
-    height: 400px !important;
 }
 
 popup.show {
@@ -65,6 +63,7 @@ popup .close {
     position: absolute;
     right: 10px;
     top: 10px;
+    z-index: 1;
 }
 
 popup .close:hover {
@@ -72,13 +71,14 @@ popup .close:hover {
 }
 
 popup .head {
-
+    width: 100%;
+    height: auto;
     align-items: center;
     justify-content: center;
 }
 
 popup .head h2 {
-    position: absolute;
+    position: relative;
     left: 10px;
     top: 10px;
     margin-top: 0;
@@ -86,12 +86,14 @@ popup .head h2 {
 }
 
 popup .element {
-    top: 70px;
+    height: auto;
+    padding-top: 20px;
     left: 10px;
     width: calc(100% - 20px);
-    position: absolute;
-    align-items: center;
-    justify-content: center;
+}
+popup .footer {
+    height: auto;
+    padding-bottom: 20px;
 }
 
 popup .ok {
@@ -228,9 +230,6 @@ popup.settings select::after {
 
 
 /* --------End of Settings---------  */
-popup.bug .element {
-    height: 170px;
-}
 
 popup.bug .element textarea {
     border: 1px solid #1c1e29;

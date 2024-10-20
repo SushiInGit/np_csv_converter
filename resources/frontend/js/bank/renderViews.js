@@ -96,3 +96,14 @@ frontend.renderViews = function () {
 }
 
 frontend.renderViews();
+
+
+console.log(backend.storageSelector.getGroupedKeys());
+const bankName = backend.storageSelector.lastRecordName().lastBanks[0];
+
+//console.log(backend.storageSelector.searchRecord(bankName.bank, true, 'last'));
+
+
+
+
+//console.log( backend.dataController.getData(backend.helpers.getAllSheetTypes().BANKRECORDS) );
