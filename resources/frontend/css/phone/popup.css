@@ -34,17 +34,10 @@ popup.bug textarea {
     overflow: auto;
 }
 
-popup.import {
-    height: 375px !important;
-}
 
 popup.import textarea {
     resize: none;
     overflow: auto;
-}
-
-popup.settings {
-    height: 360px !important;
 }
 
 popup.activity {
@@ -335,12 +328,11 @@ popup.help .element #errorMessage {
 
 /* --------End of Help --------  */
 
-popup.import .element {
-    height: 170px;
-}
+
 
 popup.import .element .importer {
     display: flex;
+    margin-top: 10px;
     color: #ccccccb6;
     border: 1px solid #1c1e29;
     background-color: #0707078a;
@@ -352,7 +344,7 @@ popup.import .element .importer {
 popup.import .element .importer__textarea {
     border: none;
     outline: none;
-    width: 100%;
+    width: calc(100% - (0.8rem + 5px));
     background-color: #0707078a;
     color: #ccc;
     overflow: auto;
@@ -365,8 +357,6 @@ popup.import .element .importer__lines {
     padding-right: 5px;
     text-align: right;
     overflow: hidden;
-    min-width: calc(0.8rem + 5px);
-    ;
 }
 
 popup.import .element textarea::placeholder {

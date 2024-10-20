@@ -7,12 +7,13 @@ middleman.popupModel = (function () {
 
     document.addEventListener("keydown", function (event) {   // Close Popups
         if (event.key === "Escape") {
-            closePopupDiv();
+            middleman.popupModel.closePopupDiv();
+            middleman.popupModel.deactivateLoader();
         }
     });
 
     function createPopup(popupDivName, title, content, footer = '') {
-        closePopupDiv(); // Cloth other popups first
+        middleman.popupModel.closePopupDiv(); // Cloth other popups first
         setTimeout(() => {
             showPopup();
             loader.classList.add("active"); // Activate loader
@@ -21,7 +22,7 @@ middleman.popupModel = (function () {
             popupDivBody.innerHTML = `
             <div class="model">
                 <div class="head">
-                    <button class="close" onclick="closePopupDiv(), deactivateLoader()">X</button>
+                    <button class="close" onclick="middleman.popupModel.closePopupDiv(), middleman.popupModel.deactivateLoader()">X</button>
                     <h2>${title}</h2>
                 </div>
                 <div class="element">${content}</div>
@@ -49,7 +50,7 @@ middleman.popupModel = (function () {
 
             middleman.popupModel.closePopupDiv(); 
             clearOldData();
-            frontend.popupRender.UploadEvent();
+            frontend.popupUpload.render();
             //window.location.href = 'phone.html';
         }
     }
@@ -111,6 +112,7 @@ middleman.popupModel = (function () {
         createPopup: createPopup,
         getBrowserInfo: getBrowserInfo,
         closePopupDiv: closePopupDiv,
+        deactivateLoader: deactivateLoader,
         delItem: delItem 
     };
 
