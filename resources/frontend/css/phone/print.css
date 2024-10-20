@@ -1,0 +1,18 @@
+
+body {
+    visibility: visible; /* Stelle sicher, dass der gesamte Inhalt sichtbar ist */
+}
+    container { 
+        page-break-inside: avoid; 
+        min-height: 100%;
+        height: auto;
+    }
+
+    @media print {
+        .page {
+            page-break-after: always; /* Erzeugt nach jedem .page-Element einen Seitenumbruch */
+        }
+        .message {
+            page-break-after: auto; /* Erzeugt nach jedem .page-Element einen Seitenumbruch */
+        }
+    }
