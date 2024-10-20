@@ -59,10 +59,6 @@ backend.storageShow = function () {
             return showBankRecord;
         }
 
-        // Default case: show both
-        console.log(`Last showPhone record: ${showPhoneRecord}`);
-        console.log(`Last showBank record: ${showBankRecord}`);
-
         return {
             showPhone: showPhoneRecord,
             showBank: showBankRecord

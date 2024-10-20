@@ -99,6 +99,11 @@ popup .footer {
     height: auto;
     padding-bottom: 20px;
 }
+
+popup .footer span.fileslist.active {
+    color: var(--global-hover) !important;
+}
+
 popup .ok {
     margin-top: 20px;
     padding: 10px 20px;
@@ -282,9 +287,6 @@ popup.settings select::after {
 
 
 /* --------End of Settings---------  */
-popup.bug .element {
-    height: 170px;
-}
 
 popup.bug .element textarea {
     border: 1px solid #1c1e29;

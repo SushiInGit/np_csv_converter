@@ -91,6 +91,7 @@ frontend.renderList = function (phoneGrouped) {
                 const allDivs = document.querySelectorAll('.pov .user');
                 allDivs.forEach(div => div.classList.remove('active'));
                 this.classList.add('active');
+                middleman.popupModel.closePopupDiv();
                 frontend.renderChat(data);
             }
 

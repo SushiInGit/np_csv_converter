@@ -5,6 +5,7 @@ frontend.popupBug = (function () {
 
         const popupDivName = "bug";
         const content = `
+        <p><small>Found a bug? Report it here! <br>If you'd like to provide more details, feel free to join our Discord server using the link at the bottom of the page.</small></p>
             <textarea id="message" rows="10" cols="48" placeholder="Enter your message...."></textarea>
         `;
         const footer = `<button class="ok" onclick="frontend.popupBug.sendToDiscord()">Send Bugreport</button>`;

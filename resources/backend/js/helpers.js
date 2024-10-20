@@ -15,11 +15,28 @@ backend.helpers = function () {
         return isoDateRegex.test(dateString);
     }
 
+    function sortObjectByKey(arr, key) {
+        return arr.sort((a, b) => {
+            const valA = a[key];
+            const valB = b[key];
+
+            const isANumeric = /^\d+$/.test(valA);
+            const isBNumeric = /^\d+$/.test(valB);
+
+            if (isANumeric && isBNumeric) {
+                return valA - valB;
+            }
+            
+            if (isANumeric) return -1;
+            if (isBNumeric) return 1;
+            
+            return valA.localeCompare(valB);
+        });
+    }
+
     return {
-
+        sortObjectByKey: sortObjectByKey,
         isValidISODateCheck: (dateString) => isValidISODateCheck(dateString),
-
         getAllSheetTypes: () => { return enumSheetTypes }
-
     }
 }();

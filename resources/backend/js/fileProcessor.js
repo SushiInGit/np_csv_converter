@@ -74,17 +74,24 @@ backend.fileProcessor = function () {
 
                 // Save cleanData to localstorage, overwrites the current data
                 //backend.dataController.saveData(sheetType, cleanData);
-
-
-                // Use the storageManager to add the data and ensure it's within the limit
-                const dataAdded = backend.storageManager.addData(fileName + '_' + sheetType, JSON.stringify(cleanData), redirectUrl);
-                if (!dataAdded) {
-                    global.alertsystem('warning', 'Storage limit exceeded! Please free up some space and delete other subpoena files.', 14);
+                if (redirectUrl === "bank.html") {
+                    backend.dataController.saveData(sheetType, cleanData);
+                } else if (redirectUrl === "phone.html") {
+                    // Use the storageManager to add the data and ensure it's within the limit
+                    const dataAdded = backend.storageManager.addData(fileName + '_' + sheetType, JSON.stringify(cleanData), redirectUrl);
+                    if (!dataAdded) {
+                        global.alertsystem('warning', 'Storage limit exceeded! Please free up some space and delete other subpoena files.', 14);
+                    }
                 }
+
+
             }
         }
 
-        // window.location.href = redirectUrl;
+        if (redirectUrl === "bank.html") {
+            window.location.href = redirectUrl;
+        }
+
     }
 
     function getSheetType(sheetHeaders) {

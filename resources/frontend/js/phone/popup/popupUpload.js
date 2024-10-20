@@ -75,6 +75,11 @@ frontend.popupUpload= (function () {
                 const simownerName = document.createElement('span');
                 simownerName.innerHTML = `${middleman.findNames(simowner)} - ${String(simowner).replace(/^(\d{3})(\d{3})(\d{4})$/, "($1) $2 $3")} `;
                 simownerName.className = 'fileslist';
+
+                if (sessionStorage.getItem('simOwnerId') === simowner) {
+                    simownerName.className = 'fileslist active';
+                }
+                
                 simownerName.style.cursor = 'pointer';
                 simownerName.onclick = () => swap(null, items.name, "all", simowner);
                 simownerLi.appendChild(simownerName);
@@ -92,7 +97,9 @@ frontend.popupUpload= (function () {
                 ownerItemList.style.paddingLeft = '10px';
                 ownerItemList.style.marginLeft = '0px';
 
-                items.forEach((item, index) => {
+                const sortItems = backend.helpers.sortObjectByKey(items, "name");
+
+                sortItems.forEach((item, index) => { 
                     const li = document.createElement('li');
                     li.style.listStyleType = "none";
 
@@ -102,9 +109,10 @@ frontend.popupUpload= (function () {
                     itemName.innerHTML = `${formattedItem}`;
                     itemName.style.cursor = 'pointer';
                     itemName.className = 'fileslist';
+                    if(backend.storageShow.showLastSearch().showPhone === item.name) {
+                        itemName.className = 'fileslist active';
+                    }
                     itemName.onclick = () => swap(index, item.name, "single", simowner);
-
-                    
 
                     const deleteButton = document.createElement('button');
                     deleteButton.textContent = 'X';
@@ -143,9 +151,11 @@ frontend.popupUpload= (function () {
                 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',  // .xlsx
                 'application/vnd.ms-excel'                                            // .xls
             ];
+
             function isExcelFile(file) {
                 return excelMimeTypes.includes(file.type);
             }
+
             const fileInput = document.querySelector('#file-input');
             const dropZone = document.querySelector('#drop-zone');
 
