@@ -18,7 +18,7 @@ if (backend.storageSelector.searchRecord('', true, 'last') !== false) {
         const data = middleman.requestData.all();
         let dialoguePartners = Object.keys(middleman.requestData.allMetadata()).length + 0;
 
-        if (bannerRight) {
+        if (bannerRight && Object.keys(data).length > 0) {
             bannerRight.innerHTML = `
             Total Data: ${middleman.phoneData.infoCountOverall(data)}<br>
             Total Calls: ${middleman.phoneData.infoCountIscall(data)}<br> 
@@ -28,7 +28,7 @@ if (backend.storageSelector.searchRecord('', true, 'last') !== false) {
         }
 
         const bannerCenter = document.querySelector(".banner .center.noselect");
-        if (bannerCenter) {
+        if (bannerCenter && Object.keys(data).length > 0) {
             bannerCenter.innerHTML = `
             <h2>${simownerName(middleman.simOwner.number())}</h2>
             <h3>${String(middleman.simOwner.number()).replace(/^(\d{3})(\d{3})(\d{4})$/, "($1) $2 $3")}</h3>

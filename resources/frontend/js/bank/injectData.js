@@ -1,4 +1,3 @@
-/*
 
 if (localStorage.bankRecords) {
 
@@ -42,4 +41,3 @@ if (localStorage.bankRecords) {
         }
     });
 };
-*/

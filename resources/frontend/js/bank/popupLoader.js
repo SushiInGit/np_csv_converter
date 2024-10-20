@@ -2,7 +2,7 @@ var frontend = frontend ?? {};
 frontend.popupLoader = function () {
     const path = "resources/frontend/js/bank/popup/";
 
-    const scriptsToLoad = ['popupHelp.js',  'popupBug.js', 'popupSettings.js'];
+    const scriptsToLoad = ['popupUpload.js', 'popupHelp.js',  'popupBug.js', 'popupSettings.js'];
 
     function loadScript(url) {
         return new Promise((resolve, reject) => {

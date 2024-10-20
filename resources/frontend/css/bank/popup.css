@@ -30,10 +30,14 @@ popup .model {
     flex-direction: column;
 }
 
-popup.upload {
-    height: 170px !important;
+popup .footer {
+    height: auto;
+    padding-bottom: 20px;
 }
 
+popup .footer span.fileslist.active {
+    color: var(--global-hover) !important;
+}
 
 popup.bug textarea {
     resize: none;
@@ -69,7 +73,25 @@ popup .close {
 popup .close:hover {
     background-color: #eb5b4b;
 }
-
+popup .del {
+    right: 0;
+    margin-right: 10px;
+    margin-bottom: 5px;
+    padding: 5px 10px;
+    background-color: #ae2727;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+popup upload .fileslist:hover {
+    cursor: pointer;
+    color: var(--text-color) !important;
+    opacity: 0.6;
+}
+popup .del:hover {
+    background-color: #d85252;
+}
 popup .head {
     width: 100%;
     height: auto;
