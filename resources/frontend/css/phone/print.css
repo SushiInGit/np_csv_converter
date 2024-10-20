@@ -1,18 +1,29 @@
-
 body {
-    visibility: visible; /* Stelle sicher, dass der gesamte Inhalt sichtbar ist */
+    visibility: visible;
+    height: auto !important;
 }
-    container { 
-        page-break-inside: avoid; 
-        min-height: 100%;
-        height: auto;
-    }
 
-    @media print {
-        .page {
-            page-break-after: always; /* Erzeugt nach jedem .page-Element einen Seitenumbruch */
-        }
-        .message {
-            page-break-after: auto; /* Erzeugt nach jedem .page-Element einen Seitenumbruch */
-        }
+container {
+    page-break-inside: avoid;
+    height: auto !important;
+    width: 100% !important;
+    overflow: auto;
+}
+
+.output .messages {
+    max-height: 100% !important;
+}
+
+container .grid-wrapper {
+    overflow: visible !important;
+}
+.spacer {
+    padding: 30px;
+    margin: 30px;
+    height: 30px;
+}
+@media print {
+    .page {
+        page-break-after: always;
     }
+}
