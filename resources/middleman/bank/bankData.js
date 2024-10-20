@@ -5,6 +5,7 @@ middleman.bankData = function () {
 
     function getFormattedData() {
         const bankName = backend.storageSelector.lastRecordName().lastBanks[0];
+        console.log(bankName);
         let bankDataNew = backend.storageSelector.searchRecord(bankName, true, 'last');
         //let bankDataOld = backend.dataController.getData(backend.helpers.getAllSheetTypes().BANKRECORDS);
         
