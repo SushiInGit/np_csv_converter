@@ -22,8 +22,13 @@ document.addEventListener('DOMContentLoaded', function () {
                 const link = document.createElement('a');
                 const imgData = canvas.toDataURL('image/png');
                 link.href = imgData;
+                /*
                 link.download = 'np_converter.png';
                 link.click();
+                */
+
+            const newTab = window.open();
+            newTab.document.body.innerHTML = `<img src="${imgData}" alt="NP Converter Screenshot" style="max-width:100%;"/>`;
 
             }).catch(function (error) {
                 console.error('Error capturing the page:', error);

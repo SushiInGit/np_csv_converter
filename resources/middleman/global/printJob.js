@@ -10,7 +10,7 @@ middleman.printJob = function () {
 
         //var newWindow = window.open('', '', 'height=600,width=800');
         var newWindow = window.open();
-        newWindow.document.write('<html><head><title>Print View</title>');
+        newWindow.document.write('<html><head><title>NP Converter Print View</title>');
         newWindow.document.write('<link rel="stylesheet" type="text/css" href="resources/frontend/css/phone/print.css">');
         newWindow.document.write('<script defer src="resources/backend/vendors/html2canvas.min.js"></script>');
 
