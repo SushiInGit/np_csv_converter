@@ -79,4 +79,4 @@ backend.storageSize = function () {
     };
 }();
 
-//backend.storageSize.setMaxStorage(20); 
+//backend.storageSize.setMaxStorage(20); //Hard Set maxStorage without Checking if its posible !!!

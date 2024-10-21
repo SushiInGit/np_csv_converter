@@ -1,9 +1,113 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins");
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons+Outlined');
+
+:root {
+    --text-color: #fff;
+    --body-bg-color: #111;
+    --body-gradient-start: #251F2E;
+    --body-gradient-end: #251F2E;
+    --bg-shade-light: hsla(0, 0%, 0%, 0.15);
+    --bg-shade-mid: hsla(0, 0%, 0%, 0.4);
+    --bg-shade-search: hsla(0, 0%, 0%, 0.35);
+    --global-border-color: rgba(94, 92, 92, 0.418);
+    --global-border-size: 1px;
+    --global-hover: #d4a5ff;
+
+    --speechbubble-color: var(--bg-shade-mid);
+    --speechbubble-border-color: var(--global-border-color);
+    --speechbubble-text: #efeff0;
+    --speechbubble-text-color-italic: #9fa2a7c0;
+    --speechbubble-highlight-datemarker: #ffffff83;
+    --speechbubble-highlight-to: #6106da;
+    --speechbubble-highlight-from: #b388dd;
+    --speechbubble-call-cancel: #9d3535;
+    --speechbubble-call-incoming: #bf7b17;
+    --speechbubble-call-outgoing: #427a30;
+}
+
 body {
     visibility: visible;
     height: auto !important;
+    background: var(--body-bg-color);
+    background: linear-gradient(315deg, var(--body-gradient-start) 0%, var(--body-gradient-end) 100%);
+}
+.buttons {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    margin-bottom: 20px;
+}
+.buttons .ok {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #27ae60;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
 }
 
-container {
+.buttons .ok:hover {
+    background-color: #2ecc71;
+}
+
+.banner {
+    grid-area: 2 / 1 / 3 / 6;
+    margin-bottom: 13px;
+    border-radius: 26px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--bg-shade-mid);
+    border: solid var(--global-border-size) var(--global-border-color);
+    white-space: nowrap;
+    color: var(--speechbubble-text);
+    font-family: "Poppins", sans-serif;
+}
+
+.banner h2 {
+    text-align: center;
+    line-height: 1.2;
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+.banner h3 {
+    text-align: center;
+    line-height: 1.2;
+    display: block;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.banner .left,
+.banner .right {
+    height: 100%;
+    width: 250px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    padding-right: 10px;
+    padding-left: 10px;
+    overflow: hidden;
+}
+
+.banner .right {
+    text-align: right;
+    opacity: 0;
+}
+
+.banner .center {
+    height: 100%;
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.output {
     page-break-inside: avoid;
     height: auto !important;
     width: 100% !important;
@@ -11,19 +115,239 @@ container {
 }
 
 .output .messages {
-    max-height: 100% !important;
+    font-family: "Poppins", sans-serif;
+    position: relative;
+    display: block;
+    width: 100%;
+    scroll-snap-type: y mandatory;
+    scroll-behavior: smooth;
 }
 
-container .grid-wrapper {
-    overflow: visible !important;
+.output .messages a,
+.output .messages a:visited {
+    color: var(--speechbubble-text);
 }
-.spacer {
-    padding: 30px;
-    margin: 30px;
-    height: 30px;
+
+.output .messages .commOutput {
+    display: grid;
+    grid-template-columns: 1fr repeat(3, 180px) 1fr;
+    grid-column-gap: 0px;
+    grid-row-gap: 10px;
 }
+
+.output .messages .commOutput .call {
+    text-align: center;
+    background-color: var(--speechbubble-color);
+    color: var(--speechbubble-text);
+    font-size: .8em;
+    line-height: 1.75;
+    padding: 5px 15px;
+    border: 1px solid var(--speechbubble-border-color);
+    scroll-snap-align: end;
+}
+
+.output .messages .commOutput .call.callIn {
+    border-left: 5px solid var(--speechbubble-call-incoming) !important;
+    border-right: 5px solid var(--speechbubble-call-incoming) !important;
+}
+
+.output .messages .commOutput .call.callOut {
+    border-left: 5px solid var(--speechbubble-call-outgoing) !important;
+    border-right: 5px solid var(--speechbubble-call-outgoing) !important;
+}
+
+.output .messages .commOutput .call.callFail {
+    border-left: 5px solid var(--speechbubble-call-cancel) !important;
+    border-right: 5px solid var(--speechbubble-call-cancel) !important;
+}
+
+.output .messages .commOutput .call.callIn .callindicator.callIn {
+    position: absolute;
+    margin-top: 10px !important;
+
+    svg,
+    svg * {
+        fill: var(--speechbubble-call-incoming);
+    }
+}
+
+.output .messages .commOutput .call.callOut .callindicator.callOut {
+    position: absolute;
+    margin-top: 10px !important;
+
+    ssvg,
+    svg * {
+        fill: var(--speechbubble-call-outgoing);
+    }
+}
+
+.output .messages .commOutput .call.callFail .callindicator.callFail {
+    position: absolute;
+    margin-top: -15px !important;
+
+    svg,
+    svg * {
+        fill: var(--speechbubble-call-cancel);
+    }
+}
+
+.output .messages .commOutput .date-marker {
+    height: 20px;
+    text-align: center;
+    background-color: var(--speechbubble-color);
+    color: var(--speechbubble-text);
+    font-size: .8em;
+    line-height: 1.75;
+    padding: 5px 15px;
+    border: 1px solid var(--speechbubble-border-color);
+    border-left: 5px solid var(--speechbubble-highlight-datemarker);
+    border-right: 5px solid var(--speechbubble-highlight-datemarker);
+    scroll-snap-align: end;
+}
+
+.output .messages .commOutput .message {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: normal;
+}
+
+.output .messages .commOutput .message.to {
+    text-align: left;
+    background-color: var(--speechbubble-color);
+    color: var(--speechbubble-text);
+    font-size: .8em;
+    line-height: 1.75;
+    padding: 15px 25px;
+    border: 1px solid var(--speechbubble-border-color);
+    border-left: 5px solid var(--speechbubble-highlight-to);
+    scroll-snap-align: end;
+}
+
+.output .messages .commOutput .message.from {
+    text-align: right;
+    background-color: var(--speechbubble-color);
+    color: var(--speechbubble-text);
+    font-size: .8em;
+    line-height: 1.75;
+    padding: 15px 25px;
+    border: 1px solid var(--speechbubble-border-color);
+    border-right: 5px solid var(--speechbubble-highlight-from);
+    scroll-snap-align: end;
+}
+
+.output .messages .commOutput .message .number {
+    color: var(--speechbubble-text-color-italic);
+    padding-bottom: 5px;
+    font-style: italic;
+    font-size: smaller;
+}
+
+.output .messages .commOutput .message .timestamp {
+    color: var(--speechbubble-text-color-italic);
+    padding-top: 10px;
+    font-style: italic;
+    font-size: smaller;
+}
+
+.output .messages .commOutput .message .embedbody .embed {
+    padding-top: 15px;
+
+}
+
+.output .messages .commOutput .message .embedbody .embed img {
+    height: 200px !important;
+    padding-right: 15px;
+    filter: blur(10px);
+    transition: all 0.3s ease;
+}
+
+.output .messages .commOutput .message .embedbody .embed img:not([src]) {
+    filter: blur(0);
+}
+
+.output .messages .commOutput .message .embedbody .embed img:hover {
+    filter: blur(0);
+}
+
+footer {
+    font-family: "Poppins", sans-serif;
+    position: relative;
+    margin-top: 10px;
+    left: 0;
+    bottom: 0px;
+    width: 100%;
+    height: 22px;
+    line-height: 21px;
+    text-align: center;
+    color: #fff;
+    font-size: 12px;
+    background: var(--bg-shade-mid);
+    background: linear-gradient(180deg, var(--bg-shade-mid) 0%, var(--bg-shade-light) 100%);
+    opacity: 0.8;
+}
+
+footer a {
+    color: #d4a5ff;
+    text-decoration: none;
+    position: relative;
+    transition: color 0.3s ease;
+}
+
+footer a:hover {
+    color: #fff;
+}
+
+footer a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -3px;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #d4a5ff, transparent);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+footer a:hover::after {
+    opacity: 1;
+}
+
+.hide {
+    opacity: 0.4; 
+    text-decoration: line-through;
+}
+
 @media print {
-    .page {
-        page-break-after: always;
+    *{
+        background-color: #fff !important;
+        background: #fff !important;
+        color: #111 !important;
+    }
+    .banner,
+    footer,
+    .buttons {
+        display: none;
+    };
+
+    .banner,
+    .messages .commOutput {
+        break-inside: avoid; 
+    }
+    .output .messages .commOutput .date-marker {
+        border-left: 5px solid #111 !important;
+        border-right: 5px solid  #111 !important;
+    }
+    .messages .commOutput .message,
+    .messages .commOutput .call,
+    .messages .commOutput .date-maker {
+        page-break-inside: avoid; 
+        page-break-after: auto; 
+    }
+
+    .messages .commOutput .message:last-child,
+    .messages .commOutput .call:last-child,
+    .messages .commOutput .date-maker:last-child {
+        page-break-after: always; 
     }
 }
