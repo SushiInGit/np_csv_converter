@@ -19,6 +19,7 @@ popup {
     opacity: 1;
     font-family: "Poppins", sans-serif;
 }
+
 popup .model {
     position: relative;
     display: flex;
@@ -33,7 +34,6 @@ popup.bug textarea {
     resize: none;
     overflow: auto;
 }
-
 
 popup.import textarea {
     resize: none;
@@ -95,6 +95,7 @@ popup .element {
     left: 10px;
     width: calc(100% - 20px);
 }
+
 popup .footer {
     height: auto;
     padding-bottom: 20px;
@@ -128,6 +129,10 @@ popup .risk {
     cursor: pointer;
 }
 
+popup .risk:hover {
+    background-color: #d85252;
+}
+
 popup .del {
     right: 0;
     margin-right: 10px;
@@ -139,13 +144,49 @@ popup .del {
     border-radius: 6px;
     cursor: pointer;
 }
+
+popup .del:hover {
+    background-color: #d85252;
+}
+
+popup upload ul.ulfileslist {
+    max-height: 150px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    padding-left: 10px;
+    padding-bottom: 10px;
+    scroll-behavior: smooth;
+    scroll-snap-type: y mandatory;
+}
+
+popup upload ul.ulownerItemList {
+    padding-top: 10px;
+    padding-left: 10px;
+    margin-left: 0px;
+}
+
+popup upload .li.div {
+    display: flex;
+    height: auto;
+}
+
+popup upload span.fileslist {
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 300px;
+    max-width: 300px;
+    height: 100%;
+}
+
 popup upload .fileslist:hover {
     cursor: pointer;
     color: var(--text-color) !important;
     opacity: 0.6;
-}
-popup .del:hover {
-    background-color: #d85252;
 }
 
 popup .risk.hide {
@@ -156,10 +197,6 @@ popup .risk.hide {
 popup .risk.show {
     opacity: 1;
     display: inline;
-}
-
-popup .risk:hover {
-    background-color: #d85252;
 }
 
 
@@ -376,22 +413,24 @@ popup.import .element textarea::placeholder {
     text-align: center;
 
 
-.chart-container {
-    position: relative;
-    height: auto;
-    width: 100%;
-}
-.chart-container .loading-message {
-    text-align: center;
-    text-wrap: wrap;
+    .chart-container {
+        position: relative;
+        height: auto;
+        width: 100%;
+    }
+
+    .chart-container .loading-message {
+        text-align: center;
+        text-wrap: wrap;
+    }
+
+    #time-range-output {
+        margin-top: 20px;
+        font-size: 1.2em;
+        font-weight: bold;
+        color: #4e4e4e;
+    }
+
 }
 
-#time-range-output {
-    margin-top: 20px;
-    font-size: 1.2em;
-    font-weight: bold;
-    color: #4e4e4e;
-}
-
-}
 /* --------End of Events---------  */

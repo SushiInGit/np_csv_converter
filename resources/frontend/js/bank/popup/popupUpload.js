@@ -6,7 +6,6 @@ frontend.popupUpload= (function () {
 
         function del(index, item) {
             const popupDivName = "confirm-delete";
-
             const content = `
                 <div class="confirmation-content noselect ">
                     <p>Are you sure you want to delete this file? <br><br><b>Filename:</b> <br>${item.replace(/_/g, ' ')}</p>
@@ -14,7 +13,7 @@ frontend.popupUpload= (function () {
             `;
 
             const footer = `
-                    <button class="risk" onclick="">Delete</button>
+                    <button class="risk" onclick="middleman.popupModel.delBank('${item}')">Delete</button>
             `;
                 // <button class="ok" onclick=" closePopupDiv(), deactivateLoader()">Cancel</button>
                 // <button class="risk" onclick="middleman.popupModel.delItem('${item}')">Delete</button>
@@ -34,9 +33,6 @@ frontend.popupUpload= (function () {
             listContainer.innerHTML = '';
             listContainer.style.width = 'calc(100% - 20px)';
             listContainer.style.maxWidth = 'calc(100% - 20px)';
-            listContainer.style.wordWrap = 'break-word';
-            listContainer.style.overflowWrap = 'break-word';
-
 
             if (items.length > 0) {
                 const br = document.createElement('br');
@@ -50,32 +46,39 @@ frontend.popupUpload= (function () {
 
             const storageSpace = document.createElement('div');
             if (items.length > 0) {
-                storageSpace.innerHTML = `<br><hr><center><small>Storage-Space: ${backend.storageManager.getStorageUsage().usedMB}MB of ${backend.storageSize.getMaxStorage()}MB  (${backend.storageManager.getStorageUsage().usedPercentage}% used)</small></center>`;
+                storageSpace.innerHTML = `
+                <br><hr><center>
+                <small>
+                Storage-Space: ${backend.storageManager.getStorageUsage().usedMB}MB of ${backend.storageSize.getMaxStorage()}MB  (${backend.storageManager.getStorageUsage().usedPercentage}% used)
+                </small><br>
+                <p style="font-size: 10px;">
+                Notice: Storage-Space is shared between phone and bank subpoenas.
+                </p>
+                </center>`;
             }
 
             const itemList = document.createElement('ul');
-            itemList.style.maxHeight = '150px';
-            itemList.style.overflowY = 'auto';
-            itemList.style.overflowX = 'hidden';
-            itemList.style.listStyleType = 'none';
-            itemList.style.padding = '0';
-            itemList.style.margin = '0';
-            itemList.style.paddingLeft = '10px';
-            itemList.style.scrollBehavior = 'smooth';
-            itemList.style.scrollSnapType = 'y mandatory';
+            itemList.className = 'ulfileslist';
             listContainer.appendChild(itemList);
             listContainer.appendChild(storageSpace);
-
-            items.forEach(item => {
+            const sortItems = backend.helpers.sortObjectByKey(items, null);
+            sortItems.forEach(item => {
                 const li = document.createElement('li');
                 li.style.listStyleType = "none";
 
                 const formattedItem = item.replace(/_/g, ' ');
+                const liDiv = document.createElement('div');
+                liDiv.className = 'li div';
+                const buttonDiv = document.createElement('div');
+                buttonDiv.className = 'li button';
+                const spanDiv = document.createElement('div');
+                spanDiv.className = 'li span';
                 const itemName = document.createElement('span');
 
                 itemName.innerHTML = `${formattedItem}`;
-                itemName.style.cursor = 'pointer';
+                itemName.title = formattedItem;
                 itemName.className = 'fileslist';
+
                 if(backend.storageShow.showLastSearch().showBank === (item + "_bankRecords")) {
                     itemName.className = 'fileslist active';
                 }
@@ -87,8 +90,11 @@ frontend.popupUpload= (function () {
                 deleteButton.className = 'del';
                 deleteButton.onclick = () => del(item.name, item);
 
-                li.appendChild(deleteButton);
-                li.appendChild(itemName);
+                buttonDiv.appendChild(deleteButton);
+                spanDiv.appendChild(itemName);
+                liDiv.appendChild(buttonDiv);
+                liDiv.appendChild(spanDiv);
+                li.appendChild(liDiv);
                 li.style.scrollSnapAlign = 'end';
                 itemList.appendChild(li);
             });

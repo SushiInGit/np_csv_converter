@@ -1,6 +1,6 @@
 var frontend = frontend ?? {};
 
-frontend.popupUpload= (function () {
+frontend.popupUpload = (function () {
 
     function UploadEvent() {
 
@@ -14,9 +14,9 @@ frontend.popupUpload= (function () {
             `;
 
             const footer = `
-                    <button class="risk" onclick="middleman.popupModel.delItem('${item.name}')">Delete</button>
+                    <button class="risk" onclick="middleman.popupModel.delPhone('${item.name}')">Delete</button>
             `;
-                // <button class="ok" onclick=" closePopupDiv(), deactivateLoader()">Cancel</button>
+            // <button class="ok" onclick=" closePopupDiv(), deactivateLoader()">Cancel</button>
 
             middleman.popupModel.createPopup(popupDivName, 'Delete Confirmation', content, footer);
         }
@@ -63,53 +63,67 @@ frontend.popupUpload= (function () {
 
             const storageSpace = document.createElement('div');
             if (items.length > 0) {
-                storageSpace.innerHTML = `<br><hr><center><small>Storage-Space: ${backend.storageManager.getStorageUsage().usedMB}MB of ${backend.storageSize.getMaxStorage()}MB  (${backend.storageManager.getStorageUsage().usedPercentage}% used)</small></center>`;
+                storageSpace.innerHTML = `
+                <br><hr><center>
+                <small>
+                Storage-Space: ${backend.storageManager.getStorageUsage().usedMB}MB of ${backend.storageSize.getMaxStorage()}MB  (${backend.storageManager.getStorageUsage().usedPercentage}% used)
+                </small><br>
+                <p style="font-size: 10px;">
+                Notice: Storage-Space is shared between phone and bank subpoenas.
+                </p>
+                </center>`;
             }
 
             const itemList = document.createElement('ul');
+            itemList.className = 'ulfileslist';
             listContainer.appendChild(itemList);
             listContainer.appendChild(storageSpace);
 
             for (const [simowner, items] of Object.entries(groupedItems)) {
                 const simownerLi = document.createElement('li');
                 const simownerName = document.createElement('span');
-                simownerName.innerHTML = `${middleman.findNames(simowner)} - ${String(simowner).replace(/^(\d{3})(\d{3})(\d{4})$/, "($1) $2 $3")} `;
+
+                const simOwnerData = [];
+                simOwnerData.name = middleman.findNames(simowner);
+                simOwnerData.number = String(simowner).replace(/^(\d{3})(\d{3})(\d{4})$/, "($1) $2 $3");
+
+                if (simOwnerData.name === "Unknown Contact") {
+                    simownerName.innerHTML = `#${simOwnerData.number}`;
+                } else {
+                    simownerName.innerHTML = `${simOwnerData.name}`;
+                }
                 simownerName.className = 'fileslist';
 
                 if (sessionStorage.getItem('simOwnerId') === simowner) {
                     simownerName.className = 'fileslist active';
                 }
-                
+
                 simownerName.style.cursor = 'pointer';
                 simownerName.onclick = () => swap(null, items.name, "all", simowner);
                 simownerLi.appendChild(simownerName);
 
                 const ownerItemList = document.createElement('ul');
-                itemList.style.maxHeight = '150px';
-                itemList.style.overflowY = 'auto';
-                itemList.style.overflowX = 'hidden';
-                itemList.style.listStyleType = 'none';
-                itemList.style.padding = '0';
-                itemList.style.margin = '0';
-                itemList.style.scrollBehavior = 'smooth';
-                itemList.style.scrollSnapType = 'y mandatory';
-                ownerItemList.style.paddingTop = '10px';
-                ownerItemList.style.paddingLeft = '10px';
-                ownerItemList.style.marginLeft = '0px';
+                ownerItemList.className = 'ulownerItemList';
 
                 const sortItems = backend.helpers.sortObjectByKey(items, "name");
 
-                sortItems.forEach((item, index) => { 
+                sortItems.forEach((item, index) => {
                     const li = document.createElement('li');
                     li.style.listStyleType = "none";
 
                     const formattedItem = item.name.replace(/_/g, ' ');
+                    const liDiv = document.createElement('div');
+                    liDiv.className = 'li div';
+                    const buttonDiv = document.createElement('div');
+                    buttonDiv.className = 'li button';
+                    const spanDiv = document.createElement('div');
+                    spanDiv.className = 'li span';
                     const itemName = document.createElement('span');
 
                     itemName.innerHTML = `${formattedItem}`;
-                    itemName.style.cursor = 'pointer';
+                    itemName.title = formattedItem;
                     itemName.className = 'fileslist';
-                    if(backend.storageShow.showLastSearch().showPhone === item.name) {
+                    if (backend.storageShow.showLastSearch().showPhone === item.name && (sessionStorage.getItem('simOwnerId') !== simowner)) {
                         itemName.className = 'fileslist active';
                     }
                     itemName.onclick = () => swap(index, item.name, "single", simowner);
@@ -119,8 +133,11 @@ frontend.popupUpload= (function () {
                     deleteButton.className = 'del';
                     deleteButton.onclick = () => del(item.name, item);
 
-                    li.appendChild(deleteButton);
-                    li.appendChild(itemName);
+                    buttonDiv.appendChild(deleteButton);
+                    spanDiv.appendChild(itemName);
+                    liDiv.appendChild(buttonDiv);
+                    liDiv.appendChild(spanDiv);
+                    li.appendChild(liDiv);
                     li.style.scrollSnapAlign = 'end';
                     ownerItemList.appendChild(li);
                 });

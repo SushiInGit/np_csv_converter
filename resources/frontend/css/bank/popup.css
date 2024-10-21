@@ -73,6 +73,21 @@ popup .close {
 popup .close:hover {
     background-color: #eb5b4b;
 }
+
+popup .risk {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #ae2727;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+popup .risk:hover {
+    background-color: #d85252;
+}
+
 popup .del {
     right: 0;
     margin-right: 10px;
@@ -84,14 +99,49 @@ popup .del {
     border-radius: 6px;
     cursor: pointer;
 }
+
+popup .del:hover {
+    background-color: #d85252;
+}
+
+popup upload fileslist {
+    cursor: pointer;
+}
+
+popup upload ul.ulfileslist {
+    max-height: 150px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    padding-left: 10px;
+    padding-bottom: 10px;
+    scroll-behavior: smooth;
+    scroll-snap-type: y mandatory;
+}
+
+popup upload .li.div {
+    display: flex;
+    height: auto;
+}
+
+popup upload span.fileslist {
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 300px;
+    max-width: 300px;
+    height: 100%;
+}
+
 popup upload .fileslist:hover {
     cursor: pointer;
     color: var(--text-color) !important;
     opacity: 0.6;
 }
-popup .del:hover {
-    background-color: #d85252;
-}
+
 popup .head {
     width: 100%;
     height: auto;
@@ -113,6 +163,7 @@ popup .element {
     left: 10px;
     width: calc(100% - 20px);
 }
+
 popup .footer {
     height: auto;
     padding-bottom: 20px;

@@ -33,7 +33,7 @@ middleman.popupModel = (function () {
         }, 50);
     }
 
-    function delItem(item) {
+    function delPhone(item) {
         if (item) {
             backend.storageSelector.deleteTextsAndCalls(item);
     
@@ -54,7 +54,28 @@ middleman.popupModel = (function () {
             //window.location.href = 'phone.html';
         }
     }
+    function delBank(item) {
+        if (item) {
+            backend.storageSelector.deleteBank(item);
     
+            if (backend.storageSelector.searchRecord(item, true, 'last') === false) {
+               window.location.href = 'bank.html';
+            }
+    
+            if (backend.storageSelector.searchRecord(item, false) === false) {
+                backend.storageSelector.searchRecord(item, true, 'last');
+                global.alertsystem('success', `You deleted ${item.replace(/_/g, ' ')}.`, 7);
+                const getName = backend.storageSelector.lastRecordName().lastPhone[0];
+                backend.storageShow.saveLastSearchRecord(getName, true);
+            }
+
+            middleman.popupModel.closePopupDiv(); 
+            clearOldData();
+            frontend.popupUpload.render();
+            //window.location.href = 'phone.html';
+        }
+    }
+       
     function clearOldData() { // Clears all old shown data
         const bannerRight = document.querySelector(".banner .right.noselect");
         const bannerCenter = document.querySelector(".banner .center.noselect");
@@ -113,7 +134,8 @@ middleman.popupModel = (function () {
         getBrowserInfo: getBrowserInfo,
         closePopupDiv: closePopupDiv,
         deactivateLoader: deactivateLoader,
-        delItem: delItem 
+        delPhone: delPhone,
+        delBank: delBank 
     };
 
 })();
