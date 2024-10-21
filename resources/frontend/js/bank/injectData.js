@@ -1,5 +1,5 @@
 
-if (localStorage.bankRecords) {
+if (backend.storageSelector.searchRecord('', true, 'last') !== false) {
 
     function formatDifference(incomingTotal, outgoingTotal) {
         if (typeof incomingTotal === 'number' && typeof outgoingTotal === 'number') {

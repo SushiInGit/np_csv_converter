@@ -27,6 +27,7 @@ frontend.renderViews = function () {
         });
     }
     const bankDataGrouped = middleman.bankData.getGrouped();
+    if(!bankDataGrouped){ return; }
 
     bankDataGrouped.sort((a, b) => {
         return a.to.account_id - b.to.account_id;
@@ -96,14 +97,3 @@ frontend.renderViews = function () {
 }
 
 frontend.renderViews();
-
-
-console.log(backend.storageSelector.getGroupedKeys());
-const bankName = backend.storageSelector.lastRecordName().lastBanks[0];
-
-//console.log(backend.storageSelector.searchRecord(bankName.bank, true, 'last'));
-
-
-
-
-//console.log( backend.dataController.getData(backend.helpers.getAllSheetTypes().BANKRECORDS) );
