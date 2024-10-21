@@ -37,7 +37,7 @@ frontend.renderChat = function (data) {
     const headerLeft = document.querySelector(".output .header.noselect .left");
     const headerRight = document.querySelector(".output .header.noselect .right");
     headerLeft.innerHTML = `${data.Name}  -  <number class="select">${String(data.To).replace(/^(\d{3})(\d{3})(\d{4})$/, "($1) $2 $3")}</number>`;
-    headerRight.innerHTML = `[ Messages: ${isCallFalseCount} | Calls: ${isCallTrueCount} ] <button class="print" onclick="middleman.printJob.pringJob('printable')">Export</button>  `;
+    headerRight.innerHTML = `[ Messages: ${isCallFalseCount} | Calls: ${isCallTrueCount} ] <button class="print" onclick="middleman.printJob.printJob('printable')">Export</button>  `;
 
 
     // Output-commOutput
@@ -165,7 +165,6 @@ frontend.renderChat = function (data) {
             numberDiv.textContent += (Log.From === middleman.simOwner.number() ? '✉️ from' : '✉️ from');
             numberDiv.textContent += "\n";
             if(Log.From_Name === "Unknown Contact") {
-                console.log(typeof Log.From);
                 numberDiv.textContent += (String(Log.From).replace(/^(\d{3})(\d{3})(\d{4})$/, "($1) $2 $3"));
             } else {
                 numberDiv.textContent += (Log.From_Name);
