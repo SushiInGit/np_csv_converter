@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     document.body.addEventListener('click', function (event) {
         const closestParent = event.target.closest('.date-marker, .message, .call');
+
         if (closestParent) {
             closestParent.classList.toggle('hide');
         }
@@ -9,6 +10,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     if (typeof html2canvas === 'function') {
         document.getElementById('captureButton').addEventListener('click', function () {
+
             const help = document.querySelector('.help');
             const button = document.querySelector('.buttons');
             const hide = document.querySelectorAll('.hide');
@@ -17,13 +19,14 @@ document.addEventListener('DOMContentLoaded', function () {
             const npConImg = document.querySelector('.center.noselect');
 
             const npConImgStyle = window.getComputedStyle(npConImg);
-            const constImgUrl = npConImgStyle.backgroundImage;
+            const npConImgUrl = npConImgStyle.backgroundImage;
 
             button.style.display = 'none';
             help.style.display = 'none';
             npConImg.style.backgroundImage = 'none';
             npConInfo.style.opacity = '0';
             footer.style.display = 'none';
+
             hide.forEach(function (div) {
                 div.style.display = 'none';
             });
@@ -44,10 +47,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 var newWindow = window.open('', '', 'height=600,width=800');
                 newWindow.document.title = 'NP Converter - Export PNG';
-                newWindow.document.body.style.backgroundColor = "#ccc";
-                newWindow.document.body.style.background = "linear-gradient(315deg, #251F2E 0%, #251F2E 100%)";
+
                 newWindow.document.body.innerHTML = `
                 <style>
+                    body {
+                        background-color: #ccc;
+                        background: linear-gradient(315deg, #251F2E 0%, #251F2E 100%);
+                    }
+                        
                     .ok {
                         padding: 10px 20px;
                         background-color: #27ae60;
@@ -96,7 +103,8 @@ document.addEventListener('DOMContentLoaded', function () {
             help.style.display = 'flex';
             npConInfo.style.opacity = '1';
             footer.style.display = 'block';
-            npConImg.style.backgroundImage = constImgUrl;
+            npConImg.style.backgroundImage = npConImgUrl;
+
             hide.forEach(function (div) {
                 div.style.display = 'block';
             });
