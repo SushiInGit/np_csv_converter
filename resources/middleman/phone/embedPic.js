@@ -25,12 +25,6 @@ middleman.embedPic = function (message) {
             this.style.filter = 'none';
         };
 
-        imgElement.style.maxHeight = '200px';
-        imgElement.style.maxWidth = '200px';
-        imgElement.style.height = 'auto';
-        imgElement.style.width = 'auto';
-        imgElement.style.objectFit = 'contain';
-
 
         link.appendChild(imgElement);
         embed.appendChild(link);

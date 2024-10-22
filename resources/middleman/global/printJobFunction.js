@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 div.style.display = 'none';
             });
 
-            html2canvas(document.body, { backgroundColor: null, scale: window.devicePixelRatio }).then(function (canvas) {
+            html2canvas(document.body, { scale: 1, allowTaint: true, useCORS: true }).then(function (canvas) {
                 const link = document.createElement('a');
                 const desiredWidth = 4096;
                 const desiredHeight = (canvas.height * desiredWidth) / canvas.width; 

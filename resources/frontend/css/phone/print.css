@@ -387,3 +387,16 @@ footer a:hover::after {
     border: none;
     background: linear-gradient(to right, transparent, rgba(0, 0, 0, 0.5), transparent);
 }
+
+
+.output .messages .commOutput .message .embedbody .embed {
+    height: auto;
+    width: auto;
+}
+.output .messages .commOutput .message .embedbody .embed img {
+    max-height: 200px;
+    height: auto;
+    max-width: 300px;
+    width: auto;
+    object-fit: contain;
+}
