@@ -9,32 +9,88 @@ document.addEventListener('DOMContentLoaded', function () {
 
     if (typeof html2canvas === 'function') {
         document.getElementById('captureButton').addEventListener('click', function () {
+            const help = document.querySelector('.help');
             const button = document.querySelector('.buttons');
             const hide = document.querySelectorAll('.hide');
+            const footer = document.querySelector('footer');
+            const npConInfo = document.querySelector('.left.noselect');
 
             button.style.display = 'none';
-
+            help.style.display = 'none';
+            npConInfo.style.opacity = '0';
+            footer.style.display = 'none';
             hide.forEach(function (div) {
                 div.style.display = 'none';
             });
 
-            html2canvas(document.body).then(function (canvas) {
+            html2canvas(document.body, { backgroundColor: null, scale: window.devicePixelRatio }).then(function (canvas) {
                 const link = document.createElement('a');
-                const imgData = canvas.toDataURL('image/png');
-                link.href = imgData;
-                /*
-                link.download = 'np_converter.png';
-                link.click();
-                */
+                const desiredWidth = 4096;
+                const desiredHeight = (canvas.height * desiredWidth) / canvas.width; 
+                const resizedCanvas = document.createElement('canvas');
+                resizedCanvas.width = desiredWidth;
+                resizedCanvas.height = desiredHeight;
+            
+                const ctx = resizedCanvas.getContext('2d');
+                ctx.drawImage(canvas, 0, 0, desiredWidth, desiredHeight);
 
-            const newTab = window.open();
-            newTab.document.body.innerHTML = `<img src="${imgData}" alt="NP Converter Screenshot" style="max-width:100%;"/>`;
+                const imgData = resizedCanvas.toDataURL('image/png');
+                link.href = imgData;
+
+                var newWindow = window.open('', '', 'height=600,width=800');
+                newWindow.document.title = 'NP Converter - Export PNG';
+                newWindow.document.body.style.backgroundColor = "#ccc";
+                newWindow.document.body.style.background = "linear-gradient(315deg, #251F2E 0%, #251F2E 100%)";
+                newWindow.document.body.innerHTML = `
+                <style>
+                    .ok {
+                        padding: 10px 20px;
+                        background-color: #27ae60;
+                        color: white;
+                        border: none;
+                        border-radius: 6px;
+                        cursor: pointer;
+                    }
+
+                    .ok:hover {
+                        background-color: #2ecc71;
+                    }
+
+                    .divstyle {
+                        padding: 20px; 
+                        display: flex; 
+                        justify-content: center; 
+                        flex-direction: column; 
+                        align-items: center;
+                    }
+                    
+                    .bordercolor {
+                        border: 5px solid #ccc;
+                    }
+                </style>
+                `;
+
+                newWindow.document.body.innerHTML += `
+                <div class="divstyle">
+                    <a href="${imgData}" download="np_converter_export.png" style="text-decoration: none;">
+                        <button class="ok">
+                            Download PNG
+                        </button>
+                    </a>  
+                </div>     
+                <div class="divstyle bordercolor">
+                    <img src="${imgData}" alt="NP Converter Screenshot" style="max-width:100%; margin-bottom: 20px;"/>
+                </div>
+                `;
 
             }).catch(function (error) {
                 console.error('Error capturing the page:', error);
             });
 
             button.style.display = 'flex';
+            help.style.display = 'flex';
+            npConInfo.style.opacity = '1';
+            footer.style.display = 'block';
 
             hide.forEach(function (div) {
                 div.style.display = 'block';

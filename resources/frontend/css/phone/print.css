@@ -28,9 +28,11 @@
 body {
     visibility: visible;
     height: auto !important;
+    background-color: transparent;
     background: var(--body-bg-color);
     background: linear-gradient(315deg, var(--body-gradient-start) 0%, var(--body-gradient-end) 100%);
 }
+
 .buttons {
     display: flex;
     align-items: center;
@@ -100,8 +102,13 @@ body {
 
 .banner .center {
     height: 100%;
+    padding-top: 10px;
+    padding-bottom: 10px;
     flex-grow: 1;
     display: flex;
+    background-image: url("https://sushiingit.github.io/np_csv_converter/resources/frontend/image/chibiAI.png");
+    background-repeat: no-repeat;
+    background-size: auto 140px;
     justify-content: center;
     align-items: center;
     flex-direction: column;
@@ -257,7 +264,7 @@ body {
 .output .messages .commOutput .message .embedbody .embed img {
     height: 200px !important;
     padding-right: 15px;
-    filter: blur(10px);
+    filter: blur(0);
     transition: all 0.3s ease;
 }
 
@@ -350,4 +357,33 @@ footer a:hover::after {
     .messages .commOutput .date-maker:last-child {
         page-break-after: always; 
     }
+}
+.logBody {
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+.help {
+    color: var(--text-color);
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    font-family: "Poppins", sans-serif;
+    padding-bottom: 20px;
+}
+
+.helptext {
+    color: var(--text-color);
+
+}
+
+.helphr {
+    display: block;
+    position: relative;
+    opacity: 0.7;
+    width: 100%;
+    height: 3px;
+    border: none;
+    background: linear-gradient(to right, transparent, rgba(0, 0, 0, 0.5), transparent);
 }
