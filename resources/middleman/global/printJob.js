@@ -39,8 +39,14 @@ middleman.printJob = function () {
     newWindow.document.write('<script defer src="resources/backend/vendors/html2canvas.min.js"></script>');
 
     newWindow.document.write('</head><body id="capture">');
+    newWindow.document.write('<div class="banner">');
+    newWindow.document.write(pageDate.head);
+
+    newWindow.document.write('</div>');
+
     newWindow.document.write(`
       <div class="help">
+      <hr class="helphr">
       <center><h2>Exporting Logs with Visibility Controls</h2></center>
         <div class="helptext">
           <p>When interacting with logs, you have the ability to manage which entries are visible or hidden. By clicking on a log entry, you can toggle its visibility:</p>
@@ -52,16 +58,13 @@ middleman.printJob = function () {
         </div>
       
       <div class="buttons">
-      <button class="ok" id="captureButton">Create PNG</button>
+        <button class="ok" id="captureButton">Create PNG</button>
       </div>
       <hr class="helphr">
       </div>
       `);
       newWindow.document.write('<div class="logBody">');
-    newWindow.document.write('<div class="banner">');
-    newWindow.document.write(pageDate.head);
 
-    newWindow.document.write('</div>');
 
     newWindow.document.write('<div class="output" style="grid-area: 1/1/5/7"><div class="messages">');
     newWindow.document.write(pageDate.log);
