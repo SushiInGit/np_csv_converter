@@ -14,9 +14,14 @@ document.addEventListener('DOMContentLoaded', function () {
             const hide = document.querySelectorAll('.hide');
             const footer = document.querySelector('footer');
             const npConInfo = document.querySelector('.left.noselect');
+            const npConImg = document.querySelector('.center.noselect');
+
+            const npConImgStyle = window.getComputedStyle(npConImg);
+            const constImgUrl = npConImgStyle.backgroundImage;
 
             button.style.display = 'none';
             help.style.display = 'none';
+            npConImg.style.backgroundImage = 'none';
             npConInfo.style.opacity = '0';
             footer.style.display = 'none';
             hide.forEach(function (div) {
@@ -91,7 +96,7 @@ document.addEventListener('DOMContentLoaded', function () {
             help.style.display = 'flex';
             npConInfo.style.opacity = '1';
             footer.style.display = 'block';
-
+            npConImg.style.backgroundImage = constImgUrl;
             hide.forEach(function (div) {
                 div.style.display = 'block';
             });
