@@ -28,6 +28,8 @@ backend.storageSize = function () {
     }
 
     function estimateMaxStorageSize() {
+        backend.storageSize.clearStorage(false); // Clear old localStorage Data
+
         let testKey = '__test__';
         let testValue = new Array(1024).join('a');
         let maxBytes = 0;
@@ -72,11 +74,38 @@ backend.storageSize = function () {
         }
     }
 
+    function clearStorage(fullClear = false) {
+        const suffixes = ['_calls', '_texts', '_bankRecords'];
+        const exactMatches = ['calls', 'texts'];
+        for (let key in localStorage) {
+            if (localStorage.hasOwnProperty(key)) {
+                for (let suffix of suffixes) {
+                    if (key.endsWith(suffix)) {
+                        localStorage.removeItem(key);
+                    }
+                }
+                if (exactMatches.includes(key)) {
+                    localStorage.removeItem(key);
+                }
+            }
+        }
+    
+        if (fullClear && localStorage.getItem('phonenumbers')) {
+            localStorage.removeItem('phonenumbers');
+        } 
+
+        if (fullClear && localStorage.getItem('np_settings')) {
+            localStorage.removeItem('np_settings');
+        }
+    }
+    
     return {
         getMaxStorage: getMaxStorage,
         setMaxStorage: setMaxStorage,
-        calculateLocalStorageSize: calculateLocalStorageSize
+        calculateLocalStorageSize: calculateLocalStorageSize,
+        clearStorage: clearStorage
     };
 }();
 
 //backend.storageSize.setMaxStorage(20); //Hard Set maxStorage without Checking if its posible !!!
+//backend.storageSize.clearStorage(false);
