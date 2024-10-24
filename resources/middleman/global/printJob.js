@@ -51,6 +51,7 @@ middleman.printJob = function () {
 						<li><strong>Hidden Logs</strong>: When hidden, the log entries appear in a <span style="opacity: 0.5; text-decoration: line-through;">semi-transparent style with a strikethrough</span>, indicating they are deactivated and will not be included in the export.</li>
 					</ul>
 					<p>This flexible visibility control allows you to customize the logs you want to export, ensuring that only relevant information is included.</p>
+					<p>Note: The Placeholder Image (404 Image not found) from NP-Converter will not appear in the PNG export.</p>
 					</div>
 					<div class="buttons">
 						<button class="ok" id="captureButton">Create PNG</button>
