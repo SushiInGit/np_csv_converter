@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 npConImg.style.backgroundImage = 'none';
                 npConInfo.style.opacity = '0';
-                
+
                 const logBody = document.querySelector('.logBody');
                 const originalLogBodyState = logBody.innerHTML;
 
@@ -35,24 +35,25 @@ document.addEventListener('DOMContentLoaded', function () {
                 const logImages = logBody.querySelectorAll('img');
                 logImages.forEach(img => {
                     if (img.src === 'https://sushiingit.github.io/np_csv_converter/resources/frontend/image/404image.png') {
-                        const textNode = document.createTextNode(""); 
-                        img.parentNode.replaceChild(textNode, img); 
+                        const textNode = document.createTextNode("");
+                        img.parentNode.replaceChild(textNode, img);
                     }
                 });
-                    const gridDivs = document.querySelectorAll('div[style*="grid-area"]:not(.hide):not(.output)');
-                    let newIndex = 1;
-                    gridDivs.forEach((div, index) => {
-                        const gridArea = div.style.gridArea;
-                        const gridMatch = gridArea.match(/(\d+) \/ (\d+) \/ (\d+) \/ (\d+)/);
 
-                        if (gridMatch) {
-                            const rowStart = newIndex++;
-                            const rowEnd = newIndex
-                            div.style.gridArea = `${rowStart} / ${gridMatch[2]} / ${rowEnd} / ${gridMatch[4]}`;
-                        }
-                    });
+                const gridDivs = document.querySelectorAll('div[style*="grid-area"]:not(.hide):not(.output)');
+                let newIndex = 1;
+                gridDivs.forEach((div, index) => {
+                    const gridArea = div.style.gridArea;
+                    const gridMatch = gridArea.match(/(\d+) \/ (\d+) \/ (\d+) \/ (\d+)/);
 
-                    setTimeout(function () {
+                    if (gridMatch) {
+                        const rowStart = newIndex++;
+                        const rowEnd = newIndex
+                        div.style.gridArea = `${rowStart} / ${gridMatch[2]} / ${rowEnd} / ${gridMatch[4]}`;
+                    }
+                });
+
+                setTimeout(function () {
                     html2canvas(document.body, {
                         scale: 1,
                         allowTaint: true,
@@ -79,48 +80,48 @@ document.addEventListener('DOMContentLoaded', function () {
                         nexportWindow.document.title = 'NP Converter - Export PNG';
 
                         nexportWindow.document.body.innerHTML = `
-                    <style>
-                        body {
-                            background-color: #ccc;
-                            background: linear-gradient(315deg, #251F2E 0%, #251F2E 100%);
-                        }
+                        <style>
+                            body {
+                                background-color: #ccc;
+                                background: linear-gradient(315deg, #251F2E 0%, #251F2E 100%);
+                            }
 
-                        .ok {
-                            padding: 10px 20px;
-                            background-color: #27ae60;
-                            color: white;
-                            border: none;
-                            border-radius: 6px;
-                            cursor: pointer;
-                        }
+                            .ok {
+                                padding: 10px 20px;
+                                background-color: #27ae60;
+                                color: white;
+                                border: none;
+                                border-radius: 6px;
+                                cursor: pointer;
+                            }
 
-                        .ok:hover {
-                            background-color: #2ecc71;
-                        }
+                            .ok:hover {
+                                background-color: #2ecc71;
+                            }
 
-                        .divstyle {
-                            padding: 20px; 
-                            display: flex; 
-                            justify-content: center; 
-                            flex-direction: column; 
-                            align-items: center;
-                        }
+                            .divstyle {
+                                padding: 20px; 
+                                display: flex; 
+                                justify-content: center; 
+                                flex-direction: column; 
+                                align-items: center;
+                            }
 
-                        .bordercolor {
-                            border: 5px solid #ccc;
-                        }
-                    </style>
+                            .bordercolor {
+                                border: 5px solid #ccc;
+                            }
+                        </style>
 
-                    <div class="divstyle">
-                        <a href="${imgData}" download="np_converter_export.png" style="text-decoration: none;">
-                            <button class="ok">
-                                Download PNG
-                            </button>
-                        </a>  
-                    </div>     
-                    <div class="divstyle bordercolor">
-                        <img src="${imgData}" alt="NP Converter Screenshot" style="max-width:100%; margin-bottom: 20px;"/>
-                    </div>
+                        <div class="divstyle">
+                            <a href="${imgData}" download="np_converter_export.png" style="text-decoration: none;">
+                                <button class="ok">
+                                    Download PNG
+                                </button>
+                            </a>  
+                        </div>     
+                        <div class="divstyle bordercolor">
+                            <img src="${imgData}" alt="NP Converter Screenshot" style="max-width:100%; margin-bottom: 20px;"/>
+                        </div>
                     `;
 
                         loadingMessage.style.display = 'none';
