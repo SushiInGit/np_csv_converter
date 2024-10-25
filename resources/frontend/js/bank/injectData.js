@@ -1,5 +1,5 @@
-
-if (backend.storageSelector.searchRecord('', true, 'last') !== false) {
+const bankName = backend.storageShow.showLastSearch().showBank || backend.storageSelector.lastRecordName().lastBanks[0];
+if ((backend.storageSelector.searchRecord('', true, 'last') !== false) && (bankName !== 'No record saved for showBank')) {
 
     function formatDifference(incomingTotal, outgoingTotal) {
         if (typeof incomingTotal === 'number' && typeof outgoingTotal === 'number') {

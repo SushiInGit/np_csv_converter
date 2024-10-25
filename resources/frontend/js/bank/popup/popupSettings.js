@@ -58,7 +58,7 @@ frontend.popupSettings = (function () {
         const footer = `<button class="ok" onclick="frontend.popupSettings.save()">Save</button>`;
 
         middleman.popupModel.createPopup(popupDivName, 'Settings', content, footer);
-        
+
         setTimeout(() => {
             const timezone = document.getElementById('timezone').value;
             const dateformat = (document.getElementById('dateformat').value);
@@ -77,19 +77,36 @@ frontend.popupSettings = (function () {
     function lastActiveReload() {
         try {
             const activeUser = document.querySelector('.user.active');
+
             if (!activeUser) {
-                throw new Error('No active coomunication found.');
+                throw new Error('No active transaction found.');
             }
             const classList = activeUser.classList;
             const idDigits = [...classList].find(cls => cls.startsWith('id__')).replace('id__', '');
+            console.log(classList[1]);
 
-            const groupCommOutput = middleman.requestData.allMetadata();
-            const matchingData = groupCommOutput.filter(entry => entry.groupIndex === parseInt(idDigits));
+            var table = document.querySelector("#bankRecordsTable");
 
-            if (matchingData.length > 0) {
-                frontend.renderChat(matchingData[0]);
+
+            if (classList[1] === "all") {
+                table.innerHTML = ``;
+                const reorderData = frontend.renderViews.reorderObject(middleman.bankData.get().records);
+
+                const dataGrp = frontend.renderTable(reorderData);
+                frontend.renderTable(dataGrp).then((table) => {
+                }).catch((error) => {
+                    console.error("Error:", error);
+                });
+
             } else {
-                return;
+                table.innerHTML = ``;
+                const reorderData = frontend.renderViews.reorderObject(middleman.bankData.getGrouped()[idDigits].records);
+
+                const dataGrp = frontend.renderTable(reorderData);
+                frontend.renderTable(dataGrp).then((table) => {
+                }).catch((error) => {
+                    console.error("Error:", error);
+                });
             }
 
         } catch (error) {

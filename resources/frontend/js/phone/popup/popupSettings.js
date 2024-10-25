@@ -78,7 +78,7 @@ frontend.popupSettings = (function () {
         try {
             const activeUser = document.querySelector('.user.active');
             if (!activeUser) {
-                throw new Error('No active coomunication found.');
+                throw new Error('No active comunication found.');
             }
             const classList = activeUser.classList;
             const idDigits = [...classList].find(cls => cls.startsWith('id__')).replace('id__', '');

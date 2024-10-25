@@ -8,7 +8,8 @@ middleman.bankData = function () {
         const bankName = backend.storageShow.showLastSearch().showBank || backend.storageSelector.lastRecordName().lastBanks[0];
         let bankDataNew = backend.storageSelector.searchRecord(bankName, true, 'last');
         //let bankDataOld = backend.dataController.getData(backend.helpers.getAllSheetTypes().BANKRECORDS);
-        if (bankDataNew) {
+
+        if (bankDataNew && (bankName !== 'No record saved for showBank')) {
             let rawBankData = bankDataNew.bank.map((transaction, index) => {
                 return {
                     ...transaction,

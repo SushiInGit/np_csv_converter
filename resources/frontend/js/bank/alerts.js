@@ -2,7 +2,9 @@ var frontend = frontend ?? {};
 
 frontend.alert = (function () {
     function checkUploadedFiles() {
-        if(backend.storageSelector.searchRecord('', true, 'last') === false) {
+        const bankName = backend.storageShow.showLastSearch().showBank || backend.storageSelector.lastRecordName().lastBanks[0];
+
+        if((backend.storageSelector.searchRecord('', true, 'last') === false) || bankName === 'No record saved for showBank') {
             global.alertsystem('warning', `It looks like you haven't uploaded an XLSX file yet. You can update it later by clicking on the cloud icon in the top left.`, 15);
             document.addEventListener('DOMContentLoaded', function() { setTimeout(() => { frontend.popupHelp.render(); }, 500); });
         }
