@@ -59,7 +59,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         allowTaint: true,
                         useCORS: true,
                         ignoreElements: function (element) {
-                            return element.id === 'hideRender';
+                            return element.id === 'hideRender' || element.id === 'alert-container';
                         }
 
                     }).then(function (canvas) {
@@ -127,8 +127,10 @@ document.addEventListener('DOMContentLoaded', function () {
                         loadingMessage.style.display = 'none';
                         exportBody.id = "";
                         logBody.innerHTML = originalLogBodyState;
+                        global.alertsystem('success', `PNG has been created. <br>Please check for a pop-up window!`, 15);
 
                     }).catch(function (error) {
+                        global.alertsystem('warning', `Failed to create the PNG. <br>Too much data may be selected. Please try again with fewer selections. Remember, you can hide data by clicking on it.`, 15);
                         console.error('Error capturing the page:', error);
                         loadingMessage.style.display = 'none';
                         exportBody.id = "";

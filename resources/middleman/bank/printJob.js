@@ -48,8 +48,11 @@ middleman.printJob = function () {
 			<title>NP Converter Print View</title>
 			<link rel="preload" href="resources/frontend/css/bank/print.css" as="style" onload="this.rel='stylesheet'">
 			<link rel="preload" href="resources/frontend/css/bank/bankTable.css" as="style" onload="this.rel='stylesheet'">
+			<link rel="preload" href="resources/frontend/css/global/alertsystem.css" as="style" onload="this.rel='stylesheet'">
+			<script defer src="resources/frontend/js/global/alertsystem.js"></script>
 			<script defer src="resources/backend/vendors/html2canvas.min.js"></script>
 			</head>
+			<div id="alert-container" class="noselect"></div>
 			<div id="hideRender" class="loadingMessage" style="display: none;">
 				<center><h2>Please wait! Image is generating...</h2></center>
 			</div>

@@ -67,7 +67,7 @@ frontend.renderViews = function () {
             //const data = frontend.renderTable(middleman.bankData.get().records);
             const data = frontend.renderTable(reorderObject(middleman.bankData.get().records));
 
-            /* // Disable becouse it runs out of memory if the data are to big 
+             // Disable becouse it runs out of memory if the data are to big 
             tableHeaderRight.innerHTML = `
                 <button class="print" onclick="(() => middleman.printJob.printJob(
                 '${middleman.bankData.get().recordsOwner.account_id}', 
@@ -77,7 +77,7 @@ frontend.renderViews = function () {
                 'all'
                 ))()">Export</button>
             `;
-            */ 
+             
 
             frontend.renderTable(data).then((table) => {
             }).catch((error) => {
