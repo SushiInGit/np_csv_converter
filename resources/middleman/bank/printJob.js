@@ -1,39 +1,53 @@
 var middleman = middleman ?? {};
 
 middleman.printJob = function () {
-	function printDiv(to_name, to_nr, owner_nr) {
-		let userData = [];
+	function printDiv(to_id, to_title, from_id, from_title, type) {
 		let pageDate = [];
 
 		pageDate.head = document.querySelector(".banner").innerHTML;
-		pageDate.log = document.querySelector(".output .messages").innerHTML;
+		pageDate.log = document.querySelector(".output .messages .table").innerHTML;
 		pageDate.footer = document.querySelector("footer").innerHTML;
 
 		const nameMatch = pageDate.head.match(/<h2>(.*?)<\/h2>/);
-		userData.Simowner_Name = nameMatch ? nameMatch[1] : null;
 
-		userData.To_Name = to_name;
-		userData.To_Nr = String(to_nr).replace(/^(\d{3})(\d{3})(\d{4})$/, "($1) $2 $3");
-		userData.Simowner_Nr = String(owner_nr).replace(/^(\d{3})(\d{3})(\d{4})$/, "($1) $2 $3");
+		type === "user" ?
+			pageDate.head = pageDate.head.replace(
+				/<div class="center noselect">[\s\S]*?<\/div>/,
+				`<div class="center noselect">
+					<h2>Bank Logs</h2>
+					<h3>${to_title} ( ID: ${to_id} )</h3>
+					<h3><i>and</i></h3>
+					<h3>${from_title} ( ID: ${from_id} )</h3>
+				</div>`
+			)
+			:
+			pageDate.head = pageDate.head.replace(
+				/<div class="center noselect">[\s\S]*?<\/div>/,
+				`<div class="center noselect">
+					<h2>Bank Logs</h2>
+					<h3>${to_title} ( ID: ${to_id} )</h3>
+					<h3>&nbsp;</h3>
+					<h3>&nbsp;</h3>
+				</div>`
+			);
 
-		userData.To = userData.To_Name === "Unknown Contact" ? "<small><i>#" + userData.To_Nr + "</i></small>" : userData.To_Name + " <small><i>#" + userData.To_Nr + "</i></small>";
-		userData.Simowner = userData.Simowner_Name === "Unknown Contact" ? "<small><i>#" + userData.Simowner_Nr + "</i></small>" : userData.Simowner_Name + " <small><i>#" + userData.Simowner_Nr + "</i></small>";
-
-		pageDate.head = pageDate.head.replace(
-			/<div class="center noselect">[\s\S]*?<\/div>/,
-			`<div class="center noselect">
-              <h2>Communication Logs</h2>
-              <h3>${userData.Simowner}</h3>
-              <h3><i>and</i></h3>
-              <h3>${userData.To}</h3>
-          </div>`
+		pageDate.log = pageDate.log.replace(
+			/<div class="filter">[\s\S]*?<\/div>/,
+			``
+		).replace(
+			/<div class="vue-treeselect__control-arrow-container">[\s\S]*?<\/div>/,
+			``
+		).replace(
+			/<div class="vue-treeselect__input-container">[\s\S]*?<\/div>/,
+			``
 		);
 
 		var createExport = window.open();
 		createExport.document.write(`
 			<html><head>
 			<title>NP Converter Print View</title>
-			<link rel="preload" href="resources/frontend/css/phone/print.css" as="style" onload="this.rel='stylesheet'">
+			<link rel="preload" href="resources/frontend/css/bank/print.css" as="style" onload="this.rel='stylesheet'">
+			<link rel="preload" href="resources/frontend/css/bank/bankTable.css" as="style" onload="this.rel='stylesheet'">
 			<script defer src="resources/backend/vendors/html2canvas.min.js"></script>
 			</head>
 			<div id="hideRender" class="loadingMessage" style="display: none;">
@@ -51,7 +65,7 @@ middleman.printJob = function () {
 						<li><strong>Hidden Logs</strong>: When hidden, the log entries appear in a <span style="opacity: 0.5; text-decoration: line-through;">semi-transparent style with a strikethrough</span>, indicating they are deactivated and will not be included in the export.</li>
 					</ul>
 					<p>This flexible visibility control allows you to customize the logs you want to export, ensuring that only relevant information is included.</p>
-					<p>Note: The Placeholder Image (404 Image not found) from NP-Converter will not appear in the PNG export.</p>
+					<p>Note: To view additional details, enable the relevant columns (like 'Tax', 'ID' and so on...) on the main page. This configuration will also be reflected in the exported display, ensuring that all selected information is included.</p>
 					</div>
 					<div class="buttons">
 						<button class="ok" id="captureButton">Create PNG</button>
@@ -65,7 +79,7 @@ middleman.printJob = function () {
 				</div>
 			</div>
 			<footer id="hideRender">${pageDate.footer}</footer>
-			<script defer src="resources/middleman/global/printJobFunction.js"></script>
+			<script defer src="resources/middleman/bank/printJobFunction.js"></script>
 			</body></html>
 		`);
 

@@ -83,10 +83,7 @@ frontend.popupSettings = (function () {
             }
             const classList = activeUser.classList;
             const idDigits = [...classList].find(cls => cls.startsWith('id__')).replace('id__', '');
-            console.log(classList[1]);
-
             var table = document.querySelector("#bankRecordsTable");
-
 
             if (classList[1] === "all") {
                 table.innerHTML = ``;

@@ -67,6 +67,17 @@ frontend.renderViews = function () {
             //const data = frontend.renderTable(middleman.bankData.get().records);
             const data = frontend.renderTable(reorderObject(middleman.bankData.get().records));
 
+            /* // Disable becouse it runs out of memory if the data are to big 
+            tableHeaderRight.innerHTML = `
+                <button class="print" onclick="(() => middleman.printJob.printJob(
+                '${middleman.bankData.get().recordsOwner.account_id}', 
+                '${middleman.bankData.get().recordsOwner.account_name} of ${middleman.bankData.get().recordsOwner.civ_name}', 
+                '', 
+                '', 
+                'all'
+                ))()">Export</button>
+            `;
+            */ 
 
             frontend.renderTable(data).then((table) => {
             }).catch((error) => {
@@ -89,7 +100,24 @@ frontend.renderViews = function () {
                 allDivs.forEach(div => div.classList.remove('active'));
                 this.classList.add('active');
                 tableHeaderLeft.innerHTML = `${middleman.stateAccounts(data.to.account_id, data.to.civ_name)} ( ID: ${data.to.account_id} )`;
-                tableHeaderRight.innerHTML = `[ Outgoing: $${data.recordsOutgoingAmount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")} | Incoming: $${data.recordsIncomingAmount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")} ]`;
+                let labelName;
+
+                if (data.to.account_name !== "null") {
+                    labelName = data.to.account_name + " of " + middleman.stateAccounts(data.to.account_id, data.to.civ_name);
+                } else {
+                    labelName = middleman.stateAccounts(data.to.account_id, data.to.civ_name);
+                }
+                tableHeaderRight.innerHTML = `
+                    [ Outgoing: $${data.recordsOutgoingAmount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")} | 
+                    Incoming: $${data.recordsIncomingAmount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")} ] 
+                    <button class="print" onclick="(() => middleman.printJob.printJob(
+                    '${middleman.bankData.get().recordsOwner.account_id}', 
+                    '${middleman.bankData.get().recordsOwner.account_name} of ${middleman.bankData.get().recordsOwner.civ_name}', 
+                    '${data.to.account_id}', 
+                    '${labelName}', 
+                    'user'
+                    ))()">Export</button>
+                `;
                 var table = document.querySelector("#bankRecordsTable");
                 table.innerHTML = ``;
                 indexGrp = data.groupIndex;
