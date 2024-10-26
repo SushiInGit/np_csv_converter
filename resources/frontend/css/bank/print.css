@@ -293,3 +293,7 @@ footer a:hover::after {
     z-index: 1000; 
     display: none;
 }
+
+#alert-container {
+    top: 25px !important;
+}
