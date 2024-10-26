@@ -52,7 +52,8 @@ frontend.popupPhonebook = (function () {
             }
     
             const lines = textarea.value.trim().split('\n');
-            const phoneNumberPattern = /^(420\d{7}|\(420\)\s?\d{3}\s?\d{4}|\d{10}) (.+)$/;
+            //const phoneNumberPattern = /^(420\d{7}|\(420\)\s?\d{3}\s?\d{4}|\d{10}) (.+)$/;
+            const phoneNumberPattern = /^(420\d{7}|\(420\)\s?\d{3}\s?\d{4}|\d{10})\s*(.+)$/;
     
             for (let i = 0; i < lines.length; i++) {
                 const line = lines[i].trim(); // T
