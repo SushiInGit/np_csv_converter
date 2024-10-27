@@ -80,7 +80,7 @@ color: var(--speechbubble-text);
 
 .output .messages .commOutput .call.callFail .callindicator.callFail {
     position: absolute;
-    margin-top: -15px !important;
+    margin-top: 10px !important;
 
     svg,
     svg * {
