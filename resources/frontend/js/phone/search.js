@@ -5,13 +5,13 @@ let suggestionSelected = false;
 
 const searchSyntax = [
     { syntax: "to:", description: "Filter conversations by a specific number in the communication list." },
-    { syntax: "name:", description: "Filter conversations by a specific name, excluding unknown contacts." },
-    { syntax: "has_phone:", description: "Show conversations with phone numbers." },
-    { syntax: "has_phone_strict:", description: "Show <u><b>only</b></u> messages with phone numbers." },
-    { syntax: "has_number:", description: "Show conversations with any type of numbers." },
-    { syntax: "has_number_strict:", description: "Show <u><b>only</b></u> messages with numbers." },
+    { syntax: "name:", description: "Filter conversations by a specific name, excluding <b>'Unknown Contacts'</b>." },
+    { syntax: "has_phone:", description: "Display conversations containing messages with shared phone numbers." },
+    { syntax: "has_phone_strict:", description: "Display <u><b>only</b></u> messages with shared phone numbers." },
+    { syntax: "has_number:", description: "Display conversations containing messages with any type of numbers." },
+    { syntax: "has_number_strict:", description: "Display <u><b>only</b></u> messages that contain numbers." },
     { syntax: "has_links:", description: "Show conversations with links and images." },
-    { syntax: "no_calls:", description: "Show conversations without call logs displayed." },
+    { syntax: "hide_calls:", description: "Show conversations without call logs displayed." },
 ];
 
 const messages = middleman.requestData.allMetadata();
@@ -147,7 +147,7 @@ function filterMessages(inputText) {
             frontend.renderList(middleman.filterBy.hasNumber(value));
         } else if (key === "has_links") {
             frontend.renderList(middleman.filterBy.hasLink(value));
-        } else if (key === "no_calls") {
+        } else if (key === "hide_calls") {
             frontend.renderList(middleman.filterBy.noCalls(value));
         } else if (key === "name") {
             frontend.renderList(middleman.filterBy.Name(value));

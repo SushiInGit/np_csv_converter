@@ -29,7 +29,7 @@ frontend.renderList = function (phoneGrouped) {
         divBox.addEventListener("click", function () {
 
             const searchbarText = document.getElementById('searchbar');
-            if (searchbarText.innerHTML.startsWith('<span class="syntax">no_calls: </span> ')) {
+            if (searchbarText.innerHTML.startsWith('<span class="syntax">hide_calls: </span> ')) {
                 if (Array.isArray(data.communications)) {
                     const filteredCommunications = data.communications.filter(comm => comm.IsCall === false);
                     const result = {

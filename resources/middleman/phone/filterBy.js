@@ -123,12 +123,11 @@ middleman.filterBy = function () {
 
     function find_number(data, filter) {
         if (Array.isArray(data) && data.length > 0) {
-            const trimmedFilter = filter.trim();
-            let output = data.filter(object => {
 
-                if (trimmedFilter === '' || trimmedFilter === '.') {
-                    return true;
-                }
+            let output = data.filter(object => {
+                let trimmedFilter = filter.trim().replace(/\D/g, "");
+
+                if (trimmedFilter === "") { return data; }
 
                 return JSON.stringify(object.To)
                     .toLowerCase()
@@ -142,23 +141,16 @@ middleman.filterBy = function () {
     function find_name(data, filter) {
         if (Array.isArray(data) && data.length > 0) {
             let trimmedFilter = filter.trim();
-           
-            if (trimmedFilter === ".") {
-                trimmedFilter = "";              
-            }
+            
+            if (trimmedFilter === ".") { trimmedFilter = ""; }
 
             let output = data.filter(object => {
-                
-                const pointer = object.communications[0]?.Message;
+                const pointer = object.Name;
                 if (object.Name === "Unknown Contact") {
                     return false;
                 }
 
-                if (trimmedFilter === '' || trimmedFilter === '.') {
-                    return true;
-                }
-
-                if (pointer !== null) {
+                if (pointer !== false) {
                     return JSON.stringify(pointer)
                         .toLowerCase()
                         .includes(trimmedFilter.toLowerCase());
