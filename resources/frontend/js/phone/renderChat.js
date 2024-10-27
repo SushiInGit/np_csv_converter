@@ -31,7 +31,7 @@ frontend.renderChat = function (data) {
     const headerLeft = document.querySelector(".output .header.noselect .left");
     const headerRight = document.querySelector(".output .header.noselect .right");
     headerLeft.innerHTML = `${data.Name}  -  <number class="select">${String(data.To).replace(/^(\d{3})(\d{3})(\d{4})$/, "($1) $2 $3")}</number>`;
-    headerRight.innerHTML = `<button class="print" onclick="middleman.printJob.pringJob('printable')">Print</button>  [ Messages: ${isCallFalseCount} | Calls: ${isCallTrueCount} ]`;
+    headerRight.innerHTML = `[ Messages: ${isCallFalseCount} | Calls: ${isCallTrueCount} ]`;
 
 
     // Output-commOutput
