@@ -10,6 +10,8 @@ Brief overview of what this patch/update aims to accomplish or any major changes
 - **Improvement**: Describe any enhancements or performance improvements.
 - **Optimization**: Outline specific optimizations made to the application.
 - **Refactoring**: Specify areas of code that were cleaned up or refactored for efficiency.
+  
+![Placeholder Image](https://via.placeholder.com/150 "Patch Overview")
 
 ### Fixes
 - **Issue #ID**: Description of the bug and how it was resolved.
