@@ -29,7 +29,9 @@ middleman.popupHelp = (function () {
                 
                 <div class="element">
                 <div class="md">
-                <div id="toc"></div>
+                <div class="tocBody">
+                    <div id="toc"></div>
+                </div>
                 <div id="markdownContent"></div>
                 </div>
                 </div>

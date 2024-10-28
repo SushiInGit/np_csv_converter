@@ -501,19 +501,25 @@ help .element {
     max-height: calc(80vh - 30px);
 }
 
-help .element .md{
+help .element .md {
     height: auto;
     width: calc(100% - 20px);
     display: flex;
     overflow-y: auto;
-    text-align: justify;
-    word-wrap: break-word; 
-    overflow-wrap: break-word; 
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+help .element #tocBody {
+    position: relative;
+    width: 200px;
+    height:  calc(80vh - 30px);
+    overflow-y: hidden;
 }
 
 help .element #toc {
-    width: 200px;
+    width: 100%;
     padding-right: 10px;
+    height: 100%;
     border-right: 1px solid #000000ab;
     overflow-y: auto;
 }
@@ -528,13 +534,18 @@ help .element #markdownContent {
     max-width: 300px;
     height: auto;
     margin: 10px;
-  }
+}
 
 help .element .toc-item {
     margin: 5px 0;
     cursor: pointer;
     color: #fff;
     text-decoration: none;
+}
+
+help .element .toc-item:not(:first-child) {
+    border-top: 1px solid #ffffff4f;
+    padding-top: 5px;
 }
 
 help .element .toc-subitem {
@@ -544,8 +555,28 @@ help .element .toc-subitem {
     color: #ccc;
 
 }
+
 help .element .toc-subitem::before {
-    content: "•"; 
+    content: "•";
     margin-right: 8px;
     color: #ccc;
-  }
+}
+
+help hr {
+    margin-top: 40px;
+    margin-bottom: 40px;
+    opacity: 0.7;
+    width: 100%;
+    height: 3px;
+    border: none;
+    background: linear-gradient(to right, transparent, rgba(0, 0, 0, 0.5), transparent);
+}
+
+
+help code {
+    background-color:  rgba(0, 0, 0, 0.5);
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+}

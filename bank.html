@@ -16,8 +16,7 @@
   <link rel="preload" href="resources/frontend/css/bank/main.css" as="style" onload="this.rel='stylesheet'">
   <link rel="preload" href="resources/frontend/css/bank/bankTable.css" as="style" onload="this.rel='stylesheet'">
   <link rel="preload" href="resources/frontend/css/bank/popup.css" as="style" onload="this.rel='stylesheet'">
-  <link rel="preload" href="resources/backend/vendors/vue-treeselect.min.css"
-    as="style" onload="this.rel='stylesheet'">
+  <link rel="preload" href="resources/backend/vendors/vue-treeselect.min.css" as="style" onload="this.rel='stylesheet'">
 
   <!-- JS Core -->
   <script defer src="resources/backend/js/storageSize.js"></script>
@@ -42,6 +41,7 @@
   <script defer src="resources/middleman/bank/stateAccounts.js"></script>
   <script defer src="resources/frontend/js/bank/renderViews.js"></script>
   <script defer src="resources/middleman/global/popupModel.js"></script>
+  <script defer src="resources/middleman/global/popupHelp.js"></script>
   <script defer src="resources/middleman/bank/printJob.js"></script>
 
 <body>
@@ -49,6 +49,8 @@
   <div id="alert-container" class="noselect"></div>
   <!-- PopUp -->
   <popup id="popup" class="noselect hide"></popup>
+  <!-- Help -->
+  <help id="help" class="noselect hide"></help>
   <!-- Loader -->
   <div class="loader active"></div>
 
@@ -61,7 +63,8 @@
             <a href="index.html" class="icon"><span class="icon">home</span></a>
           </div>
           <div class="icon-container" data-tooltip="Upload Bank subpoena">
-            <a href="javascript:void(0);" onclick="frontend.popupUpload.render();" class="icon"><span class="icon">cloud</span></a>
+            <a href="javascript:void(0);" onclick="frontend.popupUpload.render();" class="icon"><span
+                class="icon">cloud</span></a>
           </div>
         </div>
         <div class="center">
@@ -71,7 +74,8 @@
         </div>
         <div class="right">
           <div class="icon-container" data-tooltip="Time convertion settings">
-            <a href="javascript:void(0);" onclick="frontend.popupSettings.render();" class="icon"><span class="icon">settings</span></a>
+            <a href="javascript:void(0);" onclick="frontend.popupSettings.render();" class="icon"><span
+                class="icon">settings</span></a>
           </div>
           <div class="icon-container" data-tooltip="Bug Report">
             <a href="javascript:void(0);" onclick="frontend.popupBug.render();" class="icon"><span
@@ -128,9 +132,9 @@
   <!-- Vue.js and Treeselect JS (UMD-Bundle) -->
   <script src="resources/backend/vendors/vue.min.js"></script>
   <script src="resources/backend/vendors/vue-treeselect.umd.min.js"></script>
-  <script src="resources/frontend/js/bank/vueTreeselect.js"  defer></script>
-  <script src="resources/frontend/js/bank/renderTable.js"  defer></script>
-  <script src="resources/frontend/js/bank/injectData.js"  defer></script>
+  <script src="resources/frontend/js/bank/vueTreeselect.js" defer></script>
+  <script src="resources/frontend/js/bank/renderTable.js" defer></script>
+  <script src="resources/frontend/js/bank/injectData.js" defer></script>
 </body>
 </head>
 

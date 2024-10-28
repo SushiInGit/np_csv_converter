@@ -1,10 +1,10 @@
 
 ### Overview
-- **Information**:    
-This tool operates using your local browser memory (no data is stored online). If you use "Incognito Tabs" or similar features, all data will be lost after restarting your browser or computer. To retain data for as long as possible, avoid these browser features, although it is ultimately your choice.
+- **Disclaimer**:    
+  This tool operates using your local browser storage (no data is stored online). If you use "Incognito Tabs" or similar features, all data will be lost after restarting your browser or computer. To retain data for as long as possible, avoid these browser features, although it is ultimately your choice.
 
 - **Upload Subpoenas**:   
-Please upload unedited Excel files in the uploader (indicated by the cloud icon [top left]). This ensures optimal functionality and compatibility.
+  Please upload unedited Excel files in the uploader (indicated by the cloud icon [top left]). This ensures optimal functionality and compatibility.
 
 - **Import Phone Contacts**:  
     To import your phone contacts, copy them from your Excel file, text document, or in-game MDT and paste them into the designated text box (indicated by the phone icon [top left]).  
@@ -46,34 +46,12 @@ Please upload unedited Excel files in the uploader (indicated by the cloud icon 
 - **Right-Click Menu**:  
   By right-clicking on the Log Header or bold numbers in the text messages, you can check if you recognize that number or add it directly from there.
 
-  ![Add Number](https://sushiingit.github.io/np_csv_converter/resources/frontend/image/help/phoneUpload.png "Add Number")
-
----
-
-### Settings
-You can configure your timezone, time, and date display settings.
-
-- **Timezone**:  
- Switch between various timezones. It will be displayed and converted according to your preferences.
-
-- **Dateformat**:  
-  You can choose different date formats, including displaying the month as a word instead of a digit.
-
-- **"12h or 24h Format"**:  
-  If you prefer AM/PM or a 24-hour format, you can select your preference here.
-
-  ![Add Number](https://sushiingit.github.io/np_csv_converter/resources/frontend/image/help/settings.png "Add Number")
-
----
-
-### Export/Print
-When you open a Chat Log, you can export the visible log into a PNG file.
-While interacting with logs, you can manage which entries are shown or hidden.
+  ![Add Number](https://sushiingit.github.io/np_csv_converter/resources/frontend/image/help/phoneAddnumber.png "Add Number")
 
 ---
 
 ### Search Function
-You have the option to search with or without <syntax>. If you don’t use any syntax, it will search all messages for the specified "search term."
+  You have the option to search with or without <syntax>. If you don’t use any syntax, it will search all messages for the specified "search term."
 
 - **Syntax: to and name**:     
   Searches within the Communication List only for the names and numbers you enter as search terms.
@@ -86,3 +64,26 @@ You have the option to search with or without <syntax>. If you don’t use any s
 
 - **Syntax: hide_calls**:    
   This will exclude call logs from the displayed logs.
+
+---
+
+### Export/Print
+  When you open a Chat Log, you can export the visible log into a PNG file.
+  While interacting with logs, you can manage which entries are shown or hidden.
+
+---
+
+### Settings
+  You can configure your timezone, time, and date display settings.
+
+- **Timezone**:  
+ Switch between various timezones. It will be displayed and converted according to your preferences.
+
+- **Dateformat**:  
+  You can choose different date formats, including displaying the month as a word instead of a digit.
+
+- **12h or 24h Format**:  
+  If you prefer AM/PM or a 24-hour format, you can select your preference here.
+
+  ![Add Number](https://sushiingit.github.io/np_csv_converter/resources/frontend/image/help/settings.png "Add Number")
+
