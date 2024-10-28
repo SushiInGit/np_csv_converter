@@ -490,6 +490,7 @@ help .model .close {
 }
 
 help .element {
+    width: 80vw !important;
     top: 30px;
     bottom: 10px;
     position: relative;
@@ -505,32 +506,46 @@ help .element .md{
     width: calc(100% - 20px);
     display: flex;
     overflow-y: auto;
+    text-align: justify;
+    word-wrap: break-word; 
+    overflow-wrap: break-word; 
 }
 
 help .element #toc {
-    width: 20%;
-    padding: 10px;
-    border-right: 1px solid #ddd;
+    width: 200px;
+    padding-right: 10px;
+    border-right: 1px solid #000000ab;
     overflow-y: auto;
 }
 
 help .element #markdownContent {
-    width: 75%;
+    width: calc(100% - 210px);
     padding: 0 20px;
     overflow-y: auto;
 }
 
+#markdownContent img {
+    max-width: 300px;
+    height: auto;
+    margin: 10px;
+  }
+
 help .element .toc-item {
     margin: 5px 0;
     cursor: pointer;
-    color: blue;
-    text-decoration: underline;
+    color: #fff;
+    text-decoration: none;
 }
 
 help .element .toc-subitem {
-    margin: 2px 0 2px 15px;
+    margin: 2px 0 2px 5px;
     font-size: 0.9em;
     cursor: pointer;
     color: #ccc;
-    text-decoration: underline;
+
 }
+help .element .toc-subitem::before {
+    content: "•"; 
+    margin-right: 8px;
+    color: #ccc;
+  }

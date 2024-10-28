@@ -36,14 +36,13 @@ middleman.popupHelp = (function () {
             </div>   
             `;
             helpDiv.appendChild(helpDivHead);
-            
+
             setTimeout(() => {
-                middleman.popupHelp.fetchMarkdown();
+                middleman.popupHelp.fetchMarkdown(file);
             }, 10);
         }, 50);
 
     }
-
 
     function showHelp() {
         helpDiv.innerHTML = '';
@@ -62,12 +61,9 @@ middleman.popupHelp = (function () {
         helpDiv.classList.add("hide");
     }
 
+    async function fetchMarkdown(file) {
+        const apiUrl = `https://api.github.com/repos/SushiInGit/np_csv_converter/contents/resources/help/${file}`;
 
-
-
-    const apiUrl = 'https://api.github.com/repos/SushiInGit/np_csv_converter/contents/resources/help/phone.md';
-
-    async function fetchMarkdown() {
         try {
             const response = await fetch(apiUrl, {
                 headers: { 'Accept': 'application/vnd.github.v3.raw' }
@@ -85,31 +81,31 @@ middleman.popupHelp = (function () {
 
     function renderMD(content) {
         const contentDiv = document.getElementById('markdownContent');
-        contentDiv.innerHTML = marked.parse(content); 
+        contentDiv.innerHTML = marked.parse(content);
         generateTOC();
-      }
+    }
 
-      function generateTOC() {
+    function generateTOC() {
         const tocContainer = document.getElementById('toc');
-        tocContainer.innerHTML = ''; 
-      
-        const contentDiv = document.getElementById('markdownContent');
-        const headers = contentDiv.querySelectorAll("h1, h2, h3, strong");
-      
-        headers.forEach(header => {
-          const tocItem = document.createElement("div");
-          tocItem.innerText = header.innerText;
-          tocItem.className = header.tagName === "STRONG" ? "toc-subitem" : "toc-item";
+        tocContainer.innerHTML = '';
 
-          if (!header.id) header.id = header.innerText.replace(/\s+/g, '-').toLowerCase();
-      
-          tocItem.onclick = () => {
-            document.getElementById(header.id).scrollIntoView({ behavior: "smooth" });
-          };
-      
-          tocContainer.appendChild(tocItem);
+        const contentDiv = document.getElementById('markdownContent');
+        const headers = contentDiv.querySelectorAll("h3, strong");
+
+        headers.forEach(header => {
+            const tocItem = document.createElement("div");
+            tocItem.innerText = header.innerText;
+            tocItem.className = header.tagName === "STRONG" ? "toc-subitem" : "toc-item";
+
+            if (!header.id) header.id = header.innerText.replace(/\s+/g, '-').toLowerCase();
+
+            tocItem.onclick = () => {
+                document.getElementById(header.id).scrollIntoView({ behavior: "smooth" });
+            };
+
+            tocContainer.appendChild(tocItem);
         });
-      }
+    }
 
     return {
         createPopup: createPopup,
