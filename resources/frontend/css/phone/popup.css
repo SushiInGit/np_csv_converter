@@ -30,6 +30,8 @@ popup .model {
     flex-direction: column;
 }
 
+
+
 popup.bug textarea {
     resize: none;
     overflow: auto;
@@ -70,7 +72,8 @@ popup .model .close {
     z-index: 1;
 }
 
-popup .model .close:hover {
+popup .model .close:hover,
+help .model .close:hover {
     background-color: #eb5b4b;
 }
 
@@ -434,3 +437,100 @@ popup.import .element textarea::placeholder {
 }
 
 /* --------End of Events---------  */
+
+/* -------- Help-System V2 ---------  */
+#help {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80vw;
+    height: auto;
+    max-height: 80vh;
+    padding: 20px;
+    z-index: 10001;
+    font-family: "Poppins", sans-serif;
+    color: #fff;
+    border: solid var(--global-border-size) var(--global-border-color);
+    background: var(--body-bg-color);
+    background: linear-gradient(315deg, var(--body-gradient-start) 0%, var(--body-gradient-end) 100%);
+}
+
+help.show {
+    display: flex !important;
+}
+
+help.hide {
+    display: none !important;
+}
+
+help .head {
+    width: calc(100% - 20px);
+    position: absolute;
+    top: 10px;
+}
+
+help .head h2 {
+    position: relative;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+help .model .close {
+    cursor: pointer;
+    padding: 8px 14px;
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    position: absolute;
+    right: 10px;
+    z-index: 1;
+}
+
+help .element {
+    top: 30px;
+    bottom: 10px;
+    position: relative;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    max-height: calc(80vh - 30px);
+}
+
+help .element .md{
+    height: auto;
+    width: calc(100% - 20px);
+    display: flex;
+    overflow-y: auto;
+}
+
+help .element #toc {
+    width: 20%;
+    padding: 10px;
+    border-right: 1px solid #ddd;
+    overflow-y: auto;
+}
+
+help .element #markdownContent {
+    width: 75%;
+    padding: 0 20px;
+    overflow-y: auto;
+}
+
+help .element .toc-item {
+    margin: 5px 0;
+    cursor: pointer;
+    color: blue;
+    text-decoration: underline;
+}
+
+help .element .toc-subitem {
+    margin: 2px 0 2px 15px;
+    font-size: 0.9em;
+    cursor: pointer;
+    color: #ccc;
+    text-decoration: underline;
+}

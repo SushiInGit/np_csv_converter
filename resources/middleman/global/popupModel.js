@@ -13,6 +13,7 @@ middleman.popupModel = (function () {
     });
 
     function createPopup(popupDivName, title, content, footer = '') {
+        middleman.popupHelp.closeHelp();
         middleman.popupModel.closePopupDiv(); // Cloth other popups first
         setTimeout(() => {
             showPopup();
