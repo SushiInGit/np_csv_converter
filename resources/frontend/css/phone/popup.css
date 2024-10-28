@@ -531,7 +531,8 @@ help .element #markdownContent {
 }
 
 #markdownContent img {
-    max-width: 300px;
+    max-height: 400px;
+    max-width: 400px;
     height: auto;
     margin: 10px;
 }
@@ -541,6 +542,11 @@ help .element .toc-item {
     cursor: pointer;
     color: #fff;
     text-decoration: none;
+}
+
+help .element .toc-item:hover,
+help .element .toc-subitem:hover {
+    opacity: 0.6;
 }
 
 help .element .toc-item:not(:first-child) {

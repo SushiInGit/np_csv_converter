@@ -21,7 +21,8 @@
 - **Removing Subpoena**:  
   Press the "[X]" button to delete older subpoenas.
 
-  ![Subpoena Upload](https://sushiingit.github.io/np_csv_converter/resources/frontend/image/help/bankUpload.png "Subpoena Upload")
+
+ ![Subpoena Upload](https://sushiingit.github.io/np_csv_converter/resources/frontend/image/help/bankUpload.png "Subpoena Upload")
 
 ---
 
@@ -29,7 +30,7 @@
 
   You can hide or disable additional bank transfer details by opening the dropdown menu and selecting specific information.
 
-  ![Subpoena Select](https://sushiingit.github.io/np_csv_converter/resources/frontend/image/help/bankTableview.png "Subpoena Select")
+![Subpoena Select](https://sushiingit.github.io/np_csv_converter/resources/frontend/image/help/bankTableview.png "Subpoena Select")
 
 ---
 
@@ -52,5 +53,5 @@
 - **12h or 24h Format**:  
   If you prefer AM/PM or a 24-hour format, you can select your preference here.
 
-  ![Add Number](https://sushiingit.github.io/np_csv_converter/resources/frontend/image/help/settings.png "Add Number")
+![Add Number](https://sushiingit.github.io/np_csv_converter/resources/frontend/image/help/settings.png "Add Number")
 
