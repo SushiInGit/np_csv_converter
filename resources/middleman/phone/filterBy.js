@@ -141,7 +141,7 @@ middleman.filterBy = function () {
     function find_name(data, filter) {
         if (Array.isArray(data) && data.length > 0) {
             let trimmedFilter = filter.trim();
-            
+
             if (trimmedFilter === ".") { trimmedFilter = ""; }
 
             let output = data.filter(object => {
@@ -193,12 +193,12 @@ middleman.filterBy = function () {
                 const filteredCommunications = object.communications.filter(comm => comm.IsCall === false);
 
                 if (filteredCommunications.length === 0) {
-                    return false; 
+                    return false;
                 }
-                const pointer = object.communications[0]?.Message; 
-    
+                const pointer = object.communications[0]?.Message;
+
                 if (trimmedFilter === '' || trimmedFilter === '.') {
-                    return true; 
+                    return true;
                 }
 
                 if (pointer !== null) {
@@ -206,19 +206,53 @@ middleman.filterBy = function () {
                         .toLowerCase()
                         .includes(trimmedFilter.toLowerCase());
                 }
-                return false; 
+                return false;
             });
-            return output; 
+            return output;
         }
-        return []; 
-    }    
-    
+        return [];
+    }
+
     ////////// ALL Search
     function findCommunicationsByAll(filter) { // find + remove Dupes + sort it by groupIndex again (if its a number in the text and as phonenumber becouse i cancat it =] )
         const allData = findCommunicationsByNumber(groupData, filter).concat(findCommunicationsByText(groupData, filter));
         const ids = allData.map(({ groupIndex }) => groupIndex);
         const filtered = allData.filter(({ groupIndex }, index) => !ids.includes(groupIndex, index + 1));
         return filtered.sort(function (a, b) { return (a.groupIndex - b.groupIndex); });;
+    }
+
+    function missedCalls(data) {
+        let missedCallsList = [];
+        const grouped = {};
+
+        data.forEach(object => {
+            const communications = object.communications;
+            const filtered = communications.filter(comm => {
+                return comm.IsCall === true && comm.CallStart === 'null';
+            });
+
+            if (filtered.length > 0) {
+                missedCallsList = missedCallsList.concat(filtered);
+            }
+        });
+
+        missedCallsList.forEach(comm => {
+            let key;
+            if (comm.From === middleman.simOwner.number()) {
+                key = `${comm.From}-${comm.To}`;
+            } else if (comm.To === middleman.simOwner.number()) {
+                key = `${comm.To}-${comm.From}`;
+            } else {
+                key = [comm.From, comm.To].sort().join('-');
+            }
+
+            if (!grouped[key]) {
+                grouped[key] = [];
+            }
+            grouped[key].push(comm);
+        });
+
+        return grouped;
     }
 
     return {
@@ -234,5 +268,8 @@ middleman.filterBy = function () {
         hasLink: (filter) => { return find_hasLink(groupData, filter) },
         hasMessage: (filter) => { return find_message(groupData, filter) },
         noCalls: (filter) => { return find_noCalls(groupData, filter) },
+        missedCalls: () => { return missedCalls(groupData) },
     }
 }();
+
+//console.log(middleman.filterBy.missedCalls());

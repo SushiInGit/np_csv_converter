@@ -109,7 +109,7 @@ color: var(--speechbubble-text);
     white-space: normal;
 }
 
-.output .messages .commOutput .message.to {
+.output .messages .commOutput .message.from {
     text-align: left;
     background-color: var(--speechbubble-color);
     color: var(--speechbubble-text);
@@ -117,11 +117,11 @@ color: var(--speechbubble-text);
     line-height: 1.75;
     padding: 15px 25px;
     border: 1px solid var(--speechbubble-border-color);
-    border-left: 5px solid var(--speechbubble-highlight-to);
+    border-left: 5px solid var(--speechbubble-highlight-from);
     scroll-snap-align: end;
 }
 
-.output .messages .commOutput .message.from {
+.output .messages .commOutput .message.to {
     text-align: right;
     background-color: var(--speechbubble-color);
     color: var(--speechbubble-text);
@@ -129,7 +129,7 @@ color: var(--speechbubble-text);
     line-height: 1.75;
     padding: 15px 25px;
     border: 1px solid var(--speechbubble-border-color);
-    border-right: 5px solid var(--speechbubble-highlight-from);
+    border-right: 5px solid var(--speechbubble-highlight-to);
     scroll-snap-align: end;
 }
 

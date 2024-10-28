@@ -71,6 +71,7 @@ frontend.renderChat = function (data) {
             callMessageContainer.classList.add('text');
             callIndicator.classList.add('callindicator');
             callText.classList.add('call');
+            callText.classList.add('ID_' + Log.Index);
             callText.style.gridArea = `${gridLine} / 2 / ${gridRow} / 5`;
             gridLine++;
             gridRow++;
@@ -138,21 +139,21 @@ frontend.renderChat = function (data) {
         } else {
             const messageDiv = document.createElement('div');
             messageDiv.classList.add('message');
-            messageDiv.classList.add(Log.From === middleman.simOwner.number() ? 'from' : 'to');
-            pointerFromTo = Log.From === middleman.simOwner.number() ? 'from' : 'to';
+            messageDiv.classList.add('ID_' + Log.Index);
+            messageDiv.classList.add(Log.From === middleman.simOwner.number() ? 'to' : 'from' );
+            pointerFromTo = Log.From === middleman.simOwner.number() ? 'to' : 'from' ;
 
 
-            if (pointerFromTo === "to") {
-                messageDiv.style.gridArea = `${gridLine} / 1 / ${gridRow} / 3`;
-                messageDiv.style.borderLeft = `5px solid ${frontend.colorByNumber.getDarkerShade(frontend.colorByNumber.getLighterShade(Log.From), 50)}`; // Other Person
-                messageDiv.classList.add(Log.From);
+            if (pointerFromTo === "to") { // Sim Owner
+                messageDiv.style.gridArea = `${gridLine} / 4 / ${gridRow} / 6`;
+                messageDiv.style.borderRight = `5px solid ${frontend.colorByNumber.getDarkerShade(frontend.colorByNumber.getLighterShade(middleman.simOwner.number()), 50)}`; messageDiv.classList.add(Log.From);
                 gridLine++;
                 gridRow++;
             }
 
-            if (pointerFromTo === "from") {
-                messageDiv.style.gridArea = `${gridLine} / 4 / ${gridRow} / 6`;
-                messageDiv.style.borderRight = `5px solid ${frontend.colorByNumber.getDarkerShade(frontend.colorByNumber.getLighterShade(middleman.simOwner.number()), 50)}`;
+            if (pointerFromTo === "from") { // Other Person
+                messageDiv.style.gridArea = `${gridLine} / 1 / ${gridRow} / 3`;
+                messageDiv.style.borderLeft = `5px solid ${frontend.colorByNumber.getDarkerShade(frontend.colorByNumber.getLighterShade(Log.From), 50)}`; 
                 messageDiv.classList.add(middleman.simOwner.number());
                 gridLine++;
                 gridRow++;
@@ -173,8 +174,9 @@ frontend.renderChat = function (data) {
 
             const numberDiv = document.createElement('div');
             numberDiv.classList.add('number');
-            numberDiv.classList.add(Log.From === middleman.simOwner.number() ? 'from' : 'to');
-            numberDiv.textContent += (Log.From === middleman.simOwner.number() ? '✉️ from' : '✉️ from');
+            numberDiv.classList.add(Log.From === middleman.simOwner.number() ? 'from' : 'to' );
+            //numberDiv.textContent += (Log.From === middleman.simOwner.number() ? '✉️ from' : '✉️ to');
+            numberDiv.textContent += '✉️ from';
             numberDiv.textContent += "\n";
             if (Log.From_Name === "Unknown Contact") {
                 numberDiv.textContent += (String(Log.From).replace(/^(\d{3})(\d{3})(\d{4})$/, "($1) $2 $3"));
