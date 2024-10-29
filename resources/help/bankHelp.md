@@ -52,6 +52,9 @@
 
 - **12h or 24h Format**:  
   If you prefer AM/PM or a 24-hour format, you can select your preference here.
+  
+- **Daylight Savings**:  
+  You can manually adjust the daylight saving setting if needed. Typically, it's best to keep "Dynamic" selected. However, if issues arise after the daylight saving time change, you can set the tool to specific modes: "Summer Time" or "Winter Time."
 
-![Add Number](https://sushiingit.github.io/np_csv_converter/resources/frontend/image/help/settings.png "Add Number")
+![Add Number](https://sushiingit.github.io/np_csv_converter/resources/frontend/image/help/settings2.png "Add Number")
 
