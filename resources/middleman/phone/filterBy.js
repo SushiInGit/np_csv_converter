@@ -239,9 +239,9 @@ middleman.filterBy = function () {
         missedCallsList.forEach(comm => {
             let key;
             if (comm.From === middleman.simOwner.number()) {
-                key = `${comm.From}-${comm.To}`;
+                key = `${comm.To}`;
             } else if (comm.To === middleman.simOwner.number()) {
-                key = `${comm.To}-${comm.From}`;
+                key = `${comm.From}`;
             } else {
                 key = [comm.From, comm.To].sort().join('-');
             }
@@ -272,4 +272,4 @@ middleman.filterBy = function () {
     }
 }();
 
-//console.log(middleman.filterBy.missedCalls());
+console.log(middleman.filterBy.missedCalls());
