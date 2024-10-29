@@ -8,8 +8,8 @@ middleman.bankData = function () {
         let rawBankData = backend.dataController.getData(backend.helpers.getAllSheetTypes().BANKRECORDS).map((transaction, index) => {
             return {
                 ...transaction,
-                original_amount: Number.isInteger(transaction.amount / (100 + transaction.tax_percentage) * 100) ? transaction.amount / (100 + transaction.tax_percentage) * 100 : (transaction.amount / (100 + transaction.tax_percentage) * 100).toFixed(2),
-                tax_amount: Number.isInteger(transaction.amount / (100 + transaction.tax_percentage) * transaction.tax_percentage) ? transaction.amount / (100 + transaction.tax_percentage) * transaction.tax_percentage : (transaction.amount / (100 + transaction.tax_percentage) * transaction.tax_percentage).toFixed(2),
+                original_amount: (transaction.amount / (100 + transaction.tax_percentage) * 100).toFixed(2),
+                tax_amount: (transaction.amount / (100 + transaction.tax_percentage) * transaction.tax_percentage).toFixed(2),
                 index: index
             };
         });
