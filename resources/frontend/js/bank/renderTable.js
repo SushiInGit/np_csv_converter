@@ -116,7 +116,9 @@ frontend.renderTable = function (data) {
 
                     if (headerClass === `Date (${processTimestamp(Date.now()).timeZone})`) {
                         var date = new Date(item); // Convert to Date object
-                        td.textContent = `${processTimestamp(date).displayOrder}`
+                        //td.textContent = `${processTimestamp(date).displayOrder}`
+                        //console.log(processTimestamp(date));
+                        td.textContent = `${processTimestamp(date).dateShowOffset} ${processTimestamp(date).timeShowOffset } `
                     } else {
                         td.textContent = item;
                     }
