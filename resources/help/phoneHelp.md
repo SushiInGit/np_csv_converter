@@ -35,7 +35,7 @@
 - **Removing Subpoena**:  
   Press the "[X]" button to delete older subpoenas.
 
-  ![Subpoena Upload](https://sushiingit.github.io/np_csv_converter/resources/frontend/image/help/phoneUpload.png "Subpoena Upload")
+![Subpoena Upload](https://sushiingit.github.io/np_csv_converter/resources/frontend/image/help/phoneUpload.png "Subpoena Upload")
 
 ---
 
@@ -46,7 +46,7 @@
 - **Right-Click Menu**:  
   By right-clicking on the Log Header or bold numbers in the text messages, you can check if you recognize that number or add it directly from there.
 
-  ![Add Number](https://sushiingit.github.io/np_csv_converter/resources/frontend/image/help/phoneAddnumber.png "Add Number")
+![Add Number](https://sushiingit.github.io/np_csv_converter/resources/frontend/image/help/phoneAddnumber.png "Add Number")
 
 ---
 
@@ -56,7 +56,7 @@
 - **Syntax: to and name**:     
   Searches within the Communication List only for the names and numbers you enter as search terms.
 
-- **Syntax: has_phone, has_link, etc ...**:   
+- **Syntax: has_...**:   
   Displays only conversations containing phone numbers, links, and so on.
   
 - **Syntax: has_..._strict**:    
@@ -85,5 +85,5 @@
 - **12h or 24h Format**:  
   If you prefer AM/PM or a 24-hour format, you can select your preference here.
 
-  ![Add Number](https://sushiingit.github.io/np_csv_converter/resources/frontend/image/help/settings.png "Add Number")
+![Add Number](https://sushiingit.github.io/np_csv_converter/resources/frontend/image/help/settings.png "Add Number")
 
