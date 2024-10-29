@@ -272,4 +272,4 @@ middleman.filterBy = function () {
     }
 }();
 
-console.log(middleman.filterBy.missedCalls());
+//console.log(middleman.filterBy.missedCalls());
