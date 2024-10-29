@@ -40,14 +40,22 @@ frontend.popupSettings = (function () {
                     <option value="24Hour">24Hour</option>
                 </select>
             </div>
-            <div id="offsetDiv" style="display: none">
-                <label for="showoffset">Use Time Offset (${processTimestamp(Date.now()).offsettimeZoneHours}):</label>
+            <div id="dlsDiv">
+                <label for="dlsset">Daylight Savings: <!-- (${processTimestamp(Date.now()).isDaylightSavingTime ? "Summer Time " : "Winter Time"}) --></label>
+                <select id="dlsset">
+                    <option value="auto">Dynamic Time Offset</option>
+                    <option value="false">Force Winter Time (-1h)</option>
+                    <option value="true">Force Summer Time (+1h)</option>
+                </select>
+            </div>
+            <div id="offsetDiv"  style="display: none">
+                <label for="showoffset">Force use Time Offset (${processTimestamp(Date.now()).offsettimeZoneHours}):</label>
                 <select id="showoffset">
                     <option value="on">Yes</option>
                     <option value="off">No</option>
                 </select>
             </div>  
-            <div id="timeFirstDiv" style="display: none">
+            <div id="timeFirstDiv"  style="display: none">
                 <label for="timeFirst">Date/Time order</label>
                 <select id="timeFirst">
                     <option value="dateAndTime">Date then Time</option>
@@ -65,12 +73,14 @@ frontend.popupSettings = (function () {
             const use12hClock = document.getElementById('use12hClock').value;
             const showoffset = document.getElementById('showoffset').value;
             const timeFirst = document.getElementById('timeFirst').value;
-
+            const showDLS = document.getElementById('dlsset').value;
+           
             setSettingSelectedValue('timezone', `${(loadSettings().timeZone)}`);
             setSettingSelectedValue('dateformat', `${(loadSettings().dateFormat)}`);
             setSettingSelectedValue('use12hClock', `${(loadSettings().timeFormat)}`);
             setSettingSelectedValue('showoffset', `${(loadSettings().offsetShow)}`);
             setSettingSelectedValue('timeFirst', `${(loadSettings().displayOrder)}`);
+            setSettingSelectedValue('dlsset', `${(loadSettings().isDaylightSavingTime)}`);
         }, 50);
     }
 
@@ -103,7 +113,8 @@ frontend.popupSettings = (function () {
             dateFormat: dateformat.value,
             timeFormat: use12hClock.value,
             offsetShow: showoffset.value,
-            displayOrder: timeFirst.value
+            displayOrder: timeFirst.value,
+            isDaylightSavingTime: dlsset.value
         };
 
         middleman.popupModel.closePopupDiv();

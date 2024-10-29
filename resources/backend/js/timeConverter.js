@@ -13,14 +13,15 @@ function saveSettings(newPreferences) {
 function loadSettings() {
     const SETTINGS_KEY = 'np_settings';
     const savedPreferences = localStorage.getItem(SETTINGS_KEY);
-
     // Default settings
     const defaultSettings = {
         timeZone: 'gmt',
         timeFormat: '24Hour',
         offsetShow: 'on',
         dateFormat: 'YYYY-MM-DD',
-        displayOrder: 'dateAndTime'
+        displayOrder: 'dateAndTime',
+        isDaylightSavingTime: 'auto'
+
     };
 
     if (!savedPreferences) {
@@ -34,7 +35,8 @@ function loadSettings() {
         timeFormat: preferences.timeFormat || defaultSettings.timeFormat,
         offsetShow: preferences.offsetShow || defaultSettings.offsetShow,
         dateFormat: preferences.dateFormat || defaultSettings.dateFormat,
-        displayOrder: preferences.displayOrder || defaultSettings.displayOrder
+        displayOrder: preferences.displayOrder || defaultSettings.displayOrder,
+        isDaylightSavingTime: preferences.isDaylightSavingTime || defaultSettings.isDaylightSavingTime
     };
 }
 
@@ -67,6 +69,11 @@ function processTimestamp(timestamp) {
         offsetShow: {
             on: 'ON',
             off: 'OFF'
+        },
+        isDaylightSavingTime: {
+            true: 'true',
+            false: 'false',
+            auto: 'auto'
         }
     };
 
@@ -114,21 +121,53 @@ function processTimestamp(timestamp) {
         return currentOffset < winterOffset;
     };
 
-    const getTimeOffset = (date, tz, isInDST) => {
-        const tzDate = new Date(date.toLocaleString('en-US', { timeZone: tz }));
-        const utcDate = new Date(date.toISOString());
-        const diffInMinutes = (tzDate - utcDate) / 60000;
-        const offsetMinutes = isInDST ? diffInMinutes - 60 : diffInMinutes;
-        const offsetHours = Math.floor(Math.abs(offsetMinutes) / 60);
-        const minutes = Math.abs(offsetMinutes % 60);
-        const sign = offsetMinutes >= 0 ? '+' : '-';
-
+    const getTimeOffset = (date, tz) => {
+        let useOffset = "";
+        const npSettings = localStorage.getItem('np_settings');
+        if (npSettings) {
+            const settings = JSON.parse(npSettings);
+            useOffset = (settings.isDaylightSavingTime); 
+        } else {
+            useOffset = "auto";
+        }
+        
+        const formatter = new Intl.DateTimeFormat('en-US', {
+            timeZone: tz,
+            hour: 'numeric',
+            minute: 'numeric',
+            second: 'numeric',
+            hour12: false
+        });
+    
+        const parts = formatter.formatToParts(date);
+        const tzDate = new Date(
+            date.getFullYear(),
+            date.getMonth(),
+            date.getDate(),
+            parseInt(parts.find(part => part.type === 'hour').value),
+            parseInt(parts.find(part => part.type === 'minute').value),
+            parseInt(parts.find(part => part.type === 'second').value)
+        );
+    
+        let diffInMinutes = (tzDate - date) / 60000;
+    
+        if (useOffset === 'true') {
+            diffInMinutes += 60;  
+        } else if (useOffset === 'false') {
+            diffInMinutes -= 60;   
+        }
+    
+        const offsetHours = Math.floor(Math.abs(diffInMinutes) / 60);
+        const minutes = Math.abs(diffInMinutes % 60);
+        const sign = diffInMinutes >= 0 ? '+' : '-';
+    
         return {
             hours: `${sign}${String(offsetHours).padStart(2, '0')}`,
             minutes: `${String(minutes).padStart(2, '0')}`,
-            totalMinutes: diffInMinutes
+            totalMinutes: diffInMinutes,
         };
     };
+    
 
     if (!checkValidISO(timestamp)) {
         return 'Invalid ISO timestamp';
@@ -136,16 +175,16 @@ function processTimestamp(timestamp) {
 
     const date = new Date(timestamp);
 
-    // Safely access timeZone with a default fallback to 'gmt'
     const selectedTimeZone = formats.timeZones[(preferences.timeZone).toLowerCase()];
 
     const localDate = convertToTimezone(date, selectedTimeZone);
     const selectedDateFormat = preferences.dateFormat;
     const use24HourFormat = preferences.timeFormat === '24Hour';
     const isInDST = isDST(date, selectedTimeZone);
-    const { hours, minutes, totalMinutes } = getTimeOffset(date, selectedTimeZone, isInDST);
+    const { hours, minutes, totalMinutes} = getTimeOffset(date, selectedTimeZone);
     const offsetDate = new Date(date.getTime() + (totalMinutes * 60000));
     const showOffset = preferences.offsetShow === 'on';
+
 
     const finalDate = showOffset ? formatDate(offsetDate, selectedDateFormat) : formatDate(date, selectedDateFormat);
     const finalTime = showOffset ? formatTime(offsetDate, use24HourFormat) : formatTime(date, use24HourFormat);
@@ -167,3 +206,4 @@ function processTimestamp(timestamp) {
                      : `${formatTime(localDate, use24HourFormat)} ${formatDate(localDate, selectedDateFormat)}`
     };
 }
+

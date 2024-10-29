@@ -46,7 +46,7 @@
 - **Right-Click Menu**:  
   By right-clicking on the Log Header or bold numbers in the text messages, you can check if you recognize that number or add it directly from there.
 
-![Add Number](https://sushiingit.github.io/np_csv_converter/resources/frontend/image/help/phoneAddnumber.png "Add Number")
+![Add Number](https://sushiingit.github.io/np_csv_converter/resources/frontend/image/help/phoneAddnumber.png "Add Number")![Add Number](https://sushiingit.github.io/np_csv_converter/resources/frontend/image/help/phoneAddnumber2.png "Add Number")
 
 ---
 

@@ -286,6 +286,13 @@ popup.settings #offsetDiv {
     ;
 }
 
+popup.settings #dlsDiv {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    vertical-align: middle;
+    ;
+}
+
 popup.settings label {
     display: table-cell;
     color: #ffffff;
@@ -469,12 +476,37 @@ help .head {
     width: calc(100% - 20px);
     position: absolute;
     top: 10px;
+    display: flex;
 }
 
 help .head h2 {
     position: relative;
+    display: flex;
     margin-top: 0;
     margin-bottom: 0;
+
+}
+help .icon {
+    font-family: 'Material Icons Outlined';
+    width: 26px;
+    height: 26px;
+    font-size: 26px;
+    color: var(--text-color);
+    overflow: hidden;
+    z-index: 2;
+}
+help .icon-container {
+    margin-left: -10px;
+    position: relative;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: var(--bg-shade-search);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid var(--global-border-color);
+    padding-right: 10px;
 }
 
 help .model .close {
@@ -509,10 +541,11 @@ help .element .md {
     word-wrap: break-word;
     overflow-wrap: break-word;
 }
+
 help .element #tocBody {
     position: relative;
     width: 200px;
-    height:  calc(80vh - 30px);
+    height: calc(80vh - 30px);
     overflow-y: hidden;
 }
 
@@ -580,9 +613,30 @@ help hr {
 
 
 help code {
-    background-color:  rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.5);
     padding-left: 5px;
     padding-right: 5px;
     padding-top: 2px;
     padding-bottom: 2px;
+}
+
+help .icon {
+    font-family: 'Material Icons Outlined';
+    width: 26px;
+    height: 26px;
+    font-size: 26px;
+    color: var(--text-color);
+    overflow: hidden;
+    z-index: 2;
+}
+help .icon-container {
+    position: relative;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: var(--bg-shade-search);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid var(--global-border-color);
 }

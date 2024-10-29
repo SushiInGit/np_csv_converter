@@ -60,6 +60,7 @@
   <script defer src="resources/frontend/js/phone/injectData.js"></script>
   <script defer src="resources/frontend/js/phone/renderActivity.js"></script>
   <script defer src="resources/middleman/phone/printJob.js"></script>
+
 <body>
   <!-- Alert System -->
   <div id="alert-container" class="noselect"></div>
@@ -78,7 +79,7 @@
     <hr>
     <input type="text" id="name" placeholder="Enter Contact name">
     <button id="add-contact">Add to Contacts</button>
-    <button id="delete-contact" style="display: none;">Delete Contact</button> 
+    <button id="delete-contact" style="display: none;">Delete Contact</button>
   </div>
   <!-- Container -->
   <container>
@@ -89,10 +90,12 @@
             <a href="index.html" class="icon"><span class="icon">home</span></a>
           </div>
           <div class="icon-container upload" data-tooltip="Upload subpoena">
-            <a href="javascript:void(0);" onclick="frontend.popupUpload.render();" class="icon"><span class="icon">cloud</span></a>
+            <a href="javascript:void(0);" onclick="frontend.popupUpload.render();" class="icon"><span
+                class="icon">cloud</span></a>
           </div>
           <div class="icon-container pbimport" data-tooltip="Import phone contacts">
-            <a href="javascript:void(0);" onclick="frontend.popupPhonebook.render();" class="icon"><span class="icon">aod</span></a>
+            <a href="javascript:void(0);" onclick="frontend.popupPhonebook.render();" class="icon"><span
+                class="icon">aod</span></a>
           </div>
           <div class="icon-container chart" data-tooltip="Activity Chart">
             <a href="javascript:void(0);" onclick="frontend.popupActivity.render();" class="icon"><span
@@ -113,7 +116,8 @@
         </div>
         <div class="right">
           <div class="icon-container settings" data-tooltip="Time convertion settings">
-            <a href="javascript:void(0);" onclick="frontend.popupSettings.render();" class="icon"><span class="icon">settings</span></a>
+            <a href="javascript:void(0);" onclick="frontend.popupSettings.render();" class="icon"><span
+                class="icon">settings</span></a>
           </div>
           <div class="icon-container bug" data-tooltip="Bug Report">
             <a href="javascript:void(0);" onclick="frontend.popupBug.render();" class="icon"><span

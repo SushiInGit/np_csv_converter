@@ -19,11 +19,11 @@ middleman.popupHelp = (function () {
             loader.classList.add("active"); // Activate loader
             helpDiv.classList.add(popupDivName);
             const helpDivHead = document.createElement(popupDivName);
-            const helpDivBody = document.createElement(popupDivName);
             helpDivHead.innerHTML = `
             <div class="model">
                 <div class="head">
                     <button class="close" onclick="middleman.popupHelp.closeHelp(), middleman.popupModel.deactivateLoader()">X</button>
+                    <!-- <div class="icon-container help"><span class="icon">question_mark</span></div> -->
                     <h2>${title}</h2>
                 </div>
                 
