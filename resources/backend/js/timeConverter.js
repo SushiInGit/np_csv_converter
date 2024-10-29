@@ -155,16 +155,21 @@ function processTimestamp(timestamp) {
             diffInMinutes += 60;  
         } else if (useOffset === 'false') {
             diffInMinutes -= 60;   
+        } else {
+            diffInMinutes = 0;
         }
-    
+        const adjustedTime = date.getTime() + (diffInMinutes * 60000);
+        const adjustedDate = new Date(adjustedTime);
+
         const offsetHours = Math.floor(Math.abs(diffInMinutes) / 60);
         const minutes = Math.abs(diffInMinutes % 60);
         const sign = diffInMinutes >= 0 ? '+' : '-';
-    
+
         return {
             hours: `${sign}${String(offsetHours).padStart(2, '0')}`,
             minutes: `${String(minutes).padStart(2, '0')}`,
             totalMinutes: diffInMinutes,
+            adjustedDate: adjustedDate
         };
     };
     
@@ -181,8 +186,8 @@ function processTimestamp(timestamp) {
     const selectedDateFormat = preferences.dateFormat;
     const use24HourFormat = preferences.timeFormat === '24Hour';
     const isInDST = isDST(date, selectedTimeZone);
-    const { hours, minutes, totalMinutes} = getTimeOffset(date, selectedTimeZone);
-    const offsetDate = new Date(date.getTime() + (totalMinutes * 60000));
+    const { hours, minutes, totalMinutes, adjustedDate} = getTimeOffset(date, selectedTimeZone);
+    const offsetDate = adjustedDate;
     const showOffset = preferences.offsetShow === 'on';
 
 

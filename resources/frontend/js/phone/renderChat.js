@@ -50,9 +50,11 @@ frontend.renderChat = function (data) {
 
     commLogs.forEach(Log => {  // Date-Maker
         const currentDate = processTimestamp(Log.Timestamp).dateShowOffset;
+
         if (lastDate !== currentDate) {
             const dateMarker = document.createElement('div');
             dateMarker.classList.add('date-marker');
+            dateMarker.classList.add(processTimestamp(Log.Timestamp).dateShowOffset);
             dateMarker.style.gridArea = `${gridLine} / 3 / ${gridRow} / 4`;
             gridLine++;
             gridRow++;
