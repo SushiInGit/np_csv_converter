@@ -25,10 +25,27 @@ frontend.alert = (function () {
         }
     }
 
+    function checkTimeOffset(){
+        const npSettings = localStorage.getItem('np_settings');
+        if (npSettings) {
+            const settings = JSON.parse(npSettings);
+            useOffset = (settings.isDaylightSavingTime); 
+        } else {
+            useOffset = "auto";
+        }
+        if(useOffset === "false") {
+            global.alertsystem('info', `Remember:<br> It appears that you've manually set the time-offset to 'Winter Time' in the settings.`, 15);
+
+        }
+        if(useOffset === "true") {
+            global.alertsystem('info', `Remember:<br> It appears that you've manually set the time-offset to 'Summer Time' in the settings.`, 15);
+        }
+    }
 
     return {
         checkUploadedFiles: checkUploadedFiles,
         checkSettings: checkSettings,
+        checkTimeOffset: checkTimeOffset
     };
 
 })();

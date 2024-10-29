@@ -22,6 +22,7 @@ frontend.alert = (function () {
                 15);
         }
     }
+
     function checkTimeOffset(){
         const npSettings = localStorage.getItem('np_settings');
         if (npSettings) {
@@ -37,7 +38,6 @@ frontend.alert = (function () {
         if(useOffset === "true") {
             global.alertsystem('info', `Remember:<br> It appears that you've manually set the time-offset to 'Summer Time' in the settings.`, 15);
         }
-       
     }
 
     return {
