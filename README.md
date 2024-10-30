@@ -11,6 +11,20 @@ Join us: https://discord.gg/e3t8EHKGp3
 
 ### Update History:
 ```
+2024-10-30:
+* Multi-File Upload
+* New Help System
+* Phone Subpoena changes
+--> Rework Search function
+--> Added NP-Phone Uploader
+--> Add Force different Daylight Savings Offsets.
+--> Grouped Subpoena Viewer
+
+* Bank Subpoena changes
+--> Minor Design Changes
+--> Minor Bugfixes
+```
+```
 2024-10-02:
 * Designrework on both pages online
 * Alert System for more information
