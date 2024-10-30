@@ -9,6 +9,7 @@ frontend.popupPhonebook = (function () {
             const riskButton = document.querySelector('#popup .footer .risk');
             const updateButton = document.querySelector('#popup .footer .ok');
             const npButton = document.querySelector('#popup .footer .np');
+            const infoText = document.querySelector('#popup .element .info');
 
 
             if (importer.style.height === "0px") {
@@ -18,6 +19,7 @@ frontend.popupPhonebook = (function () {
                 riskButton.classList = "risk hide";
                 npButton.classList = "np hide";
                 updateButton.classList = "ok show";
+                infoText.innerHTML = "This option <u>replaces</u> the existing phone directory with new contacts.";
 
             } else {
                 importer.style.height = "0px";
@@ -26,6 +28,7 @@ frontend.popupPhonebook = (function () {
                 updateButton.classList = "ok hide";
                 riskButton.classList = "risk hide";
                 npButton.classList = "np show";
+                infoText.innerHTML = "You can copy and paste your <u>NP in-game</u> phonebook-contacts here. <br>This list will be added to the NP-Converter contacts.";
 
             }
         }, 50);
@@ -36,7 +39,7 @@ frontend.popupPhonebook = (function () {
         const popupDivName = "import";
         const content = `
 
-            <small>This option <u>replaces</u> the existing phone directory with new contacts.</small><br>
+            <small class="info">This option <u>replaces</u> the existing phone directory with new contacts.</small><br>
             <div style="display:flex; justify-content: center;" ><button id="swap" class="swap" onclick="frontend.popupPhonebook.swap()">⇄ Swap to NP-Phone Import</button></div>
                 <div id="importer" class="importer">
                     <div id="line-numbers" class="importer__lines"></div>
@@ -150,7 +153,7 @@ frontend.popupPhonebook = (function () {
     }
     function convertNpPhonebook() {
         try {
-            const textarea = document.getElementById('npPhone');
+            const textarea = document.getElementById('npPhone');            
             if (!textarea || !textarea.value) {
                 throw new Error("The NP-phone contacts textbox appears to be empty. ");
             }
