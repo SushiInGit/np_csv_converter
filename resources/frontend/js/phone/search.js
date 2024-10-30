@@ -4,6 +4,8 @@ const messagesBox = document.getElementById('messagesBox');
 let suggestionSelected = false;
 
 const searchSyntax = [
+    { syntax: "Default", description: "Filter on contact name, phonenumber or any mention in text messages." },
+    { syntax: "message:", description: "Filter for any mention of the input inside a message" },
     { syntax: "to:", description: "Filter conversations by a specific number in the communication list." },
     { syntax: "name:", description: "Filter conversations by a specific name, excluding <b>'Unknown Contacts'</b>." },
     { syntax: "unknown:", description: "Filter conversations by <b>'Unknown Contacts'</b>." },
@@ -128,8 +130,10 @@ function filterMessages(inputText) {
         frontend.renderList(middleman.requestData.allMetadata());
         return; 
     }
+
     if (matches.length === 0) {
-        frontend.renderList(middleman.filterBy.All(inputText));
+        // frontend.renderList(middleman.filterBy.All(inputText));
+        frontend.renderList(middleman.filterBy.Default(inputText));
         return;
     } 
 
@@ -140,6 +144,8 @@ function filterMessages(inputText) {
             frontend.renderList(middleman.filterBy.Number(value));
         } else if (key === "has_phone") {
             frontend.renderList(middleman.filterBy.hasPhone(value));
+        } else if (key === "message") {
+            frontend.renderList(middleman.filterBy.Messagev2(value));
         } else if (key === "has_number") {
             frontend.renderList(middleman.filterBy.hasNumber(value));
         } else if (key === "has_phone_strict") {

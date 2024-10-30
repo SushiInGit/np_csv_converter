@@ -4,30 +4,6 @@ var middleman = middleman ?? {};
 middleman.filterBy = function () {
     const groupData = middleman.metadata.addObject(middleman.requestData.allMetadata());
 
-    function findCommunicationsByNumber(data, filter) {
-        if (Object.keys(data).length !== 0) {
-            let output = data.filter(object => {
-                return JSON.stringify(object.To)
-                    .toString()
-                    .toLowerCase()
-                    .includes(filter);
-            });
-            return output;
-        }
-    }
-
-    function findCommunicationsByName(data, filter) {
-        if (Object.keys(data).length !== 0) {
-            let output = data.filter(object => {
-                return JSON.stringify(object.Name)
-                    .toString()
-                    .toLowerCase()
-                    .includes(filter);
-            });
-            return output;
-        }
-    }
-
     function findCommunicationsByText(data, filter) {
         if (Object.keys(data).length !== 0) {
             let output = data.filter(object => {
@@ -80,7 +56,6 @@ middleman.filterBy = function () {
         }
         return [];
     }
-
 
     function find_hasPhone(data, filter) {
         if (Array.isArray(data) && data.length > 0) {
@@ -236,14 +211,6 @@ middleman.filterBy = function () {
         return [];
     }
 
-    ////////// ALL Search
-    function findCommunicationsByAll(filter) { // find + remove Dupes + sort it by groupIndex again (if its a number in the text and as phonenumber becouse i cancat it =] )
-        const allData = findCommunicationsByNumber(groupData, filter).concat(findCommunicationsByText(groupData, filter));
-        const ids = allData.map(({ groupIndex }) => groupIndex);
-        const filtered = allData.filter(({ groupIndex }, index) => !ids.includes(groupIndex, index + 1));
-        return filtered.sort(function (a, b) { return (a.groupIndex - b.groupIndex); });;
-    }
-
     function missedCalls(data) {
         let missedCallsList = [];
         const grouped = {};
@@ -278,12 +245,31 @@ middleman.filterBy = function () {
         return grouped;
     }
 
+    function defaultSearch(filter) {
+        var byCommunicationsByText = findCommunicationsByText(filter);
+        var byName = find_name(groupData, filter);
+        var byNumber = find_number(groupData, filter);
+
+        const combined = [...byCommunicationsByText, ...byName, ...byNumber];
+        const uniqueArray = Array.from(
+            new Map(combined.map(item => [item.groupIndex, item])).values()
+        );
+
+        return uniqueArray;
+    }
+
     return {
+        // Deprecated
         Message: (filter) => { return findCommunicationsByText(groupData, filter) },
         MessageStrict: (filter) => { return strictFilter(findCommunicationsByText(groupData, filter), filter) },
         All: (filter) => { return findCommunicationsByAll(filter) },
+        // Deprecated
+
+
+        Default: (filter) => { return defaultSearch(filter) },
 
         // Search V2 below
+        Messagev2: (filter) => { return findCommunicationsByText(filter) },
         Number: (filter) => { return find_number(groupData, filter) },
         Name: (filter) => { return find_name(groupData, filter) },
         Unknown: (filter) => { return find_unknown(groupData, filter) },
