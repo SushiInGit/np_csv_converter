@@ -162,13 +162,15 @@ popup upload .uploadList {
     margin: 0;
     padding-left: 10px;
     padding-right: 10px;
+    scroll-behavior: smooth;
+    scroll-snap-type: y mandatory;
 }
 
-popup upload .uploadList,
 popup upload .simownerName,
 popup upload .ownerItemEntry {
     scroll-behavior: smooth;
     scroll-snap-type: y mandatory;
+    scroll-snap-align: 'end';
 }
 
 popup upload .listEntry {

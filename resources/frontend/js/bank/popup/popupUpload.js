@@ -57,46 +57,47 @@ frontend.popupUpload= (function () {
                 </center>`;
             }
 
-            const itemList = document.createElement('ul');
-            itemList.className = 'ulfileslist';
-            listContainer.appendChild(itemList);
+            const uploadList = document.createElement('div');
+            uploadList.className = 'uploadList';
+            listContainer.appendChild(uploadList);
             listContainer.appendChild(storageSpace);
             const sortItems = backend.helpers.sortObjectByKey(items, null);
             sortItems.forEach(item => {
-                const li = document.createElement('li');
-                li.style.listStyleType = "none";
+                const itemDiv = document.createElement('div');
+                itemDiv.className = 'itemDiv';
 
                 const formattedItem = item.replace(/_/g, ' ');
-                const liDiv = document.createElement('div');
-                liDiv.className = 'li div';
-                const buttonDiv = document.createElement('div');
-                buttonDiv.className = 'li button';
-                const spanDiv = document.createElement('div');
-                spanDiv.className = 'li span';
-                const itemName = document.createElement('span');
-
-                itemName.innerHTML = `${formattedItem}`;
-                itemName.title = formattedItem;
-                itemName.className = 'fileslist';
+                const listEntry = document.createElement('div');
+                listEntry.className = 'listEntry';
+                const delContainer = document.createElement('div');
+                delContainer.className = 'delDiv';
+                const nameContainer = document.createElement('div');
+                nameContainer.className = 'nameDiv';
+                const itemNameSpan = document.createElement('span');
+        
+                itemNameSpan.innerHTML = `${formattedItem}`;
+                itemNameSpan.title = formattedItem;
+                itemNameSpan.className = 'itemName';
 
                 if(backend.storageShow.showLastSearch().showBank === (item + "_bankRecords")) {
-                    itemName.className = 'fileslist active';
+                    itemNameSpan.classList.add('active');
+                    listEntry.classList.add('active');
                 }
                 
-                itemName.onclick = () => swap(item);
+                itemNameSpan.onclick = () => swap(item);
 
                 const deleteButton = document.createElement('button');
                 deleteButton.textContent = 'X';
                 deleteButton.className = 'del';
                 deleteButton.onclick = () => del(item.name, item);
 
-                buttonDiv.appendChild(deleteButton);
-                spanDiv.appendChild(itemName);
-                liDiv.appendChild(buttonDiv);
-                liDiv.appendChild(spanDiv);
-                li.appendChild(liDiv);
-                li.style.scrollSnapAlign = 'end';
-                itemList.appendChild(li);
+                delContainer.appendChild(deleteButton);
+                nameContainer.appendChild(itemNameSpan);
+                listEntry.appendChild(delContainer);
+                listEntry.appendChild(nameContainer);
+                itemDiv.appendChild(listEntry);
+                itemDiv.style.scrollSnapAlign = 'end';
+                uploadList.appendChild(itemDiv);
             });
         }
 
