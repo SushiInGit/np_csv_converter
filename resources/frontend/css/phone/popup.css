@@ -1,5 +1,4 @@
 :root {
-    --popup-size-height: 300px;
     --popup-size-width: 400px;
 }
 
@@ -13,7 +12,7 @@ popup {
     color: #fff;
     margin: 0px;
     padding: 0;
-    height: var(--popup-size-height);
+    height: auto;
     width: var(--popup-size-width);
     border: solid var(--global-border-size) var(--global-border-color);
     z-index: 10001;
@@ -21,21 +20,21 @@ popup {
     font-family: "Poppins", sans-serif;
 }
 
-popup.upload {
-    height: 180px !important;
+popup .model {
+    position: relative;
+    display: flex;
+    height: 100%;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
 }
 
-popup.bug {
-    height: 325px !important;
-}
+
 
 popup.bug textarea {
     resize: none;
     overflow: auto;
-}
-
-popup.import {
-    height: 375px !important;
 }
 
 popup.import textarea {
@@ -43,18 +42,10 @@ popup.import textarea {
     overflow: auto;
 }
 
-popup.settings {
-    height: 360px !important;
-}
-
-popup.help {
-    height: 400px !important;
-}
-
 popup.activity {
-    height: 390px !important;
     width: 500px !important;
 }
+
 popup.show {
     width: var(--popup-size-width);
     opacity: 0.99 !important;
@@ -68,7 +59,7 @@ popup.hide {
     width: 0px !important;
 }
 
-popup .close {
+popup .model .close {
     cursor: pointer;
     padding: 8px 14px;
     background-color: #e74c3c;
@@ -78,20 +69,23 @@ popup .close {
     position: absolute;
     right: 10px;
     top: 10px;
+    z-index: 1;
 }
 
-popup .close:hover {
+popup .model .close:hover,
+help .model .close:hover {
     background-color: #eb5b4b;
 }
 
 popup .head {
-
+    width: 100%;
+    height: auto;
     align-items: center;
     justify-content: center;
 }
 
 popup .head h2 {
-    position: absolute;
+    position: relative;
     left: 10px;
     top: 10px;
     margin-top: 0;
@@ -99,12 +93,19 @@ popup .head h2 {
 }
 
 popup .element {
-    top: 70px;
+    height: auto;
+    padding-top: 20px;
     left: 10px;
     width: calc(100% - 20px);
-    position: absolute;
-    align-items: center;
-    justify-content: center;
+}
+
+popup .footer {
+    height: auto;
+    padding-bottom: 20px;
+}
+
+popup .footer span.fileslist.active {
+    color: var(--global-hover) !important;
 }
 
 popup .ok {
@@ -131,20 +132,204 @@ popup .risk {
     cursor: pointer;
 }
 
-popup .risk.hide {
-    opacity: 0;
-    display: none;
-}
-
-popup .risk.show {
-    opacity: 1;
-    display: inline;
-}
-
 popup .risk:hover {
     background-color: #d85252;
 }
 
+popup .np {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #27ae60;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+popup .np:hover {
+    background-color: #2ecc71;
+}
+popup .swap {
+    margin-top: 20px;
+    margin-bottom: 5px;
+    padding: 5px 20px;
+    background-color: #0f50c7;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+popup .swap:hover {
+    background-color: #5080d7;
+}
+
+popup .del {
+    right: 0;
+    margin-right: 10px;
+    padding: 5px 10px;
+    background-color: #ae2727;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    align-items: center;
+    display: flex;
+}
+
+popup .del:hover {
+    background-color: #d85252;
+}
+
+popup upload .uploadList {
+    max-height: 150px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    padding-left: 10px;
+    padding-right: 10px;
+    scroll-behavior: smooth;
+    scroll-snap-type: y mandatory;
+}
+
+popup upload .simownerName,
+popup upload .ownerItemEntry {
+    scroll-behavior: smooth;
+    scroll-snap-type: y mandatory;
+    scroll-snap-align: 'end';
+}
+
+popup upload .listEntry {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+popup upload .listEntry {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+popup upload .simownerDiv:not(:last-child) {
+    padding-bottom: 10px;
+    border-bottom: 1px solid #ffffff18;
+    margin-bottom: -10px;
+}
+
+popup upload .listEntry:first-child {
+    margin-top: 10px;
+}
+
+popup upload .listEntry .delDiv {
+    width: 30px;
+    padding-left: 10px;
+}
+
+popup upload .listEntry .nameDiv {
+    padding-left: 10px;
+    margin-left: 0px;
+    font-size: small;
+    height: 100%;
+    width: 300px;
+}
+
+popup upload .listEntry .nameDiv {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
+}
+
+popup upload .listEntry .nameDiv:before {
+    font-family: 'Material Icons Outlined';
+    content: "description";
+    margin-right: 3px;
+    color: #c9c9c9;
+    display: inline-flex;
+    vertical-align: middle;
+    font-size: 20px;
+}
+
+popup upload .uploadList .simownerDiv:not(:first-child) .simownerName {
+    margin-top: 25px;
+}
+
+popup upload .simownerName:hover {
+    cursor: pointer;
+    color: var(--text-color) !important;
+    opacity: 0.6;
+}
+
+popup upload .nameDiv:hover {
+    cursor: pointer;
+    color: var(--text-color) !important;
+    opacity: 0.6;
+}
+
+popup upload .simownerName.active {
+    color: var(--global-hover) !important;
+}
+
+popup upload .listEntry.active {
+    color: var(--global-hover) !important;
+
+    .nameDiv:before {
+        color: var(--global-hover);
+    }
+}
+
+popup upload .error-message {
+    color: #e74d3cc0;
+    margin-top: 8px;
+    display: none; 
+    flex-direction: column;
+}
+
+popup upload input {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 4px;
+    color: var(--text-color); 
+    border: 1px solid var(--global-border-color);
+    background: var(--bg-shade-light);
+    outline: none; 
+    font-family: "Poppins", sans-serif;
+}
+
+popup upload .errorList,
+popup upload #errorMessage {
+    font-size: small;
+    margin: 0;
+    padding: 0;
+    padding-top: 5px;
+}
+
+popup upload .errorList
+{
+    padding-left: 25px;
+}
+
+popup upload input::placeholder {
+    color: var(--bg-shade-mid); 
+}
+
+popup .risk.hide,
+popup .ok.hide,
+popup .np.hide {
+    opacity: 0;
+    display: none;
+}
+
+popup .risk.show,
+popup .ok.show,
+popup .np.show  {
+    opacity: 1;
+    display: inline;
+}
 
 /* --------Start of Fileupload---------  */
 popup .upload-button {
@@ -166,6 +351,11 @@ popup .drop-zone {
     text-align: center;
     color: #aaa;
     cursor: pointer;
+}
+
+popup .drop-zone:hover {
+    color: #ccc;
+    border: 2px dashed #aaa;
 }
 
 popup .drop-zone.dragover {
@@ -224,6 +414,13 @@ popup.settings #offsetDiv {
     ;
 }
 
+popup.settings #dlsDiv {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    vertical-align: middle;
+    ;
+}
+
 popup.settings label {
     display: table-cell;
     color: #ffffff;
@@ -265,9 +462,6 @@ popup.settings select::after {
 
 
 /* --------End of Settings---------  */
-popup.bug .element {
-    height: 170px;
-}
 
 popup.bug .element textarea {
     border: 1px solid #1c1e29;
@@ -311,12 +505,9 @@ popup.help .element #errorMessage {
 
 /* --------End of Help --------  */
 
-popup.import .element {
-    height: 170px;
-}
-
 popup.import .element .importer {
     display: flex;
+    
     color: #ccccccb6;
     border: 1px solid #1c1e29;
     background-color: #0707078a;
@@ -324,25 +515,39 @@ popup.import .element .importer {
     overflow: hidden;
     height: 170px;
 }
-
+popup.import .element #importer {
+    margin-top: 10px;
+}
+popup.import .element #importernp {
+    margin-top: 0px;
+    height: 0px;
+}
 popup.import .element .importer__textarea {
     border: none;
     outline: none;
-    width: 100%;
     background-color: #0707078a;
     color: #ccc;
     overflow: auto;
+}
+
+popup.import .element .importer__textarea {
+    width: 100%;
+    padding: 0;
+    margin: 0;
     padding-left: 5px;
+    font-size: 14px;
 }
 
 popup.import .element .importer__lines {
     border-right: 1px solid rgba(255, 255, 255, 0.719);
-    padding: calc(0.8rem + 5px);
+    min-width: 20px;
+    padding: 0;
+    margin: 0;
     padding-right: 5px;
     text-align: right;
     overflow: hidden;
-    min-width: calc(0.8rem + 5px);
-    ;
+    font-size: 11px;
+
 }
 
 popup.import .element textarea::placeholder {
@@ -360,18 +565,223 @@ popup.import .element textarea::placeholder {
     text-align: center;
 
 
-.chart-container {
-    position: relative;
-    height: 250px;
-    width: 100%;
+    .chart-container {
+        position: relative;
+        height: auto;
+        width: 100%;
+    }
+
+    .chart-container .loading-message {
+        text-align: center;
+        text-wrap: wrap;
+    }
+
+    #time-range-output {
+        margin-top: 20px;
+        font-size: 1.2em;
+        font-weight: bold;
+        color: #4e4e4e;
+    }
+
 }
 
-#time-range-output {
-    margin-top: 20px;
-    font-size: 1.2em;
-    font-weight: bold;
-    color: #4e4e4e;
-}
-
-}
 /* --------End of Events---------  */
+
+/* -------- Help-System V2 ---------  */
+#help {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80vw;
+    height: auto;
+    max-height: 80vh;
+    padding: 20px;
+    z-index: 10001;
+    font-family: "Poppins", sans-serif;
+    color: #fff;
+    border: solid var(--global-border-size) var(--global-border-color);
+    background: var(--body-bg-color);
+    background: linear-gradient(315deg, var(--body-gradient-start) 0%, var(--body-gradient-end) 100%);
+}
+
+help.show {
+    display: flex !important;
+}
+
+help.hide {
+    display: none !important;
+}
+
+help .head {
+    width: calc(100% - 20px);
+    position: absolute;
+    top: 10px;
+    display: flex;
+}
+
+help .head h2 {
+    position: relative;
+    display: flex;
+    margin-top: 0;
+    margin-bottom: 0;
+
+}
+
+help .icon {
+    font-family: 'Material Icons Outlined';
+    width: 26px;
+    height: 26px;
+    font-size: 26px;
+    color: var(--text-color);
+    overflow: hidden;
+    z-index: 2;
+}
+
+help .icon-container {
+    margin-left: -10px;
+    position: relative;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: var(--bg-shade-search);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid var(--global-border-color);
+    padding-right: 10px;
+}
+
+help .model .close {
+    cursor: pointer;
+    padding: 8px 14px;
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    position: absolute;
+    right: 10px;
+    z-index: 1;
+}
+
+help .element {
+    width: 80vw !important;
+    top: 30px;
+    bottom: 10px;
+    position: relative;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    max-height: calc(80vh - 30px);
+}
+
+help .element .md {
+    height: auto;
+    width: calc(100% - 20px);
+    display: flex;
+    overflow-y: auto;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+help .element #tocBody {
+    position: relative;
+    width: 200px;
+    height: calc(80vh - 30px);
+    overflow-y: hidden;
+}
+
+help .element #toc {
+    width: 100%;
+    padding-right: 10px;
+    height: 100%;
+    border-right: 1px solid #000000ab;
+    overflow-y: auto;
+}
+
+help .element #markdownContent {
+    width: calc(100% - 210px);
+    padding: 0 20px;
+    overflow-y: auto;
+}
+
+#markdownContent img {
+    max-height: 400px;
+    max-width: 400px;
+    height: auto;
+    margin: 10px;
+}
+
+help .element .toc-item {
+    margin: 5px 0;
+    cursor: pointer;
+    color: #fff;
+    text-decoration: none;
+}
+
+help .element .toc-item:hover,
+help .element .toc-subitem:hover {
+    opacity: 0.6;
+}
+
+help .element .toc-item:not(:first-child) {
+    border-top: 1px solid #ffffff4f;
+    padding-top: 5px;
+}
+
+help .element .toc-subitem {
+    margin: 2px 0 2px 5px;
+    font-size: 0.9em;
+    cursor: pointer;
+    color: #ccc;
+
+}
+
+help .element .toc-subitem::before {
+    content: "•";
+    margin-right: 8px;
+    color: #ccc;
+}
+
+help hr {
+    margin-top: 40px;
+    margin-bottom: 40px;
+    opacity: 0.7;
+    width: 100%;
+    height: 3px;
+    border: none;
+    background: linear-gradient(to right, transparent, rgba(0, 0, 0, 0.5), transparent);
+}
+
+
+help code {
+    background-color: rgba(0, 0, 0, 0.5);
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
+
+help .icon {
+    font-family: 'Material Icons Outlined';
+    width: 26px;
+    height: 26px;
+    font-size: 26px;
+    color: var(--text-color);
+    overflow: hidden;
+    z-index: 2;
+}
+
+help .icon-container {
+    position: relative;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: var(--bg-shade-search);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid var(--global-border-color);
+}

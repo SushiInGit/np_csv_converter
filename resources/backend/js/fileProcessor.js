@@ -3,6 +3,10 @@ var backend = backend ?? {};
 
 backend.fileProcessor = function () {
 
+    function sanitizeFileName(name) {
+        return name.replace(/[^a-zA-Z0-9]/g, "_");
+    }
+
     function processFiles(files) {
 
         Array.from(files).forEach((file, fileIndex) => {
@@ -18,8 +22,16 @@ backend.fileProcessor = function () {
                     const worksheet = workbook.Sheets[sheetName];
                     allSheets[sheetName] = XLSX.utils.sheet_to_json(worksheet);
                 });
+                
+                global.fileupload.fileUploadPrompt(file.name).then((fileName) => {
+                    fileName = sanitizeFileName(fileName);
 
-                processSheets(allSheets);
+                    processSheets(allSheets, fileName);
+                });
+                //let fileName = prompt("Please enter a name for the file:", file.name);
+                //fileName = sanitizeFileName(fileName);
+
+                //processSheets(allSheets, fileName);
             }
 
             reader.readAsArrayBuffer(file);
@@ -27,7 +39,7 @@ backend.fileProcessor = function () {
 
     }
 
-    function processSheets(sheets) {
+    function processSheets(sheets, fileName) {
         for (const sheetName in sheets) {
             var sheet = sheets[sheetName];
             var keys = Array.from(new Set(sheet.reduce((acc, row) => acc.concat(Object.keys(row).filter(key => !key.startsWith("__EMPTY"))), [])));
@@ -67,11 +79,32 @@ backend.fileProcessor = function () {
                 }
 
                 // Save cleanData to localstorage, overwrites the current data
-                backend.dataController.saveData(sheetType, cleanData);
+                //backend.dataController.saveData(sheetType, cleanData);
+                
+
+                var key = fileName + '_' + sheetType;
+                /*
+                if (backend.dataController.keyHasData(key)) {
+                    alert('key already exists')
+                    global.alertsystem('warning', 'There is already a file with this name!', 14);
+                }
+                */
+
+                    // Use the storageManager to add the data and ensure it's within the limit
+                    const dataAdded = backend.storageManager.addData(key, JSON.stringify(cleanData), redirectUrl);
+                    if (!dataAdded) {
+                        global.alertsystem('warning', 'Storage limit exceeded! Please free up some space and delete other subpoena files.', 14);
+                    }
+               
+
+
             }
         }
 
-        window.location.href = redirectUrl;
+        if (redirectUrl === "bank.html") {
+            window.location.href = redirectUrl;
+        }
+
     }
 
     function getSheetType(sheetHeaders) {
@@ -83,7 +116,7 @@ backend.fileProcessor = function () {
 
         if (sheetHeaders.every(checkHeader => textsHeaders.includes(checkHeader)))
             return allSheetTypes.TEXTS;
-            
+
         if (sheetHeaders.every(checkHeader => callsHeaders.includes(checkHeader)))
             return allSheetTypes.CALLS;
 

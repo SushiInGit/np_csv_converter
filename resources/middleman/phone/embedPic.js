@@ -6,35 +6,34 @@ middleman.embedPic = function (message) {
     const anchorTagRegex = /<a\s+[^>]*href="(.*?)"[^>]*class\s*=\s*["']?picture["']?[^>]*>(.*?)<\/a>/g;
     let match;
 
+    const allowedURLs = ['kappa.lol', 'imgur.com', 'postimg.cc', 'gyazo.com'];
     while ((match = anchorTagRegex.exec(message)) !== null) {
         const href = match[1];
         embed.classList.add('embed');
 
-        const link = document.createElement('a');
-        link.href = href;
-        link.target = '_blank';
+        const isURL = allowedURLs.some(url => href.includes(url));
+        const isImage = /\.(png|jpg|jpeg|gif|bmp|svg|webp)$/i.test(href);
 
-        const imgElement = document.createElement('img');
-        imgElement.src = href;
-        imgElement.alt = `404 Image not found.`;
+        if (isImage || isURL) {
+            const link = document.createElement('a');
+            link.href = href;
+            link.target = '_blank';
 
-        // Add the onerror attribute for fallback
-        imgElement.onerror = function () {
-            this.onerror = null;
-            this.src = 'https://sushiingit.github.io/np_csv_converter/resources/frontend/image/404image.png';
-            this.style.filter = 'none';
-        };
+            const imgElement = document.createElement('img');
+            imgElement.src = href;
+            imgElement.alt = `404 Image not found.`;
 
-        imgElement.style.maxHeight = '200px';
-        imgElement.style.maxWidth = '200px';
-        imgElement.style.height = 'auto';
-        imgElement.style.width = 'auto';
-        imgElement.style.objectFit = 'contain';
+            // Add the onerror attribute for fallback
+            imgElement.onerror = function () {
+                this.onerror = null;
+                this.src = 'https://sushiingit.github.io/np_csv_converter/resources/frontend/image/404image.png';
+                this.style.filter = 'none';
+            };
 
 
-        link.appendChild(imgElement);
-        embed.appendChild(link);
-
+            link.appendChild(imgElement);
+            embed.appendChild(link);
+        }
     }
     return embed;
 }

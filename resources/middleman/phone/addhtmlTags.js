@@ -10,7 +10,7 @@ middleman.addhtmlTags = function () {
       for (const url of urls) {
 
         if (middleman.helper.isUrlWrapped(element, url)) {
-          console.info(`${url} is already wrapped or corrupt url)`);
+          console.info(`${url} is already wrapped or corrupt url.`);
           continue;
         }
 
