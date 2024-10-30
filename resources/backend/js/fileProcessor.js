@@ -81,8 +81,14 @@ backend.fileProcessor = function () {
                 // Save cleanData to localstorage, overwrites the current data
                 //backend.dataController.saveData(sheetType, cleanData);
 
+                var key = fileName + '_' + sheetType;
+
+                if (backend.dataController.keyHasData(key)) {
+                    alert('key already exists')
+                }
+
                     // Use the storageManager to add the data and ensure it's within the limit
-                    const dataAdded = backend.storageManager.addData(fileName + '_' + sheetType, JSON.stringify(cleanData), redirectUrl);
+                    const dataAdded = backend.storageManager.addData(key, JSON.stringify(cleanData), redirectUrl);
                     if (!dataAdded) {
                         global.alertsystem('warning', 'Storage limit exceeded! Please free up some space and delete other subpoena files.', 14);
                     }

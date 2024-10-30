@@ -85,6 +85,7 @@ backend.storageShow = function () {
             bank
         };
     }
+
     return {
         saveLastSearchRecord: saveLastSearchRecord,
         showLastSearch: showLastSearch,

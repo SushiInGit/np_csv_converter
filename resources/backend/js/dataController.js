@@ -3,6 +3,10 @@ var backend = backend ?? {};
 
 backend.dataController = function () {
 
+    function keyHasData(key) {
+        return localStorage.getItem(key) !== null;
+    }
+
     function getDataFromLocalStorage(sheetType) {
         return JSON.parse(localStorage.getItem(sheetType) ?? "[]");
     }
@@ -36,6 +40,8 @@ backend.dataController = function () {
     }
 
     return {
+
+        keyHasData: (key) => { return keyHasData(key) },
 
         getData: (key) => { return getDataFromLocalStorage(key) },
 
