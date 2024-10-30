@@ -34,6 +34,7 @@ backend.storageManager = function () {
         }
         try {
             backend.dataController.saveData(key, value);
+
             backend.storageShow.saveLastSearchRecord(extractBaseName(key), true);
             window.location.href = redirectUrl;
 
