@@ -31,14 +31,13 @@ middleman.filterBy = function () {
     function findCommunicationsByText(data, filter) {
         if (Object.keys(data).length !== 0) {
             let output = data.filter(object => {
-                const pointer = object.communications[0].Message;
-
-                if (pointer !== null) {
-                    return JSON.stringify(pointer)
-                        .toString()
-                        .toLowerCase()
-                        .includes(filter.toString().toLowerCase());
-                }
+                return object.communications.some(communication => {
+                    const pointer = communication.Message;
+                    return pointer !== null &&
+                        JSON.stringify(pointer)
+                            .toLowerCase()
+                            .includes(filter.toString().toLowerCase());
+                });
             });
             return output;
         }

@@ -161,7 +161,6 @@ function processTimestamp(timestamp) {
         const adjustedTime = date.getTime() + (diffInMinutes * 60000);
 
         const adjustedDate = new Date(adjustedTime);
-        console.log(adjustedDate);
 
         const offsetHours = Math.floor(Math.abs(diffInMinutes) / 60);
         const minutes = Math.abs(diffInMinutes % 60);
