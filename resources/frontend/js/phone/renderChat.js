@@ -46,11 +46,16 @@ frontend.renderChat = function (data) {
     const commOutput = document.querySelector(".output .messages .commOutput");
     commOutput.innerHTML = ``;
     let lastDate = null;
-    const commLogs = data.communications.sort((a, b) => new Date(a.Timestamp) - new Date(b.Timestamp)); // Make sure the Object is sorted by Timestemp - 99.9999% will never be a problem
+    //const commLogs = data.communications.sort((a, b) => new Date(a.Timestamp) - new Date(b.Timestamp)); // Make sure the Object is sorted by Timestemp - 99.9999% will never be a problem
+
+    const commLogs = data.communications.sort((a, b) => {
+        if (a.TimestampCorrupt  === false && b.TimestampCorrupt  === true) return -1;
+        if (a.TimestampCorrupt  === true && b.TimestampCorrupt  === false) return 1;
+        return new Date(a.Timestamp) - new Date(b.Timestamp);
+    });
 
     commLogs.forEach(Log => {  // Date-Maker
         const currentDate = processTimestamp(Log.Timestamp).dateShowOffset;
-
         if (lastDate !== currentDate) {
             const dateMarker = document.createElement('div');
             dateMarker.classList.add('date-marker');
@@ -142,6 +147,7 @@ frontend.renderChat = function (data) {
             const messageDiv = document.createElement('div');
             messageDiv.classList.add('message');
             messageDiv.classList.add('ID_' + Log.Index);
+            messageDiv.classList.add('TimestampCorrupt_' + Log.TimestampCorrupt);
             messageDiv.classList.add(Log.From === middleman.simOwner.number() ? 'to' : 'from' );
             pointerFromTo = Log.From === middleman.simOwner.number() ? 'to' : 'from' ;
 
@@ -172,8 +178,8 @@ frontend.renderChat = function (data) {
             const timestampDiv = document.createElement('div');
             fixedDate = processTimestamp(Log.Timestamp);
             timestampDiv.classList.add('timestamp');
-            timestampDiv.textContent = `${fixedDate.timeShowOffset} ${fixedDate.timeZone}`;
-
+            if(Log.TimestampCorrupt === false) { timestampDiv.textContent = `${fixedDate.timeShowOffset} ${fixedDate.timeZone}`; }
+            if(Log.TimestampCorrupt === true) { timestampDiv.innerHTML = `<glitch >Corrupted Timestemp</glitch>`; }
             const numberDiv = document.createElement('div');
             numberDiv.classList.add('number');
             numberDiv.classList.add(Log.From === middleman.simOwner.number() ? 'from' : 'to' );

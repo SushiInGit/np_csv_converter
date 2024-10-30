@@ -24,8 +24,10 @@ middleman.phoneData = (function () {
                 Timestamp: item.timestamp,
                 IsCall: false,
                 CallStart: null,
-                CallEnd: null
+                CallEnd: null,
+                TimestampCorrupt: item.timestampCorrupt
             })),
+
             ...calls.map((item, index) => ({
                 Index: texts.length + index + 1,
                 From: item.call_from,
@@ -34,7 +36,8 @@ middleman.phoneData = (function () {
                 IsCall: true,
                 Timestamp: item.initiated_at,
                 CallStart: item.established_at === null ? null : item.established_at,
-                CallEnd: item.ended_at
+                CallEnd: item.ended_at,
+                TimestampCorrupt: null
             }))
         ];
     }
