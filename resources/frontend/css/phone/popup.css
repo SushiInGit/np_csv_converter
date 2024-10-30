@@ -136,6 +136,34 @@ popup .risk:hover {
     background-color: #d85252;
 }
 
+popup .np {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #27ae60;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+popup .np:hover {
+    background-color: #2ecc71;
+}
+popup .swap {
+    margin-top: 20px;
+    margin-bottom: 5px;
+    padding: 5px 20px;
+    background-color: #0f50c7;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+popup .swap:hover {
+    background-color: #5080d7;
+}
+
 popup .del {
     right: 0;
     margin-right: 10px;
@@ -289,12 +317,16 @@ popup upload input::placeholder {
     color: var(--bg-shade-mid); 
 }
 
-popup .risk.hide {
+popup .risk.hide,
+popup .ok.hide,
+popup .np.hide {
     opacity: 0;
     display: none;
 }
 
-popup .risk.show {
+popup .risk.show,
+popup .ok.show,
+popup .np.show  {
     opacity: 1;
     display: inline;
 }
@@ -477,7 +509,7 @@ popup.help .element #errorMessage {
 
 popup.import .element .importer {
     display: flex;
-    margin-top: 10px;
+    
     color: #ccccccb6;
     border: 1px solid #1c1e29;
     background-color: #0707078a;
@@ -485,14 +517,23 @@ popup.import .element .importer {
     overflow: hidden;
     height: 170px;
 }
-
+popup.import .element #importer {
+    margin-top: 10px;
+}
+popup.import .element #importernp {
+    margin-top: 0px;
+    height: 0px;
+}
 popup.import .element .importer__textarea {
     border: none;
     outline: none;
-    width: calc(100% - (0.8rem + 5px));
     background-color: #0707078a;
     color: #ccc;
     overflow: auto;
+}
+
+popup.import .element .importer__textarea {
+    width: 100%;
     padding-left: 5px;
 }
 
