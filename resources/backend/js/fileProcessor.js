@@ -85,6 +85,7 @@ backend.fileProcessor = function () {
 
                 if (backend.dataController.keyHasData(key)) {
                     alert('key already exists')
+                    global.alertsystem('warning', 'There is already a file with this name!', 14);
                 }
 
                     // Use the storageManager to add the data and ensure it's within the limit
