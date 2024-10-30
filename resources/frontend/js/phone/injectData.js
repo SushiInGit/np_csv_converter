@@ -32,7 +32,7 @@ if (backend.storageSelector.searchRecord('', true, 'last') !== false) {
 
             bannerCenter.innerHTML = `
             <h2>${simownerName(middleman.simOwner.simnumber(data))}</h2>
-            <h3>${String(middleman.simOwner.simnumber(data)).replace(/^(\d{3})(\d{3})(\d{4})$/, "($1) $2 $3")}</h3>
+            <h3><number>${String(middleman.simOwner.simnumber(data)).replace(/^(\d{3})(\d{3})(\d{4})$/, "($1) $2 $3")}</number></h3>
             <b>${processTimestamp(data[0].Timestamp).date} to ${processTimestamp(data[(Object.keys(data).length - 1)].Timestamp).date}</b>
         `;
         }
