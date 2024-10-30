@@ -40,8 +40,17 @@ backend.phonebookHelper = function () {
         for (var i = 0; i < dirtyLogArray.length / 3; i++) {
             var j = i * 3;
 
+            if (!phonenumberRegex.test(dirtyLogArray[j + 2])) {
+                // is invalid phone number
+                continue;
+            }
+
             var phonenumber = dirtyLogArray[j + 2].replace(/\((\d{3})\)\s(\d{3})-(\d{4})/, "$1$2$3");
             var name = dirtyLogArray[j + 1];
+
+            if (phonenumber === undefined || name == undefined) {
+                continue;
+            }
 
             if (!phoneNumbers.some(contact => contact.number == phonenumber)) {
                 const newContact = {
