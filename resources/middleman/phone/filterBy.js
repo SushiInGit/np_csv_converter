@@ -161,6 +161,30 @@ middleman.filterBy = function () {
         return [];
     }
 
+    function find_unknown(data, filter) {
+        if (Array.isArray(data) && data.length > 0) {
+            let trimmedFilter = filter.trim();
+
+            if (trimmedFilter === ".") { trimmedFilter = ""; }
+
+            let output = data.filter(object => {
+                const pointer = object.Name;
+                if (object.Name !== "Unknown Contact") {
+                    return false;
+                }
+
+                if (pointer !== false) {
+                    return JSON.stringify(pointer)
+                        .toLowerCase()
+                        .includes(trimmedFilter.toLowerCase());
+                }
+                return false;
+            });
+            return output;
+        }
+        return [];
+    }
+
     function find_message(data, filter) {
         if (Array.isArray(data) && data.length > 0) {
             const trimmedFilter = filter.trim();
@@ -262,6 +286,7 @@ middleman.filterBy = function () {
         // Search V2 below
         Number: (filter) => { return find_number(groupData, filter) },
         Name: (filter) => { return find_name(groupData, filter) },
+        Unknown: (filter) => { return find_unknown(groupData, filter) },
         hasNumber: (filter) => { return find_hasNumber(groupData, filter) },
         hasPhone: (filter) => { return find_hasPhone(groupData, filter) },
         hasLink: (filter) => { return find_hasLink(groupData, filter) },

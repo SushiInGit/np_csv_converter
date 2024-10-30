@@ -14,7 +14,9 @@ global.fileupload = (function () {
     });
 
     function sanitizeFileName(name) {
-        return name.replace(/[^a-zA-Z0-9]/g, "_");
+        if (name) {
+            return name.replace(/[^a-zA-Z0-9]/g, "_");
+        }
     }
 
     function validateFileName(fileName, errorMessage) {

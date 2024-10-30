@@ -6,6 +6,7 @@ let suggestionSelected = false;
 const searchSyntax = [
     { syntax: "to:", description: "Filter conversations by a specific number in the communication list." },
     { syntax: "name:", description: "Filter conversations by a specific name, excluding <b>'Unknown Contacts'</b>." },
+    { syntax: "unknown:", description: "Filter conversations by <b>'Unknown Contacts'</b>." },
     { syntax: "has_phone:", description: "Display conversations containing messages with shared phone numbers." },
     { syntax: "has_phone_strict:", description: "Display <u><b>only</b></u> messages with shared phone numbers." },
     { syntax: "has_number:", description: "Display conversations containing messages with any type of numbers." },
@@ -151,6 +152,8 @@ function filterMessages(inputText) {
             frontend.renderList(middleman.filterBy.noCalls(value));
         } else if (key === "name") {
             frontend.renderList(middleman.filterBy.Name(value));
+        } else if (key === "unknown") {
+            frontend.renderList(middleman.filterBy.Unknown(value));
         } 
     });
 }
