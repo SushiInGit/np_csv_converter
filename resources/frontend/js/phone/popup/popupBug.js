@@ -54,16 +54,16 @@ frontend.popupBug = (function () {
         })
             .then(response => {
                 if (response.ok) {
-                    closePopupDiv();
+                    middleman.popupModel.closePopupDiv();
                     global.alertsystem('success', 'Bug report has been sent.', 4);
     
                 } else {
-                    closePopupDiv();
+                    middleman.popupModel.closePopupDiv();
                     global.alertsystem('warning', 'Error: Bugreport cant be send. Try again later.', 7);
                 }
             })
             .catch(error => {
-                closePopupDiv();
+                middleman.popupModel.closePopupDiv();
                 global.alertsystem('warning', 'Error: Bugreport cant be send. Try again later.', 7);
             });
     
