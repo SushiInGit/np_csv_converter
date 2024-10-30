@@ -246,9 +246,9 @@ middleman.filterBy = function () {
     }
 
     function defaultSearch(filter) {
-        var byCommunicationsByText = findCommunicationsByText(filter);
+        var byCommunicationsByText = findCommunicationsByText(groupData, filter);
         var byName = find_name(groupData, filter);
-        var byNumber = find_number(groupData, filter);
+        var byNumber = /^[\d\s]+$/.test(filter) ? find_number(groupData, filter) : [];
 
         const combined = [...byCommunicationsByText, ...byName, ...byNumber];
         const uniqueArray = Array.from(
