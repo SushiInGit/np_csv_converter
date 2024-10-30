@@ -22,10 +22,16 @@ backend.fileProcessor = function () {
                     const worksheet = workbook.Sheets[sheetName];
                     allSheets[sheetName] = XLSX.utils.sheet_to_json(worksheet);
                 });
-                let fileName = prompt("Please enter a name for the file:", file.name);
-                fileName = sanitizeFileName(fileName);
+                
+                global.fileupload.fileUploadPrompt(file.name).then((fileName) => {
+                    fileName = sanitizeFileName(fileName);
 
-                processSheets(allSheets, fileName);
+                    processSheets(allSheets, fileName);
+                });
+                //let fileName = prompt("Please enter a name for the file:", file.name);
+                //fileName = sanitizeFileName(fileName);
+
+                //processSheets(allSheets, fileName);
             }
 
             reader.readAsArrayBuffer(file);

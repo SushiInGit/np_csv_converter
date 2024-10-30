@@ -38,6 +38,7 @@
   <script defer src="resources/backend/js/timeConverter.js"></script>
   <script src="resources/backend/vendors/xlsx.full.min.js"></script>
   <!--  Middleman  -->
+  <script defer src="resources/middleman/global/fileupload.js"></script>
   <script defer src="resources/middleman/phone/requestData.js"></script>
   <script defer src="resources/middleman/phone/phoneData.js"></script>
   <script defer src="resources/middleman/phone/simOwner.js"></script>
@@ -77,7 +78,7 @@
     <hr>
     <button id="copy-number">Copy Number to Clipboard</button>
     <hr>
-    <input type="text" id="name" placeholder="Enter Contact name">
+    <input type="text" id="name" placeholder="Enter Contact name" autocomplete="off" spellcheck="false">
     <button id="add-contact">Add to Contacts</button>
     <button id="delete-contact" style="display: none;">Delete Contact</button>
   </div>
