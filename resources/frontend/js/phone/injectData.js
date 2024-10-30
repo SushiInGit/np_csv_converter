@@ -29,9 +29,10 @@ if (backend.storageSelector.searchRecord('', true, 'last') !== false) {
 
         const bannerCenter = document.querySelector(".banner .center.noselect");
         if (bannerCenter && Object.keys(data).length > 0) {
+
             bannerCenter.innerHTML = `
-            <h2>${simownerName(middleman.simOwner.number())}</h2>
-            <h3>${String(middleman.simOwner.number()).replace(/^(\d{3})(\d{3})(\d{4})$/, "($1) $2 $3")}</h3>
+            <h2>${simownerName(middleman.simOwner.simnumber(data))}</h2>
+            <h3>${String(middleman.simOwner.simnumber(data)).replace(/^(\d{3})(\d{3})(\d{4})$/, "($1) $2 $3")}</h3>
             <b>${processTimestamp(data[0].Timestamp).date} to ${processTimestamp(data[(Object.keys(data).length - 1)].Timestamp).date}</b>
         `;
         }

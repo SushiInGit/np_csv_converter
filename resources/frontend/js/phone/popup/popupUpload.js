@@ -124,12 +124,14 @@ frontend.popupUpload = (function () {
                     itemNameSpan.innerHTML = `${formattedItem}`;
                     itemNameSpan.title = formattedItem;
                     itemNameSpan.className = 'itemName';
+                    
                     if (backend.storageShow.showLastSearch().showPhone === item.name && (sessionStorage.getItem('simOwnerId') !== simowner)) {
-                        itemNameSpan.classList.add('active');
-                        listEntry.classList.add('active');
-                    }
+                        itemNameSpan.className = 'fileslist active';
+                    } 
+
+
                     itemNameSpan.onclick = () => swap(index, item.name, "single", simowner);
-            
+ 
                     const deleteButton = document.createElement('button');
                     deleteButton.textContent = 'X';
                     deleteButton.className = 'del';
