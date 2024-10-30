@@ -272,10 +272,16 @@ popup upload input {
     font-family: "Poppins", sans-serif;
 }
 
-popup upload .errorList {
+popup upload .errorList,
+popup upload #errorMessage {
     font-size: small;
     margin: 0;
     padding: 0;
+    padding-top: 5px;
+}
+
+popup upload .errorList
+{
     padding-left: 25px;
 }
 

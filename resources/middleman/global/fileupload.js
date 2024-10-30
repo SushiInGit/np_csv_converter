@@ -74,6 +74,8 @@ global.fileupload = (function () {
                 const errorMessage = document.getElementById("errorMessage");
                 const input = document.getElementById("input");
                 const button = document.getElementById("upload");
+                var key = fileName + '_texts';
+                validateFileName(fileName, errorMessage);
 
                 input.addEventListener('input', () => {
                     const fileName = input.value.trim();
@@ -82,12 +84,11 @@ global.fileupload = (function () {
 
                 button.addEventListener('click', () => {
                     const fileName = input.value.trim();
-                    var key = fileName + '_texts';
 
-                    if (backend.dataController.keyHasData(sanitizeFileName(key))) {
+                    if (backend.dataController.keyHasData(sanitizeFileName(key)) && (fileName !== '')) {
                         global.alertsystem('warning', 'There is already a file with this name!', 14);
                     }
-                    
+
                     if (validateFileName(fileName, errorMessage)) {
                         middleman.popupModel.closePopupDiv();
                         resolve(fileName);
