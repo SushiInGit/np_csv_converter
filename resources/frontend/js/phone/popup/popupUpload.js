@@ -74,79 +74,81 @@ frontend.popupUpload = (function () {
                 </center>`;
             }
 
-            const itemList = document.createElement('ul');
-            itemList.className = 'ulfileslist';
-            listContainer.appendChild(itemList);
+            const uploadList = document.createElement('div');
+            uploadList.className = 'uploadList';
+            listContainer.appendChild(uploadList);
             listContainer.appendChild(storageSpace);
-
+            
             for (const [simowner, items] of Object.entries(groupedItems)) {
-                const simownerLi = document.createElement('li');
-                const simownerName = document.createElement('span');
-
+                const simownerDiv = document.createElement('div');
+                const simownerNameDiv = document.createElement('div');
+                simownerDiv.className = 'simownerDiv';
+            
                 const simOwnerData = [];
                 simOwnerData.name = middleman.findNames(simowner);
                 simOwnerData.number = String(simowner).replace(/^(\d{3})(\d{3})(\d{4})$/, "($1) $2 $3");
-
+            
                 if (simOwnerData.name === "Unknown Contact") {
-                    simownerName.innerHTML = `#${simOwnerData.number}`;
+                    simownerNameDiv.innerHTML = `#${simOwnerData.number}`;
                 } else {
-                    simownerName.innerHTML = `${simOwnerData.name}`;
+                    simownerNameDiv.innerHTML = `${simOwnerData.name}`;
                 }
-                simownerName.className = 'fileslist';
-
+                simownerNameDiv.className = 'simownerName';
+            
                 if (sessionStorage.getItem('simOwnerId') === simowner) {
-                    simownerName.className = 'fileslist active';
+                    simownerNameDiv.classList.add('active');
                 }
-
-                simownerName.style.cursor = 'pointer';
-                simownerName.onclick = () => swap(null, items.name, "all", simowner);
-                simownerLi.appendChild(simownerName);
-
-                const ownerItemList = document.createElement('ul');
-                ownerItemList.className = 'ulownerItemList';
-
-                const sortItems = backend.helpers.sortObjectByKey(items, "name");
-
-                sortItems.forEach((item, index) => {
-                    const li = document.createElement('li');
-                    li.style.listStyleType = "none";
-
+            
+                simownerNameDiv.style.cursor = 'pointer';
+                simownerNameDiv.onclick = () => swap(null, items.name, "all", simowner);
+                simownerDiv.appendChild(simownerNameDiv);
+            
+                const ownerItemEntry = document.createElement('div');
+                ownerItemEntry.className = 'ownerItemEntry';
+            
+                const sortedItems = backend.helpers.sortObjectByKey(items, "name");
+            
+                sortedItems.forEach((item, index) => {
+                    const itemDiv = document.createElement('div');
+                    itemDiv.className = 'itemDiv';
+            
                     const formattedItem = item.name.replace(/_/g, ' ');
-                    const liDiv = document.createElement('div');
-                    liDiv.className = 'li div';
-                    const buttonDiv = document.createElement('div');
-                    buttonDiv.className = 'li button';
-                    const spanDiv = document.createElement('div');
-                    spanDiv.className = 'li span';
-                    const itemName = document.createElement('span');
-
-                    itemName.innerHTML = `${formattedItem}`;
-                    itemName.title = formattedItem;
-                    itemName.className = 'fileslist';
+                    const listEntry = document.createElement('div');
+                    listEntry.className = 'listEntry';
+                    const delContainer = document.createElement('div');
+                    delContainer.className = 'delDiv';
+                    const nameContainer = document.createElement('div');
+                    nameContainer.className = 'nameDiv';
+                    const itemNameSpan = document.createElement('span');
+            
+                    itemNameSpan.innerHTML = `${formattedItem}`;
+                    itemNameSpan.title = formattedItem;
+                    itemNameSpan.className = 'itemName';
                     if (backend.storageShow.showLastSearch().showPhone === item.name && (sessionStorage.getItem('simOwnerId') !== simowner)) {
-                        itemName.className = 'fileslist active';
+                        itemNameSpan.classList.add('active');
+                        listEntry.classList.add('active');
                     }
-                    itemName.onclick = () => swap(index, item.name, "single", simowner);
-
+                    itemNameSpan.onclick = () => swap(index, item.name, "single", simowner);
+            
                     const deleteButton = document.createElement('button');
                     deleteButton.textContent = 'X';
                     deleteButton.className = 'del';
                     deleteButton.onclick = () => del(item.name, item);
-
-                    buttonDiv.appendChild(deleteButton);
-                    spanDiv.appendChild(itemName);
-                    liDiv.appendChild(buttonDiv);
-                    liDiv.appendChild(spanDiv);
-                    li.appendChild(liDiv);
-                    li.style.scrollSnapAlign = 'end';
-                    ownerItemList.appendChild(li);
+            
+                    delContainer.appendChild(deleteButton);
+                    nameContainer.appendChild(itemNameSpan);
+                    listEntry.appendChild(delContainer);
+                    listEntry.appendChild(nameContainer);
+                    itemDiv.appendChild(listEntry);
+                    itemDiv.style.scrollSnapAlign = 'end';
+                    ownerItemEntry.appendChild(itemDiv);
                 });
-
-                simownerLi.appendChild(ownerItemList);
-                itemList.appendChild(simownerLi);
+            
+                simownerDiv.appendChild(ownerItemEntry);
+                uploadList.appendChild(simownerDiv);
             }
+            
         }
-
         const popupDivName = "upload";
 
         const content = `

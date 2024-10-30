@@ -139,20 +139,21 @@ popup .risk:hover {
 popup .del {
     right: 0;
     margin-right: 10px;
-    margin-bottom: 5px;
     padding: 5px 10px;
     background-color: #ae2727;
     color: white;
     border: none;
     border-radius: 6px;
     cursor: pointer;
+    align-items: center;
+    display: flex;
 }
 
 popup .del:hover {
     background-color: #d85252;
 }
 
-popup upload ul.ulfileslist {
+popup upload .uploadList {
     max-height: 150px;
     overflow-y: auto;
     overflow-x: hidden;
@@ -160,36 +161,94 @@ popup upload ul.ulfileslist {
     padding: 0;
     margin: 0;
     padding-left: 10px;
-    padding-bottom: 10px;
+    padding-right: 10px;
+}
+
+popup upload .uploadList,
+popup upload .simownerName,
+popup upload .ownerItemEntry {
     scroll-behavior: smooth;
     scroll-snap-type: y mandatory;
 }
 
-popup upload ul.ulownerItemList {
-    padding-top: 10px;
+popup upload .listEntry {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+popup upload .listEntry {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+popup upload .simownerDiv:not(:last-child) {
+    padding-bottom: 10px;
+    border-bottom: 1px solid #ffffff18;
+    margin-bottom: -10px;
+}
+
+popup upload .listEntry:first-child {
+    margin-top: 10px;
+}
+
+popup upload .listEntry .delDiv {
+    width: 30px;
+    padding-left: 10px;
+}
+
+popup upload .listEntry .nameDiv {
     padding-left: 10px;
     margin-left: 0px;
+    font-size: small;
+    height: 100%;
+    width: 300px;
 }
 
-popup upload .li.div {
-    display: flex;
-    height: auto;
-}
-
-popup upload span.fileslist {
-    display: inline-block;
+popup upload .listEntry .nameDiv {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    width: 300px;
-    max-width: 300px;
-    height: 100%;
+    width: 100%;
 }
 
-popup upload .fileslist:hover {
+popup upload .listEntry .nameDiv:before {
+    font-family: 'Material Icons Outlined';
+    content: "description";
+    margin-right: 3px;
+    color: #c9c9c9;
+    display: inline-flex;
+    vertical-align: middle;
+    font-size: 20px;
+}
+
+popup upload .uploadList .simownerDiv:not(:first-child) .simownerName {
+    margin-top: 25px;
+}
+
+popup upload .simownerName:hover {
     cursor: pointer;
     color: var(--text-color) !important;
     opacity: 0.6;
+}
+
+popup upload .nameDiv:hover {
+    cursor: pointer;
+    color: var(--text-color) !important;
+    opacity: 0.6;
+}
+
+popup upload .simownerName.active {
+    color: var(--global-hover) !important;
+}
+
+popup upload .listEntry.active {
+    color: var(--global-hover) !important;
+
+    .nameDiv:before {
+        color: var(--global-hover);
+    }
 }
 
 popup .risk.hide {
@@ -486,6 +545,7 @@ help .head h2 {
     margin-bottom: 0;
 
 }
+
 help .icon {
     font-family: 'Material Icons Outlined';
     width: 26px;
@@ -495,6 +555,7 @@ help .icon {
     overflow: hidden;
     z-index: 2;
 }
+
 help .icon-container {
     margin-left: -10px;
     position: relative;
@@ -629,6 +690,7 @@ help .icon {
     overflow: hidden;
     z-index: 2;
 }
+
 help .icon-container {
     position: relative;
     width: 30px;
