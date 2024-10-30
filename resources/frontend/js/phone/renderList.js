@@ -3,7 +3,7 @@ var frontend = frontend ?? {};
 
 frontend.renderList = function (phoneGrouped) {
 
-
+    
     phoneGrouped.sort((a, b) => {
         return a.To - b.To;
     });
@@ -29,7 +29,7 @@ frontend.renderList = function (phoneGrouped) {
         divBox.addEventListener("click", function () {
 
             const searchbarText = document.getElementById('searchbar');
-            if (searchbarText.innerHTML.startsWith('<span class="syntax">no_calls: </span> ')) {
+            if (searchbarText.innerHTML.startsWith('<span class="syntax">hide_calls: </span> ')) {
                 if (Array.isArray(data.communications)) {
                     const filteredCommunications = data.communications.filter(comm => comm.IsCall === false);
                     const result = {
@@ -91,6 +91,7 @@ frontend.renderList = function (phoneGrouped) {
                 const allDivs = document.querySelectorAll('.pov .user');
                 allDivs.forEach(div => div.classList.remove('active'));
                 this.classList.add('active');
+                middleman.popupModel.closePopupDiv();
                 frontend.renderChat(data);
             }
 
@@ -100,4 +101,6 @@ frontend.renderList = function (phoneGrouped) {
 
 }
 
-frontend.renderList(middleman.metadata.addObject(middleman.groupeCommunications.output()));
+frontend.renderList(middleman.requestData.allMetadata());
+
+

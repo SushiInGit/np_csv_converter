@@ -80,7 +80,7 @@ color: var(--speechbubble-text);
 
 .output .messages .commOutput .call.callFail .callindicator.callFail {
     position: absolute;
-    margin-top: -15px !important;
+    margin-top: 10px !important;
 
     svg,
     svg * {
@@ -148,6 +148,18 @@ color: var(--speechbubble-text);
 }
 
 .output .messages .commOutput .message .embedbody .embed {
+    height: auto;
+}
+.output .messages .commOutput .message .embedbody .embed img {
+    max-height: 200px;
+    height: auto;
+    max-width: 200px;
+    width: auto;
+    object-fit: contain;
+}
+
+
+.output .messages .commOutput .message .embedbody .embed {
     padding-top: 15px;
 
 }
@@ -163,3 +175,11 @@ color: var(--speechbubble-text);
 .output .messages .commOutput .message .embedbody .embed img:hover {
     filter: blur(0);
 }
+
+
+
+glitch {
+    color: var(--speechbubble-text-color-italic);
+    text-decoration: line-through ;
+  }
+  

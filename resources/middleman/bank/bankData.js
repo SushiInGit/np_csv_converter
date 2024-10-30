@@ -3,64 +3,70 @@ var middleman = middleman ?? {};
 
 middleman.bankData = function () {
 
-    function getFormattedData() {
+    function getFormattedData(bankData) {
+        /// Bank Render Data by storageSelector
+        const bankName = backend.storageShow.showLastSearch().showBank || backend.storageSelector.lastRecordName().lastBanks[0];
+        let bankDataNew = backend.storageSelector.searchRecord(bankName, true, 'last');
+        //let bankDataOld = backend.dataController.getData(backend.helpers.getAllSheetTypes().BANKRECORDS);
 
-        let rawBankData = backend.dataController.getData(backend.helpers.getAllSheetTypes().BANKRECORDS).map((transaction, index) => {
+        if (bankDataNew && (bankName !== 'No record saved for showBank')) {
+            let rawBankData = bankDataNew.bank.map((transaction, index) => {
+                return {
+                    ...transaction,
+                    original_amount: (transaction.amount / (100 + transaction.tax_percentage) * 100).toFixed(2),
+                    tax_amount: (transaction.amount / (100 + transaction.tax_percentage) * transaction.tax_percentage).toFixed(2),
+                    index: index
+                };
+            });
+
+            var recordsOwner = findBankRecordsOwner(rawBankData);
+
+            var groupedOutgoing = rawBankData.filter(transaction => transaction.from_account_id == recordsOwner.account_id);
+            var groupedIncoming = rawBankData.filter(transaction => transaction.from_account_id !== recordsOwner.account_id && transaction.to_account_id == recordsOwner.account_id);
+
+            // maybe fix by sushi
+            let totalIn = 0;
+            let totalOut = 0;
+            rawBankData.forEach((transaction) => {
+                if (transaction.direction === 'in') {
+                    totalIn += transaction.amount;
+                } else if (transaction.direction === 'out') {
+                    totalOut += transaction.amount;
+                }
+            });
+            //
+
+            var groupedOutgoingTotalAmount = groupedOutgoing.reduce((sum, record) => sum + record.amount, 0);
+            var groupedIncomingTotalAmount = groupedIncoming.reduce((sum, record) => sum + record.amount, 0);
+
+            const { earliestRecord, latestRecord } = rawBankData.reduce((acc, record) => {
+                const currentDate = new Date(record.date);
+
+                if (!acc.earliestRecord || currentDate < acc.earliestRecord) {
+                    acc.earliestRecord = currentDate;
+                }
+                if (!acc.latestRecord || currentDate > acc.latestRecord) {
+                    acc.latestRecord = currentDate;
+                }
+
+                return acc;
+            }, { earliestRecord: null, latestRecord: null });
+
             return {
-                ...transaction,
-                original_amount: Number.isInteger(transaction.amount / (100 + transaction.tax_percentage) * 100) ? transaction.amount / (100 + transaction.tax_percentage) * 100 : (transaction.amount / (100 + transaction.tax_percentage) * 100).toFixed(2),
-                tax_amount: Number.isInteger(transaction.amount / (100 + transaction.tax_percentage) * transaction.tax_percentage) ? transaction.amount / (100 + transaction.tax_percentage) * transaction.tax_percentage : (transaction.amount / (100 + transaction.tax_percentage) * transaction.tax_percentage).toFixed(2),
-                index: index
-            };
-        });
-
-        var recordsOwner = findBankRecordsOwner(rawBankData);
-
-        var groupedOutgoing = rawBankData.filter(transaction => transaction.from_account_id == recordsOwner.account_id);
-        var groupedIncoming = rawBankData.filter(transaction => transaction.from_account_id !== recordsOwner.account_id && transaction.to_account_id == recordsOwner.account_id);
-
-        // maybe fix by sushi
-        let totalIn = 0;
-        let totalOut = 0;
-        rawBankData.forEach((transaction) => {
-            if (transaction.direction === 'in') {
-                totalIn += transaction.amount;
-            } else if (transaction.direction === 'out') {
-                totalOut += transaction.amount;
+                records: rawBankData,
+                recordsOwner: recordsOwner,
+                count: rawBankData.length,
+                groupedOutgoing: groupedOutgoing,
+                groupedOutgoingCount: groupedOutgoing.length,
+                groupedOutgoingTotalAmount: groupedOutgoingTotalAmount,
+                groupedIncoming: groupedIncoming,
+                groupedIncomingCount: groupedIncoming.length,
+                groupedIncomingTotalAmount: groupedIncomingTotalAmount,
+                earliestRecord: earliestRecord.toISOString(),
+                latestRecord: latestRecord.toISOString(),
+                totalIn: totalIn,
+                totalOut: totalOut
             }
-        });
-        //
-
-        var groupedOutgoingTotalAmount = groupedOutgoing.reduce((sum, record) => sum + record.amount, 0);
-        var groupedIncomingTotalAmount = groupedIncoming.reduce((sum, record) => sum + record.amount, 0);
-
-        const { earliestRecord, latestRecord } = rawBankData.reduce((acc, record) => {
-            const currentDate = new Date(record.date);
-
-            if (!acc.earliestRecord || currentDate < acc.earliestRecord) {
-                acc.earliestRecord = currentDate;
-            }
-            if (!acc.latestRecord || currentDate > acc.latestRecord) {
-                acc.latestRecord = currentDate;
-            }
-
-            return acc;
-        }, { earliestRecord: null, latestRecord: null });
-
-        return {
-            records: rawBankData,
-            recordsOwner: recordsOwner,
-            count: rawBankData.length,
-            groupedOutgoing: groupedOutgoing,
-            groupedOutgoingCount: groupedOutgoing.length,
-            groupedOutgoingTotalAmount: groupedOutgoingTotalAmount,
-            groupedIncoming: groupedIncoming,
-            groupedIncomingCount: groupedIncoming.length,
-            groupedIncomingTotalAmount: groupedIncomingTotalAmount,
-            earliestRecord: earliestRecord.toISOString(),
-            latestRecord: latestRecord.toISOString(),
-            totalIn: totalIn,
-            totalOut: totalOut
         }
     }
 
@@ -97,70 +103,71 @@ middleman.bankData = function () {
 
     function getGroupedData() {
         var formattedBankData = getFormattedData();
+        if (formattedBankData) {
 
-        var recordsOwner = formattedBankData.recordsOwner;
+            var recordsOwner = formattedBankData.recordsOwner;
 
-        var groupedBankData = [];
-        var groupIndex = 0;
+            var groupedBankData = [];
+            var groupIndex = 0;
 
-        formattedBankData.records.forEach((record) => {
+            formattedBankData.records.forEach((record) => {
 
-            var groupedRecord;
-            var to;
+                var groupedRecord;
+                var to;
 
-            if (record.from_account_id == formattedBankData.recordsOwner.account_id) {
-                groupedRecord = groupedBankData.find(transaction => transaction.to.account_id == record.to_account_id);
+                if (record.from_account_id == formattedBankData.recordsOwner.account_id) {
+                    groupedRecord = groupedBankData.find(transaction => transaction.to.account_id == record.to_account_id);
 
-                to = {
-                    account_id: record.to_account_id,
-                    account_name: record.to_account_name,
-                    civ_name: record.to_civ_name
+                    to = {
+                        account_id: record.to_account_id,
+                        account_name: record.to_account_name,
+                        civ_name: record.to_civ_name
+                    }
                 }
-            }
-            else {
-                groupedRecord = groupedBankData.find(transaction => transaction.to.account_id == record.from_account_id);
+                else {
+                    groupedRecord = groupedBankData.find(transaction => transaction.to.account_id == record.from_account_id);
 
-                to = {
-                    account_id: record.from_account_id,
-                    account_name: record.from_account_name,
-                    civ_name: record.from_civ_name
-                }
-            }
-
-            if (!groupedRecord) {
-                groupedRecord = {
-                    recordsOwner: formattedBankData.recordsOwner.account_id,
-                    groupIndex: groupIndex++,
-                    to: to,
-                    records: []
+                    to = {
+                        account_id: record.from_account_id,
+                        account_name: record.from_account_name,
+                        civ_name: record.from_civ_name
+                    }
                 }
 
-                groupedBankData.push(groupedRecord);
-            }
+                if (!groupedRecord) {
+                    groupedRecord = {
+                        recordsOwner: formattedBankData.recordsOwner.account_id,
+                        groupIndex: groupIndex++,
+                        to: to,
+                        records: []
+                    }
 
-            groupedRecord.records.push(record);
-        });
+                    groupedBankData.push(groupedRecord);
+                }
 
-        groupedBankData.forEach((group) => {
+                groupedRecord.records.push(record);
+            });
 
-            var groupedOutgoing = group.records.filter(transaction => transaction.from_account_id == recordsOwner.account_id);
-            var groupedOutgoingTotalAmount = groupedOutgoing.reduce((sum, record) => sum + record.amount, 0);
+            groupedBankData.forEach((group) => {
 
-            group.recordsOutgoing = groupedOutgoing;
-            group.recordsOutgoingCount = groupedOutgoing.length;
-            group.recordsOutgoingAmount = groupedOutgoingTotalAmount;
+                var groupedOutgoing = group.records.filter(transaction => transaction.from_account_id == recordsOwner.account_id);
+                var groupedOutgoingTotalAmount = groupedOutgoing.reduce((sum, record) => sum + record.amount, 0);
 
-            var groupedIncoming = group.records.filter(transaction => transaction.from_account_id !== recordsOwner.account_id && transaction.to_account_id == recordsOwner.account_id);
-            var groupedIncomingTotalAmount = groupedIncoming.reduce((sum, record) => sum + record.amount, 0);
+                group.recordsOutgoing = groupedOutgoing;
+                group.recordsOutgoingCount = groupedOutgoing.length;
+                group.recordsOutgoingAmount = groupedOutgoingTotalAmount;
 
-            group.recordsIncoming = groupedIncoming;
-            group.recordsIncomingCount = groupedIncoming.length;
-            group.recordsIncomingAmount = groupedIncomingTotalAmount;
+                var groupedIncoming = group.records.filter(transaction => transaction.from_account_id !== recordsOwner.account_id && transaction.to_account_id == recordsOwner.account_id);
+                var groupedIncomingTotalAmount = groupedIncoming.reduce((sum, record) => sum + record.amount, 0);
 
-        });
+                group.recordsIncoming = groupedIncoming;
+                group.recordsIncomingCount = groupedIncoming.length;
+                group.recordsIncomingAmount = groupedIncomingTotalAmount;
 
-        return groupedBankData;
+            });
 
+            return groupedBankData;
+        }
     }
 
     return {

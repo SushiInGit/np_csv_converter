@@ -67,4 +67,3 @@ middleman.metadata = function () {
 
 }();
 
-//console.table(middleman.metadata.addObject(middleman.groupeCommunications.output()));

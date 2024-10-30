@@ -37,7 +37,7 @@ frontend.renderChat = function (data) {
     const headerLeft = document.querySelector(".output .header.noselect .left");
     const headerRight = document.querySelector(".output .header.noselect .right");
     headerLeft.innerHTML = `${data.Name}  -  <number class="select">${String(data.To).replace(/^(\d{3})(\d{3})(\d{4})$/, "($1) $2 $3")}</number>`;
-    headerRight.innerHTML = `[ Messages: ${isCallFalseCount} | Calls: ${isCallTrueCount} ]`;
+    headerRight.innerHTML = `[ Messages: ${isCallFalseCount} | Calls: ${isCallTrueCount} ] <button class="print" onclick="middleman.printJob.printJob('${data.Name}', '${data.To}', '${data.simOwner}')">Export</button>  `;
 
 
     // Output-commOutput
@@ -46,13 +46,20 @@ frontend.renderChat = function (data) {
     const commOutput = document.querySelector(".output .messages .commOutput");
     commOutput.innerHTML = ``;
     let lastDate = null;
-    const commLogs = data.communications.sort((a, b) => new Date(a.Timestamp) - new Date(b.Timestamp)); // Make sure the Object is sorted by Timestemp - 99.9999% will never be a problem
+    //const commLogs = data.communications.sort((a, b) => new Date(a.Timestamp) - new Date(b.Timestamp)); // Make sure the Object is sorted by Timestemp - 99.9999% will never be a problem
+
+    const commLogs = data.communications.sort((a, b) => {
+        if (a.TimestampCorrupt  === false && b.TimestampCorrupt  === true) return -1;
+        if (a.TimestampCorrupt  === true && b.TimestampCorrupt  === false) return 1;
+        return new Date(a.Timestamp) - new Date(b.Timestamp);
+    });
 
     commLogs.forEach(Log => {  // Date-Maker
         const currentDate = processTimestamp(Log.Timestamp).dateShowOffset;
         if (lastDate !== currentDate) {
             const dateMarker = document.createElement('div');
             dateMarker.classList.add('date-marker');
+            dateMarker.classList.add(processTimestamp(Log.Timestamp).dateShowOffset);
             dateMarker.style.gridArea = `${gridLine} / 3 / ${gridRow} / 4`;
             gridLine++;
             gridRow++;
@@ -62,7 +69,6 @@ frontend.renderChat = function (data) {
         }
 
         if (Log.IsCall) {
-            //console.log(Log);
             const callMessageContainer = document.createElement('div');
             const callText = document.createElement('div');
             const callIndicator = document.createElement('div');
@@ -120,7 +126,7 @@ frontend.renderChat = function (data) {
                 callDurationContainer.classList.add('call-status');
                 callTimeContainer.textContent = `${fixedDate.timeShowOffset} ${fixedDate.timeZone}`;
                 callTimeContainer.classList.add('time');
-                if (parseInt(middleman.simOwner.number()) === parseInt(Log.To)) {
+                if (parseInt(middleman.simOwner.number()) === parseInt(Log.From)) {
                     callText.textContent = `Incoming call`;
                 } else {
                     callText.textContent = `Outgoing call`;
@@ -138,26 +144,25 @@ frontend.renderChat = function (data) {
             callText.appendChild(callMessageContainer);
             commOutput.appendChild(callText);
         } else {
-
             const messageDiv = document.createElement('div');
             messageDiv.classList.add('message');
             messageDiv.classList.add('ID_' + Log.Index);
-            messageDiv.classList.add(Log.From === middleman.simOwner.number() ? 'to' : 'from');
-            pointerFromTo = Log.From === middleman.simOwner.number() ? 'to' : 'from';
+            messageDiv.classList.add('TimestampCorrupt_' + Log.TimestampCorrupt);
+            messageDiv.classList.add(Log.From === middleman.simOwner.number() ? 'to' : 'from' );
+            pointerFromTo = Log.From === middleman.simOwner.number() ? 'to' : 'from' ;
 
 
             if (pointerFromTo === "to") { // Sim Owner
                 messageDiv.style.gridArea = `${gridLine} / 4 / ${gridRow} / 6`;
-                messageDiv.style.borderRight = `5px solid ${frontend.colorByNumber.getDarkerShade(frontend.colorByNumber.getLighterShade(middleman.simOwner.number()), 50)}`;
-                messageDiv.classList.add(Log.To);
+                messageDiv.style.borderRight = `5px solid ${frontend.colorByNumber.getDarkerShade(frontend.colorByNumber.getLighterShade(middleman.simOwner.number()), 50)}`; messageDiv.classList.add(Log.From);
                 gridLine++;
                 gridRow++;
             }
 
             if (pointerFromTo === "from") { // Other Person
                 messageDiv.style.gridArea = `${gridLine} / 1 / ${gridRow} / 3`;
-                messageDiv.style.borderLeft = `5px solid ${frontend.colorByNumber.getDarkerShade(frontend.colorByNumber.getLighterShade(Log.From), 50)}`;
-                messageDiv.classList.add(Log.From);
+                messageDiv.style.borderLeft = `5px solid ${frontend.colorByNumber.getDarkerShade(frontend.colorByNumber.getLighterShade(Log.From), 50)}`; 
+                messageDiv.classList.add(middleman.simOwner.number());
                 gridLine++;
                 gridRow++;
             }
@@ -173,15 +178,19 @@ frontend.renderChat = function (data) {
             const timestampDiv = document.createElement('div');
             fixedDate = processTimestamp(Log.Timestamp);
             timestampDiv.classList.add('timestamp');
-            timestampDiv.textContent = `${fixedDate.timeShowOffset} ${fixedDate.timeZone}`;
-
+            if(Log.TimestampCorrupt === false) { timestampDiv.textContent = `${fixedDate.timeShowOffset} ${fixedDate.timeZone}`; }
+            if(Log.TimestampCorrupt === true) { timestampDiv.innerHTML = `<glitch >Corrupted Timestemp</glitch>`; }
             const numberDiv = document.createElement('div');
             numberDiv.classList.add('number');
-            numberDiv.classList.add(Log.From === middleman.simOwner.number() ? 'from' : 'to');
+            numberDiv.classList.add(Log.From === middleman.simOwner.number() ? 'from' : 'to' );
             //numberDiv.textContent += (Log.From === middleman.simOwner.number() ? '✉️ from' : '✉️ to');
             numberDiv.textContent += '✉️ from';
             numberDiv.textContent += "\n";
-            numberDiv.textContent += ((Log.From_Name));
+            if (Log.From_Name === "Unknown Contact") {
+                numberDiv.textContent += (String(Log.From).replace(/^(\d{3})(\d{3})(\d{4})$/, "($1) $2 $3"));
+            } else {
+                numberDiv.textContent += (Log.From_Name);
+            }
 
 
             messageDiv.appendChild(numberDiv);

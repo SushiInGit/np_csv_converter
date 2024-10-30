@@ -554,7 +554,7 @@ footer a:hover::after {
 container button.print {
 
     padding: 5px 10px;
-    margin-right: 10px;
+    margin-left: 10px;
     background-color: #27ae60;
     color: white;
     border: none;

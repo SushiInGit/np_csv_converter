@@ -11,26 +11,29 @@ function simownerName(number) {
     return "Unknown Contact";
 }
 
-if ((localStorage.texts && localStorage.texts !== '[]') || (localStorage.calls && localStorage.calls !== '[]')) {
+if (backend.storageSelector.searchRecord('', true, 'last') !== false) {
 
     document.addEventListener("DOMContentLoaded", function () {
         const bannerRight = document.querySelector(".banner .right.noselect");
-        let dialoguePartners = Object.keys(middleman.groupeCommunications.output()).length + 1;
-        if (bannerRight) {
+        const data = middleman.requestData.all();
+        let dialoguePartners = Object.keys(middleman.requestData.allMetadata()).length + 0;
+
+        if (bannerRight && Object.keys(data).length > 0) {
             bannerRight.innerHTML = `
-            Total Data: ${middleman.phoneData.infoCountOverall(middleman.phoneData.all())}<br>
-            Total Calls: ${middleman.phoneData.infoCountIscall(middleman.phoneData.all())}<br> 
-            Total Messages: ${middleman.phoneData.infoCountMessage(middleman.phoneData.all())}<br>
+            Total Data: ${middleman.phoneData.infoCountOverall(data)}<br>
+            Total Calls: ${middleman.phoneData.infoCountIscall(data)}<br> 
+            Total Messages: ${middleman.phoneData.infoCountMessage(data)}<br>
             Dialogue Partners: ${dialoguePartners} 
         `;
         }
 
         const bannerCenter = document.querySelector(".banner .center.noselect");
-        if (bannerCenter) {
+        if (bannerCenter && Object.keys(data).length > 0) {
+
             bannerCenter.innerHTML = `
-            <h2>${simownerName(middleman.simOwner.number())}</h2>
-            <h3>${String(middleman.simOwner.number()).replace(/^(\d{3})(\d{3})(\d{4})$/, "($1) $2 $3")}</h3>
-            <b>${processTimestamp(middleman.phoneData.all()[0].Timestamp).date} to ${processTimestamp(middleman.phoneData.all()[(Object.keys(middleman.phoneData.all()).length - 1)].Timestamp).date}</b>
+            <h2>${simownerName(middleman.simOwner.simnumber(data))}</h2>
+            <h3><number>${String(middleman.simOwner.simnumber(data)).replace(/^(\d{3})(\d{3})(\d{4})$/, "($1) $2 $3")}</number></h3>
+            <b>${processTimestamp(data[0].Timestamp).date} to ${processTimestamp(data[(Object.keys(data).length - 1)].Timestamp).date}</b>
         `;
         }
 
@@ -45,7 +48,7 @@ function importChange() {
         const textarea = document.getElementById('textarea');
         const lineNumbersEle = document.getElementById('line-numbers');
 
-        const textareaStyles = window.getComputedStyle(textarea);
+        const textareaStyles = lineNumbersEle.style;
         [
             'fontFamily',
             'fontSize',

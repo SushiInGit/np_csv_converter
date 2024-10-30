@@ -473,7 +473,7 @@ container {
 }
 
 .output .messages .table {
-    height: 100%;
+    height: auto;
     width: 100%;
 }
 
@@ -521,4 +521,18 @@ footer a::after {
 
 footer a:hover::after {
     opacity: 1;
+}
+
+container button.print {
+
+    padding: 5px 10px;
+    margin-left: 10px;
+    background-color: #27ae60;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+container button.print:hover {
+    background-color: #1f864a;
 }
