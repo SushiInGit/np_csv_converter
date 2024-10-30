@@ -505,8 +505,6 @@ popup.help .element #errorMessage {
 
 /* --------End of Help --------  */
 
-
-
 popup.import .element .importer {
     display: flex;
     
@@ -534,15 +532,22 @@ popup.import .element .importer__textarea {
 
 popup.import .element .importer__textarea {
     width: 100%;
+    padding: 0;
+    margin: 0;
     padding-left: 5px;
+    font-size: 14px;
 }
 
 popup.import .element .importer__lines {
     border-right: 1px solid rgba(255, 255, 255, 0.719);
-    padding: calc(0.8rem + 5px);
+    min-width: 20px;
+    padding: 0;
+    margin: 0;
     padding-right: 5px;
     text-align: right;
     overflow: hidden;
+    font-size: 11px;
+
 }
 
 popup.import .element textarea::placeholder {

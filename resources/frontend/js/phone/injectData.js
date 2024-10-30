@@ -48,7 +48,7 @@ function importChange() {
         const textarea = document.getElementById('textarea');
         const lineNumbersEle = document.getElementById('line-numbers');
 
-        const textareaStyles = window.getComputedStyle(textarea);
+        const textareaStyles = lineNumbersEle.style;
         [
             'fontFamily',
             'fontSize',
