@@ -76,7 +76,7 @@ backend.phonebookHelper = function () {
     return {
         uploadPhonebookData: (data) => uploadPhonebookData(data),
 
-        uploadNopixelPhoneData: (data) => uploadNopixelData(data, "LL"),
+        uploadNopixelPhoneData: (data) => uploadNopixelData(data, "Phone"),
 
         uploadNopixelLemonListData: (data) => uploadNopixelData(data, "LL")
     }
