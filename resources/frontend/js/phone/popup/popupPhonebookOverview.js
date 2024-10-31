@@ -45,25 +45,25 @@ frontend.popupPhonebookOverview = (function () {
 
                 <a href="#" onclick="frontend.popupPhonebook.render()">
                     <div class="card">
-                        <img src="/resources/frontend/image/phonebook/vanilla.png">
+                        <img src="https://sushiingit.github.io/np_csv_converter/resources/frontend/image/phonebook/vanilla.png">
                         <span>Importer from <br>Textfile / Excelfile / MDT</span>
                     </div>
                 </a>
                 <a href="#" onclick="frontend.popupPhonebook_NP.render()">
                     <div class="card">
-                        <img src="/resources/frontend/image/phonebook/npphone.png">
+                        <img src="https://sushiingit.github.io/np_csv_converter/resources/frontend/image/phonebook/npphone.png">
                         <span>NP-Phone Import</span>
                     </div>
                 </a>
                 <a href="#" onclick="frontend.popupPhonebook_NPLL.render()">
                     <div class="card">
-                        <img src="/resources/frontend/image/phonebook/llphone.png">
+                        <img src="https://sushiingit.github.io/np_csv_converter/resources/frontend/image/phonebook/llphone.png">
                         <span>Lemon-List Import</span>
                     </div>
                 </a>
                 <a href="#" onclick="frontend.popupPhonebookOverview.export()">
                     <div class="card">
-                        <img src="/resources/frontend/image/phonebook/download.png">
+                        <img src="https://sushiingit.github.io/np_csv_converter/resources/frontend/image/phonebook/download.png">
                         <span>Export the Phone contacts</span>
                     </div>
                 </a>
