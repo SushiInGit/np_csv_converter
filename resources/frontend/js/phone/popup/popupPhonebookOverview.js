@@ -116,7 +116,6 @@ frontend.popupPhonebookOverview = (function () {
             contact.name.toLowerCase().includes(searchTerm) ||
             contact.number.toString().includes(searchTerm)
         );
-        contacts.sort((a, b) => a.number - b.number);
         
         const contactsList = document.getElementById("contacts-list");
         contactsList.innerHTML = "";
@@ -144,6 +143,7 @@ frontend.popupPhonebookOverview = (function () {
 
     function deleteContact(index) {
         const contacts = JSON.parse(localStorage.getItem("phonenumbers")) || [];
+        contacts.sort((a, b) => a.number - b.number);
         contactToDelete = index;
         const contact = contacts[index];
         document.getElementById("confirm-message").innerText = `Are you sure you want to delete:\n\n${contact.name || "Unknown"} \n${phoneOutput(contact.number)}`;
