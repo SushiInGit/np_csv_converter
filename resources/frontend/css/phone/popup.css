@@ -517,8 +517,8 @@ popup.import .element .importer {
     height: 170px;
 }
 
-popup.import_npll .element .importer__textarea ,
-popup.import_np .element .importer__textarea ,
+popup.import_npll .element .importer__textarea,
+popup.import_np .element .importer__textarea,
 popup.import .element .importer__textarea {
     border: none;
     outline: none;
@@ -527,8 +527,8 @@ popup.import .element .importer__textarea {
     overflow: auto;
 }
 
-popup.import_npll .element .importer__textarea ,
-popup.import_np .element .importer__textarea ,
+popup.import_npll .element .importer__textarea,
+popup.import_np .element .importer__textarea,
 popup.import .element .importer__textarea {
     width: 100%;
     padding: 0;
@@ -951,11 +951,20 @@ popup.phonebook .model .element .uploader .body .card img {
     opacity: 0.4;
 }
 
+popup.phonebook .model .element .uploader .body a:hover {
+    img {
+        opacity: 0.6;
+    }
+    span {
+        color: #ffffffc2;
+    }
+}
+
 popup.phonebook .model .element .uploader .body a {
-    text-decoration: none; 
-    color: inherit;       
-    background: none;    
-    border: none;         
-    padding: 0;           
-    margin: 0;            
+    text-decoration: none;
+    color: inherit;
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0;
 }
