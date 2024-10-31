@@ -141,19 +141,7 @@ function importChange() {
     }
 };
 
-const observer = new MutationObserver((mutationsList) => {
-    mutationsList.forEach((mutation) => {
-        if (mutation.type === "attributes" && mutation.attributeName === "class") {
-            const targetElement = mutation.target;
-            if (!targetElement.classList.contains("phonebook")) {
-                global.alertsystem('success', 'Reloading Contacts! <br>Loading now—thank you for your patience.', 8);
-                setTimeout(() => {
-                    window.location.reload();
-                }, 8000);
-            }
-        }
-    });
-
+const observer = new MutationObserver(() => {
     importChange();
 });
 
@@ -163,3 +151,4 @@ const config = {
 };
 
 observer.observe(popup, config);
+

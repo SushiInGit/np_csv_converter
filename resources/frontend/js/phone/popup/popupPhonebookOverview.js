@@ -8,6 +8,13 @@ frontend.popupPhonebookOverview = (function () {
         popup.classList = `noselect show ${name}`;
     }
 
+    function reload() {
+        global.alertsystem('success', 'Reloading Contacts! <br>Loading now—thank you for your patience.', 8);
+        setTimeout(() => {
+            window.location.reload();
+        }, 8000);
+    }
+
     function phoneOutput(number) {
         return String(number).replace(/^(\d{3})(\d{3})(\d{4})$/, "($1) $2 $3");
     }
@@ -26,7 +33,7 @@ frontend.popupPhonebookOverview = (function () {
         popupDivBody.innerHTML = `
             <div class="model">
                 <div class="head">
-                    <button class="close" onclick="middleman.popupModel.closePopupDiv(), middleman.popupModel.deactivateLoader()">X</button>
+                    <button class="close" onclick="middleman.popupModel.closePopupDiv(), middleman.popupModel.deactivateLoader(), frontend.popupPhonebookOverview.reload();">X</button>
                     <h2>${title}</h2>
                 </div>
                 <div class="element phonebook">${content}
@@ -185,7 +192,8 @@ frontend.popupPhonebookOverview = (function () {
         filter: filterContacts,
         del: deleteContact,
         delConfirm: confirmDelete,
-        export: exportContacts
+        export: exportContacts,
+        reload: reload
 
     };
 })();
