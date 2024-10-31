@@ -246,7 +246,7 @@ container {
     border: none;
     outline: none;
     font-size: 16px;
-    background-color: var(bg-shade-searc);
+    background-color: var(--bg-shade-search);
     color: white;
     overflow-wrap: break-word;
     white-space: nowrap;

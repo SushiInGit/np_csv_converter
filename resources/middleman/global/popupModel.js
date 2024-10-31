@@ -92,7 +92,7 @@ middleman.popupModel = (function () {
 
     function closePopupDiv() {
         popupDiv.innerHTML = '';
-        const classesToRemove = ["hide", "show", "upload", "bug", "settings", "help", "import", "activity", "confirm-delete"];
+        const classesToRemove = ["hide", "show", "upload", "bug", "settings", "help", "import", "activity", "confirm-delete", "phonebook", "import_np"];
         classesToRemove.forEach(className => {
             popupDiv.classList.remove(className);
         });

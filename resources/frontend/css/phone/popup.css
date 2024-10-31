@@ -30,13 +30,13 @@ popup .model {
     flex-direction: column;
 }
 
-
-
 popup.bug textarea {
     resize: none;
     overflow: auto;
 }
 
+popup.import_npll textarea,
+popup.import_np textarea,
 popup.import textarea {
     resize: none;
     overflow: auto;
@@ -149,6 +149,7 @@ popup .np {
 popup .np:hover {
     background-color: #2ecc71;
 }
+
 popup .swap {
     margin-top: 20px;
     margin-bottom: 5px;
@@ -284,7 +285,7 @@ popup upload .listEntry.active {
 popup upload .error-message {
     color: #e74d3cc0;
     margin-top: 8px;
-    display: none; 
+    display: none;
     flex-direction: column;
 }
 
@@ -293,10 +294,10 @@ popup upload input {
     padding: 10px;
     margin-top: 10px;
     border-radius: 4px;
-    color: var(--text-color); 
+    color: var(--text-color);
     border: 1px solid var(--global-border-color);
     background: var(--bg-shade-light);
-    outline: none; 
+    outline: none;
     font-family: "Poppins", sans-serif;
 }
 
@@ -308,13 +309,12 @@ popup upload #errorMessage {
     padding-top: 5px;
 }
 
-popup upload .errorList
-{
+popup upload .errorList {
     padding-left: 25px;
 }
 
 popup upload input::placeholder {
-    color: var(--bg-shade-mid); 
+    color: var(--bg-shade-mid);
 }
 
 popup .risk.hide,
@@ -326,7 +326,7 @@ popup .np.hide {
 
 popup .risk.show,
 popup .ok.show,
-popup .np.show  {
+popup .np.show {
     opacity: 1;
     display: inline;
 }
@@ -504,10 +504,11 @@ popup.help .element #errorMessage {
 }
 
 /* --------End of Help --------  */
-
+popup.import_npll .element #importernp,
+popup.import_np .element #importernp,
 popup.import .element .importer {
     display: flex;
-    
+    margin-top: 10px;
     color: #ccccccb6;
     border: 1px solid #1c1e29;
     background-color: #0707078a;
@@ -515,13 +516,9 @@ popup.import .element .importer {
     overflow: hidden;
     height: 170px;
 }
-popup.import .element #importer {
-    margin-top: 10px;
-}
-popup.import .element #importernp {
-    margin-top: 0px;
-    height: 0px;
-}
+
+popup.import_npll .element .importer__textarea ,
+popup.import_np .element .importer__textarea ,
 popup.import .element .importer__textarea {
     border: none;
     outline: none;
@@ -530,6 +527,8 @@ popup.import .element .importer__textarea {
     overflow: auto;
 }
 
+popup.import_npll .element .importer__textarea ,
+popup.import_np .element .importer__textarea ,
 popup.import .element .importer__textarea {
     width: 100%;
     padding: 0;
@@ -784,4 +783,179 @@ help .icon-container {
     justify-content: center;
     align-items: center;
     border: 2px solid var(--global-border-color);
+}
+
+/* --------phonebook v2---------  */
+
+popup.phonebook {
+    width: 900px !important;
+}
+
+popup.phonebook .model .element {
+    height: 400px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: flex-start;
+}
+
+popup.phonebook .model .element .phonebook,
+popup.phonebook .model .element .uploader {
+    height: 100%;
+}
+
+popup.phonebook .model .element .phonebook {
+    width: 600px;
+}
+
+popup.phonebook .model .element .uploader {
+    width: 100%;
+}
+
+popup.phonebook .model .element .phonebook #contacts-list .contact {
+    flex-direction: column;
+}
+
+popup.phonebook .model .element .phonebook #contacts-list {
+    height: calc(100% - 60px);
+    overflow-y: scroll;
+}
+
+popup.phonebook .model .element .phonebook #contacts-list .userContact {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+popup.phonebook .model .element .phonebook #contacts-list .userContact .contact {
+    width: calc(100% - 50px);
+    text-align: center;
+    line-height: 1.2;
+    overflow: hidden;
+}
+
+popup.phonebook .model .element .phonebook .delbox {
+    width: 30px;
+    padding-left: 10px;
+}
+
+popup.phonebook .model .element .phonebook #confirm-dialog {
+    position: fixed;
+    font-family: "Poppins", sans-serif;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+}
+
+popup.phonebook .model .element .phonebook hr {
+    margin: 0;
+    padding: 0;
+    width: 95%;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    opacity: 0.7;
+    height: 3px;
+    border: none;
+    background: linear-gradient(to right, transparent, rgba(0, 0, 0, 0.5), transparent);
+}
+
+popup.phonebook .model .element .phonebook .contact:last-child hr {
+    height: 0px;
+}
+
+popup.phonebook .model .element .phonebook #confirm-content {
+    background: var(--body-bg-color);
+    background: linear-gradient(315deg, var(--body-gradient-start) 0%, var(--body-gradient-end) 100%);
+    border: solid var(--global-border-size) var(--global-border-color);
+    padding: 20px;
+    border-radius: 5px;
+    text-align: center;
+    box-shadow: 0px 4px 6px var(--global-border-color);
+}
+
+popup.phonebook .model .search {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    padding-bottom: 20px;
+}
+
+popup.phonebook .model .search #search-bar {
+    line-height: 1.4;
+    align-items: center;
+    display: flex;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 80%;
+    height: 27px;
+    padding-left: 20px;
+    border-radius: 13px;
+    border: none;
+    outline: none;
+    font-size: 14px;
+    background-color: var(--bg-shade-search);
+    color: white;
+    overflow-wrap: break-word;
+    white-space: nowrap;
+    overflow: hidden;
+    border: solid var(--global-border-size) var(--global-border-color);
+    box-shadow: 0px 0px 2px 2px rgba(0, 0, 0, 0.466);
+}
+
+popup.phonebook .model .element .uploader {
+    padding-left: 10px;
+    overflow: auto;
+    font-family: "Poppins", sans-serif;
+}
+
+popup.phonebook .model .element .uploader .body {
+    overflow: hidden;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    width: 100%;
+    justify-content: center;
+}
+
+popup.phonebook .model .element .uploader .body .card {
+    width: 220px;
+    height: 160px;
+    background-color: var(--bg-shade-search);
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 20px;
+    border-radius: 17px;
+}
+
+popup.phonebook .model .element .uploader .body .card span {
+    text-align: center;
+    font-size: small;
+    padding-top: 10px;
+}
+
+popup.phonebook .model .element .uploader .body .card img {
+    padding-top: 20px;
+    height: 100px;
+    width: auto;
+    opacity: 0.4;
+}
+
+popup.phonebook .model .element .uploader .body a {
+    text-decoration: none; 
+    color: inherit;       
+    background: none;    
+    border: none;         
+    padding: 0;           
+    margin: 0;            
 }
