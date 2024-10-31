@@ -38,7 +38,7 @@ frontend.popupPhonebookOverview = (function () {
                         <button class="ok" onclick="frontend.popupPhonebookOverview.delConfirm(false)">No</button>
                     </div>
                 </div>
-                <div class="search"><input type="text" id="search-bar"contenteditable="true" autocorrect="off" autocomplete="off" spellcheck="false" placeholder="Search by contacts..." data-placeholder="Search by contacts..." onkeyup="frontend.popupPhonebookv2.filter()"></div>
+                <div class="search"><input type="text" id="search-bar"contenteditable="true" autocorrect="off" autocomplete="off" spellcheck="false" placeholder="Search by contacts..." data-placeholder="Search by contacts..." onkeyup="frontend.popupPhonebookOverview.filter()"></div>
                 <div id="contacts-list"></div>
                 </div>
                 <div class="uploader"><div class="body">
