@@ -959,3 +959,12 @@ popup.phonebook .model .element .uploader .body a {
     padding: 0;           
     margin: 0;            
 }
+
+popup.phonebook .model .element .uploader .body a:hover {
+    img {
+        opacity: 0.6;
+    }
+    span {
+        color: #ffffffc2;
+    }
+}
