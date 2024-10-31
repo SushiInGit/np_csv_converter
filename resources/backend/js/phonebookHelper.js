@@ -28,29 +28,37 @@ backend.phonebookHelper = function () {
         backend.dataController.savePhonenumbers(phoneNumbersArray)
     }
 
-    function uploadNopixelPhoneData(data) {
-        // Data is the plain string from the text area. New lines split by \n
-
+    function uploadNopixelData(data, type) { // Type can be "LL" or "Phone"
         const phonenumberRegex = /^[\s\-\(\)]*\d[\s\-\(\)]*\d[\s\-\(\)]*\d[\s\-\(\)]*\d[\s\-\(\)]*\d[\s\-\(\)]*\d[\s\-\(\)]*\d[\s\-\(\)]*\d[\s\-\(\)]*\d[\s\-\(\)]*\d[\s\-\(\)]*/;
 
-        var dirtyLogArray = data.trim().split("\n").filter(str => str.trim() !== "").slice(2);
+        var dirtyLogArray = data.trim().split("\n").filter(str => str.trim() !== "");
+
+        var firstPhonenumberFoundIndex = dirtyLogArray.findIndex(str => phonenumberRegex.test(str));
+
+        // Skip half records
+        if (firstPhonenumberFoundIndex - 2 < 0) {
+            dirtyLogArray = dirtyLogArray.slice(firstPhonenumberFoundIndex + 1);
+        }
+        else {
+            dirtyLogArray = dirtyLogArray.slice(firstPhonenumberFoundIndex - 2);
+        }
 
         const phoneNumbers = JSON.parse(localStorage.getItem('phonenumbers')) || [];
-        
+
         for (var i = 0; i < dirtyLogArray.length / 3; i++) {
             var j = i * 3;
 
-            if (!phonenumberRegex.test(dirtyLogArray[j + 2])) {
-                // is invalid phone number
+            var phonenumberIndex = j + 2;
+            var nameIndex = type == "LL" ? j : j + 1;
+
+            var name = dirtyLogArray[nameIndex];
+
+            if (!phonenumberRegex.test(dirtyLogArray[phonenumberIndex]) || name == undefined) {
+                // is invalid phone number or name
                 continue;
             }
 
-            var phonenumber = dirtyLogArray[j + 2].replace(/\((\d{3})\)\s(\d{3})-(\d{4})/, "$1$2$3");
-            var name = dirtyLogArray[j + 1];
-
-            if (phonenumber === undefined || name == undefined) {
-                continue;
-            }
+            var phonenumber = dirtyLogArray[phonenumberIndex].replace(/\((\d{3})\)\s(\d{3})-(\d{4})/, "$1$2$3");
 
             if (!phoneNumbers.some(contact => contact.number == phonenumber)) {
                 const newContact = {
@@ -68,7 +76,9 @@ backend.phonebookHelper = function () {
     return {
         uploadPhonebookData: (data) => uploadPhonebookData(data),
 
-        uploadNopixelPhoneData: (data) => uploadNopixelPhoneData(data)
+        uploadNopixelPhoneData: (data) => uploadNopixelData(data, "Phone"),
+
+        uploadNopixelLemonListData: (data) => uploadNopixelData(data, "LL")
     }
 
 }();
