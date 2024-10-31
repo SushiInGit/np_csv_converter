@@ -33,7 +33,7 @@ frontend.popupPhonebook_NPLL = (function () {
             backend.phonebookHelper.uploadNopixelLemonListData(textarea.value);
 
             middleman.popupModel.closePopupDiv();
-            global.alertsystem('success', 'Lemon_list Contacts are exported and added to the contacts! <br>Loading now—thank you for your patience.', 4);
+            global.alertsystem('success', 'Lemon_list contacts are exported and added to the contacts! <br>Loading now—thank you for your patience.', 4);
             setTimeout(() => {
                 window.location.reload();
             }, 4000);
