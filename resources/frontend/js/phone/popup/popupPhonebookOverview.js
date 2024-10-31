@@ -157,7 +157,7 @@ frontend.popupPhonebookOverview = (function () {
             contacts.splice(contactToDelete, 1);
             localStorage.setItem("phonenumbers", JSON.stringify(contacts));
             displayContacts();
-            window.location.reload();
+           // window.location.reload();
         }
         document.getElementById("confirm-dialog").style.display = "none";
         contactToDelete = null;
@@ -189,3 +189,5 @@ frontend.popupPhonebookOverview = (function () {
 
     };
 })();
+
+
