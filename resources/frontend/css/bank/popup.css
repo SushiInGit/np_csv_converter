@@ -421,9 +421,10 @@ popup.help .element #markdownContent {
     overflow-x: hidden;
 }
 
-popup.help .element #markdownContent a {
+popup.help .element #markdownContent a,
+popup.help .element #markdownContent a:visited {
     color: var(--text-color);
-    text-decoration: none;
+    text-decoration: underline;
 }
 
 popup.help .element #markdownContent a:hover {
@@ -432,6 +433,22 @@ popup.help .element #markdownContent a:hover {
 }
 
 popup.help .element #errorMessage {
+    color: red;
+    font-weight: bold;
+}
+
+help .element #markdownContent a,
+help .element #markdownContent a:visited {
+    color: var(--text-color);
+    text-decoration: underline;
+}
+
+help .element #markdownContent a:hover {
+    color: var(--global-hover);
+    text-decoration: underline;
+}
+
+help .element #errorMessage {
     color: red;
     font-weight: bold;
 }
