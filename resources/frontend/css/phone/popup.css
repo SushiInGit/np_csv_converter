@@ -517,8 +517,8 @@ popup.import .element .importer {
     height: 170px;
 }
 
-popup.import_npll .element .importer__textarea ,
-popup.import_np .element .importer__textarea ,
+popup.import_npll .element .importer__textarea,
+popup.import_np .element .importer__textarea,
 popup.import .element .importer__textarea {
     border: none;
     outline: none;
@@ -527,8 +527,8 @@ popup.import .element .importer__textarea {
     overflow: auto;
 }
 
-popup.import_npll .element .importer__textarea ,
-popup.import_np .element .importer__textarea ,
+popup.import_npll .element .importer__textarea,
+popup.import_np .element .importer__textarea,
 popup.import .element .importer__textarea {
     width: 100%;
     padding: 0;
@@ -936,6 +936,7 @@ popup.phonebook .model .element .uploader .body .card {
     align-items: center;
     padding-bottom: 20px;
     border-radius: 17px;
+    color: #ffffffc2;
     -webkit-touch-callout: none;
     -webkit-user-select: none;
     -khtml-user-select: none;
@@ -947,7 +948,19 @@ popup.phonebook .model .element .uploader .body .card {
 popup.phonebook .model .element .uploader .body .card span {
     text-align: center;
     font-size: small;
+    line-height: 1.4; 
+    padding: 0;
+    margin: 0;
     padding-top: 10px;
+}
+
+popup.phonebook .model .element .uploader .body .card smaller {
+    padding: 0;
+    margin: 0;
+    font-size: 9px;
+    font-weight: 900;
+    color: rgb(212, 4, 4);
+    opacity: 0.6;
 }
 
 popup.phonebook .model .element .uploader .body .card img {
@@ -958,19 +971,24 @@ popup.phonebook .model .element .uploader .body .card img {
 }
 
 popup.phonebook .model .element .uploader .body a {
-    text-decoration: none; 
-    color: inherit;       
-    background: none;    
-    border: none;         
-    padding: 0;           
-    margin: 0;            
+    text-decoration: none;
+    color: inherit;
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0;
 }
 
 popup.phonebook .model .element .uploader .body a:hover {
     img {
         opacity: 0.6;
     }
+
     span {
-        color: #ffffffc2;
+        color: #fff;
+    }
+    smaller {
+        opacity: 0.7;
+        color: red;
     }
 }

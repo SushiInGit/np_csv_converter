@@ -15,6 +15,14 @@ frontend.popupPhonebookOverview = (function () {
         }, 8000);
     }
 
+    function exportRemoveDupeandSort(data) {
+        return data
+            .filter((contact, index, self) =>
+                index === self.findIndex((c) => c.number === contact.number && c.name === contact.name)
+            )
+            .sort((a, b) => a.number - b.number);
+    }
+
     function phoneOutput(number) {
         return String(number).replace(/^(\d{3})(\d{3})(\d{4})$/, "($1) $2 $3");
     }
@@ -71,7 +79,7 @@ frontend.popupPhonebookOverview = (function () {
                 <a href="#" onclick="frontend.popupPhonebookOverview.export()">
                     <div class="card">
                         <img src="https://sushiingit.github.io/np_csv_converter/resources/frontend/image/phonebook/download.png">
-                        <span>Export the Phone contacts</span>
+                        <span>Export Phone Contacts<br><smaller>(Duplicates Will Be Removed)</smaller></span>
                     </div>
                 </a>
                 </div></div>  
@@ -172,8 +180,8 @@ frontend.popupPhonebookOverview = (function () {
     }
 
     function exportContacts() {
-        const contacts = JSON.parse(localStorage.getItem("phonenumbers")) || [];
-        contacts.sort((a, b) => a.number - b.number);
+        let contacts = JSON.parse(localStorage.getItem("phonenumbers")) || [];
+        contacts = frontend.popupPhonebookOverview.exportFilterDupes(contacts);
         const contactLines = contacts
             .filter(contact => contact.name)
             .map(contact => `${contact.number} ${contact.name}`);
@@ -193,6 +201,7 @@ frontend.popupPhonebookOverview = (function () {
         del: deleteContact,
         delConfirm: confirmDelete,
         export: exportContacts,
+        exportFilterDupes: exportRemoveDupeandSort,
         reload: reload
 
     };
