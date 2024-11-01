@@ -1,13 +1,22 @@
 var frontend = frontend ?? {};
 
 frontend.popupPhonebookOverview = (function () {
-    let delTrigger = false;
+    let reloadTrigger = false;
+    let contactToEdit = null;
 
-    function delCheck(){
-        if(delTrigger) {
+    function reloadCheck(){
+        if(reloadTrigger) {
             frontend.popupPhonebookOverview.reload();
         }
     }
+
+    document.addEventListener("keydown", function (event) { 
+        if (event.key === "Escape") {
+            if(reloadTrigger) {
+                frontend.popupPhonebookOverview.reload();
+            }
+        }
+    });
 
     function showPopup(name) {
         const popup = document.getElementById("popup");
@@ -47,19 +56,30 @@ frontend.popupPhonebookOverview = (function () {
         popupDivBody.innerHTML = `
             <div class="model">
                 <div class="head">
-                    <button class="close" onclick="middleman.popupModel.closePopupDiv(), middleman.popupModel.deactivateLoader(), frontend.popupPhonebookOverview.delCheck();">X</button>
+                    <button class="close" onclick="middleman.popupModel.closePopupDiv(), middleman.popupModel.deactivateLoader(), frontend.popupPhonebookOverview.reloadCheck();">X</button>
                     <h2>${title}</h2>
                 </div>
                 <div class="element phonebook">${content}
                 <div class="phonebook">
+                <!-- Delete Confirmation Dialog -->
                 <div id="confirm-dialog" style="display:none;">
                     <div id="confirm-content">
                         <p id="confirm-message"></p>
-                        <button class="risk" onclick="frontend.popupPhonebookOverview.delConfirm(true)">Yes</button>
-                        <button class="ok" onclick="frontend.popupPhonebookOverview.delConfirm(false)">No</button>
+                        <button class="risk" onclick="frontend.popupPhonebookOverview.delConfirm(true)">Delete</button>
+                        <button class="ok" onclick="frontend.popupPhonebookOverview.delConfirm(false)">Cancel</button>
                     </div>
                 </div>
-                <div class="search"><input type="text" id="search-bar"contenteditable="true" autocorrect="off" autocomplete="off" spellcheck="false" placeholder="Search by contacts..." data-placeholder="Search by contacts..." onkeyup="frontend.popupPhonebookOverview.filter()"></div>
+
+                <!-- Edit Contact Dialog -->
+                <div id="edit-dialog" style="display:none;">
+                    <div id="confirm-content">
+                        <p>Edit Contact Name:</p>
+                        <input type="text" id="edit-input" contenteditable="true" autocorrect="off" autocomplete="off" spellcheck="false" />
+                        <button class="ok" onclick="frontend.popupPhonebookOverview.confirmEdit(true)">Save</button>
+                        <button class="risk" onclick="frontend.popupPhonebookOverview.confirmEdit(false)">Cancel</button>
+                    </div>
+                </div>
+                <div class="search"><input type="text" id="search-bar" contenteditable="true" autocorrect="off" autocomplete="off" spellcheck="false" placeholder="Search by contacts..." data-placeholder="Search by contacts..." onkeyup="frontend.popupPhonebookOverview.filter()"></div>
                 <div id="contacts-list"></div>
                 </div>
                 <div class="uploader"><div class="body">
@@ -101,7 +121,6 @@ frontend.popupPhonebookOverview = (function () {
         }, 50);
     }
 
-
     function displayContacts() {
         const contactsList = document.getElementById("contacts-list");
         const contacts = JSON.parse(localStorage.getItem("phonenumbers")) || [];
@@ -117,8 +136,9 @@ frontend.popupPhonebookOverview = (function () {
                 <div class="contact-name">${contact.name || "Unknown Contact"}</div>
                 <div class="contact-number">${phoneOutput(contact.number)}</div>
             </div>
-            <div class="delbox">
-            <button class="del" onclick="frontend.popupPhonebookOverview.del(${index})">X</button>
+            <div class="buttonbox">
+                <button class="edit" onclick="frontend.popupPhonebookOverview.edit(${index})"><span class="material-icons">edit</span></button>
+                <button class="del" onclick="frontend.popupPhonebookOverview.del(${index})"><span class="material-icons">delete</span></button>
             </div>
             <hr class="phonebook">
             </div>
@@ -135,9 +155,10 @@ frontend.popupPhonebookOverview = (function () {
         
         contacts.sort((a, b) => a.number - b.number);
 
-        const filteredContacts = contacts.filter(contact => {
+        const filteredContacts = contacts
+        .map((contact, index) => ({ ...contact, Index: index })) 
+        .filter(contact => {
             const isDigitsOnly = /^[\d ()-]*$/.test(searchTerm);
-        
             return (
                 contact.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
                 (isDigitsOnly && contact.number.toString().includes(numberTerm))
@@ -156,8 +177,9 @@ frontend.popupPhonebookOverview = (function () {
                 <div class="contact-name">${contact.name || "Unknown Contact"}</div>
                 <div class="contact-number">${phoneOutput(contact.number)}</div>
             </div>
-            <div class="delbox">
-            <button class="del" onclick="frontend.popupPhonebookOverview.del(${index})">X</button>
+            <div class="buttonbox">
+                <button class="edit" onclick="frontend.popupPhonebookOverview.edit(${contact.Index})"><span class="material-icons">edit</span></button>
+                <button class="del" onclick="frontend.popupPhonebookOverview.del(${contact.Index})"><span class="material-icons">delete</span></button>
             </div>
             <hr class="phonebook">
             </div>
@@ -184,7 +206,7 @@ frontend.popupPhonebookOverview = (function () {
             contacts.splice(contactToDelete, 1);
             localStorage.setItem("phonenumbers", JSON.stringify(contacts));
             displayContacts();
-            delTrigger = true;
+            reloadTrigger = true;
         }
         document.getElementById("confirm-dialog").style.display = "none";
         contactToDelete = null;
@@ -206,15 +228,40 @@ frontend.popupPhonebookOverview = (function () {
         document.body.removeChild(link);
     }
 
+    function showEdit(index) {
+        const contacts = JSON.parse(localStorage.getItem("phonenumbers")) || [];
+        contactToEdit = index;
+        const contact = contacts[index];
+        document.getElementById("edit-input").value = contact.name || "";
+        document.getElementById("edit-dialog").style.display = "flex";
+    }
+
+    function confirmEdit(confirm) {
+        if (confirm && contactToEdit !== null) {
+            const newName = document.getElementById("edit-input").value.trim();
+            if (newName) {
+                const contacts = JSON.parse(localStorage.getItem("phonenumbers")) || [];
+                contacts[contactToEdit].name = newName;
+                localStorage.setItem("phonenumbers", JSON.stringify(contacts));
+                displayContacts();
+                reloadTrigger = true;
+            }
+        }
+        document.getElementById("edit-dialog").style.display = "none";
+        contactToEdit = null;
+    }
+
     return {
         render: createPopup,
         contacts: displayContacts,
         filter: filterContacts,
         del: deleteContact,
+        edit: showEdit,
+        confirmEdit: confirmEdit,
         delConfirm: confirmDelete,
         export: exportContacts,
         exportFilterDupes: exportRemoveDupeandSort,
-        delCheck: delCheck,
+        reloadCheck: reloadCheck,
         reload: reload
 
     };

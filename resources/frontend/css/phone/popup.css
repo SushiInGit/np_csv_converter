@@ -847,18 +847,19 @@ popup.phonebook .model .element .phonebook #contacts-list .userContact {
 }
 
 popup.phonebook .model .element .phonebook #contacts-list .userContact .contact {
-    width: calc(100% - 50px);
+    width: calc(100% - 90px);
     text-align: center;
     line-height: 1.2;
     overflow: hidden;
 }
 
-popup.phonebook .model .element .phonebook .delbox {
-    width: 30px;
+popup.phonebook .model .element .phonebook .buttonbox {
+    display: flex;
+    min-width: 30px;
     padding-left: 10px;
 }
-
-popup.phonebook .model .element .phonebook #confirm-dialog {
+popup.phonebook .model .element .phonebook #confirm-dialog,
+popup.phonebook .model .element .phonebook #edit-dialog {
     position: fixed;
     font-family: "Poppins", sans-serif;
     top: 0;
@@ -869,6 +870,23 @@ popup.phonebook .model .element .phonebook #confirm-dialog {
     justify-content: center;
     align-items: center;
     z-index: 10;
+}
+
+popup.phonebook .model .element .phonebook #edit-dialog #edit-input {
+    padding: 10px 20px;
+    background-color: var(--bg-shade-search);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid var(--global-border-color);
+    color: #ccc;
+}
+
+popup.phonebook .model .element .phonebook #edit-dialog #edit-input:focus,
+popup.phonebook .model .element .phonebook #edit-dialog #edit-input:active {
+    color: #fff;
+    background-color: var(--bg-shade-search);
+    border: 2px solid var(--global-border-color);
 }
 
 popup.phonebook .model .element .phonebook hr {
@@ -895,6 +913,37 @@ popup.phonebook .model .element .phonebook #confirm-content {
     border-radius: 5px;
     text-align: center;
     box-shadow: 0px 4px 6px var(--global-border-color);
+}
+
+popup.phonebook .model .element .phonebook .buttonbox button {
+    right: 0;
+    margin-right: 10px;
+    padding: 7px 7px;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    align-items: center;
+    display: flex;
+}
+
+popup.phonebook .model .element .phonebook .buttonbox button.edit {
+    background-color: #27ae60;
+}
+
+popup.phonebook .model .element .phonebook .buttonbox button.edit:hover {
+    background-color: #2ecc71;
+}
+
+popup.phonebook .model .element .phonebook .buttonbox button.del {
+    background-color: #ae2727;
+}
+popup.phonebook .model .element .phonebook .buttonbox button.del:hover {
+    background-color: #d85252;
+}
+
+popup.phonebook .model .element .phonebook .buttonbox button .material-icons {
+    font-family: 'Material Icons Outlined';
 }
 
 popup.phonebook .model .search {
@@ -1009,3 +1058,4 @@ popup.phonebook .model .element .uploader .body a:hover {
         color: red;
     }
 }
+
