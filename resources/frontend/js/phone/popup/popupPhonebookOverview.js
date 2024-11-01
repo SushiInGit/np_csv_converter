@@ -1,7 +1,13 @@
 var frontend = frontend ?? {};
 
 frontend.popupPhonebookOverview = (function () {
+    let delTrigger = false;
 
+    function delCheck(){
+        if(delTrigger) {
+            frontend.popupPhonebookOverview.reload();
+        }
+    }
 
     function showPopup(name) {
         const popup = document.getElementById("popup");
@@ -9,10 +15,10 @@ frontend.popupPhonebookOverview = (function () {
     }
 
     function reload() {
-        global.alertsystem('success', 'Reloading Contacts! <br>Loading now—thank you for your patience.', 8);
+        global.alertsystem('success', 'Reloading Contacts! <br>Loading now—thank you for your patience.', 4);
         setTimeout(() => {
             window.location.reload();
-        }, 8000);
+        }, 4000);
     }
 
     function exportRemoveDupeandSort(data) {
@@ -41,7 +47,7 @@ frontend.popupPhonebookOverview = (function () {
         popupDivBody.innerHTML = `
             <div class="model">
                 <div class="head">
-                    <button class="close" onclick="middleman.popupModel.closePopupDiv(), middleman.popupModel.deactivateLoader(), frontend.popupPhonebookOverview.reload();">X</button>
+                    <button class="close" onclick="middleman.popupModel.closePopupDiv(), middleman.popupModel.deactivateLoader(), frontend.popupPhonebookOverview.delCheck();">X</button>
                     <h2>${title}</h2>
                 </div>
                 <div class="element phonebook">${content}
@@ -178,7 +184,7 @@ frontend.popupPhonebookOverview = (function () {
             contacts.splice(contactToDelete, 1);
             localStorage.setItem("phonenumbers", JSON.stringify(contacts));
             displayContacts();
-           // window.location.reload();
+            delTrigger = true;
         }
         document.getElementById("confirm-dialog").style.display = "none";
         contactToDelete = null;
@@ -208,6 +214,7 @@ frontend.popupPhonebookOverview = (function () {
         delConfirm: confirmDelete,
         export: exportContacts,
         exportFilterDupes: exportRemoveDupeandSort,
+        delCheck: delCheck,
         reload: reload
 
     };

@@ -38,10 +38,10 @@ frontend.popupPhonebook_NPLL = (function () {
                 global.alertsystem('info', `No new contacts were located in this <br>Lemon-List upload.`, 5);
                 frontend.popupPhonebookOverview.render();
             } else { 
-                global.alertsystem('success', `Lemon-List contacts are exported and added to the contacts! <br> Added ${newContactsCount} new contacts. <br>Loading now—thank you for your patience.`, 7);
+                global.alertsystem('success', `Lemon-List contacts are exported and added to the contacts! <br> Added ${newContactsCount} new contacts. <br>Loading now—thank you for your patience.`, 4);
                 setTimeout(() => {
                     window.location.reload();
-                }, 7000);
+                }, 4000);
             }
 
         } catch (error) {
