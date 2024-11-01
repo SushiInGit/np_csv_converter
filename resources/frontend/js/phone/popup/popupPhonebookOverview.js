@@ -40,13 +40,28 @@ frontend.popupPhonebookOverview = (function () {
             return 0; 
         });
     }
+    function removeEmptyNames(index) {
+        const contacts = JSON.parse(localStorage.getItem("phonenumbers")) || [];
 
+        if (contacts[index] && contacts[index].name.trim() === "") {
+            contacts.splice(index, 1);
+            localStorage.setItem("phonenumbers", JSON.stringify(contacts));
+            displayContacts();
+        }
+    }
     function exportRemoveDupeandSort(data) {
         return data
             .filter((contact, index, self) =>
                 index === self.findIndex((c) => c.number === contact.number && c.name === contact.name)
             )
-            .sort((a, b) => a.name - b.name);
+            .sort((a, b) => {
+                const nameA = a.name.toLowerCase();
+                const nameB = b.name.toLowerCase();
+                
+                if (nameA < nameB) return -1;
+                if (nameA > nameB) return 1;  
+                return 0; 
+            });
     }
 
     function phoneOutput(number) {
@@ -159,10 +174,16 @@ frontend.popupPhonebookOverview = (function () {
     function displayContacts() {
         const contactsList = document.getElementById("contacts-list");
         const contacts = JSON.parse(localStorage.getItem("phonenumbers")) || [];
-        const sortedContacts = sortContacts(contacts);
+
+        contacts.forEach((_, index) => removeEmptyNames(index));
+        const updatedContacts = JSON.parse(localStorage.getItem("phonenumbers")) || [];
+
+        const sortedContacts = sortContacts(updatedContacts);
         contactsList.innerHTML = "";
 
+
         sortedContacts.forEach((contact, index) => {
+
             const contactDiv = document.createElement("div");
             contactDiv.classList.add("contact");
             contactDiv.innerHTML = `
@@ -227,7 +248,7 @@ frontend.popupPhonebookOverview = (function () {
         const sortedContacts = sortContacts(contacts);
         contactToDelete = index;
         const contact = sortedContacts[index];
-        document.getElementById("confirm-message").innerText = `Are you sure you want to delete:\n\n${contact.name || "Unknown"} \n${phoneOutput(contact.number)}`;
+        document.getElementById("confirm-message").innerText = `Are you sure you want to delete:\n\n${contact.name || "Unknown Contact"} \n${phoneOutput(contact.number)}`;
         document.getElementById("confirm-dialog").style.display = "flex";
     }
 
@@ -262,9 +283,11 @@ frontend.popupPhonebookOverview = (function () {
 
     function showEdit(index) {
         const contacts = JSON.parse(localStorage.getItem("phonenumbers")) || [];
+ 
         contactToEdit = index;
         const contact = contacts[index];
-        document.getElementById("edit-input").value = contact.name || "";
+ 
+        document.getElementById("edit-input").value = (contact.name && contact.name.trim() !== "") ? contact.name : "Unknown Contact";
         document.getElementById("edit-dialog").style.display = "flex";
     }
 
@@ -309,8 +332,10 @@ frontend.popupPhonebookOverview = (function () {
             errorMessage.textContent = "Phone number must be exactly 10 digits long and start with 420.";
             return; 
         }
+
         let contacts = JSON.parse(localStorage.getItem("phonenumbers")) || [];
         contacts.push({ name, number });
+        contacts.sort((a, b) => a.name.localeCompare(b.name));
         localStorage.setItem("phonenumbers", JSON.stringify(contacts));
 
         displayContacts(); 
@@ -330,6 +355,7 @@ frontend.popupPhonebookOverview = (function () {
         closeAddContact: closeAddContact,
         addContact: addContact,
         export: exportContacts,
+        removeEmptyNames: removeEmptyNames,
         exportFilterDupes: exportRemoveDupeandSort,
         reloadCheck: reloadCheck,
         reload: reload
