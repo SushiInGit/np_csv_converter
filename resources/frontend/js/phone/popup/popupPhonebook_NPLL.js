@@ -30,10 +30,10 @@ frontend.popupPhonebook_NPLL = (function () {
                 throw new Error("The Lemon-List textbox appears to be empty. ");
             }
 
-            backend.phonebookHelper.uploadNopixelLemonListData(textarea.value);
+            var newContactsCount = backend.phonebookHelper.uploadNopixelLemonListData(textarea.value);
 
             middleman.popupModel.closePopupDiv();
-            global.alertsystem('success', 'Lemon_list contacts are exported and added to the contacts! <br>Loading now—thank you for your patience.', 4);
+            global.alertsystem('success', `Lemon_list contacts are exported and added to the contacts! <br> Added ${newContactsCount} new contacts. <br>Loading now—thank you for your patience.`, 4);
             setTimeout(() => {
                 window.location.reload();
             }, 4000);

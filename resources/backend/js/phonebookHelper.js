@@ -45,6 +45,8 @@ backend.phonebookHelper = function () {
 
         const phoneNumbers = JSON.parse(localStorage.getItem('phonenumbers')) || [];
 
+        var returnNewRecordsRount = 0;
+
         for (var i = 0; i < dirtyLogArray.length / 3; i++) {
             var j = i * 3;
 
@@ -67,10 +69,14 @@ backend.phonebookHelper = function () {
                 };
 
                 phoneNumbers.push(newContact);
+
+                returnNewRecordsRount++;
             }
         }
 
         backend.dataController.savePhonenumbers(phoneNumbers)
+
+        return returnNewRecordsRount;
     }
 
     return {

@@ -29,13 +29,10 @@ frontend.popupPhonebook_NP = (function () {
                 throw new Error("The NP-phone contacts textbox appears to be empty. ");
             }
 
-            // const jsonString = JSON.stringify(textarea.value, null, 2);
-            // backend.phonebookHelper.uploadNopixelPhoneData(jsonString);
-
-            backend.phonebookHelper.uploadNopixelPhoneData(textarea.value);
+            var newContactsCount = backend.phonebookHelper.uploadNopixelPhoneData(textarea.value);
 
             middleman.popupModel.closePopupDiv();
-            global.alertsystem('success', 'Contacts are ready to go! <br>Loading now—thank you for your patience.', 4);
+            global.alertsystem('success', `Contacts are ready to go!<br> Added ${newContactsCount} new contacts. <br>Loading now—thank you for your patience.`, 4);
             setTimeout(() => {
                 window.location.reload();
             }, 4000);
