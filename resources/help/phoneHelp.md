@@ -1,12 +1,19 @@
 ### Disclaimer:
-- **File Storage**:   
-We do not save any data online!   
-All information is stored locally in your browser. If you switch browsers, update them, or use incognito mode, all data may be lost after closing the tab/browser or restarting your PC.
+- **File Storage**:     
+  We do not save any data online!      
+  All information is stored locally in your browser. If you switch browsers, update them, or use incognito mode, all data may be lost after closing the tab/browser or restarting your PC.
 
 - **Data Accuracy**:     
   All data accuracy depends on the files you upload. Changes on the NP-Server side, updates, or certain events (such as Daylight Savings Time) can affect the output of the files. Please cross-check with the Excel files to ensure accuracy. Ultimately, we're just human. If you discover any issues or bugs, please reach out to us so we can address them.   
   As they say: "Only those who speak up can be helped".
 
+- **Data Storage**:    
+  Please remember to save your data locally or in the cloud. Additionally, make sure to periodically export your contacts from this tool to avoid losing any important information.
+
+- **Feedback**:     
+  If you encounter small bugs, please utilize the bug report function to submit your findings. For major bugs, it's easier to communicate via our Discord server or by sending us a direct message. Additionally, we welcome suggestions for helpful features, so feel free to share your ideas with us!    
+  [Join Discord](https://discord.gg/e3t8EHKGp3)
+  
 ---
 
 ### Tool Overview
