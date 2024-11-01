@@ -1,18 +1,20 @@
+### Disclaimer:
+- **File Storage**:   
+We do not save any data online!   
+All information is stored locally in your browser. If you switch browsers, update them, or use incognito mode, all data may be lost after closing the tab/browser or restarting your PC.
 
-### Overview
-- **Disclaimer**:    
-  This tool operates using your local browser storage (no data is stored online). If you use "Incognito Tabs" or similar features, all data will be lost after restarting your browser or computer. To retain data for as long as possible, avoid these browser features, although it is ultimately your choice.
+- **Data Accuracy**:     
+  All data accuracy depends on the files you upload. Changes on the NP-Server side, updates, or certain events (such as Daylight Savings Time) can affect the output of the files. Please cross-check with the Excel files to ensure accuracy. Ultimately, we're just human. If you discover any issues or bugs, please reach out to us so we can address them.   
+  As they say: "Only those who speak up can be helped".
 
+---
+
+### Tool Overview
 - **Upload Subpoenas**:   
   Please upload unedited Excel files in the uploader (indicated by the cloud icon [top left]). This ensures optimal functionality and compatibility.
 
 - **Import Phone Contacts**:  
-    To import your phone contacts, copy them from your Excel file, text document, or in-game MDT and paste them into the designated text box (indicated by the phone icon [top left]).  
-      
-    The format should be:  
-    `Phonenumber Name`  
-    For example:  
-    `4209479995 John Doe`
+  To import your phone contacts, copy them from your Excel file, text document, or in-game MDT and paste them into the designated text box (indicated by the phone icon [top left]). Also you can export your Contacts there.
 
 - **Activity Chart**:  
   This section provides a detailed graph regarding the SIM card owner, allowing you to analyze various activities and patterns (indicated by the graph icon [top left]).
@@ -49,6 +51,31 @@
 ![Add Number](https://sushiingit.github.io/np_csv_converter/resources/frontend/image/help/phoneAddnumber.png "Add Number")![Add Number](https://sushiingit.github.io/np_csv_converter/resources/frontend/image/help/phoneAddnumber2.png "Add Number")
 
 ---
+### Contact Import
+  - **Overview**:  
+    You can view your current contacts here, delete individual ones, and choose from various import options. You also have the option to export these contacts into a text document.
+
+- **Search in Contacts**:  
+    This function allows you to search for specific names and phone numbers within your contacts. You can also delete individual contacts as needed, making it easy to manage your contact list directly.
+
+- **Import from Textfile...**:    
+    To import your phone contacts, copy them from your Excel file, text document, or in-game MDT and paste them into the designated text box.  
+      
+    The format should be:  
+    `Phonenumber Name`  
+    For example:  
+    `4209479995 John Doe`
+
+- **NP-Phone Import**:    
+    Open your GTA5 NP-Phone, go to Contacts, select all entries with [CTRL+A], and then copy them with [CTRL+C]. After that, you can paste them into the text field using [CTRL+V] or [Right-Click -> Paste]. All found contacts will be added to your NP-Converter Contacts after uploading.
+
+- **Lemon-List Import**:    
+    Open your GTA5 NP-Phone, go to the "Lemon-List", select all entries with [CTRL+A], and then copy them with [CTRL+C]. After that, you can paste them into the text field using [CTRL+V] or [Right-Click -> Paste]. All found contacts will be added to your NP-Converter Contacts after uploading.
+
+- **Export Contacts**:    
+    "Export the Phone Contacts" allows you to download your contacts for personal use or share them with others. Please remember to back up your contacts, as they are only saved in your browser.
+
+--- 
 
 ### Search Function
   You have the option to search with or without <syntax>. If you don’t use any syntax, it will search all messages for the specified "search term."

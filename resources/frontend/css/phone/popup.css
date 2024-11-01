@@ -936,6 +936,12 @@ popup.phonebook .model .element .uploader .body .card {
     align-items: center;
     padding-bottom: 20px;
     border-radius: 17px;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 popup.phonebook .model .element .uploader .body .card span {
