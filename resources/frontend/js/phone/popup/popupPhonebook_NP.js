@@ -1,7 +1,7 @@
 var frontend = frontend ?? {};
 
 frontend.popupPhonebook_NP = (function () {
-   
+
 
     function phonebookEvent() {
 
@@ -24,7 +24,7 @@ frontend.popupPhonebook_NP = (function () {
 
     function convertNpPhonebook() {
         try {
-            const textarea = document.getElementById('npPhone');            
+            const textarea = document.getElementById('npPhone');
             if (!textarea || !textarea.value) {
                 throw new Error("The NP-phone contacts textbox appears to be empty. ");
             }
@@ -32,10 +32,16 @@ frontend.popupPhonebook_NP = (function () {
             var newContactsCount = backend.phonebookHelper.uploadNopixelPhoneData(textarea.value);
 
             middleman.popupModel.closePopupDiv();
-            global.alertsystem('success', `Contacts are ready to go!<br> Added ${newContactsCount} new contacts. <br>Loading now—thank you for your patience.`, 4);
-            setTimeout(() => {
-                window.location.reload();
-            }, 4000);
+
+            if (newContactsCount === 0) {
+                global.alertsystem('info', `No new contacts were located in this <br>Phone upload.`, 5);
+                frontend.popupPhonebookOverview.render();
+            } else {
+                global.alertsystem('success', `Contacts are ready to go!<br> Added ${newContactsCount} new contacts. <br>Loading now—thank you for your patience.`, 4);
+                setTimeout(() => {
+                    window.location.reload();
+                }, 4000);
+            }
         } catch (error) {
             global.alertsystem('error', error.message, 7);
         }
