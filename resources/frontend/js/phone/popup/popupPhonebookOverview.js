@@ -124,13 +124,19 @@ frontend.popupPhonebookOverview = (function () {
 
     function filterContacts() {
         const searchTerm = document.getElementById("search-bar").value.toLowerCase();
+        const numberTerm = searchTerm.replace(/\D/g, '');
         const contacts = JSON.parse(localStorage.getItem("phonenumbers")) || [];
+        
         contacts.sort((a, b) => a.number - b.number);
 
-        const filteredContacts = contacts.filter(contact =>
-            contact.name.toLowerCase().includes(searchTerm) ||
-            contact.number.toString().includes(searchTerm)
-        );
+        const filteredContacts = contacts.filter(contact => {
+            const isDigitsOnly = /^[\d ()-]*$/.test(searchTerm);
+        
+            return (
+                contact.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                (isDigitsOnly && contact.number.toString().includes(numberTerm))
+            );
+        });
         
         const contactsList = document.getElementById("contacts-list");
         contactsList.innerHTML = "";
