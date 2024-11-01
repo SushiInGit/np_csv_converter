@@ -551,7 +551,10 @@ popup.import .element .importer__textarea {
     padding: 0;
     margin: 0;
     padding-left: 5px;
+    padding-bottom: 5px;
     font-size: 14px;
+    white-space: nowrap;
+    cursor: pointer;
 }
 
 popup.import .element .importer__lines {
