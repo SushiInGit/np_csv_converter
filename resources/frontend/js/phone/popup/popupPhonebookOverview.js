@@ -30,12 +30,23 @@ frontend.popupPhonebookOverview = (function () {
         }, 4000);
     }
 
+    function sortContacts(contacts) {
+        return contacts.sort((a, b) => {
+            const nameA = a.name.toLowerCase();
+            const nameB = b.name.toLowerCase();
+            
+            if (nameA < nameB) return -1;
+            if (nameA > nameB) return 1;  
+            return 0; 
+        });
+    }
+
     function exportRemoveDupeandSort(data) {
         return data
             .filter((contact, index, self) =>
                 index === self.findIndex((c) => c.number === contact.number && c.name === contact.name)
             )
-            .sort((a, b) => a.number - b.number);
+            .sort((a, b) => a.name - b.name);
     }
 
     function phoneOutput(number) {
@@ -61,7 +72,7 @@ frontend.popupPhonebookOverview = (function () {
                 </div>
                 <div class="element phonebook">${content}
                 <div class="phonebook">
-                <!-- Delete Confirmation Dialog -->
+                <!-- Delete Confirmation -->
                 <div id="confirm-dialog" style="display:none;">
                     <div id="confirm-content">
                         <p id="confirm-message"></p>
@@ -70,7 +81,7 @@ frontend.popupPhonebookOverview = (function () {
                     </div>
                 </div>
 
-                <!-- Edit Contact Dialog -->
+                <!-- Edit Contact -->
                 <div id="edit-dialog" style="display:none;">
                     <div id="confirm-content">
                         <p>Edit Contact Name:</p>
@@ -79,31 +90,57 @@ frontend.popupPhonebookOverview = (function () {
                         <button class="risk" onclick="frontend.popupPhonebookOverview.confirmEdit(false)">Cancel</button>
                     </div>
                 </div>
+
+                <!-- Add New Contact -->
+                <div id="add-contact" class="modal" style="display: none;">
+                    <div class="contact">
+                        <span class="close" onclick="frontend.popupPhonebookOverview.closeAddContact()">&times;</span>
+                        <p class="label"><b>Add New Contact</b></p>
+                        <form id="add-contact-form" onsubmit="frontend.popupPhonebookOverview.addContact(event)">
+                            <p class="label small">Name:</p>
+                            <input type="text" id="contact-name" class="input" name="name" required placeholder="Enter contact name" contenteditable="true" autocorrect="off" autocomplete="off" spellcheck="false">
+
+                            <p class="label small">Phone Number:</p>
+                            <input type="text" class="input" id="contact-number" name="number" required placeholder="Enter phone number" contenteditable="true" autocorrect="off" autocomplete="off" spellcheck="false">
+
+                            <div id="error-message" display: none;"></div>
+
+                            <button class="ok" type="submit">Add</button>
+                            <button class="risk" type="button" onclick="frontend.popupPhonebookOverview.closeAddContact()">Cancel</button>
+                        </form>
+                    </div>
+                </div>
+
                 <div class="search"><input type="text" id="search-bar" contenteditable="true" autocorrect="off" autocomplete="off" spellcheck="false" placeholder="Search by contacts..." data-placeholder="Search by contacts..." onkeyup="frontend.popupPhonebookOverview.filter()"></div>
                 <div id="contacts-list"></div>
                 </div>
                 <div class="uploader"><div class="body">
-
+                <a href="#" onclick="frontend.popupPhonebookOverview.showAddContact()">
+                    <div class="card full">
+                        <img src="https://sushiingit.github.io/np_csv_converter/resources/frontend/image/phonebook/add.png">
+                        <span>Add new Contact</span>
+                    </div>
+                </a>
                 <a href="#" onclick="frontend.popupPhonebook.render()">
-                    <div class="card">
+                    <div class="card half">
                         <img src="https://sushiingit.github.io/np_csv_converter/resources/frontend/image/phonebook/vanilla.png">
                         <span>Importer from <br>Textfile / Excelfile / MDT</span>
                     </div>
                 </a>
                 <a href="#" onclick="frontend.popupPhonebook_NP.render()">
-                    <div class="card">
+                    <div class="card half">
                         <img src="https://sushiingit.github.io/np_csv_converter/resources/frontend/image/phonebook/npphone.png">
                         <span>NP-Phone Import</span>
                     </div>
                 </a>
                 <a href="#" onclick="frontend.popupPhonebook_NPLL.render()">
-                    <div class="card">
+                    <div class="card half">
                         <img src="https://sushiingit.github.io/np_csv_converter/resources/frontend/image/phonebook/llphone.png">
                         <span>Lemon-List Import</span>
                     </div>
                 </a>
                 <a href="#" onclick="frontend.popupPhonebookOverview.export()">
-                    <div class="card">
+                    <div class="card half">
                         <img src="https://sushiingit.github.io/np_csv_converter/resources/frontend/image/phonebook/download.png">
                         <span>Export Phone Contacts<br><smaller>(Duplicates Will Be Removed)</smaller></span>
                     </div>
@@ -122,10 +159,10 @@ frontend.popupPhonebookOverview = (function () {
     function displayContacts() {
         const contactsList = document.getElementById("contacts-list");
         const contacts = JSON.parse(localStorage.getItem("phonenumbers")) || [];
-        contacts.sort((a, b) => a.number - b.number);
+        const sortedContacts = sortContacts(contacts);
         contactsList.innerHTML = "";
 
-        contacts.forEach((contact, index) => {
+        sortedContacts.forEach((contact, index) => {
             const contactDiv = document.createElement("div");
             contactDiv.classList.add("contact");
             contactDiv.innerHTML = `
@@ -150,9 +187,9 @@ frontend.popupPhonebookOverview = (function () {
         const numberTerm = searchTerm.replace(/\D/g, '');
         const contacts = JSON.parse(localStorage.getItem("phonenumbers")) || [];
         
-        contacts.sort((a, b) => a.number - b.number);
+        const sortedContacts = sortContacts(contacts);
 
-        const filteredContacts = contacts
+        const filteredContacts = sortedContacts
         .map((contact, index) => ({ ...contact, Index: index })) 
         .filter(contact => {
             const isDigitsOnly = /^[\d ()-]*$/.test(searchTerm);
@@ -187,9 +224,9 @@ frontend.popupPhonebookOverview = (function () {
 
     function deleteContact(index) {
         const contacts = JSON.parse(localStorage.getItem("phonenumbers")) || [];
-        contacts.sort((a, b) => a.number - b.number);
+        const sortedContacts = sortContacts(contacts);
         contactToDelete = index;
-        const contact = contacts[index];
+        const contact = sortedContacts[index];
         document.getElementById("confirm-message").innerText = `Are you sure you want to delete:\n\n${contact.name || "Unknown"} \n${phoneOutput(contact.number)}`;
         document.getElementById("confirm-dialog").style.display = "flex";
     }
@@ -197,7 +234,7 @@ frontend.popupPhonebookOverview = (function () {
     function confirmDelete(confirm) {
         if (confirm && contactToDelete !== null) {
             let contacts = JSON.parse(localStorage.getItem("phonenumbers")) || [];
-            contacts.sort((a, b) => a.number - b.number);
+            contacts = sortContacts(contacts);
             contacts.splice(contactToDelete, 1);
             localStorage.setItem("phonenumbers", JSON.stringify(contacts));
             displayContacts();
@@ -246,6 +283,41 @@ frontend.popupPhonebookOverview = (function () {
         contactToEdit = null;
     }
 
+    function showAddContact() {
+        document.getElementById("add-contact").style.display = "flex";
+    }
+
+    function closeAddContact() {
+        document.getElementById("add-contact").style.display = "none";
+        document.getElementById("add-contact-form").reset();
+    }
+
+    function addContact(event) {
+        event.preventDefault();
+        const name = document.getElementById("contact-name").value;
+        let number = document.getElementById("contact-number").value.replace(/\D/g, '');;
+        const errorMessage = document.getElementById("error-message");
+
+        errorMessage.style.display = "none";
+        errorMessage.textContent = "";
+
+        if (!name || !number) return;
+
+        const isValidNumber = number.length === 10 && number.startsWith("420");
+        if (!isValidNumber) {
+            errorMessage.style.display = "block";
+            errorMessage.textContent = "Phone number must be exactly 10 digits long and start with 420.";
+            return; 
+        }
+        let contacts = JSON.parse(localStorage.getItem("phonenumbers")) || [];
+        contacts.push({ name, number });
+        localStorage.setItem("phonenumbers", JSON.stringify(contacts));
+
+        displayContacts(); 
+        closeAddContact(); 
+        reloadTrigger = true;
+    }
+
     return {
         render: createPopup,
         contacts: displayContacts,
@@ -254,6 +326,9 @@ frontend.popupPhonebookOverview = (function () {
         edit: showEdit,
         confirmEdit: confirmEdit,
         delConfirm: confirmDelete,
+        showAddContact: showAddContact,
+        closeAddContact: closeAddContact,
+        addContact: addContact,
         export: exportContacts,
         exportFilterDupes: exportRemoveDupeandSort,
         reloadCheck: reloadCheck,

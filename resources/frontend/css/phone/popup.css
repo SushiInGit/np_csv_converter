@@ -519,6 +519,7 @@ help .element #errorMessage {
     color: red;
     font-weight: bold;
 }
+
 /* --------End of Help --------  */
 popup.import_npll .element #importernp,
 popup.import_np .element #importernp,
@@ -810,7 +811,7 @@ popup.phonebook {
 }
 
 popup.phonebook .model .element {
-    height: 400px;
+    height: 490px;
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
@@ -858,8 +859,10 @@ popup.phonebook .model .element .phonebook .buttonbox {
     min-width: 30px;
     padding-left: 10px;
 }
+
 popup.phonebook .model .element .phonebook #confirm-dialog,
-popup.phonebook .model .element .phonebook #edit-dialog {
+popup.phonebook .model .element .phonebook #edit-dialog,
+popup.phonebook .model .element .phonebook #add-contact {
     position: fixed;
     font-family: "Poppins", sans-serif;
     top: 0;
@@ -872,7 +875,26 @@ popup.phonebook .model .element .phonebook #edit-dialog {
     z-index: 10;
 }
 
-popup.phonebook .model .element .phonebook #edit-dialog #edit-input {
+popup.phonebook .model .element .phonebook #add-contact p.label {
+    padding: 0;
+    margin: 0;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+popup.phonebook .model .element .phonebook #add-contact p.label.small {
+    font-size: 14px;
+}
+
+popup.phonebook .model .element .phonebook #add-contact #error-message {
+    color: red;
+    font-size: 14px;
+    width: 200px;
+}
+
+popup.phonebook .model .element .phonebook #edit-dialog #edit-input,
+popup.phonebook .model .element .phonebook #add-contact #contact-name,
+popup.phonebook .model .element .phonebook #add-contact #contact-number {
     padding: 10px 20px;
     background-color: var(--bg-shade-search);
     display: flex;
@@ -883,7 +905,9 @@ popup.phonebook .model .element .phonebook #edit-dialog #edit-input {
 }
 
 popup.phonebook .model .element .phonebook #edit-dialog #edit-input:focus,
-popup.phonebook .model .element .phonebook #edit-dialog #edit-input:active {
+popup.phonebook .model .element .phonebook #edit-dialog #edit-input:focus,
+popup.phonebook .model .element .phonebook #add-contact .input:focus,
+popup.phonebook .model .element .phonebook #add-contact .input:active {
     color: #fff;
     background-color: var(--bg-shade-search);
     border: 2px solid var(--global-border-color);
@@ -905,7 +929,8 @@ popup.phonebook .model .element .phonebook .contact:last-child hr {
     height: 0px;
 }
 
-popup.phonebook .model .element .phonebook #confirm-content {
+popup.phonebook .model .element .phonebook #confirm-content,
+popup.phonebook .model .element .phonebook #add-contact .contact {
     background: var(--body-bg-color);
     background: linear-gradient(315deg, var(--body-gradient-start) 0%, var(--body-gradient-end) 100%);
     border: solid var(--global-border-size) var(--global-border-color);
@@ -938,6 +963,7 @@ popup.phonebook .model .element .phonebook .buttonbox button.edit:hover {
 popup.phonebook .model .element .phonebook .buttonbox button.del {
     background-color: #ae2727;
 }
+
 popup.phonebook .model .element .phonebook .buttonbox button.del:hover {
     background-color: #d85252;
 }
@@ -994,14 +1020,8 @@ popup.phonebook .model .element .uploader .body {
 }
 
 popup.phonebook .model .element .uploader .body .card {
-    width: 220px;
-    height: 160px;
     background-color: var(--bg-shade-search);
-    margin: 10px;
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding-bottom: 20px;
     border-radius: 17px;
     color: #ffffffc2;
     -webkit-touch-callout: none;
@@ -1012,16 +1032,43 @@ popup.phonebook .model .element .uploader .body .card {
     user-select: none;
 }
 
-popup.phonebook .model .element .uploader .body .card span {
+popup.phonebook .model .element .uploader .body .card.half {
+    width: 220px;
+    height: 160px;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 20px;
+    margin: 10px;
+}
+
+popup.phonebook .model .element .uploader .body .card.full {
+    width: 440px;
+    height: auto;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+popup.phonebook .model .element .uploader .body .card.half span {
     text-align: center;
     font-size: small;
-    line-height: 1.4; 
+    line-height: 1.4;
     padding: 0;
     margin: 0;
     padding-top: 10px;
 }
 
-popup.phonebook .model .element .uploader .body .card smaller {
+popup.phonebook .model .element .uploader .body .card.full span {
+    text-align: center;
+    font-size: small;
+    line-height: 1.4;
+    padding: 0;
+    margin: 0;
+}
+
+popup.phonebook .model .element .uploader .body .card.half smaller {
     padding: 0;
     margin: 0;
     font-size: 9px;
@@ -1030,9 +1077,15 @@ popup.phonebook .model .element .uploader .body .card smaller {
     opacity: 0.6;
 }
 
-popup.phonebook .model .element .uploader .body .card img {
+popup.phonebook .model .element .uploader .body .card.half img {
     padding-top: 20px;
     height: 100px;
+    width: auto;
+    opacity: 0.4;
+}
+
+popup.phonebook .model .element .uploader .body .card.full img {
+    height: 50px;
     width: auto;
     opacity: 0.4;
 }
@@ -1047,15 +1100,20 @@ popup.phonebook .model .element .uploader .body a {
 }
 
 popup.phonebook .model .element .uploader .body a:hover {
-    img {
+
+    .card.half img,
+    .card.full img {
         opacity: 0.6;
     }
-    span {
+
+    .card.half span,
+    .card.full span {
         color: #fff;
     }
-    smaller {
+
+    .card.half smaller,
+    .card.full smaller {
         opacity: 0.7;
         color: red;
     }
 }
-
