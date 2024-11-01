@@ -1,8 +1,15 @@
+### Disclaimer:
+- **File Storage**:     
+  We do not save any data online!   
+  All information is stored locally in your browser. If you switch browsers, update them, or use incognito mode, all data may be lost after closing the tab/browser or restarting your PC.
 
-### Overview
-- **Disclaimer**:    
-  This tool operates using your local browser storage (no data is stored online). If you use "Incognito Tabs" or similar features, all data will be lost after restarting your browser or computer. To retain data for as long as possible, avoid these browser features, although it is ultimately your choice.
+- **Data Accuracy**:     
+  All data accuracy depends on the files you upload. Changes on the NP-Server side, updates, or certain events (such as Daylight Savings Time) can affect the output of the files. Please cross-check with the Excel files to ensure accuracy. Ultimately, we're just human. If you discover any issues or bugs, please reach out to us so we can address them.   
+  As they say: "Only those who speak up can be helped".
 
+---
+
+### Tool Overview   
 - **Upload Subpoenas**:   
   Please upload unedited Excel files in the uploader (indicated by the cloud icon [top left]). This ensures optimal functionality and compatibility.
 
@@ -53,5 +60,8 @@
 - **12h or 24h Format**:  
   If you prefer AM/PM or a 24-hour format, you can select your preference here.
 
-![Add Number](https://sushiingit.github.io/np_csv_converter/resources/frontend/image/help/settings.png "Add Number")
+- **Daylight Savings**:  
+  You can manually adjust the daylight saving setting if needed. Typically, it's best to keep "Dynamic" selected. However, if issues arise after the daylight saving time change, you can set the tool to specific modes: "Summer Time" or "Winter Time."
+
+![Add Number](https://sushiingit.github.io/np_csv_converter/resources/frontend/image/help/settings2.png "Add Number")
 
