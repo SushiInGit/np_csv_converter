@@ -852,6 +852,28 @@ popup.phonebook .model .element .phonebook #contacts-list .userContact .contact 
     text-align: center;
     line-height: 1.2;
     overflow: hidden;
+    display: block;
+}
+
+popup.phonebook .model .element .phonebook #contacts-list .userContact .contact .contact-number{
+    padding-top: 7px;
+    line-height: 1.2;
+    display: block;
+}
+
+popup.phonebook .model .element .phonebook #contacts-list .userContact .contact  .contact-name {
+    width: 100%;
+    max-width: 250px;
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
 }
 
 popup.phonebook .model .element .phonebook .buttonbox {
