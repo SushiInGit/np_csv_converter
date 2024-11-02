@@ -79,11 +79,12 @@ function importChange() {
                 const wordWidth = context.measureText(words[i] + ' ').width;
                 const lineWidth = context.measureText(currentLine).width;
 
-                if (lineWidth + wordWidth > textareaWidth) {
+                while (lineWidth > textareaWidth) {
+                    const splitPoint = Math.floor(word.length * (textareaWidth / wordWidth));
+                    const part = word.slice(0, splitPoint);
+                    currentLine += part;
                     lineCount++;
-                    currentLine = words[i] + ' ';
-                } else {
-                    currentLine += words[i] + ' ';
+                    wordWidth = context.measureText(word.slice(splitPoint)).width;
                 }
             }
 
