@@ -558,9 +558,9 @@ popup.import .element .importer__textarea {
 }
 
 
-popup.import_npll .element .importer__textarea::placeholder ,
-popup.import_np .element .importer__textarea::placeholder ,
-popup.import .element .importer__textarea::placeholder  {
+popup.import_npll .element .importer__textarea::placeholder,
+popup.import_np .element .importer__textarea::placeholder,
+popup.import .element .importer__textarea::placeholder {
     white-space: pre-wrap;
 }
 
@@ -865,13 +865,13 @@ popup.phonebook .model .element .phonebook #contacts-list .userContact .contact 
     display: block;
 }
 
-popup.phonebook .model .element .phonebook #contacts-list .userContact .contact .contact-number{
+popup.phonebook .model .element .phonebook #contacts-list .userContact .contact .contact-number {
     padding-top: 7px;
     line-height: 1.2;
     display: block;
 }
 
-popup.phonebook .model .element .phonebook #contacts-list .userContact .contact  .contact-name {
+popup.phonebook .model .element .phonebook #contacts-list .userContact .contact .contact-name {
     width: 100%;
     max-width: 250px;
     overflow: hidden;
@@ -970,6 +970,13 @@ popup.phonebook .model .element .phonebook #add-contact .contact {
     border-radius: 5px;
     text-align: center;
     box-shadow: 0px 4px 6px var(--global-border-color);
+}
+
+popup.phonebook .model .element .phonebook #confirm-content p#confirm-message {
+    overflow: hidden;
+    max-width: 600px;
+    max-height: 150px;
+    text-overflow: ellipsis;
 }
 
 popup.phonebook .model .element .phonebook .buttonbox button {
