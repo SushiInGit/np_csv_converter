@@ -2,8 +2,7 @@ var frontend = frontend ?? {};
 
 frontend.popupPhonebook_NP = (function () {
 
-
-    function phonebookEvent() {
+   function phonebookEvent() {
 
         const popupDivName = "import_np";
         const content = `

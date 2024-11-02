@@ -557,6 +557,13 @@ popup.import .element .importer__textarea {
     cursor: pointer;
 }
 
+
+popup.import_npll .element .importer__textarea::placeholder ,
+popup.import_np .element .importer__textarea::placeholder ,
+popup.import .element .importer__textarea::placeholder  {
+    white-space: pre-wrap;
+}
+
 popup.import .element .importer__lines {
     border-right: 1px solid rgba(255, 255, 255, 0.719);
     min-width: 20px;
