@@ -11,6 +11,22 @@ Join us: https://discord.gg/e3t8EHKGp3
 
 ### Update History:
 ```
+2024-11-07:
+* Global:
+--> New Report System Online
+--> Discord-Bot: @Zoê creates the Reports now
+
+* Phone:
+--> Bugfixes Lemon-List Import
+```
+```
+2024-11-01:
+* Phone Subpoena changes
+--> Rework Contact Import
+--> Modify Contacts
+--> Add Contacts from Lemon-List and In-Game Phone
+```
+```
 2024-10-30:
 * Multi-File Upload
 * New Help System
@@ -60,20 +76,3 @@ Join us: https://discord.gg/e3t8EHKGp3
 * Project start
 * Simple output excel into tables script
 ``` 
-#
-
-### New feature soon
-
-- Recolering of the phone page
-- Global search for phone subpoena (messages)
-- Bank record viewer
-
-#
-
-### Features completed
-
-- Changing Timezones
-- Phone Directory + Importer
-- Load Call/Message subpoena from excel files
-- Analyse of SimOwner activity
-
