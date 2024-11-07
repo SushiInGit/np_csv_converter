@@ -93,6 +93,7 @@ frontend.renderList = function (phoneGrouped) {
                 this.classList.add('active');
                 middleman.popupModel.closePopupDiv();
                 frontend.renderChat(data);
+                middleman.helper.jumpTopLog();
             }
 
         });

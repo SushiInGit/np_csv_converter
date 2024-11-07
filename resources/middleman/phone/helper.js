@@ -23,11 +23,20 @@ function isUrlWrapped(message, url) { // Function to check if a URL is already w
     return wrappedRegex.test(message);
 }
 
+function jumpTopLog() {
+    const targetDiv = document.querySelector('.output .messages');
+    targetDiv.style.scrollBehavior = 'auto';
+    targetDiv.scrollTop = 0;
+    setTimeout(() => {
+        targetDiv.style.scrollBehavior = 'smooth';
+    }, 0);
+}
+
     return { 
         findAllUrls: (message) => { return findAllUrls(message) },
         isImage: (url) => { return isImage(url) },
         isPhoneNumberWrapped: (message, number) => { return isPhoneNumberWrapped(message, number) },
         isUrlWrapped: (message, url) => { return isUrlWrapped(message, url) },
-
+        jumpTopLog: () => { return jumpTopLog() }
     }
 }();
