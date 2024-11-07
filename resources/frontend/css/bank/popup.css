@@ -39,13 +39,8 @@ popup .footer span.fileslist.active {
     color: var(--global-hover) !important;
 }
 
-popup.bug textarea {
-    resize: none;
-    overflow: auto;
-}
-
 popup.show {
-    width: var(--popup-size-width) !important;
+    width: var(--popup-size-width);
     opacity: 0.99 !important;
     box-shadow: 0 4px 10px var(--global-border-color);
     backdrop-filter: blur(310px);
@@ -396,16 +391,113 @@ popup.settings select::after {
 
 /* --------End of Settings---------  */
 
-popup.bug .element textarea {
-    border: 1px solid #1c1e29;
-    background-color: #0707078a;
-    outline: none;
-    color: #ccc;
-    display: block;
+popup.bug {
+    max-width: 535px;
+    width: 100%;
 }
 
-popup.bug .element textarea::placeholder {
-    color: #cccccca6;
+popup.bug .element #issueForm .reportDiv {
+    margin-bottom: 15px;
+}
+
+popup.bug .element #issueForm label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    width: 100%;
+}
+
+popup.bug .element #issueForm .input-field,
+select,
+textarea {
+    width: 100%;
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid var(--global-border-color);
+    background-color: var(--bg-shade-mid);
+    color: #ffffff;
+    box-sizing: border-box;
+}
+
+popup.bug .element #issueForm .input-field:required,
+popup.bug .element #issueForm select:required,
+popup.bug .element #issueForm textarea:required {
+    border-color: var(--global-border-color);
+}
+
+popup.bug .element #issueForm .tag-container {
+    display: flex;
+    gap: 5px;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    flex-direction: row;
+    align-content: center;
+}
+
+popup.bug .element #issueForm .tag {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 7px;
+    border-radius: 16px;
+    background-color: var(--bg-shade-light);
+    border: 1px solid var(--global-border-color);
+    color: #ccc;
+    cursor: pointer;
+    opacity: 0.4;
+    font-weight: bold;
+}
+
+popup.bug .element #issueForm .tag.selected {
+    opacity: 1;
+    background-color: var(--bg-shade-mid);
+    color: #fff;
+}
+
+popup.bug .element #issueForm .tag:hover,
+popup.bug .element #issueForm .tag.selected:hover {
+    opacity: 0.8;
+    background-color: var(--bg-shade-mid);
+    color: #fff;
+}
+
+popup.bug .element #issueForm textarea {
+    height: 100px;
+    resize: none;
+}
+
+popup.bug .element #issueForm .error-message {
+    margin-top: 10px;
+    color: #ff4d4d;
+    margin-bottom: 10px;
+    font-size: 0.9em;
+    justify-content: center;
+}
+
+popup.bug .element #issueForm .disclaimer {
+    font-size: 0.8em;
+    color: #b9bbbe;
+    margin-top: 10px;
+}
+
+popup.bug .element #issueForm .button {
+    padding-top: 10px;
+    display: flex;
+    width: 100%;
+    justify-content: center;
+}
+
+popup.bug .element #issueForm button {
+    padding: 12px 20px;
+    background-color: #27ae60;
+    color: #ffffff;
+    font-weight: bold;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+popup.bug .element #issueForm button:hover {
+    background-color: #2ecc71;
 }
 
 /* --------End of Bugreport --------  */

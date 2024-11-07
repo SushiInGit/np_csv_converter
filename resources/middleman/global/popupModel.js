@@ -118,21 +118,10 @@ middleman.popupModel = (function () {
         }
     }
 
-    function getBrowserInfo() {
-        const userAgent = navigator.userAgent;
-        const browserInfo = `
-            User Agent: ${userAgent}
-            Plattform: ${navigator.platform}
-            App Name: ${navigator.appName}
-            App Version: ${navigator.appVersion}
-        `;
-        return browserInfo;
-    }
     /////
 
     return {
         createPopup: createPopup,
-        getBrowserInfo: getBrowserInfo,
         closePopupDiv: closePopupDiv,
         deactivateLoader: deactivateLoader,
         delPhone: delPhone,
