@@ -115,6 +115,7 @@ global.bugHelper = (function () {
             .then(response => {
                 if (response.ok) {
                     global.alertsystem('success', `Report has been sent successfully.`, 5);
+                    middleman.popupModel.closePopupDiv();
                 } else {
                     global.alertsystem('warning', `Error: Report could not be sent. Try again later.`, 5);
                 }
@@ -178,7 +179,7 @@ global.bugHelper = (function () {
                 screenshot: screenshotInput || null,
                 discordUser: document.getElementById('discordUser').value || null
             };
-            
+
             //console.log(formData, source);
             global.bugHelper.sendToDiscord(formData, global.bugHelper.output(), source);
         });
