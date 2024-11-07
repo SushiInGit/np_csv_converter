@@ -5,74 +5,46 @@ frontend.popupBug = (function () {
 
         const popupDivName = "bug";
         const content = `
-        <p><small>Found a bug? Report it here! <br>If you'd like to provide more details, feel free to join our Discord server using the link at the bottom of the page.</small></p>
-            <textarea id="message" rows="10" cols="48" placeholder="Enter your message...."></textarea>
+            <form id="issueForm">
+            <div class="reportDiv">
+                <label>Report Type <span style="color: #ff4d4d;">*</span> <br><span class="disclaimer">(Maximum 2 selected)</span></label>
+                <div class="tag-container" id="tagContainer">
+                <!-- Type -->
+                <div class="tag" data-value="👾 #Bug">👾 #Bug</div>
+                <div class="tag" data-value="🚀 #Feature Request">🚀 #Feature Request</div>
+                <div class="tag" data-value="🎨 #UI/UX">🎨 #UI/UX</div>
+                <div class="tag" data-value="🔧 #Function">🔧 #Function</div>
+                </div>
+            </div>
+            <div class="reportDiv">
+                <label for="topic">Titel <span style="color: #ff4d4d;">*</span></label>
+                <input type="text" id="topic" name="topic" required class="input-field" autocomplete="off" autocorrect="off" spellcheck="false">
+            </div>
+            <div class="reportDiv">
+                <label for="description">Description <span style="color: #ff4d4d;">*</span></label>
+                <textarea id="description" name="description" required class="input-field" autocorrect="on" spellcheck="true"></textarea>
+            </div>
+            <div class="reportDiv">
+                <label for="screenshot">Show the Problem (Screenshot/Clip URL) </label>
+                <input type="url" id="screenshot" name="screenshot" placeholder="Optional: Link to [clips.twitch.tv] or [kappa.lol] etc..." class="input-field">
+            </div>
+            <div class="reportDiv">
+                <label for="discordUser">Discord Username <br><span class="disclaimer" style="color: #338cffe0; ">(in case we have questions about your report)</span></label>
+                <input type="text" id="discordUser" name="discordUser" placeholder="Optional: Username" class="input-field">
+            </div>
+            <div class="disclaimer">Fields marked with <span style="color: #ff4d4d;">*</span> are required.</div>
+            <div id="errorMessage" class="error-message" style="display: none;"></div>
+            <div class="button"><button type="submit">Send</button></div>
         `;
-        const footer = `<button class="ok" onclick="frontend.popupBug.sendToDiscord()">Send Bugreport</button>`;
+        const footer = ``;
 
-        middleman.popupModel.createPopup(popupDivName, 'Bug Report', content, footer);
-
+        middleman.popupModel.createPopup(popupDivName, 'Report', content, footer);
+        setTimeout(() => {global.bugHelper.send("phone");}, 50);
     }
 
-    function sendToDiscord() {
-        const message = document.getElementById("message").value;
-        const browserInfo = middleman.popupModel.getBrowserInfo();
-        frontend.popupBug.sendDiscordMessage(message, browserInfo);
-    }
-
-    function sendDiscordMessage(message, browserInfo) {
-        const webhookUrl = "https://discord.com/api/webhooks/1284930571440750602/mZyS4CHamGlq_AUw1CambBH5s0010rLi_6A37vR5sJoPL3liAQSkM_qDR9HeJ3YGyNHp";
-        const payload = {
-            embeds: [
-                {
-                    color: 5763719,
-                    fields: [
-                        {
-                            name: "Bugreport - Bank",
-                            value: `\`\`\`${message}\`\`\``,
-                            inline: false
-                        },
-                        {
-                            name: "Browser Information",
-                            value: `\`\`\`${browserInfo}\`\`\``,
-                            inline: false
-                        }
-                    ],
-                    footer: {
-                        text: "Send from GitHub host."
-                    },
-                    timestamp: new Date().toISOString()
-                }
-            ]
-        };
-        fetch(webhookUrl, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(payload),
-        })
-            .then(response => {
-                if (response.ok) {
-                    middleman.popupModel.closePopupDiv();
-                    global.alertsystem('success', 'Bug report has been sent.', 4);
-    
-                } else {
-                    middleman.popupModel.closePopupDiv();
-                    global.alertsystem('warning', 'Error: Bugreport cant be send. Try again later.', 7);
-                }
-            })
-            .catch(error => {
-                middleman.popupModel.closePopupDiv();
-                global.alertsystem('warning', 'Error: Bugreport cant be send. Try again later.', 7);
-            });
-    
-
-    }
     return {
-        sendToDiscord: sendToDiscord,
-        sendDiscordMessage: sendDiscordMessage,
-        render: bugEvent
+        render: bugEvent,
+
     };
 
 

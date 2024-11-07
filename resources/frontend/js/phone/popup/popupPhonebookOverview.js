@@ -126,7 +126,7 @@ frontend.popupPhonebookOverview = (function () {
                     </div>
                 </div>
 
-                <div class="search"><input type="text" id="search-bar" contenteditable="true" autocorrect="off" autocomplete="off" spellcheck="false" placeholder="Search by contacts..." data-placeholder="Search by contacts..." onkeyup="frontend.popupPhonebookOverview.filter()"></div>
+                <div class="search"><input type="text" id="search-bar" contenteditable="true" autocorrect="off" autocomplete="off" spellcheck="false" placeholder="Search in your ${backend.dataController.getPhonenumbers().length} contacts..." data-placeholder="Search in your ${backend.dataController.getPhonenumbers().length} contacts..." onkeyup="frontend.popupPhonebookOverview.filter()"></div>
                 <div id="contacts-list"></div>
                 </div>
                 <div class="uploader"><div class="body">

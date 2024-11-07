@@ -47,19 +47,30 @@ backend.phonebookHelper = function () {
 
         var returnNewRecordsRount = 0;
 
-        for (var i = 0; i < dirtyLogArray.length / 3; i++) {
-            var j = i * 3;
+        for (var i = 0; i < dirtyLogArray.length; i += 3) {
+            var j = i;
 
+            // Set default for Phone Contacts
             var phonenumberIndex = j + 2;
-            var nameIndex = type == "LL" ? j : j + 1;
+            var nameIndex = j + 1;
 
-            var name = dirtyLogArray[nameIndex];
+            // If from LemonList overwrite the default
+            if (type == "LL") {
+                nameIndex = j;
 
-            if (!phonenumberRegex.test(dirtyLogArray[phonenumberIndex]) || name == undefined) {
-                // is invalid phone number or name
+                if (!phonenumberRegex.test(dirtyLogArray[phonenumberIndex]) && phonenumberRegex.test(dirtyLogArray[phonenumberIndex - 1])) {
+                    phonenumberIndex = j + 1;
+                    i--;
+                }
+            }
+
+            // Check if values are valid
+            if (!phonenumberRegex.test(dirtyLogArray[phonenumberIndex]) || name == dirtyLogArray[nameIndex]) {
                 continue;
             }
 
+            // Create new contact if new
+            var name = dirtyLogArray[nameIndex];
             var phonenumber = dirtyLogArray[phonenumberIndex].replace(/\((\d{3})\)\s(\d{3})-(\d{4})/, "$1$2$3");
 
             if (!phoneNumbers.some(contact => contact.number == phonenumber)) {
