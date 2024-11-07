@@ -1,7 +1,8 @@
 var middleman = middleman ?? {};
 
 middleman.simOwner = function () {
-    const messages = middleman.phoneData.autoSwap()
+    const simOwnerId = sessionStorage.getItem('simOwnerId');
+    const messages = middleman.phoneData.autoSwap(simOwnerId)
     
     function MostFrequentNumber(messages,data) {                         // Get Main used Number (hint how is the owner)
         const numberCount = {}
