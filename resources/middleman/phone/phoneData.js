@@ -11,6 +11,21 @@ middleman.phoneData = (function () {
 
         var data = strategy(number);
 
+        const allLogs = [...data.calls, ...data.texts];
+
+        const { earliest, latest } = allLogs.reduce((result, log) => {
+            const date = new Date(log.initiated_at || log.timestamp);
+            if (date < result.earliest) result.earliest = date;
+            if (date > result.latest) result.latest = date;
+            return result;
+        }, { earliest: new Date(allLogs[0].initiated_at || allLogs[0].timestamp), latest: new Date(allLogs[0].initiated_at || allLogs[0].timestamp) });
+
+        document.querySelector("#filterDateFrom").min = earliest.toISOString().split("T")[0];
+        document.querySelector("#filterDateFrom").max = latest.toISOString().split("T")[0];
+        document.querySelector("#filterDateTo").min = earliest.toISOString().split("T")[0];
+        document.querySelector("#filterDateTo").max = latest.toISOString().split("T")[0];
+
+
         // Filter data on date range
         var dateRangeFrom = document.querySelector("#filterDateFrom").value
             ? new Date(document.querySelector("#filterDateFrom").value)
