@@ -163,3 +163,7 @@ function filterMessages(inputText) {
         } 
     });
 }
+
+// Reset views on date change
+document.querySelector("#filterDateFrom").addEventListener("change", () => { frontend.renderList(middleman.requestData.allMetadata()); frontend.renderChat(); });
+document.querySelector("#filterDateTo").addEventListener("change", () => { frontend.renderList(middleman.requestData.allMetadata()); frontend.renderChat(); });

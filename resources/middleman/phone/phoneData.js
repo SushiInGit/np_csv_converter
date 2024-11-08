@@ -8,7 +8,31 @@ middleman.phoneData = (function () {
 
     function loadData(dataType, number) {
         const strategy = strategies[dataType] || strategies.default;
-        return strategy(number);
+
+        var data = strategy(number);
+
+        // Filter data on date range
+        var dateRangeFrom = document.querySelector("#filterDateFrom").value
+            ? new Date(document.querySelector("#filterDateFrom").value)
+            : new Date(0);
+
+        var dateRangeTo = document.querySelector("#filterDateTo").value
+            ? new Date(document.querySelector("#filterDateTo").value)
+            : new Date();
+        dateRangeTo.setHours(23, 59, 59, 999);
+
+        data.calls = data.calls.filter(call => {
+            var timestamp = new Date(call.initiated_at);
+            return timestamp >= dateRangeFrom && timestamp <= dateRangeTo;
+        });
+
+        data.texts = data.texts.filter(text => {
+            var timestamp = new Date(text.timestamp);
+            return timestamp >= dateRangeFrom && timestamp <= dateRangeTo;
+        })
+        ////
+
+        return data;
     }
 
     function formatData(data) {
