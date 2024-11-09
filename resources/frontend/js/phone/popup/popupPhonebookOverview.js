@@ -162,26 +162,25 @@ frontend.popupPhonebookOverview = (function () {
                 </a>
                 </div></div>  
                 
-                </div>
+                </div>s
             </div>   
             `;
         popupDiv.appendChild(popupDivBody);
         setTimeout(() => {
             frontend.popupPhonebookOverview.contacts();
-        }, 50);
+        }, 100);
     }
 
     function displayContacts() {
         const contactsList = document.getElementById("contacts-list");
-        const contacts = JSON.parse(localStorage.getItem("phonenumbers")) || [];
+        const contacts =  (backend.dataController.getPhonenumbers() || []).filter(contact => contact.name);
 
-        contacts.forEach((_, index) => removeEmptyNames(index));
-        const updatedContacts = JSON.parse(localStorage.getItem("phonenumbers")) || [];
-
-        const sortedContacts = sortContacts(updatedContacts);
+        const filteredContacts = contacts.map((contact, index) => ({ ...contact, Index: index }));
+        const sortedContacts = sortContacts(filteredContacts);
+        
         contactsList.innerHTML = "";
 
-
+        const fragment = document.createDocumentFragment();
         sortedContacts.forEach((contact, index) => {
 
             const contactDiv = document.createElement("div");
@@ -193,14 +192,15 @@ frontend.popupPhonebookOverview = (function () {
                 <div class="contact-number">${phoneOutput(contact.number)}</div>
             </div>
             <div class="buttonbox">
-                <button class="edit" onclick="frontend.popupPhonebookOverview.edit(${index})"><span class="material-icons">edit</span></button>
-                <button class="del" onclick="frontend.popupPhonebookOverview.del(${index})"><span class="material-icons">delete</span></button>
+                <button class="edit" onclick="frontend.popupPhonebookOverview.edit(${contact.Index})"><span class="material-icons">edit</span></button>
+                <button class="del" onclick="frontend.popupPhonebookOverview.del(${contact.Index})"><span class="material-icons">delete</span></button>
             </div>
             <hr class="phonebook">
             </div>
         `;
-            contactsList.appendChild(contactDiv);
+            fragment.appendChild(contactDiv);
         });
+        contactsList.appendChild(fragment);
     }
 
     function filterContacts() {

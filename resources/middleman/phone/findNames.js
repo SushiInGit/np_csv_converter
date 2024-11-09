@@ -40,4 +40,3 @@ middleman.findNames = function(number) {
 };
 
 middleman.initializePhoneLookup();
-
