@@ -40,6 +40,7 @@ frontend.popupPhonebookOverview = (function () {
             return 0; 
         });
     }
+
     function removeEmptyNames(index) {
         const contacts = JSON.parse(localStorage.getItem("phonenumbers")) || [];
 
@@ -49,6 +50,7 @@ frontend.popupPhonebookOverview = (function () {
             displayContacts();
         }
     }
+    
     function exportRemoveDupeandSort(data) {
         return data
             .filter((contact, index, self) =>
@@ -161,8 +163,7 @@ frontend.popupPhonebookOverview = (function () {
                     </div>
                 </a>
                 </div></div>  
-                
-                </div>s
+                </div>
             </div>   
             `;
         popupDiv.appendChild(popupDivBody);
@@ -181,8 +182,8 @@ frontend.popupPhonebookOverview = (function () {
         contactsList.innerHTML = "";
 
         const fragment = document.createDocumentFragment();
+         
         sortedContacts.forEach((contact, index) => {
-
             const contactDiv = document.createElement("div");
             contactDiv.classList.add("contact");
             contactDiv.innerHTML = `
