@@ -645,6 +645,14 @@ popup.import .element .importer__textarea {
     cursor: pointer;
 }
 
+@supports (-moz-appearance: none) {
+    popup.import_npll .element .importer__textarea,
+    popup.import_np .element .importer__textarea,
+    popup.import .element .importer__textarea {
+        white-space: normal;
+    }
+}
+
 popup.import_npll .element .importer__textarea::placeholder,
 popup.import_np .element .importer__textarea::placeholder,
 popup.import .element .importer__textarea::placeholder {
