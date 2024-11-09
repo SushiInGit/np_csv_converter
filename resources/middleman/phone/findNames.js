@@ -23,12 +23,12 @@ var middleman = middleman ?? {};
 
 middleman.initializePhoneLookup = function() {
     const startTime = performance.now();
-    const phoneArray = backend.dataController.getPhonenumbers() || "[]";
 
-    middleman.phoneLookup = {};
-    for (const record of phoneArray) {
-        middleman.phoneLookup[record.number] = record.name;
-    }
+    const phoneArray = backend.dataController.getPhonenumbers() || [];
+    middleman.phoneLookup = phoneArray.reduce((lookup, { number, name }) => {
+        lookup[number] = name;
+        return lookup;
+    }, {});
 
     const endTime = performance.now();
     middleman.loadTime = endTime - startTime;
