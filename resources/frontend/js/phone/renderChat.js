@@ -4,6 +4,18 @@ var frontend = frontend ?? {};
 frontend.renderChat = function (data) {
 
 
+    // On undefined data reset to empty output, else continue to normal flow
+    if (!data) {
+        const headerLeft = document.querySelector(".output .header.noselect .left");
+        const headerRight = document.querySelector(".output .header.noselect .right");
+        headerLeft.innerHTML = ``;
+        headerRight.innerHTML = ``;
+        const commOutput = document.querySelector(".output .messages .commOutput");
+        commOutput.innerHTML = ``;
+
+        return;
+    }
+
     ///////////////////////////////////////////////////    // Function to calculate the difference between two ISO timestamps
     function calculateCallDuration(start, end) {
         const startTime = new Date(start);
@@ -49,8 +61,8 @@ frontend.renderChat = function (data) {
     //const commLogs = data.communications.sort((a, b) => new Date(a.Timestamp) - new Date(b.Timestamp)); // Make sure the Object is sorted by Timestemp - 99.9999% will never be a problem
 
     const commLogs = data.communications.sort((a, b) => {
-        if (a.TimestampCorrupt  === false && b.TimestampCorrupt  === true) return -1;
-        if (a.TimestampCorrupt  === true && b.TimestampCorrupt  === false) return 1;
+        if (a.TimestampCorrupt === false && b.TimestampCorrupt === true) return -1;
+        if (a.TimestampCorrupt === true && b.TimestampCorrupt === false) return 1;
         return new Date(a.Timestamp) - new Date(b.Timestamp);
     });
 
@@ -90,7 +102,7 @@ frontend.renderChat = function (data) {
                 if (callDuration === "Call could not be established!") {
                     callText.classList.add('callFail');
                 }
-                
+
                 callDurationContainer.textContent = `${callDuration}`;
                 callDurationContainer.classList.add('call-status');
                 callTimeContainer.textContent = `${fixedDate.timeShowOffset} ${fixedDate.timeZone}`;
@@ -101,7 +113,7 @@ frontend.renderChat = function (data) {
                     callText.classList.add('callIn');
                     if (callDuration === "Call could not be established!") {
                         callIndicator.classList.add('callFail');
-                    } else{
+                    } else {
                         callIndicator.classList.add('callIn');
                     }
                     callText.classList.add(Log.From);
@@ -111,7 +123,7 @@ frontend.renderChat = function (data) {
                     callText.classList.add('callOut');
                     if (callDuration === "Call could not be established!") {
                         callIndicator.classList.add('callFail');
-                    } else{
+                    } else {
                         callIndicator.classList.add('callOut');
                     }
                     callText.classList.add(middleman.simOwner.number());
@@ -148,8 +160,8 @@ frontend.renderChat = function (data) {
             messageDiv.classList.add('message');
             messageDiv.classList.add('ID_' + Log.Index);
             messageDiv.classList.add('TimestampCorrupt_' + Log.TimestampCorrupt);
-            messageDiv.classList.add(Log.From === middleman.simOwner.number() ? 'to' : 'from' );
-            pointerFromTo = Log.From === middleman.simOwner.number() ? 'to' : 'from' ;
+            messageDiv.classList.add(Log.From === middleman.simOwner.number() ? 'to' : 'from');
+            pointerFromTo = Log.From === middleman.simOwner.number() ? 'to' : 'from';
 
 
             if (pointerFromTo === "to") { // Sim Owner
@@ -161,7 +173,7 @@ frontend.renderChat = function (data) {
 
             if (pointerFromTo === "from") { // Other Person
                 messageDiv.style.gridArea = `${gridLine} / 1 / ${gridRow} / 3`;
-                messageDiv.style.borderLeft = `5px solid ${frontend.colorByNumber.getDarkerShade(frontend.colorByNumber.getLighterShade(Log.From), 50)}`; 
+                messageDiv.style.borderLeft = `5px solid ${frontend.colorByNumber.getDarkerShade(frontend.colorByNumber.getLighterShade(Log.From), 50)}`;
                 messageDiv.classList.add(middleman.simOwner.number());
                 gridLine++;
                 gridRow++;
@@ -178,11 +190,11 @@ frontend.renderChat = function (data) {
             const timestampDiv = document.createElement('div');
             fixedDate = processTimestamp(Log.Timestamp);
             timestampDiv.classList.add('timestamp');
-            if(Log.TimestampCorrupt === false) { timestampDiv.textContent = `${fixedDate.timeShowOffset} ${fixedDate.timeZone}`; }
-            if(Log.TimestampCorrupt === true) { timestampDiv.innerHTML = `<glitch >Corrupted Timestemp</glitch>`; }
+            if (Log.TimestampCorrupt === false) { timestampDiv.textContent = `${fixedDate.timeShowOffset} ${fixedDate.timeZone}`; }
+            if (Log.TimestampCorrupt === true) { timestampDiv.innerHTML = `<glitch >Corrupted Timestemp</glitch>`; }
             const numberDiv = document.createElement('div');
             numberDiv.classList.add('number');
-            numberDiv.classList.add(Log.From === middleman.simOwner.number() ? 'from' : 'to' );
+            numberDiv.classList.add(Log.From === middleman.simOwner.number() ? 'from' : 'to');
             //numberDiv.textContent += (Log.From === middleman.simOwner.number() ? '✉️ from' : '✉️ to');
             numberDiv.textContent += '✉️ from';
             numberDiv.textContent += "\n";

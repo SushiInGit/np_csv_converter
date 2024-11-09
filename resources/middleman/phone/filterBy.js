@@ -2,7 +2,7 @@
 var middleman = middleman ?? {};
 
 middleman.filterBy = function () {
-    const groupData = middleman.metadata.addObject(middleman.requestData.allMetadata());
+    let groupData = middleman.metadata.addObject(middleman.requestData.allMetadata());
 
     function findCommunicationsByText(data, filter) {
         if (Object.keys(data).length !== 0) {
@@ -265,20 +265,19 @@ middleman.filterBy = function () {
         All: (filter) => { return findCommunicationsByAll(filter) },
         // Deprecated
 
-
-        Default: (filter) => { return defaultSearch(filter) },
+        Default: (filter) => { groupData = middleman.metadata.addObject(middleman.requestData.allMetadata()); return defaultSearch(filter) },
 
         // Search V2 below
-        Messagev2: (filter) => { return findCommunicationsByText(filter) },
-        Number: (filter) => { return find_number(groupData, filter) },
-        Name: (filter) => { return find_name(groupData, filter) },
-        Unknown: (filter) => { return find_unknown(groupData, filter) },
-        hasNumber: (filter) => { return find_hasNumber(groupData, filter) },
-        hasPhone: (filter) => { return find_hasPhone(groupData, filter) },
-        hasLink: (filter) => { return find_hasLink(groupData, filter) },
-        hasMessage: (filter) => { return find_message(groupData, filter) },
-        noCalls: (filter) => { return find_noCalls(groupData, filter) },
-        missedCalls: () => { return missedCalls(groupData) },
+        Messagev2: (filter) => { groupData = middleman.metadata.addObject(middleman.requestData.allMetadata()); return findCommunicationsByText(filter) },
+        Number: (filter) => { groupData = middleman.metadata.addObject(middleman.requestData.allMetadata()); return find_number(groupData, filter) },
+        Name: (filter) => { groupData = middleman.metadata.addObject(middleman.requestData.allMetadata()); return find_name(groupData, filter) },
+        Unknown: (filter) => { groupData = middleman.metadata.addObject(middleman.requestData.allMetadata()); return find_unknown(groupData, filter) },
+        hasNumber: (filter) => { groupData = middleman.metadata.addObject(middleman.requestData.allMetadata()); return find_hasNumber(groupData, filter) },
+        hasPhone: (filter) => { groupData = middleman.metadata.addObject(middleman.requestData.allMetadata()); return find_hasPhone(groupData, filter) },
+        hasLink: (filter) => { groupData = middleman.metadata.addObject(middleman.requestData.allMetadata()); return find_hasLink(groupData, filter) },
+        hasMessage: (filter) => { groupData = middleman.metadata.addObject(middleman.requestData.allMetadata()); return find_message(groupData, filter) },
+        noCalls: (filter) => { groupData = middleman.metadata.addObject(middleman.requestData.allMetadata()); return find_noCalls(groupData, filter) },
+        missedCalls: () => { groupData = middleman.metadata.addObject(middleman.requestData.allMetadata()); return missedCalls(groupData) },
     }
 }();
 

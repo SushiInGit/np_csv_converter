@@ -163,3 +163,25 @@ function filterMessages(inputText) {
         } 
     });
 }
+
+// Reset views on date change
+document.querySelector("#filterDateFrom").addEventListener("change", () => { resetViews() });
+document.querySelector("#filterDateTo").addEventListener("change", () => { resetViews() });
+
+function resetViews() {
+    frontend.renderList(middleman.requestData.allMetadata());
+    frontend.renderChat();
+
+    const bannerRight = document.querySelector(".banner .right.noselect");
+    const data = middleman.requestData.all();
+    let dialoguePartners = Object.keys(middleman.requestData.allMetadata()).length + 0;
+
+    if (bannerRight) {
+        bannerRight.innerHTML = `
+            Total Data: ${middleman.phoneData.infoCountOverall(data)}<br>
+            Total Calls: ${middleman.phoneData.infoCountIscall(data)}<br> 
+            Total Messages: ${middleman.phoneData.infoCountMessage(data)}<br>
+            Dialogue Partners: ${dialoguePartners} 
+        `;
+    }
+}
