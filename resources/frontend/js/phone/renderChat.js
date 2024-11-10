@@ -4,6 +4,18 @@ var frontend = frontend ?? {};
 frontend.renderChat = function (data) {
 
 
+    // On undefined data reset to empty output, else continue to normal flow
+    if (!data) {
+        const headerLeft = document.querySelector(".output .header.noselect .left");
+        const headerRight = document.querySelector(".output .header.noselect .right");
+        headerLeft.innerHTML = ``;
+        headerRight.innerHTML = ``;
+        const commOutput = document.querySelector(".output .messages .commOutput");
+        commOutput.innerHTML = ``;
+
+        return;
+    }
+
     ///////////////////////////////////////////////////    // Function to calculate the difference between two ISO timestamps
     function calculateCallDuration(start, end) {
         const startTime = new Date(start);
@@ -20,6 +32,14 @@ frontend.renderChat = function (data) {
         }
 
         return `Call duration: ${minutes ? minutes : `0`} min ${seconds ? seconds : `0`} sec`;
+    }
+
+    function dateAddClass(date) {
+        return "date__"+(date)
+        .replaceAll(" ","_")
+        .replaceAll(".","_")
+        .replaceAll("-","_")
+        .replaceAll("/","_");
     }
 
     let isCallTrueCount = 0;
@@ -49,17 +69,18 @@ frontend.renderChat = function (data) {
     //const commLogs = data.communications.sort((a, b) => new Date(a.Timestamp) - new Date(b.Timestamp)); // Make sure the Object is sorted by Timestemp - 99.9999% will never be a problem
 
     const commLogs = data.communications.sort((a, b) => {
-        if (a.TimestampCorrupt  === false && b.TimestampCorrupt  === true) return -1;
-        if (a.TimestampCorrupt  === true && b.TimestampCorrupt  === false) return 1;
+        if (a.TimestampCorrupt === false && b.TimestampCorrupt === true) return -1;
+        if (a.TimestampCorrupt === true && b.TimestampCorrupt === false) return 1;
         return new Date(a.Timestamp) - new Date(b.Timestamp);
     });
 
     commLogs.forEach(Log => {  // Date-Maker
-        const currentDate = processTimestamp(Log.Timestamp).dateShowOffset;
+        const currentDate = processTimestamp(backend.timeConverterOffset.offsetTime(Log.Timestamp)).date; //.dateShowOffset
+
         if (lastDate !== currentDate) {
             const dateMarker = document.createElement('div');
             dateMarker.classList.add('date-marker');
-            dateMarker.classList.add(processTimestamp(Log.Timestamp).dateShowOffset);
+            dateMarker.classList.add(dateAddClass(currentDate)) // <-- date
             dateMarker.style.gridArea = `${gridLine} / 3 / ${gridRow} / 4`;
             gridLine++;
             gridRow++;
@@ -83,25 +104,26 @@ frontend.renderChat = function (data) {
             gridLine++;
             gridRow++;
             const callDuration = calculateCallDuration(Date.parse(Log.CallStart), Date.parse(Log.CallEnd));
-            const fixedDate = processTimestamp(Date.parse(Log.Timestamp));
+            const fixedDate = processTimestamp(backend.timeConverterOffset.offsetTime(Log.Timestamp));
 
             if (Log.CallStart != null) {
                 //callDurationContainer.textContent = `Call duration: ${callDuration}`;
                 if (callDuration === "Call could not be established!") {
                     callText.classList.add('callFail');
                 }
-                
+
                 callDurationContainer.textContent = `${callDuration}`;
                 callDurationContainer.classList.add('call-status');
-                callTimeContainer.textContent = `${fixedDate.timeShowOffset} ${fixedDate.timeZone}`;
+                callTimeContainer.textContent = `${fixedDate.time} ${fixedDate.timeZone}`;
                 callTimeContainer.classList.add('time');
+                callText.classList.add(dateAddClass(fixedDate.date)) // <-- date
 
                 if (parseInt(middleman.simOwner.number()) === parseInt(Log.To)) {
                     callBetween.textContent = `Incoming call`;
                     callText.classList.add('callIn');
                     if (callDuration === "Call could not be established!") {
                         callIndicator.classList.add('callFail');
-                    } else{
+                    } else {
                         callIndicator.classList.add('callIn');
                     }
                     callText.classList.add(Log.From);
@@ -111,7 +133,7 @@ frontend.renderChat = function (data) {
                     callText.classList.add('callOut');
                     if (callDuration === "Call could not be established!") {
                         callIndicator.classList.add('callFail');
-                    } else{
+                    } else {
                         callIndicator.classList.add('callOut');
                     }
                     callText.classList.add(middleman.simOwner.number());
@@ -124,7 +146,7 @@ frontend.renderChat = function (data) {
             if (Log.CallStart === null) {
                 callDurationContainer.textContent = `Call could not be established!`;
                 callDurationContainer.classList.add('call-status');
-                callTimeContainer.textContent = `${fixedDate.timeShowOffset} ${fixedDate.timeZone}`;
+                callTimeContainer.textContent = `${fixedDate.time} ${fixedDate.timeZone}`;
                 callTimeContainer.classList.add('time');
                 if (parseInt(middleman.simOwner.number()) === parseInt(Log.From)) {
                     callText.textContent = `Incoming call`;
@@ -148,8 +170,8 @@ frontend.renderChat = function (data) {
             messageDiv.classList.add('message');
             messageDiv.classList.add('ID_' + Log.Index);
             messageDiv.classList.add('TimestampCorrupt_' + Log.TimestampCorrupt);
-            messageDiv.classList.add(Log.From === middleman.simOwner.number() ? 'to' : 'from' );
-            pointerFromTo = Log.From === middleman.simOwner.number() ? 'to' : 'from' ;
+            messageDiv.classList.add(Log.From === middleman.simOwner.number() ? 'to' : 'from');
+            pointerFromTo = Log.From === middleman.simOwner.number() ? 'to' : 'from';
 
 
             if (pointerFromTo === "to") { // Sim Owner
@@ -161,7 +183,7 @@ frontend.renderChat = function (data) {
 
             if (pointerFromTo === "from") { // Other Person
                 messageDiv.style.gridArea = `${gridLine} / 1 / ${gridRow} / 3`;
-                messageDiv.style.borderLeft = `5px solid ${frontend.colorByNumber.getDarkerShade(frontend.colorByNumber.getLighterShade(Log.From), 50)}`; 
+                messageDiv.style.borderLeft = `5px solid ${frontend.colorByNumber.getDarkerShade(frontend.colorByNumber.getLighterShade(Log.From), 50)}`;
                 messageDiv.classList.add(middleman.simOwner.number());
                 gridLine++;
                 gridRow++;
@@ -176,13 +198,14 @@ frontend.renderChat = function (data) {
             const embedElement = middleman.embedPic((middleman.addhtmlTags.conversationFilter(Log.Message))); /////// Test embed
             embed.appendChild(embedElement);
             const timestampDiv = document.createElement('div');
-            fixedDate = processTimestamp(Log.Timestamp);
-            timestampDiv.classList.add('timestamp');
-            if(Log.TimestampCorrupt === false) { timestampDiv.textContent = `${fixedDate.timeShowOffset} ${fixedDate.timeZone}`; }
-            if(Log.TimestampCorrupt === true) { timestampDiv.innerHTML = `<glitch >Corrupted Timestemp</glitch>`; }
+            fixedDate = processTimestamp(backend.timeConverterOffset.offsetTime(Log.Timestamp));
+            timestampDiv.classList.add('timestamp'); 
+            messageDiv.classList.add(dateAddClass(fixedDate.date)) // <-- date
+            if (Log.TimestampCorrupt === false) { timestampDiv.textContent = `${fixedDate.time} ${fixedDate.timeZone}`; }
+            if (Log.TimestampCorrupt === true) { timestampDiv.innerHTML = `<glitch >Corrupted Timestemp</glitch>`; }
             const numberDiv = document.createElement('div');
             numberDiv.classList.add('number');
-            numberDiv.classList.add(Log.From === middleman.simOwner.number() ? 'from' : 'to' );
+            numberDiv.classList.add(Log.From === middleman.simOwner.number() ? 'from' : 'to');
             //numberDiv.textContent += (Log.From === middleman.simOwner.number() ? '✉️ from' : '✉️ to');
             numberDiv.textContent += '✉️ from';
             numberDiv.textContent += "\n";

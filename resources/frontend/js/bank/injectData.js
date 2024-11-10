@@ -23,8 +23,8 @@ if ((backend.storageSelector.searchRecord('', true, 'last') !== false) && (bankN
         `;
         }
 
-        const earliestRecord = middleman.bankData.get().earliestRecord;
-        const latestRecord = middleman.bankData.get().latestRecord;
+        const earliestRecord = backend.timeConverterOffset.offsetTime(middleman.bankData.get().earliestRecord);
+        const latestRecord = backend.timeConverterOffset.offsetTime(middleman.bankData.get().latestRecord);
 
         const isoDateEarly = new Date(earliestRecord);
         const isoDateEarlyFix = isoDateEarly.toISOString().split('T').join(' ').slice(0, 10);

@@ -2,7 +2,9 @@ var middleman = middleman ?? {};
 
 middleman.metadata = function () {
     function addObject(data) {
-        const urlRegex = /\b(?:https?:\/\/|www\.)[a-zA-Z0-9-]+\.[a-zA-Z]{2,6}(?:\/\S*)?\b/g;
+        //const urlRegex = /\b(?:https?:\/\/|www\.)[a-zA-Z0-9-]+\.[a-zA-Z]{2,6}(?:\/\S*)?\b/g;
+        const urlRegex = /https?:\/\/[^\s]+|www\.[^\s]+/g;
+
         const numberRegex = /\d+/g;
         const phoneRegex = /(?:\(?420\)?\s*\d{3}\s*\d{4}|\b420\d{7}\b)/g;
 
@@ -19,12 +21,13 @@ middleman.metadata = function () {
 
                     const foundUrls = comm.Message.match(urlRegex);
                     if (foundUrls) {
-                        links.push({
-                            index: comm.Index,
-                            url: links.concat(foundUrls),
-                            message: comm.Message
+                        foundUrls.forEach(url => {
+                            links.push({
+                                index: comm.Index,
+                                url: url,
+                                message: comm.Message
+                            });
                         });
-
                     }
 
                     const containsNumber = comm.Message.match(numberRegex);

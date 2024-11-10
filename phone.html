@@ -2,172 +2,182 @@
 <html lang="en">
 
 <head>
-  <!-- Page Metadata -->
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>NP Converter</title>
-  <link rel="icon" href="resources/frontend/favicon/favicon.ico" sizes="32x32">
-  <link rel="icon" href="resources/frontend/favicon/icon.svg" type="image/svg+xml">
-  <link rel="apple-touch-icon" href="resources/frontend/favicon/apple-touch-icon.png">
-  <!-- CSS -->
-  <link rel="preload" href="resources/frontend/css/global/loader.css" as="style" onload="this.rel='stylesheet'">
-  <link rel="preload" href="resources/frontend/css/global/alertsystem.css" as="style" onload="this.rel='stylesheet'">
-  <link rel="preload" href="resources/frontend/css/phone/main.css" as="style" onload="this.rel='stylesheet'">
-  <link rel="preload" href="resources/frontend/css/phone/logs.css" as="style" onload="this.rel='stylesheet'">
-  <link rel="preload" href="resources/frontend/css/phone/popup.css" as="style" onload="this.rel='stylesheet'">
-  <link rel="preload" href="resources/frontend/css/phone/mediaquery.css" as="style" onload="this.rel='stylesheet'">
-  <link rel="preload" href="resources/frontend/css/phone/custommenu.css" as="style" onload="this.rel='stylesheet'">
+    <!-- Page Metadata -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NP Converter</title>
+    <link rel="icon" href="resources/frontend/favicon/favicon.ico" sizes="32x32">
+    <link rel="icon" href="resources/frontend/favicon/icon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="resources/frontend/favicon/apple-touch-icon.png">
+    <!-- CSS -->
+    <link rel="preload" href="resources/frontend/css/global/loader.css" as="style" onload="this.rel='stylesheet'">
+    <link rel="preload" href="resources/frontend/css/global/alertsystem.css" as="style" onload="this.rel='stylesheet'">
+    <link rel="preload" href="resources/frontend/css/phone/main.css" as="style" onload="this.rel='stylesheet'">
+    <link rel="preload" href="resources/frontend/css/phone/logs.css" as="style" onload="this.rel='stylesheet'">
+    <link rel="preload" href="resources/frontend/css/phone/popup.css" as="style" onload="this.rel='stylesheet'">
+    <link rel="preload" href="resources/frontend/css/phone/mediaquery.css" as="style" onload="this.rel='stylesheet'">
+    <link rel="preload" href="resources/frontend/css/phone/custommenu.css" as="style" onload="this.rel='stylesheet'">
 
-  <!-- JS Core -->
-  <script defer src="resources/frontend/js/global/gitVersion.js"></script>
-  <script defer src="resources/frontend/js/bank/loader.js"></script>
-  <script defer src="resources/frontend/js/global/alertsystem.js"></script>
-  <script defer src="resources/frontend/js/global/markdownReader.js"></script>
-  <script src="resources/backend/vendors/marked.min.js"></script>
+    <!-- JS Core -->
+    <script defer src="resources/frontend/js/global/gitVersion.js"></script>
+    <script defer src="resources/frontend/js/bank/loader.js"></script>
+    <script defer src="resources/frontend/js/global/alertsystem.js"></script>
+    <script defer src="resources/frontend/js/global/markdownReader.js"></script>
+    <script src="resources/backend/vendors/marked.min.js"></script>
 
-  <!-- JS -->
-  <script defer src="resources/backend/js/storageSize.js"></script>
-  <script defer src="resources/backend/js/storageSelector.js"></script>
-  <script defer src="resources/backend/js/storageManager.js"></script>
-  <script defer src="resources/backend/js/storageShow.js"></script>
-  <script defer src="resources/backend/js/helpers.js"></script>
-  <script defer src="resources/backend/js/dataController.js"></script>
-  <script defer src="resources/backend/js/fileProcessor.js"></script>
-  <script defer src="resources/backend/js/phonebookHelper.js"></script>
-  <script defer src="resources/backend/js/phoneRecordsHelper.js"></script>
-  <script defer src="resources/backend/js/timeConverter.js"></script>
-  <script src="resources/backend/vendors/xlsx.full.min.js"></script>
-  <!--  Middleman  -->
-  <script defer src="resources/middleman/global/fileupload.js"></script>
-  <script defer src="resources/middleman/global/bugHelper.js"></script>
-  <script defer src="resources/middleman/phone/requestData.js"></script>
-  <script defer src="resources/middleman/phone/phoneData.js"></script>
-  <script defer src="resources/middleman/phone/simOwner.js"></script>
-  <script defer src="resources/middleman/phone/findNames.js"></script>
-  <script defer src="resources/middleman/phone/groupeCommunications.js"></script>
-  <script defer src="resources/middleman/phone/addObject.js"></script>
-  <script defer src="resources/middleman/phone/filterBy.js"></script>
-  <script defer src="resources/middleman/phone/addhtmlTags.js"></script>
-  <script defer src="resources/middleman/phone/helper.js"></script>
-  <script defer src="resources/middleman/phone/embedPic.js"></script>
-  <script defer src="resources/middleman/global/popupModel.js"></script>
-  <script defer src="resources/middleman/global/popupHelp.js"></script>
-  <!--  JS Frontend -->
-  <script defer src="resources/frontend/js/phone/popupLoader.js"></script>
-  <script defer src="resources/frontend/js/phone/alerts.js"></script>
-  <script defer src="resources/frontend/js/phone/colorByNumber.js"></script>
-  <script defer src="resources/frontend/js/phone/search.js"></script>
-  <script defer src="resources/frontend/js/phone/renderList.js"></script>
-  <script defer src="resources/frontend/js/phone/renderChat.js"></script>
-  <script defer src="resources/frontend/js/phone/injectData.js"></script>
-  <script defer src="resources/frontend/js/phone/renderActivity.js"></script>
-  <script defer src="resources/middleman/phone/printJob.js"></script>
+    <!-- JS -->
+    <script defer src="resources/backend/js/storageSize.js"></script>
+    <script defer src="resources/backend/js/storageSelector.js"></script>
+    <script defer src="resources/backend/js/storageManager.js"></script>
+    <script defer src="resources/backend/js/storageShow.js"></script>
+    <script defer src="resources/backend/js/helpers.js"></script>
+    <script defer src="resources/backend/js/dataController.js"></script>
+    <script defer src="resources/backend/js/fileProcessor.js"></script>
+    <script defer src="resources/backend/js/phonebookHelper.js"></script>
+    <script defer src="resources/backend/js/phoneRecordsHelper.js"></script>
+    <script defer src="resources/backend/js/timeConverterOffset.js"></script>
+    <script defer src="resources/backend/js/timeConverter.js"></script>
+    <script src="resources/backend/vendors/xlsx.full.min.js"></script>
+    <!--  Middleman  -->
+    <script defer src="resources/middleman/global/fileupload.js"></script>
+    <script defer src="resources/middleman/global/bugHelper.js"></script>
+    <script defer src="resources/middleman/phone/requestData.js"></script>
+    <script defer src="resources/middleman/phone/phoneData.js"></script>
+    <script defer src="resources/middleman/phone/simOwner.js"></script>
+    <script defer src="resources/middleman/phone/findNames.js"></script>
+    <script defer src="resources/middleman/phone/groupeCommunications.js"></script>
+    <script defer src="resources/middleman/phone/addObject.js"></script>
+    <script defer src="resources/middleman/phone/filterBy.js"></script>
+    <script defer src="resources/middleman/phone/addhtmlTags.js"></script>
+    <script defer src="resources/middleman/phone/helper.js"></script>
+    <script defer src="resources/middleman/phone/embedPic.js"></script>
+    <script defer src="resources/middleman/global/popupModel.js"></script>
+    <script defer src="resources/middleman/global/popupHelp.js"></script>
+    <!--  JS Frontend -->
+    <script defer src="resources/frontend/js/phone/popupLoader.js"></script>
+    <script defer src="resources/frontend/js/phone/alerts.js"></script>
+    <script defer src="resources/frontend/js/phone/colorByNumber.js"></script>
+    <script defer src="resources/frontend/js/phone/search.js"></script>
+    <script defer src="resources/frontend/js/phone/renderList.js"></script>
+    <script defer src="resources/frontend/js/phone/renderChat.js"></script>
+    <script defer src="resources/frontend/js/phone/injectData.js"></script>
+    <script defer src="resources/frontend/js/phone/renderActivity.js"></script>
+    <script defer src="resources/middleman/phone/printJob.js"></script>
 
-<body>
-  <!-- Alert System -->
-  <div id="alert-container" class="noselect"></div>
-  <!-- PopUp -->
-  <popup id="popup" class="noselect hide"></popup>
-  <!-- Help -->
-  <help id="help" class="noselect hide"></help>
-  <!-- Loader -->
-  <div class="loader active"></div>
+    <body>
+        <!-- Alert System -->
+        <div id="alert-container" class="noselect"></div>
+        <!-- PopUp -->
+        <popup id="popup" class="noselect hide"></popup>
+        <!-- Help -->
+        <help id="help" class="noselect hide"></help>
+        <!-- Loader -->
+        <div class="loader active"></div>
 
-  <!-- Custom context menu -->
-  <div id="context-menu" class="context-menu">
-    <div class="non-selectable" id="contextName">Unknown Contact</div>
-    <hr>
-    <button id="copy-number">Copy Number to Clipboard</button>
-    <hr>
-    <input type="text" id="name" placeholder="Enter Contact name" autocomplete="off" spellcheck="false">
-    <button id="add-contact">Add to Contacts</button>
-    <button id="delete-contact" style="display: none;">Delete Contact</button>
-  </div>
-  <!-- Container -->
-  <container>
-    <div class="grid-wrapper">
-      <div class="header noselect">
-        <div class="left">
-          <div class="icon-container home" data-tooltip="Home">
-            <a href="index.html" class="icon"><span class="icon">home</span></a>
-          </div>
-          <div class="icon-container upload" data-tooltip="Upload subpoena">
-            <a href="javascript:void(0);" onclick="frontend.popupUpload.render();" class="icon"><span
-                class="icon">cloud</span></a>
-          </div>
-          <div class="icon-container pbimport" data-tooltip="Import phone contacts">
-            <a href="javascript:void(0);" onclick="frontend.popupPhonebookOverview.render();" class="icon"><span
-                class="icon">smartphone</span></a>
-          </div>
-          <div class="icon-container chart" data-tooltip="Activity Chart">
-            <a href="javascript:void(0);" onclick="frontend.popupActivity.render();" class="icon"><span
-                class="icon">bar_chart_4_bars</span></a>
-          </div>
+        <!-- Custom context menu -->
+        <div id="context-menu" class="context-menu">
+            <div class="non-selectable" id="contextName">Unknown Contact</div>
+            <hr>
+            <button id="copy-number">Copy Number to Clipboard</button>
+            <hr>
+            <input type="text" id="name" placeholder="Enter Contact name" autocomplete="off" spellcheck="false">
+            <button id="add-contact">Add to Contacts</button>
+            <button id="delete-contact" style="display: none;">Delete Contact</button>
         </div>
-        <div class="center">
-          <div class="search-container">
-            <span id="searchbar" contenteditable="true" autocorrect="off" autocomplete="off" spellcheck="false"
-              placeholder="Search... (global or with syntax)"></span>
-            <svg xmlns="http://www.w3.org/2000/svg" class="search-icon noselect" height="24px" viewBox="0 -960 960 960"
-              width="24px">
-              <path
-                d="M200-800v241-1 400-640 200-200Zm80 400h140q9-23 22-43t30-37H280v80Zm0 160h127q-5-20-6.5-40t.5-40H280v80ZM200-80q-33 0-56.5-23.5T120-160v-640q0-33 23.5-56.5T200-880h320l240 240v100q-19-8-39-12.5t-41-6.5v-41H480v-200H200v640h241q16 24 36 44.5T521-80H200Zm460-120q42 0 71-29t29-71q0-42-29-71t-71-29q-42 0-71 29t-29 71q0 42 29 71t71 29ZM864-40 756-148q-21 14-45.5 21t-50.5 7q-75 0-127.5-52.5T480-300q0-75 52.5-127.5T660-480q75 0 127.5 52.5T840-300q0 26-7 50.5T812-204L920-96l-56 56Z" />
-            </svg>
-            <div class="suggestions" id="suggestionsBox"></div>
-          </div>
-        </div>
-        <div class="right">
-          <div class="icon-container settings" data-tooltip="Time convertion settings">
-            <a href="javascript:void(0);" onclick="frontend.popupSettings.render();" class="icon"><span
-                class="icon">settings</span></a>
-          </div>
-          <div class="icon-container bug" data-tooltip="Report">
-            <a href="javascript:void(0);" onclick="frontend.popupBug.render();" class="icon"><span
-                class="icon">bug_report</span></a>
-          </div>
-          <div class="icon-container help" data-tooltip="Help">
-            <a href="javascript:void(0);" onclick="frontend.popupHelp.render();" class="icon"><span
-                class="icon">question_mark</span></a>
-          </div>
-        </div>
-      </div>
-      <div class="banner">
-        <div class="left noselect">
-          <h3>NP CONVERTER<br />&nbsp;</h3>
-        </div>
-        <div class="center noselect"></div>
-        <div class="right noselect"></div>
+        <!-- Container -->
+        <container>
+            <div class="grid-wrapper">
+                <div class="header noselect">
+                    <div class="left">
+                        <div class="icon-container home" data-tooltip="Home">
+                            <a href="index.html" class="icon"><span class="icon">home</span></a>
+                        </div>
+                        <div class="icon-container upload" data-tooltip="Upload subpoena">
+                            <a href="javascript:void(0);" onclick="frontend.popupUpload.render();" class="icon">
+                                <span class="icon">cloud</span>
+                            </a>
+                        </div>
+                        <div class="icon-container pbimport" data-tooltip="Import phone contacts">
+                            <a href="javascript:void(0);" onclick="frontend.popupPhonebookOverview.render();" class="icon">
+                                <span class="icon">smartphone</span>
+                            </a>
+                        </div>
+                        <div class="icon-container chart" data-tooltip="Activity Chart">
+                            <a href="javascript:void(0);" onclick="frontend.popupActivity.render();" class="icon">
+                                <span class="icon">bar_chart_4_bars</span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="center">
+                        <div class="search-container">
+                            <span id="searchbar" contenteditable="true" autocorrect="off" autocomplete="off" spellcheck="false"
+                                  placeholder="Search... (global or with syntax)"></span>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="search-icon noselect" height="24px" viewBox="0 -960 960 960"
+                                 width="24px">
+                                <path d="M200-800v241-1 400-640 200-200Zm80 400h140q9-23 22-43t30-37H280v80Zm0 160h127q-5-20-6.5-40t.5-40H280v80ZM200-80q-33 0-56.5-23.5T120-160v-640q0-33 23.5-56.5T200-880h320l240 240v100q-19-8-39-12.5t-41-6.5v-41H480v-200H200v640h241q16 24 36 44.5T521-80H200Zm460-120q42 0 71-29t29-71q0-42-29-71t-71-29q-42 0-71 29t-29 71q0 42 29 71t71 29ZM864-40 756-148q-21 14-45.5 21t-50.5 7q-75 0-127.5-52.5T480-300q0-75 52.5-127.5T660-480q75 0 127.5 52.5T840-300q0 26-7 50.5T812-204L920-96l-56 56Z" />
+                            </svg>
+                            <div class="suggestions" id="suggestionsBox"></div>
+                        </div>
+                        <!--
+                        <div class=""><input type="date" id="filterDateFrom" /></div>
+                        <div class=""><input type="date" id="filterDateTo" /></div>
+                        -->
+                    </div>
+                    <div class="right">
+                        <div class="icon-container settings" data-tooltip="Time convertion settings">
+                            <a href="javascript:void(0);" onclick="frontend.popupSettings.render();" class="icon">
+                                <span class="icon">settings</span>
+                            </a>
+                        </div>
+                        <div class="icon-container bug" data-tooltip="Report">
+                            <a href="javascript:void(0);" onclick="frontend.popupBug.render();" class="icon">
+                                <span class="icon">bug_report</span>
+                            </a>
+                        </div>
+                        <div class="icon-container help" data-tooltip="Help">
+                            <a href="javascript:void(0);" onclick="frontend.popupHelp.render();" class="icon">
+                                <span class="icon">question_mark</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="banner">
+                    <div class="left noselect">
+                        <h3>NP CONVERTER<br />&nbsp;</h3>
+                    </div>
+                    <div class="center noselect"></div>
+                    <div class="right noselect"></div>
 
-      </div>
-      <div class="menu">
-        <div class="header noselect">Communication List</div>
-        <div class="list noselect" id="communicationList">
-          <div class="pov"></div>
-        </div>
-      </div>
-      <div class="output printable">
-        <div class="header noselect">
-          <div class="left"></div>
-          <div class="right"></div>
-        </div>
-        <div class="messages">
-          <div class="commOutput" id="messagesBox"></div>
-        </div>
-      </div>
-    </div>
-  </container>
+                </div>
+                <div class="menu">
+                    <div class="header noselect">Communication List</div>
+                    <div class="list noselect" id="communicationList">
+                        <div class="pov"></div>
+                    </div>
+                </div>
+                <div class="output printable">
+                    <div class="header noselect">
+                        <div class="left"></div>
+                        <div class="right"></div>
+                    </div>
+                    <div class="messages">
+                        <div class="commOutput" id="messagesBox"></div>
+                    </div>
+                </div>
+            </div>
+        </container>
 
-  <!-- Footer -->
-  <footer class="noselect">
-    Project located on <a target="_blank" href="https://github.com/SushiInGit/np_csv_converter/">GitHub</a> -
-    by <a target="_blank" href="https://github.com/RYJarnovk">RY Jarnovk</a> & <a target="_blank"
-      href="https://github.com/SushiInGit">SushiInPeace</a>
-    - Join us on <a target="_blank" href="https://discord.gg/e3t8EHKGp3">Discord</a>.
-  </footer>
+        <!-- Footer -->
+        <footer class="noselect">
+            Project located on <a target="_blank" href="https://github.com/SushiInGit/np_csv_converter/">GitHub</a> -
+            by <a target="_blank" href="https://github.com/RYJarnovk">RY Jarnovk</a> & <a target="_blank"
+                                                                                          href="https://github.com/SushiInGit">SushiInPeace</a>
+            - Join us on <a target="_blank" href="https://discord.gg/e3t8EHKGp3">Discord</a>.
+        </footer>
 
-  <script defer src="resources/frontend/js/phone/customMenu.js"></script>
+        <script defer src="resources/frontend/js/phone/customMenu.js"></script>
 
-</body>
+    </body>
 </head>
 
 </html>

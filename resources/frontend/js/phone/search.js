@@ -4,9 +4,9 @@ const messagesBox = document.getElementById('messagesBox');
 let suggestionSelected = false;
 
 const searchSyntax = [
-    { syntax: "Default", description: "Filter on contact name, phonenumber or any mention in text messages." },
+    { syntax: "Default:", description: "Filter on contact name, phonenumber or any mention in text messages." }, 
     { syntax: "message:", description: "Filter for any mention of the input inside a message" },
-    { syntax: "to:", description: "Filter conversations by a specific number in the communication list." },
+    { syntax: "number:", description: "Filter conversations by a specific number in the communication list." },
     { syntax: "name:", description: "Filter conversations by a specific name, excluding <b>'Unknown Contacts'</b>." },
     { syntax: "unknown:", description: "Filter conversations by <b>'Unknown Contacts'</b>." },
     { syntax: "has_phone:", description: "Display conversations containing messages with shared phone numbers." },
@@ -78,7 +78,10 @@ function showSuggestions(inputText = '') {
             suggestionDiv.innerHTML = `<span class="syntax">${syntaxItem.syntax}</span> <span class="hint">${syntaxItem.description}</span>`;
             
             suggestionDiv.addEventListener('click', () => {
-                selectSuggestion(syntaxItem.syntax);  
+                if(syntaxItem.syntax !== "Default:") { // Disbale Default clickable in searchbar so its just an Info
+                    selectSuggestion(syntaxItem.syntax);
+                }
+                  
             });
 
             suggestionsBox.appendChild(suggestionDiv);
@@ -140,7 +143,7 @@ function filterMessages(inputText) {
     matches.some(match => {
         const key = match[1].toLowerCase();
         const value = match[2].toLowerCase();
-        if (key === "to") {
+        if (key === "number") {
             frontend.renderList(middleman.filterBy.Number(value));
         } else if (key === "has_phone") {
             frontend.renderList(middleman.filterBy.hasPhone(value));
@@ -162,4 +165,28 @@ function filterMessages(inputText) {
             frontend.renderList(middleman.filterBy.Unknown(value));
         } 
     });
+}
+
+if (!!document.querySelector("#filterDateFrom")) {
+    // Reset views on date change
+    document.querySelector("#filterDateFrom").addEventListener("change", () => { resetViews() });
+    document.querySelector("#filterDateTo").addEventListener("change", () => { resetViews() });
+}
+
+function resetViews() {
+    frontend.renderList(middleman.requestData.allMetadata());
+    frontend.renderChat();
+
+    const bannerRight = document.querySelector(".banner .right.noselect");
+    const data = middleman.requestData.all();
+    let dialoguePartners = Object.keys(middleman.requestData.allMetadata()).length + 0;
+
+    if (bannerRight) {
+        bannerRight.innerHTML = `
+            Total Data: ${middleman.phoneData.infoCountOverall(data)}<br>
+            Total Calls: ${middleman.phoneData.infoCountIscall(data)}<br> 
+            Total Messages: ${middleman.phoneData.infoCountMessage(data)}<br>
+            Dialogue Partners: ${dialoguePartners} 
+        `;
+    }
 }
