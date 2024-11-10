@@ -7,7 +7,12 @@ middleman.phoneData = (function () {
     };
 
     function loadData(dataType, number) {
+
+        if (!document.querySelector("#filterDateFrom")) {
         const strategy = strategies[dataType] || strategies.default;
+            return strategy(number);
+        }
+        else {
 
         var data = strategy(number);
 
@@ -54,6 +59,7 @@ middleman.phoneData = (function () {
         ////
 
         return data;
+    }
     }
 
     function formatData(data) {
