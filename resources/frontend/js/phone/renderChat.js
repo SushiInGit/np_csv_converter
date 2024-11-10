@@ -67,11 +67,14 @@ frontend.renderChat = function (data) {
     });
 
     commLogs.forEach(Log => {  // Date-Maker
-        const currentDate = processTimestamp(Log.Timestamp).dateShowOffset;
+        const currentDate = processTimestamp(Log.Timestamp).dateShowOffset; //.dateShowOffset
+
         if (lastDate !== currentDate) {
             const dateMarker = document.createElement('div');
             dateMarker.classList.add('date-marker');
-            dateMarker.classList.add(processTimestamp(Log.Timestamp).dateShowOffset);
+            classcurrentDate = currentDate.replaceAll("-","").replaceAll("/","".replaceAll(".",""))
+            dateMarker.classList.add("date_"+classcurrentDate);
+            //dateMarker.classList.add(processTimestamp(Log.Timestamp).dateShowOffset);
             dateMarker.style.gridArea = `${gridLine} / 3 / ${gridRow} / 4`;
             gridLine++;
             gridRow++;
@@ -189,7 +192,8 @@ frontend.renderChat = function (data) {
             embed.appendChild(embedElement);
             const timestampDiv = document.createElement('div');
             fixedDate = processTimestamp(Log.Timestamp);
-            timestampDiv.classList.add('timestamp');
+            timestampDiv.classList.add('timestamp'); 
+            timestampDiv.classList.add(fixedDate.date) // <-- date
             if (Log.TimestampCorrupt === false) { timestampDiv.textContent = `${fixedDate.timeShowOffset} ${fixedDate.timeZone}`; }
             if (Log.TimestampCorrupt === true) { timestampDiv.innerHTML = `<glitch >Corrupted Timestemp</glitch>`; }
             const numberDiv = document.createElement('div');

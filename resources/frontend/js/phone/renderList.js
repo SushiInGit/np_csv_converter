@@ -36,8 +36,11 @@ frontend.renderList = function (phoneGrouped) {
                         ...data,
                         communications: filteredCommunications
                     };
-
+                    const allDivs = document.querySelectorAll('.pov .user');
+                    allDivs.forEach(div => div.classList.remove('active'));
+                    this.classList.add('active');
                     frontend.renderChat(result);
+                    middleman.helper.jumpTopLog();
                 } else {
                     return;
                 }
@@ -52,7 +55,11 @@ frontend.renderList = function (phoneGrouped) {
                         communications: filteredCommunications
                     };
 
+                    const allDivs = document.querySelectorAll('.pov .user');
+                    allDivs.forEach(div => div.classList.remove('active'));
+                    this.classList.add('active');
                     frontend.renderChat(result);
+                    middleman.helper.jumpTopLog();
                 } else {
                     return;
                 }
@@ -67,26 +74,15 @@ frontend.renderList = function (phoneGrouped) {
                         communications: filteredCommunications
                     };
 
+                    const allDivs = document.querySelectorAll('.pov .user');
+                    allDivs.forEach(div => div.classList.remove('active'));
+                    this.classList.add('active');
                     frontend.renderChat(result);
+                    middleman.helper.jumpTopLog();
                 } else {
                     return;
                 }
-                
-             } else if (searchbarText.innerHTML.startsWith('<span class="syntax">has_number_strict: </span> ')) {
-                if (Array.isArray(data.communications)) {
-                    const numberIndices = new Set(data.numbers.map(number => number.index));
-                    const filteredCommunications = data.communications.filter(comm => numberIndices.has(comm.Index));
-
-                    const result = {
-                        ...data,
-                        communications: filteredCommunications
-                    };
-
-                    frontend.renderChat(result);
-                } else {
-                    return;
-                }
-                                       
+                                 
             } else {
                 const allDivs = document.querySelectorAll('.pov .user');
                 allDivs.forEach(div => div.classList.remove('active'));

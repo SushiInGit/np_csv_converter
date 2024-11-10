@@ -268,7 +268,7 @@ middleman.filterBy = function () {
         Default: (filter) => { groupData = middleman.metadata.addObject(middleman.requestData.allMetadata()); return defaultSearch(filter) },
 
         // Search V2 below
-        Messagev2: (filter) => { groupData = middleman.metadata.addObject(middleman.requestData.allMetadata()); return findCommunicationsByText(filter) },
+        Messagev2: (filter) => { groupData = middleman.metadata.addObject(middleman.requestData.allMetadata()); return findCommunicationsByText(groupData,filter) },
         Number: (filter) => { groupData = middleman.metadata.addObject(middleman.requestData.allMetadata()); return find_number(groupData, filter) },
         Name: (filter) => { groupData = middleman.metadata.addObject(middleman.requestData.allMetadata()); return find_name(groupData, filter) },
         Unknown: (filter) => { groupData = middleman.metadata.addObject(middleman.requestData.allMetadata()); return find_unknown(groupData, filter) },
