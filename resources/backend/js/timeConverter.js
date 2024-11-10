@@ -49,7 +49,8 @@ function processTimestamp(timestamp) {
             'DD/MM/YYYY',
             'DD.MM.YYYY',
             'YYYY-MM-DD',
-            'MMMM DD, YYYY'
+            'MMMM DD, YYYY',
+            'DD MMMM YYYY'
         ],
         timeZones: {
             utc: 'Etc/UTC',
@@ -93,7 +94,8 @@ function processTimestamp(timestamp) {
             case 'DD/MM/YYYY': return `${day}/${month}/${year}`;
             case 'DD.MM.YYYY': return `${day}.${month}.${year}`;
             case 'YYYY-MM-DD': return `${year}-${month}-${day}`;
-            case 'MMMM DD, YYYY': return `${monthLong} ${day}, ${year}`;            
+            case 'MMMM DD, YYYY': return `${monthLong} ${day}, ${year}`;     
+            case 'DD MMMM YYYY': return `${day} ${monthLong}  ${year}`;        
             default: return `${year}-${month}-${day}`;
         }
     };

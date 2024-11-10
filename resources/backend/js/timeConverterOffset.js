@@ -27,11 +27,3 @@ backend.timeConverterOffset = function () {
         offsetTime: offsetTime
     };
 }();
-/*
-const originalUTC = '2024-11-10T00:01:00Z';
-const modifiedAdd = backend.timeConverterOffset.offsetTime(originalUTC); // Add 1 hour
-
-
-console.log('Original UTC:', originalUTC);
-console.log('Offeset:', modifiedAdd);
-*/
