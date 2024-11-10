@@ -25,6 +25,12 @@ middleman.phoneData = (function () {
         document.querySelector("#filterDateTo").min = earliest.toISOString().split("T")[0];
         document.querySelector("#filterDateTo").max = latest.toISOString().split("T")[0];
 
+        if (!document.querySelector("#filterDateFrom").value) {
+            document.querySelector("#filterDateFrom").value = earliest.toISOString().split("T")[0];
+        }
+        if (!document.querySelector("#filterDateTo").value) {
+            document.querySelector("#filterDateTo").value = latest.toISOString().split("T")[0];
+        }
 
         // Filter data on date range
         var dateRangeFrom = document.querySelector("#filterDateFrom").value
