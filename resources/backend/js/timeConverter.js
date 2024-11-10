@@ -95,7 +95,7 @@ function processTimestamp(timestamp) {
             case 'DD.MM.YYYY': return `${day}.${month}.${year}`;
             case 'YYYY-MM-DD': return `${year}-${month}-${day}`;
             case 'MMMM DD, YYYY': return `${monthLong} ${day}, ${year}`;     
-            case 'DD MMMM YYYY': return `${day} ${monthLong}  ${year}`;        
+            case 'DD MMMM YYYY': return `${day} ${monthLong} ${year}`;        
             default: return `${year}-${month}-${day}`;
         }
     };

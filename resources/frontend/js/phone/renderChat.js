@@ -34,6 +34,14 @@ frontend.renderChat = function (data) {
         return `Call duration: ${minutes ? minutes : `0`} min ${seconds ? seconds : `0`} sec`;
     }
 
+    function dateAddClass(date) {
+        return "date__"+(date)
+        .replaceAll(" ","_")
+        .replaceAll(".","_")
+        .replaceAll("-","_")
+        .replaceAll("/","_");
+    }
+
     let isCallTrueCount = 0;
     let isCallFalseCount = 0;
 
@@ -72,6 +80,7 @@ frontend.renderChat = function (data) {
         if (lastDate !== currentDate) {
             const dateMarker = document.createElement('div');
             dateMarker.classList.add('date-marker');
+            dateMarker.classList.add(dateAddClass(currentDate)) // <-- date
             dateMarker.style.gridArea = `${gridLine} / 3 / ${gridRow} / 4`;
             gridLine++;
             gridRow++;
@@ -107,6 +116,7 @@ frontend.renderChat = function (data) {
                 callDurationContainer.classList.add('call-status');
                 callTimeContainer.textContent = `${fixedDate.time} ${fixedDate.timeZone}`;
                 callTimeContainer.classList.add('time');
+                callText.classList.add(dateAddClass(fixedDate.date)) // <-- date
 
                 if (parseInt(middleman.simOwner.number()) === parseInt(Log.To)) {
                     callBetween.textContent = `Incoming call`;
@@ -190,7 +200,7 @@ frontend.renderChat = function (data) {
             const timestampDiv = document.createElement('div');
             fixedDate = processTimestamp(backend.timeConverterOffset.offsetTime(Log.Timestamp));
             timestampDiv.classList.add('timestamp'); 
-            timestampDiv.classList.add(fixedDate.date) // <-- date
+            messageDiv.classList.add(dateAddClass(fixedDate.date)) // <-- date
             if (Log.TimestampCorrupt === false) { timestampDiv.textContent = `${fixedDate.time} ${fixedDate.timeZone}`; }
             if (Log.TimestampCorrupt === true) { timestampDiv.innerHTML = `<glitch >Corrupted Timestemp</glitch>`; }
             const numberDiv = document.createElement('div');
