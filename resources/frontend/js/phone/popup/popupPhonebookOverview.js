@@ -209,9 +209,7 @@ frontend.popupPhonebookOverview = (function () {
         const numberTerm = searchTerm.replace(/\D/g, '');
         const contacts = JSON.parse(localStorage.getItem("phonenumbers")) || [];
         
-        const sortedContacts = sortContacts(contacts);
-
-        const filteredContacts = sortedContacts
+        const filteredContacts = contacts
         .map((contact, index) => ({ ...contact, Index: index })) 
         .filter(contact => {
             const isDigitsOnly = /^[\d ()-]*$/.test(searchTerm);
@@ -220,11 +218,13 @@ frontend.popupPhonebookOverview = (function () {
                 (isDigitsOnly && contact.number.toString().includes(numberTerm))
             );
         });
-        
+
+        const sortedContacts = sortContacts(filteredContacts);
+
         const contactsList = document.getElementById("contacts-list");
         contactsList.innerHTML = "";
 
-        filteredContacts.forEach((contact, index) => {
+        sortedContacts.forEach((contact, index) => {
             const contactDiv = document.createElement("div");
             contactDiv.classList.add("contact");
             contactDiv.innerHTML = `
@@ -246,9 +246,10 @@ frontend.popupPhonebookOverview = (function () {
 
     function deleteContact(index) {
         const contacts = JSON.parse(localStorage.getItem("phonenumbers")) || [];
-        const sortedContacts = sortContacts(contacts);
+        //const sortedContacts = sortContacts(contacts);
         contactToDelete = index;
-        const contact = sortedContacts[index];
+        //const contact = sortedContacts[index];
+        const contact = contacts[index];
         document.getElementById("confirm-message").innerText = `Are you sure you want to delete:\n\n${contact.name || "Unknown Contact"} \n${phoneOutput(contact.number)}`;
         document.getElementById("confirm-dialog").style.display = "flex";
     }
@@ -256,7 +257,7 @@ frontend.popupPhonebookOverview = (function () {
     function confirmDelete(confirm) {
         if (confirm && contactToDelete !== null) {
             let contacts = JSON.parse(localStorage.getItem("phonenumbers")) || [];
-            contacts = sortContacts(contacts);
+            //contacts = sortContacts(contacts);
             contacts.splice(contactToDelete, 1);
             localStorage.setItem("phonenumbers", JSON.stringify(contacts));
             displayContacts();
