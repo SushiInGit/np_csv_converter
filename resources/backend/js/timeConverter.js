@@ -122,6 +122,7 @@ function processTimestamp(timestamp) {
     };
 
     const getTimeOffset = (date, tz) => {
+        console.log("-->", date, tz);
         let useOffset = "";
         const npSettings = localStorage.getItem('np_settings');
         if (npSettings) {
@@ -212,4 +213,8 @@ function processTimestamp(timestamp) {
                      : `${formatTime(localDate, use24HourFormat)} ${formatDate(localDate, selectedDateFormat)}`
     };
 }
-
+//let dateNowTemp = new Date();
+let dateNowTemp = new Date("2024-11-10T07:04:10.450Z");
+console.log("UTC" ,(dateNowTemp.toLocaleString("en-US", { timeZone: "Etc/UTC", year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit", second: "2-digit", hour12: false }).replace(",", "").replace(/\//g, "-")));
+console.log("PT" ,(dateNowTemp.toLocaleString("en-US", { timeZone: "America/Los_Angeles", year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit", second: "2-digit", hour12: false }).replace(",", "").replace(/\//g, "-")));
+console.log("Timeconverter", processTimestamp(dateNowTemp))
