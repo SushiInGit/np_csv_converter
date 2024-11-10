@@ -118,7 +118,7 @@ frontend.renderTable = function (data) {
                         var date = new Date(item); // Convert to Date object
                         //td.textContent = `${processTimestamp(date).displayOrder}`
                         //console.log(processTimestamp(date));
-                        td.textContent = `${processTimestamp(date).dateShowOffset} ${processTimestamp(date).timeShowOffset } `
+                        td.textContent = `${processTimestamp(backend.timeConverterOffset.offsetTime(date)).date} ${processTimestamp(backend.timeConverterOffset.offsetTime(date)).time } `
                     } else {
                         td.textContent = item;
                     }

@@ -121,60 +121,7 @@ function processTimestamp(timestamp) {
         return currentOffset < winterOffset;
     };
 
-    const getTimeOffset = (date, tz) => {
-        console.log("-->", date, tz);
-        let useOffset = "";
-        const npSettings = localStorage.getItem('np_settings');
-        if (npSettings) {
-            const settings = JSON.parse(npSettings);
-            useOffset = (settings.isDaylightSavingTime); 
-        } else {
-            useOffset = "auto";
-        }
-        
-        const formatter = new Intl.DateTimeFormat('en-US', {
-            timeZone: tz,
-            hour: 'numeric',
-            minute: 'numeric',
-            second: 'numeric',
-            hour12: false
-        });
-    
-        const parts = formatter.formatToParts(date);
-        const tzDate = new Date(
-            date.getFullYear(),
-            date.getMonth(),
-            date.getDate(),
-            parseInt(parts.find(part => part.type === 'hour').value),
-            parseInt(parts.find(part => part.type === 'minute').value),
-            parseInt(parts.find(part => part.type === 'second').value)
-        );
-    
-        let diffInMinutes = (tzDate - date) / 60000;
-    
-        if (useOffset === 'true') {
-            diffInMinutes += 60;  
-        } else if (useOffset === 'false') {
-            diffInMinutes -= 60;   
-        } else if (useOffset === 'auto') {
-            diffInMinutes += 0;
-        }
-        const adjustedTime = date.getTime() + (diffInMinutes * 60000);
-
-        const adjustedDate = new Date(adjustedTime);
-
-        const offsetHours = Math.floor(Math.abs(diffInMinutes) / 60);
-        const minutes = Math.abs(diffInMinutes % 60);
-        const sign = diffInMinutes >= 0 ? '+' : '-';
-
-        return {
-            hours: `${sign}${String(offsetHours).padStart(2, '0')}`,
-            minutes: `${String(minutes).padStart(2, '0')}`,
-            totalMinutes: diffInMinutes,
-            adjustedDate: adjustedDate
-        };
-    };
-    
+ 
 
     if (!checkValidISO(timestamp)) {
         return 'Invalid ISO timestamp';
@@ -188,24 +135,14 @@ function processTimestamp(timestamp) {
     const selectedDateFormat = preferences.dateFormat;
     const use24HourFormat = preferences.timeFormat === '24Hour';
     const isInDST = isDST(date, selectedTimeZone);
-    const { hours, minutes, totalMinutes, adjustedDate} = getTimeOffset(date, selectedTimeZone);
-    const offsetDate = adjustedDate;
-    const showOffset = preferences.offsetShow === 'on';
 
-
-    const finalDate = showOffset ? formatDate(offsetDate, selectedDateFormat) : formatDate(date, selectedDateFormat);
-    const finalTime = showOffset ? formatTime(offsetDate, use24HourFormat) : formatTime(date, use24HourFormat);
 
     return {
         timeZone: preferences.timeZone.toUpperCase(),
         date: formatDate(localDate, selectedDateFormat),
         time: formatTime(localDate, use24HourFormat),
-        _dateInput: formatDate(date, selectedDateFormat),
-        _timeInput: formatTime(date, use24HourFormat),
-        offsettimeZoneHours: hours,
-        offsetTimeZoneMinutes: minutes,
-        dateShowOffset: finalDate,
-        timeShowOffset: finalTime,
+        //_dateInput: formatDate(date, selectedDateFormat),
+        //_timeInput: formatTime(date, use24HourFormat),
         isDaylightSavingTime: isInDST,
         isOffsetShow: preferences.offsetShow === 'on',
         displayOrder: preferences.displayOrder === 'dateAndTime'
@@ -214,7 +151,9 @@ function processTimestamp(timestamp) {
     };
 }
 //let dateNowTemp = new Date();
+/*
 let dateNowTemp = new Date("2024-11-10T07:04:10.450Z");
 console.log("UTC" ,(dateNowTemp.toLocaleString("en-US", { timeZone: "Etc/UTC", year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit", second: "2-digit", hour12: false }).replace(",", "").replace(/\//g, "-")));
 console.log("PT" ,(dateNowTemp.toLocaleString("en-US", { timeZone: "America/Los_Angeles", year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit", second: "2-digit", hour12: false }).replace(",", "").replace(/\//g, "-")));
 console.log("Timeconverter", processTimestamp(dateNowTemp))
+*/

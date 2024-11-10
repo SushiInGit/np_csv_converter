@@ -67,14 +67,11 @@ frontend.renderChat = function (data) {
     });
 
     commLogs.forEach(Log => {  // Date-Maker
-        const currentDate = processTimestamp(Log.Timestamp).dateShowOffset; //.dateShowOffset
+        const currentDate = processTimestamp(backend.timeConverterOffset.offsetTime(Log.Timestamp)).date; //.dateShowOffset
 
         if (lastDate !== currentDate) {
             const dateMarker = document.createElement('div');
             dateMarker.classList.add('date-marker');
-            classcurrentDate = currentDate.replaceAll("-","").replaceAll("/","".replaceAll(".",""))
-            dateMarker.classList.add("date_"+classcurrentDate);
-            //dateMarker.classList.add(processTimestamp(Log.Timestamp).dateShowOffset);
             dateMarker.style.gridArea = `${gridLine} / 3 / ${gridRow} / 4`;
             gridLine++;
             gridRow++;
@@ -98,7 +95,7 @@ frontend.renderChat = function (data) {
             gridLine++;
             gridRow++;
             const callDuration = calculateCallDuration(Date.parse(Log.CallStart), Date.parse(Log.CallEnd));
-            const fixedDate = processTimestamp(Date.parse(Log.Timestamp));
+            const fixedDate = processTimestamp(backend.timeConverterOffset.offsetTime(Log.Timestamp));
 
             if (Log.CallStart != null) {
                 //callDurationContainer.textContent = `Call duration: ${callDuration}`;
@@ -108,7 +105,7 @@ frontend.renderChat = function (data) {
 
                 callDurationContainer.textContent = `${callDuration}`;
                 callDurationContainer.classList.add('call-status');
-                callTimeContainer.textContent = `${fixedDate.timeShowOffset} ${fixedDate.timeZone}`;
+                callTimeContainer.textContent = `${fixedDate.time} ${fixedDate.timeZone}`;
                 callTimeContainer.classList.add('time');
 
                 if (parseInt(middleman.simOwner.number()) === parseInt(Log.To)) {
@@ -139,7 +136,7 @@ frontend.renderChat = function (data) {
             if (Log.CallStart === null) {
                 callDurationContainer.textContent = `Call could not be established!`;
                 callDurationContainer.classList.add('call-status');
-                callTimeContainer.textContent = `${fixedDate.timeShowOffset} ${fixedDate.timeZone}`;
+                callTimeContainer.textContent = `${fixedDate.time} ${fixedDate.timeZone}`;
                 callTimeContainer.classList.add('time');
                 if (parseInt(middleman.simOwner.number()) === parseInt(Log.From)) {
                     callText.textContent = `Incoming call`;
@@ -191,10 +188,10 @@ frontend.renderChat = function (data) {
             const embedElement = middleman.embedPic((middleman.addhtmlTags.conversationFilter(Log.Message))); /////// Test embed
             embed.appendChild(embedElement);
             const timestampDiv = document.createElement('div');
-            fixedDate = processTimestamp(Log.Timestamp);
+            fixedDate = processTimestamp(backend.timeConverterOffset.offsetTime(Log.Timestamp));
             timestampDiv.classList.add('timestamp'); 
             timestampDiv.classList.add(fixedDate.date) // <-- date
-            if (Log.TimestampCorrupt === false) { timestampDiv.textContent = `${fixedDate.timeShowOffset} ${fixedDate.timeZone}`; }
+            if (Log.TimestampCorrupt === false) { timestampDiv.textContent = `${fixedDate.time} ${fixedDate.timeZone}`; }
             if (Log.TimestampCorrupt === true) { timestampDiv.innerHTML = `<glitch >Corrupted Timestemp</glitch>`; }
             const numberDiv = document.createElement('div');
             numberDiv.classList.add('number');
