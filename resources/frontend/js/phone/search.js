@@ -167,11 +167,6 @@ function filterMessages(inputText) {
     });
 }
 
-if (!!document.querySelector("#filterDateFrom")) {
-    // Reset views on date change
-    document.querySelector("#filterDateFrom").addEventListener("change", () => { resetViews() });
-    document.querySelector("#filterDateTo").addEventListener("change", () => { resetViews() });
-}
 
 function resetViews() {
     frontend.renderList(middleman.requestData.allMetadata());

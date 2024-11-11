@@ -7,59 +7,8 @@ middleman.phoneData = (function () {
     };
 
     function loadData(dataType, number) {
-
-        if (!document.querySelector("#filterDateFrom")) {
         const strategy = strategies[dataType] || strategies.default;
-            return strategy(number);
-        }
-        else {
-
-        var data = strategy(number);
-
-        const allLogs = [...data.calls, ...data.texts];
-
-        const { earliest, latest } = allLogs.reduce((result, log) => {
-            const date = new Date(log.initiated_at || log.timestamp);
-            if (date < result.earliest) result.earliest = date;
-            if (date > result.latest) result.latest = date;
-            return result;
-        }, { earliest: new Date(allLogs[0].initiated_at || allLogs[0].timestamp), latest: new Date(allLogs[0].initiated_at || allLogs[0].timestamp) });
-
-        document.querySelector("#filterDateFrom").min = earliest.toISOString().split("T")[0];
-        document.querySelector("#filterDateFrom").max = latest.toISOString().split("T")[0];
-        document.querySelector("#filterDateTo").min = earliest.toISOString().split("T")[0];
-        document.querySelector("#filterDateTo").max = latest.toISOString().split("T")[0];
-
-        if (!document.querySelector("#filterDateFrom").value) {
-            document.querySelector("#filterDateFrom").value = earliest.toISOString().split("T")[0];
-        }
-        if (!document.querySelector("#filterDateTo").value) {
-            document.querySelector("#filterDateTo").value = latest.toISOString().split("T")[0];
-        }
-
-        // Filter data on date range
-        var dateRangeFrom = document.querySelector("#filterDateFrom").value
-            ? new Date(document.querySelector("#filterDateFrom").value)
-            : new Date(0);
-
-        var dateRangeTo = document.querySelector("#filterDateTo").value
-            ? new Date(document.querySelector("#filterDateTo").value)
-            : new Date();
-        dateRangeTo.setHours(23, 59, 59, 999);
-
-        data.calls = data.calls.filter(call => {
-            var timestamp = new Date(call.initiated_at);
-            return timestamp >= dateRangeFrom && timestamp <= dateRangeTo;
-        });
-
-        data.texts = data.texts.filter(text => {
-            var timestamp = new Date(text.timestamp);
-            return timestamp >= dateRangeFrom && timestamp <= dateRangeTo;
-        })
-        ////
-
-        return data;
-    }
+        return strategy(number);
     }
 
     function formatData(data) {
