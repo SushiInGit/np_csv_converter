@@ -3,16 +3,17 @@ var frontend = frontend ?? {};
 frontend.popupPhonebookOverview = (function () {
     let reloadTrigger = false;
     let contactToEdit = null;
+    let contactToDelete = null;
 
-    function reloadCheck(){
-        if(reloadTrigger) {
+    function reloadCheck() {
+        if (reloadTrigger) {
             frontend.popupPhonebookOverview.reload();
         }
     }
 
-    document.addEventListener("keydown", function (event) { 
+    document.addEventListener("keydown", function (event) {
         if (event.key === "Escape") {
-            if(reloadTrigger) {
+            if (reloadTrigger) {
                 frontend.popupPhonebookOverview.reload();
             }
         }
@@ -34,10 +35,10 @@ frontend.popupPhonebookOverview = (function () {
         return contacts.sort((a, b) => {
             const nameA = a.name.toLowerCase();
             const nameB = b.name.toLowerCase();
-            
+
             if (nameA < nameB) return -1;
-            if (nameA > nameB) return 1;  
-            return 0; 
+            if (nameA > nameB) return 1;
+            return 0;
         });
     }
 
@@ -50,7 +51,7 @@ frontend.popupPhonebookOverview = (function () {
             displayContacts();
         }
     }
-    
+
     function exportRemoveDupeandSort(data) {
         return data
             .filter((contact, index, self) =>
@@ -59,26 +60,26 @@ frontend.popupPhonebookOverview = (function () {
             .sort((a, b) => {
                 const nameA = a.name.toLowerCase();
                 const nameB = b.name.toLowerCase();
-                
+
                 if (nameA < nameB) return -1;
-                if (nameA > nameB) return 1;  
-                return 0; 
+                if (nameA > nameB) return 1;
+                return 0;
             });
     }
 
     function phoneOutput(number) {
         return String(number).replace(/^(\d{3})(\d{3})(\d{4})$/, "($1) $2 $3");
     }
-    
+
     function createPopup(popupDivName = 'phonebook', title = 'Phone Contacts', content = '') {
         const popupDiv = document.getElementById("popup");
         const loader = document.querySelector('.loader');
 
         middleman.popupHelp.closeHelp();
-        middleman.popupModel.closePopupDiv(); 
+        middleman.popupModel.closePopupDiv();
 
         showPopup(popupDivName);
-        loader.classList.add("active"); 
+        loader.classList.add("active");
         popupDiv.classList.add(popupDivName);
         const popupDivBody = document.createElement(popupDivName);
         popupDivBody.innerHTML = `
@@ -174,47 +175,45 @@ frontend.popupPhonebookOverview = (function () {
 
     function displayContacts() {
         const contactsList = document.getElementById("contacts-list");
-        const contacts =  (backend.dataController.getPhonenumbers() || []).filter(contact => contact.name);
+        const contacts = middleman.findNames.phoneArray.filter(contact => contact.name);
 
-        const filteredContacts = contacts.map((contact, index) => ({ ...contact, Index: index }));
-        const sortedContacts = sortContacts(filteredContacts);
-        
+        const sortedContacts = sortContacts(contacts);
+
         contactsList.innerHTML = "";
 
         const fragment = document.createDocumentFragment();
-         
-        sortedContacts.forEach((contact, index) => {
+
+        sortedContacts.forEach((contact) => {
             const contactDiv = document.createElement("div");
             contactDiv.classList.add("contact");
             contactDiv.innerHTML = `
-            <div class="userContact">
-            <div class="contact">
-                <div class="contact-name">${contact.name || "Unknown Contact"}</div>
-                <div class="contact-number">${phoneOutput(contact.number)}</div>
-            </div>
-            <div class="buttonbox">
-                <button class="edit" onclick="frontend.popupPhonebookOverview.edit(${contact.Index})"><span class="material-icons">edit</span></button>
-                <button class="del" onclick="frontend.popupPhonebookOverview.del(${contact.Index})"><span class="material-icons">delete</span></button>
-            </div>
-            <hr class="phonebook">
-            </div>
-        `;
+                <div class="userContact">
+                <div class="contact">
+                    <div class="contact-name">${contact.name || "Unknown Contact"}</div>
+                    <div class="contact-number">${phoneOutput(contact.number)}</div>
+                </div>
+                <div class="buttonbox">
+                    <button class="edit" onclick="frontend.popupPhonebookOverview.edit(${contact.index})"><span class="material-icons">edit</span></button>
+                    <button class="del" onclick="frontend.popupPhonebookOverview.del(${contact.index})"><span class="material-icons">delete</span></button>
+                </div>
+                <hr class="phonebook">
+                </div>
+            `;
             fragment.appendChild(contactDiv);
         });
+
         contactsList.appendChild(fragment);
     }
+
 
     function filterContacts() {
         const searchTerm = document.getElementById("search-bar").value.toLowerCase();
         const numberTerm = searchTerm.replace(/\D/g, '');
-        const contacts = JSON.parse(localStorage.getItem("phonenumbers")) || [];
-        
-        const filteredContacts = contacts
-        .map((contact, index) => ({ ...contact, Index: index })) 
-        .filter(contact => {
-            const isDigitsOnly = /^[\d ()-]*$/.test(searchTerm);
+        const isDigitsOnly = /^[\d ()-]*$/.test(searchTerm);
+
+        const filteredContacts = middleman.findNames.phoneArray.filter(contact => {
             return (
-                contact.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                contact.name.toLowerCase().includes(searchTerm) ||
                 (isDigitsOnly && contact.number.toString().includes(numberTerm))
             );
         });
@@ -224,6 +223,8 @@ frontend.popupPhonebookOverview = (function () {
         const contactsList = document.getElementById("contacts-list");
         contactsList.innerHTML = "";
 
+        const fragment = document.createDocumentFragment();
+
         sortedContacts.forEach((contact, index) => {
             const contactDiv = document.createElement("div");
             contactDiv.classList.add("contact");
@@ -234,46 +235,47 @@ frontend.popupPhonebookOverview = (function () {
                 <div class="contact-number">${phoneOutput(contact.number)}</div>
             </div>
             <div class="buttonbox">
-                <button class="edit" onclick="frontend.popupPhonebookOverview.edit(${contact.Index})"><span class="material-icons">edit</span></button>
-                <button class="del" onclick="frontend.popupPhonebookOverview.del(${contact.Index})"><span class="material-icons">delete</span></button>
+                <button class="edit" onclick="frontend.popupPhonebookOverview.edit(${contact.index})"><span class="material-icons">edit</span></button>
+                <button class="del" onclick="frontend.popupPhonebookOverview.del(${contact.index})"><span class="material-icons">delete</span></button>
             </div>
             <hr class="phonebook">
             </div>
             `;
-            contactsList.appendChild(contactDiv);
+            fragment.appendChild(contactDiv);
         });
+
+        contactsList.appendChild(fragment);
     }
 
     function deleteContact(index) {
-        const contacts = JSON.parse(localStorage.getItem("phonenumbers")) || [];
-        //const sortedContacts = sortContacts(contacts);
-        contactToDelete = index;
-        //const contact = sortedContacts[index];
-        const contact = contacts[index];
+        const contact = middleman.findNames.phoneArray[index];
         document.getElementById("confirm-message").innerText = `Are you sure you want to delete:\n\n${contact.name || "Unknown Contact"} \n${phoneOutput(contact.number)}`;
         document.getElementById("confirm-dialog").style.display = "flex";
+        contactToDelete = index;
     }
 
     function confirmDelete(confirm) {
         if (confirm && contactToDelete !== null) {
-            let contacts = JSON.parse(localStorage.getItem("phonenumbers")) || [];
-            //contacts = sortContacts(contacts);
-            contacts.splice(contactToDelete, 1);
-            localStorage.setItem("phonenumbers", JSON.stringify(contacts));
-            displayContacts();
+            middleman.findNames.phoneArray.splice(contactToDelete, 1);
+    
+            middleman.findNames.phoneArray.forEach((contact, newIndex) => {
+                contact.index = newIndex;
+            });
+    
+            localStorage.setItem("phonenumbers", JSON.stringify(middleman.findNames.phoneArray));
             reloadTrigger = true;
+            displayContacts();
         }
         document.getElementById("confirm-dialog").style.display = "none";
         contactToDelete = null;
-
     }
 
     function exportContacts() {
-        let contacts = JSON.parse(localStorage.getItem("phonenumbers")) || [];
-        contacts = frontend.popupPhonebookOverview.exportFilterDupes(contacts);
+        const contacts = frontend.popupPhonebookOverview.exportFilterDupes(middleman.findNames.phoneArray);
         const contactLines = contacts
-            .filter(contact => contact.name)
+            .filter(contact => contact.name) 
             .map(contact => `${contact.number} ${contact.name}`);
+    
         const blob = new Blob([contactLines.join("\n")], { type: 'text/plain' });
         const link = document.createElement("a");
         link.href = URL.createObjectURL(blob);
@@ -284,11 +286,9 @@ frontend.popupPhonebookOverview = (function () {
     }
 
     function showEdit(index) {
-        const contacts = JSON.parse(localStorage.getItem("phonenumbers")) || [];
- 
+        const contact = middleman.findNames.phoneArray[index];
         contactToEdit = index;
-        const contact = contacts[index];
- 
+
         document.getElementById("edit-input").value = (contact.name && contact.name.trim() !== "") ? contact.name : "Unknown Contact";
         document.getElementById("edit-dialog").style.display = "flex";
     }
@@ -297,11 +297,10 @@ frontend.popupPhonebookOverview = (function () {
         if (confirm && contactToEdit !== null) {
             const newName = document.getElementById("edit-input").value.trim();
             if (newName) {
-                const contacts = JSON.parse(localStorage.getItem("phonenumbers")) || [];
-                contacts[contactToEdit].name = newName;
-                localStorage.setItem("phonenumbers", JSON.stringify(contacts));
-                displayContacts();
+                middleman.findNames.phoneArray[contactToEdit].name = newName;
+                localStorage.setItem("phonenumbers", JSON.stringify(middleman.findNames.phoneArray));
                 reloadTrigger = true;
+                displayContacts();
             }
         }
         document.getElementById("edit-dialog").style.display = "none";
@@ -332,17 +331,19 @@ frontend.popupPhonebookOverview = (function () {
         if (!isValidNumber) {
             errorMessage.style.display = "block";
             errorMessage.textContent = "Phone number must be exactly 10 digits long and start with 420.";
-            return; 
+            return;
         }
 
-        let contacts = JSON.parse(localStorage.getItem("phonenumbers")) || [];
-        contacts.push({ name, number });
-        contacts.sort((a, b) => a.name.localeCompare(b.name));
-        localStorage.setItem("phonenumbers", JSON.stringify(contacts));
+        middleman.findNames.phoneArray.push({ name, number });
+        middleman.findNames.phoneArray.sort((a, b) => a.name.localeCompare(b.name));
+        middleman.findNames.phoneArray.forEach((contact, index) => {
+            contact.index = index;
+        });
 
-        displayContacts(); 
-        closeAddContact(); 
+        localStorage.setItem("phonenumbers", JSON.stringify(middleman.findNames.phoneArray));
         reloadTrigger = true;
+        displayContacts();
+        closeAddContact();
     }
 
     return {

@@ -25,10 +25,15 @@ middleman.initializePhoneLookup = function() {
     const startTime = performance.now();
 
     const phoneArray = backend.dataController.getPhonenumbers() || [];
-    middleman.phoneLookup = phoneArray.reduce((lookup, { number, name }) => {
-        lookup[number] = name;
-        return lookup;
-    }, {});
+    middleman.findNames.phoneArray = new Array(phoneArray.length);
+    middleman.findNames.phoneLookup = {};
+
+    for (let i = 0; i < phoneArray.length; i++) {
+        const contact = phoneArray[i];
+        contact.index = i; 
+        middleman.findNames.phoneArray[i] = contact;
+        middleman.findNames.phoneLookup[contact.number] = contact.name;
+    }
 
     const endTime = performance.now();
     middleman.loadTime = endTime - startTime;
@@ -36,7 +41,7 @@ middleman.initializePhoneLookup = function() {
 };
 
 middleman.findNames = function(number) {
-    return middleman.phoneLookup[number] || "Unknown Contact";
+    return middleman.findNames.phoneLookup[number] || "Unknown Contact";
 };
 
 middleman.initializePhoneLookup();
