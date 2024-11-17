@@ -2,31 +2,40 @@ var frontend = frontend ?? {};
 frontend.popupLoader = function () {
     const path = "resources/frontend/js/phone/popup/";
 
-    const scriptsToLoad = ['popupUpload.js', 'popupHelp.js', 'popupActivity.js', 'popupBug.js', 'popupPhonebook_NP.js', 'popupPhonebook_NPLL.js', 'popupPhonebook.js', 'popupPhonebookOverview.js', 'popupSettings.js'];
+    const scriptsToLoad = [
+        'popupUpload.js', 
+        'popupHelp.js', 
+        'popupActivity.js', 
+        'popupBug.js', 
+        'popupPhonebook_NP.js', 
+        'popupPhonebook_NPLL.js', 
+        'popupPhonebook.js', 
+        'popupPhonebookOverview.js', 
+        'popupSettings.js'
+    ];
 
-    function loadScript(url) {
-        return new Promise((resolve, reject) => {
-            const script = document.createElement('script');
-            script.src = url; 
-            script.onload = () => resolve(`Loaded: ${url}`);
-            script.onerror = () => reject(new Error(`Failed to load script: ${url}`));
-            document.head.appendChild(script);
-        });
+    function createScriptElement(url) {
+        const script = document.createElement('script');
+        script.src = url;
+        script.defer = true; 
+        return script;
     }
-    async function loadScriptsSequentially() {
+
+    function loadScripts() {
+        const fragment = document.createDocumentFragment();
         for (const script of scriptsToLoad) {
-            try {
-                await loadScript(path + script);
-            } catch (error) {
-                console.error(error);
-            }
+            const scriptElement = createScriptElement(path + script);
+            fragment.appendChild(scriptElement);
         }
+        document.head.appendChild(fragment);
     }
+
     return {
-        loadScripts: loadScriptsSequentially
+        loadScripts: loadScripts
     };
 }();
 
-document.addEventListener('DOMContentLoaded', function() {
+
+document.addEventListener('DOMContentLoaded', function () {
     frontend.popupLoader.loadScripts();
 });
