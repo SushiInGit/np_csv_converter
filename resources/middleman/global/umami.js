@@ -1,61 +1,78 @@
 var middleman = middleman ?? {};
 
 middleman.umami = (function () {
+    function trackEvent(eventName, eventDetails) {
+        if (window.umami) {
+            try {
+                window.umami.track(eventName, eventDetails);
+            } catch (error) {
+                console.error(`Umami tracking failed: ${error.message}`);
+                return false; 
+            }
+        } else {
+            console.warn("Umami tracking is not available (possibly blocked by an ad blocker).");
+            return false; 
+        }
+        return true; 
+    }
 
     function trackSettingsChangeTimezone(timezoneOLD, timezoneNew) {
         if (timezoneOLD !== timezoneNew) {
-            if (window.umami) {
-                window.umami.track(`Timezone Change: ${timezoneNew.toUpperCase()}`, 'User changed Timezone', {
-                    category: 'Timezone Changes',
-                    action: `${timezoneNew.toUpperCase()}`,
-                    label: timezoneNew.toUpperCase()
-                });
-
-            }
+            const eventName = `Timezone Change: ${timezoneNew.toUpperCase()}`;
+            const eventDetails = {
+                category: 'Timezone Changes',
+                action: `${timezoneNew.toUpperCase()}`,
+                label: timezoneNew.toUpperCase(),
+            };
+            return trackEvent(eventName, eventDetails);
         }
     }
+
     function trackSettingsChangeDaylightSaving(dlsOLD, dlsNEW) {
         if (dlsOLD !== dlsNEW) {
-            if (window.umami) {
-                window.umami.track(`DaylightSaving Offset: ${dlsNEW.toUpperCase()}`, 'DaylightSaving Offset', {
-                    category: 'DaylightSaving Offset Changes',
-                    action: `${dlsNEW.toUpperCase()}`,
-                    label: dlsNEW.toUpperCase()
-                });
-            }
+            const eventName = `DaylightSaving Offset: ${dlsNEW.toUpperCase()}`;
+            const eventDetails = {
+                category: 'DaylightSaving Offset Changes',
+                action: `${dlsNEW.toUpperCase()}`,
+                label: dlsNEW.toUpperCase(),
+            };
+            return trackEvent(eventName, eventDetails);
         }
     }
+
     function trackFileUpload(page, file) {
-        if (window.umami) {
-            window.umami.track(`File Upload: ${page.toUpperCase()}`, {
-                category: 'File Events',
-                action: 'Upload',
-                label: file
-            });
-        }
+        const eventName = `File Upload: ${page.toUpperCase()}`;
+        const eventDetails = {
+            category: 'File Events',
+            action: 'Upload',
+            label: file,
+        };
+        return trackEvent(eventName, eventDetails);
     }
+
     function trackContactsImport(type, amount) {
-        if (window.umami) {
-            window.umami.track(`Contact Event: ${type}`, {
-                category: 'Contact Events',
-                action: `${amount} Contacts Import`
-            });
-        }
+        const eventName = `Contact Event: ${type}`;
+        const eventDetails = {
+            category: 'Contact Events',
+            action: `${amount} Contacts Import`,
+        };
+        return trackEvent(eventName, eventDetails);
     }
+
     function trackContactsExport() {
-        if (window.umami) {
-            window.umami.track(`Contacts Event: Export`, {
-                category: 'Contact Events',
-                action: `Contacts Export`
-            });
-        }
+        const eventName = `Contacts Event: Export`;
+        const eventDetails = {
+            category: 'Contact Events',
+            action: `Contacts Export`,
+        };
+        return trackEvent(eventName, eventDetails);
     }
+
     return {
         trackSettingsTimezone: trackSettingsChangeTimezone,
         trackSettingsDLS: trackSettingsChangeDaylightSaving,
         trackUpload: trackFileUpload,
         trackContact: trackContactsImport,
-        trackExport: trackContactsExport
+        trackExport: trackContactsExport,
     };
-
 })();
