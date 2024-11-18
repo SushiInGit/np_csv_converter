@@ -271,7 +271,13 @@ frontend.popupPhonebookOverview = (function () {
     }
 
     function exportContacts() {
-        middleman.umami.trackExport();
+        
+        try {
+            middleman.umami.trackExport();
+        } catch (error) {
+            console.error("An error occurred while tracking contact exports:", error.message);
+        }
+        
         const contacts = frontend.popupPhonebookOverview.exportFilterDupes(middleman.findNames.phoneArray);
         const contactLines = contacts
             .filter(contact => contact.name) 

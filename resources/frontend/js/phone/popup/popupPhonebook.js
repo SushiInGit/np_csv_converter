@@ -57,7 +57,13 @@ frontend.popupPhonebook = (function () {
             const lines = textarea.value.trim().split('\n');
             //const phoneNumberPattern = /^(420\d{7}|\(420\)\s?\d{3}\s?\d{4}|\d{10}) (.+)$/;
             const phoneNumberPattern = /^(420\d{7}|\(420\)\s?\d{3}\s?\d{4}|\d{10})\s*(.+)$/;
-            middleman.umami.trackContact(`Import Text`, lines.length);
+
+            try {
+                middleman.umami.trackContact(`Import Text`, lines.length);
+            } catch (error) {
+                console.error("An error occurred while tracking contact changes:", error.message);
+            }
+            
             for (let i = 0; i < lines.length; i++) {
                 const line = lines[i].trim(); // T
 

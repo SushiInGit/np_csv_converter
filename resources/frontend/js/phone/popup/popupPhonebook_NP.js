@@ -34,11 +34,19 @@ frontend.popupPhonebook_NP = (function () {
             middleman.popupModel.closePopupDiv();
 
             if (newContactsCount === 0) {
-                middleman.umami.trackContact(`NP-Phone`, newContactsCount);
+                try {
+                    middleman.umami.trackContact(`NP-Phone`, newContactsCount);
+                } catch (error) {
+                    console.error("An error occurred while tracking contact changes:", error.message);
+                }
                 global.alertsystem('info', `No new contacts were located in this <br>Phone upload.`, 5);
                 frontend.popupPhonebookOverview.render();
             } else {
-                middleman.umami.trackContact(`NP-Phone`, newContactsCount);
+                try {
+                    middleman.umami.trackContact(`NP-Phone`, newContactsCount);
+                } catch (error) {
+                    console.error("An error occurred while tracking contact changes:", error.message);
+                }
                 global.alertsystem('success', `Contacts are ready to go!<br> Added ${newContactsCount} new contacts. <br>Loading now—thank you for your patience.`, 4);
                 setTimeout(() => {
                     window.location.reload();
