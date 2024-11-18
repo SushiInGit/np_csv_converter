@@ -24,7 +24,7 @@ middleman.umami = (function () {
                 action: `${timezoneNew.toUpperCase()}`,
                 label: timezoneNew.toUpperCase(),
             };
-            return track(eventName, eventDetails);
+            return trackEvent(eventName, eventDetails);
         }
     }
 
@@ -36,7 +36,7 @@ middleman.umami = (function () {
                 action: `${dlsNEW.toUpperCase()}`,
                 label: dlsNEW.toUpperCase(),
             };
-            return track(eventName, eventDetails);
+            return trackEvent(eventName, eventDetails);
         }
     }
 
@@ -47,7 +47,7 @@ middleman.umami = (function () {
             action: 'Upload',
             label: file,
         };
-        return track(eventName, eventDetails);
+        return trackEvent(eventName, eventDetails);
     }
 
     function trackContactsImport(type, amount) {
@@ -56,7 +56,7 @@ middleman.umami = (function () {
             category: 'Contact Events',
             action: `${amount} Contacts Import`,
         };
-        return track(eventName, eventDetails);
+        return trackEvent(eventName, eventDetails);
     }
 
     function trackContactsExport() {
@@ -65,7 +65,7 @@ middleman.umami = (function () {
             category: 'Contact Events',
             action: `Contacts Export`,
         };
-        return track(eventName, eventDetails);
+        return trackEvent(eventName, eventDetails);
     }
 
     return {

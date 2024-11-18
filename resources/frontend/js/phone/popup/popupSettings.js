@@ -117,8 +117,15 @@ frontend.popupSettings = (function () {
             displayOrder: timeFirst.value,
             isDaylightSavingTime: dlsset.value
         };
-        middleman.umami.trackSettingsTimezone(loadSettings().timeZone, timezone.value);
-        middleman.umami.trackSettingsDLS(loadSettings().isDaylightSavingTime, dlsset.value);
+        
+        const trackSettingsTimezone =  middleman.umami.trackSettingsTimezone(loadSettings().timeZone, timezone.value);
+        const trackSettingsDLS = middleman.umami.trackSettingsDLS(loadSettings().isDaylightSavingTime, dlsset.value);
+        if (!trackSettingsTimezone) {
+            console.error("Tracking timezone change failed.");
+        }
+        if (!trackSettingsDLS) {
+            console.error("Tracking Daylightchanges change failed.");
+        }
         middleman.popupModel.closePopupDiv();
         saveSettings(newSettingsData);
         global.alertsystem('success', `Settings saved successfully.`, 4);
