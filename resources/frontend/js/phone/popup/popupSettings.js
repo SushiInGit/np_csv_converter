@@ -124,7 +124,7 @@ frontend.popupSettings = (function () {
         } catch (error) {
             console.error("An error occurred while tracking settings changes:", error.message);
         }
-
+        
         middleman.popupModel.closePopupDiv();
         saveSettings(newSettingsData);
         global.alertsystem('success', `Settings saved successfully.`, 4);

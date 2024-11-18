@@ -93,8 +93,13 @@ backend.fileProcessor = function () {
                     // Use the storageManager to add the data and ensure it's within the limit
                     const dataAdded = backend.storageManager.addData(key, JSON.stringify(cleanData), redirectUrl);
                     if (dataAdded) {
-                        middleman.umami.trackUpload(redirectUrl, fileName)
+                        try {
+                            middleman.umami.trackUpload(redirectUrl, fileName)
+                        } catch (error) {
+                            console.error("An error occurred while tracking file upload:", error.message);
+                        }
                     }
+                    
                     if (!dataAdded) {
                         global.alertsystem('warning', 'Storage limit exceeded! Please free up some space and delete other subpoena files.', 14);
                     }
