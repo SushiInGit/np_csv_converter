@@ -130,7 +130,9 @@ frontend.popupSettings = (function () {
             displayOrder: timeFirst.value,
             isDaylightSavingTime: dlsset.value
         };
-
+        
+        middleman.umami.trackSettingsTimezone(loadSettings().timeZone, timezone.value);
+        middleman.umami.trackSettingsDLS(loadSettings().isDaylightSavingTime, dlsset.value);
         middleman.popupModel.closePopupDiv();
         saveSettings(newSettingsData);
         global.alertsystem('success', `Settings saved successfully.`, 4);

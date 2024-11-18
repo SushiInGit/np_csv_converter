@@ -18,7 +18,7 @@ frontend.popupPhonebook_NP = (function () {
         `;
 
         middleman.popupModel.createPopup(popupDivName, 'Import NP-Phone contacts', content, footer);
-
+    
     }
 
     function convertNpPhonebook() {
@@ -30,12 +30,15 @@ frontend.popupPhonebook_NP = (function () {
 
             var newContactsCount = backend.phonebookHelper.uploadNopixelPhoneData(textarea.value);
 
+            
             middleman.popupModel.closePopupDiv();
 
             if (newContactsCount === 0) {
+                middleman.umami.trackContact(`NP-Phone`, newContactsCount);
                 global.alertsystem('info', `No new contacts were located in this <br>Phone upload.`, 5);
                 frontend.popupPhonebookOverview.render();
             } else {
+                middleman.umami.trackContact(`NP-Phone`, newContactsCount);
                 global.alertsystem('success', `Contacts are ready to go!<br> Added ${newContactsCount} new contacts. <br>Loading now—thank you for your patience.`, 4);
                 setTimeout(() => {
                     window.location.reload();

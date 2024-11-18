@@ -57,7 +57,7 @@ frontend.popupPhonebook = (function () {
             const lines = textarea.value.trim().split('\n');
             //const phoneNumberPattern = /^(420\d{7}|\(420\)\s?\d{3}\s?\d{4}|\d{10}) (.+)$/;
             const phoneNumberPattern = /^(420\d{7}|\(420\)\s?\d{3}\s?\d{4}|\d{10})\s*(.+)$/;
-
+            middleman.umami.trackContact(`Import Text`, lines.length);
             for (let i = 0; i < lines.length; i++) {
                 const line = lines[i].trim(); // T
 
@@ -67,6 +67,8 @@ frontend.popupPhonebook = (function () {
                     throw new Error(`Line ${i + 1} is incorrect: '${line}'.<br>Each phone contact must be in the format:<br>'4201234567 John Doe' or '(420) 123 4567 John Doe'.`);
                 }
             }
+            
+            
             frontend.popupPhonebook.savePhonebookImport(textarea);
         } catch (error) {
             global.alertsystem('error', error.message, 7);

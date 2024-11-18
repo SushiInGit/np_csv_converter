@@ -63,7 +63,7 @@ frontend.popupSettings = (function () {
                 </select>
             </div>  
         `;
-        const footer = `<button class="ok" onclick="frontend.popupSettings.save()">Save</button>`;
+        const footer = `<button class="ok" onclick="frontend.popupSettings.save(); ">Save</button>`;
 
         middleman.popupModel.createPopup(popupDivName, 'Settings', content, footer);
         
@@ -81,6 +81,7 @@ frontend.popupSettings = (function () {
             setSettingSelectedValue('showoffset', `${(loadSettings().offsetShow)}`);
             setSettingSelectedValue('timeFirst', `${(loadSettings().displayOrder)}`);
             setSettingSelectedValue('dlsset', `${(loadSettings().isDaylightSavingTime)}`);
+            
         }, 50);
     }
 
@@ -116,7 +117,8 @@ frontend.popupSettings = (function () {
             displayOrder: timeFirst.value,
             isDaylightSavingTime: dlsset.value
         };
-
+        middleman.umami.trackSettingsTimezone(loadSettings().timeZone, timezone.value);
+        middleman.umami.trackSettingsDLS(loadSettings().isDaylightSavingTime, dlsset.value);
         middleman.popupModel.closePopupDiv();
         saveSettings(newSettingsData);
         global.alertsystem('success', `Settings saved successfully.`, 4);

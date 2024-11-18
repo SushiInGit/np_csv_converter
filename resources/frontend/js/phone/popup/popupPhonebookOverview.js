@@ -271,6 +271,7 @@ frontend.popupPhonebookOverview = (function () {
     }
 
     function exportContacts() {
+        middleman.umami.trackExport();
         const contacts = frontend.popupPhonebookOverview.exportFilterDupes(middleman.findNames.phoneArray);
         const contactLines = contacts
             .filter(contact => contact.name) 

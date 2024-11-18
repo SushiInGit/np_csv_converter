@@ -34,10 +34,13 @@ frontend.popupPhonebook_NPLL = (function () {
 
             middleman.popupModel.closePopupDiv();
             
+            
             if(newContactsCount === 0){
+                middleman.umami.trackContact(`NP-Lemonlist`, newContactsCount);
                 global.alertsystem('info', `No new contacts were located in this <br>Lemon-List upload.`, 5);
                 frontend.popupPhonebookOverview.render();
             } else { 
+                middleman.umami.trackContact(`NP-Lemonlist`, newContactsCount);
                 global.alertsystem('success', `Lemon-List contacts are exported and added to the contacts! <br> Added ${newContactsCount} new contacts. <br>Loading now—thank you for your patience.`, 4);
                 setTimeout(() => {
                     window.location.reload();
