@@ -84,10 +84,11 @@ frontend.customMenu = function () {
         event.preventDefault();
 
         selectedNumber = numberElement.innerText;
-        const phoneRegex = /^(?:\(420\)\s*|\b420\s*|\b420)?(?:\d{3}\s*\d{4}|\d{7})$/;
+        
+        //const phoneRegex = /^(?:\(420\)\s*|\b420\s*|\b420)?(?:\d{3}\s*\d{4}|\d{7})$/;
 
-        if (phoneRegex.test(selectedNumber)) {
-
+        //if (phoneRegex.test(selectedNumber)) {
+        if (backend.regex.custemMenuPhoneContacts(selectedNumber)) {
             const numberRect = numberElement.getBoundingClientRect();
             const outputRect = document.querySelector('.output').getBoundingClientRect();
 

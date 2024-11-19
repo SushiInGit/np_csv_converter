@@ -6,8 +6,8 @@ middleman.metadata = function () {
         const urlRegex = /https?:\/\/[^\s]+|www\.[^\s]+/g;
 
         const numberRegex = /\d+/g;
-        const phoneRegex = /(?:\(?420\)?\s*\d{3}\s*\d{4}|\b420\d{7}\b)/g;
-
+        //const phoneRegex = /(?:\(?420\)?\s*\d{3}\s*\d{4}|\b420\d{7}\b)/g;
+        const phoneRegex = backend.regex.addObjectRegex()
         return data.map(group => {
             let links = [];
             let numbers = [];

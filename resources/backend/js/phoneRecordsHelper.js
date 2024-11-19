@@ -17,7 +17,8 @@ backend.phoneRecordsHelper = function () {
             var messageRecordLine = { ...defaultMessageRecordLine };
             var columnTracker = 0;
             var saveMessageTimestamp = ""; // For bugfix missing timestamp
-            const phoneNumberPattern = /^(420\d{7}|\(420\)\s?\d{3}\s?\d{4}|\d{10})$/;
+            //const phoneNumberPattern = /^(420\d{7}|\(420\)\s?\d{3}\s?\d{4}|\d{10})$/;
+            const phoneNumberPattern = backend.regex.phoneRecordshelper();
 
             dataArray.forEach(function (row, rowNumber)
             {

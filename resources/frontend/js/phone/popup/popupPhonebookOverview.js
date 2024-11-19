@@ -334,10 +334,11 @@ frontend.popupPhonebookOverview = (function () {
 
         if (!name || !number) return;
 
-        const isValidNumber = number.length === 10 && number.startsWith("420");
-        if (!isValidNumber) {
+
+        const addContactValidCheck = backend.regex.addContactValidCheck(number);
+        if (!addContactValidCheck.isValid) {
             errorMessage.style.display = "block";
-            errorMessage.textContent = "Phone number must be exactly 10 digits long and start with 420.";
+            errorMessage.textContent = addContactValidCheck.message;
             return;
         }
 
