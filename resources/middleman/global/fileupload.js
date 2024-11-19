@@ -20,7 +20,7 @@ global.fileupload = (function () {
     }
 
     function validateFileName(fileName, errorMessage) {
-        const validPattern = /^[a-zA-Z0-9\s-]+$/;
+        const validPattern = /^[a-zA-Z0-9\s_-]+$/;
 
         var key = fileName + '_texts';
         if (backend.dataController.keyHasData(sanitizeFileName(key))) {
