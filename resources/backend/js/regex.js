@@ -13,12 +13,14 @@ backend.regex = function () {
 
     const phoneBookRegex = [                                        // Used in: popupPhonebook.js
         /^(420\d{7}|\(420\)\s?\d{3}\s?\d{4}|\d{10})\s*(.+)$/,       //Whitelist
-        /^(690\d{7}|\(690\)\s?\d{3}\s?\d{4}|\d{10})\s*(.+)$/        //Public
+        /^(690\d{7}|\(690\)\s?\d{3}\s?\d{4}|\d{10})\s*(.+)$/,       //Public Green
+        /^(201\d{7}|\(201\)\s?\d{3}\s?\d{4}|\d{10})\s*(.+)$/        //Public Blue
     ];
 
     const custemMenuRegex = [                                       // Used in: customMenu.js
         /^(?:\(420\)\s*|\b420\s*|\b420)?(?:\d{3}\s*\d{4}|\d{7})$/,  //Whitelist
-        /^(?:\(690\)\s*|\b690\s*|\b690)?(?:\d{3}\s*\d{4}|\d{7})$/   //Public
+        /^(?:\(690\)\s*|\b690\s*|\b690)?(?:\d{3}\s*\d{4}|\d{7})$/,  //Public Green
+        /^(?:\(201\)\s*|\b201\s*|\b201)?(?:\d{3}\s*\d{4}|\d{7})$/   //Public Blue
     ];
 
     function addContactValidCheck(number) {                         // Used in popupPhoneOverview.js
@@ -28,25 +30,25 @@ backend.regex = function () {
                 message: "Phone number must be exactly 10 digits long."
             };
         }
-        if (!number.startsWith("420") && !number.startsWith("690")) {
+        if (!number.startsWith("420") && !number.startsWith("690") && !number.startsWith("201")) {
             return {
                 isValid: false,
-                message: "Phone number must start with 420 or 690."
+                message: "Phone number must start with 201, 420 or 690."
             };
         }
         return { isValid: true, message: "Phone number is valid." };
     }
 
     function addObjectRegex() {                                     // Used in: addObject.js
-        return /(?:\(?(?:420|690)\)?\s*\d{3}\s*\d{4}|\b(?:420|690)\d{7}\b)/g;
+        return /(?:\(?(?:420|690|201)\)?\s*\d{3}\s*\d{4}|\b(?:420|690|201)\d{7}\b)/g;
     }
 
     function addHtmlTagsRegex() {                                   // Used in: addhtmltags.js
-        return /\b(?:420|690)\d{7}\b/g;
+        return /\b(?:420|690|201)\d{7}\b/g;
     }
 
     function phoneRecordshelper() {                                 // Used in: phoneRecordsHelper.js
-        return /^(?:(?:420|690)\d{7}|\((?:420|690)\)\s?\d{3}\s?\d{4}|\d{10})$/;
+        return /^(?:(?:420|690|201)\d{7}|\((?:420|690|201)\)\s?\d{3}\s?\d{4}|\d{10})$/;
     }
 
     return {
