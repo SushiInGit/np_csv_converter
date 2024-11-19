@@ -63,10 +63,10 @@ frontend.popupSettings = (function () {
                 </select>
             </div>  
         `;
-        const footer = `<button class="ok" onclick="frontend.popupSettings.save(); ">Save</button>`;
+        const footer = `<button class="ok" onclick="frontend.popupSettings.save(); ">Save</button> <button class="risk" onclick="frontend.popupSettings.reset();">Reset</button>`;
 
         middleman.popupModel.createPopup(popupDivName, 'Settings', content, footer);
-        
+
         setTimeout(() => {
             const timezone = document.getElementById('timezone').value;
             const dateformat = (document.getElementById('dateformat').value);
@@ -74,14 +74,14 @@ frontend.popupSettings = (function () {
             const showoffset = document.getElementById('showoffset').value;
             const timeFirst = document.getElementById('timeFirst').value;
             const showDLS = document.getElementById('dlsset').value;
-           
+
             setSettingSelectedValue('timezone', `${(loadSettings().timeZone)}`);
             setSettingSelectedValue('dateformat', `${(loadSettings().dateFormat)}`);
             setSettingSelectedValue('use12hClock', `${(loadSettings().timeFormat)}`);
             setSettingSelectedValue('showoffset', `${(loadSettings().offsetShow)}`);
             setSettingSelectedValue('timeFirst', `${(loadSettings().displayOrder)}`);
             setSettingSelectedValue('dlsset', `${(loadSettings().isDaylightSavingTime)}`);
-            
+
         }, 50);
     }
 
@@ -108,6 +108,45 @@ frontend.popupSettings = (function () {
         }
     }
 
+    function removeSettingsTrigger() {
+        const npSettings = localStorage.getItem("np_settings");
+        if (npSettings) {
+            const settingsObj = JSON.parse(npSettings);
+            const defaultSettings = {
+                timeZone: 'gmt',
+                timeFormat: '24Hour',
+                offsetShow: 'on',
+                dateFormat: 'YYYY-MM-DD',
+                displayOrder: 'dateAndTime',
+                isDaylightSavingTime: 'auto'
+        
+            };
+            // Remove the specified keys
+            delete settingsObj.MAX_STORAGE_MB;         
+
+            settingsObj.timeZone = defaultSettings.timeZone;
+            settingsObj.dateFormat = defaultSettings.dateFormat;
+            settingsObj.timeFormat = defaultSettings.timeFormat;
+            settingsObj.offsetShow = defaultSettings.offsetShow;
+            settingsObj.displayOrder = defaultSettings.displayOrder;
+            settingsObj.isDaylightSavingTime = defaultSettings.isDaylightSavingTime;
+            
+            setSettingSelectedValue('timezone', `${(defaultSettings.timeZone)}`);
+            setSettingSelectedValue('dateformat', `${(defaultSettings.dateFormat)}`);
+            setSettingSelectedValue('use12hClock', `${(defaultSettings.timeFormat)}`);
+            setSettingSelectedValue('showoffset', `${(defaultSettings.offsetShow)}`);
+            setSettingSelectedValue('timeFirst', `${(defaultSettings.displayOrder)}`);
+            setSettingSelectedValue('dlsset', `${(defaultSettings.isDaylightSavingTime)}`);
+
+            localStorage.setItem("np_settings", JSON.stringify(settingsObj));
+            console.log("localStorage.np_settings has been removed.");
+            global.alertsystem('success', `Settings reset successfully.`, 4);
+
+        } else {
+            console.log("localStorage.np_settings does not exist.");
+        }
+    }
+
     function saveSettingsTrigger() {
         const newSettingsData = {
             timeZone: timezone.value,
@@ -117,14 +156,14 @@ frontend.popupSettings = (function () {
             displayOrder: timeFirst.value,
             isDaylightSavingTime: dlsset.value
         };
-        
+
         try {
             middleman.umami.trackSettingsTimezone(loadSettings().timeZone, timezone.value);
             middleman.umami.trackSettingsDLS(loadSettings().isDaylightSavingTime, dlsset.value);
         } catch (error) {
             console.error("An error occurred while tracking settings changes:", error.message);
         }
-        
+
         middleman.popupModel.closePopupDiv();
         saveSettings(newSettingsData);
         global.alertsystem('success', `Settings saved successfully.`, 4);
@@ -140,6 +179,7 @@ frontend.popupSettings = (function () {
     return {
         render: settingsEvent,
         active: lastActiveReload,
-        save: saveSettingsTrigger
+        save: saveSettingsTrigger,
+        reset: removeSettingsTrigger
     };
 })();

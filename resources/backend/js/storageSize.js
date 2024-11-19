@@ -28,7 +28,7 @@ backend.storageSize = function () {
     }
 
     function estimateMaxStorageSize() {
-        backend.storageSize.clearStorage(false); // Clear old localStorage Data
+        //backend.storageSize.clearStorage(false); // Clear old localStorage Data
 
         let testKey = '__test__';
         let testValue = new Array(1024).join('a');
