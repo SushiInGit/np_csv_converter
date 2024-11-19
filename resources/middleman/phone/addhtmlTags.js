@@ -34,7 +34,9 @@ middleman.addhtmlTags = function () {
 
   function formatPhoneNumbers(message) {
     if (message !== null) {
-      const phoneRegex = /\b420\d{7}\b/g;
+      //const phoneRegex = /\b420\d{7}\b/g;
+      const phoneRegex = backend.regex.addHtmlTagsRegex();
+
       const pointer = message;
 
       return pointer.replace(phoneRegex, (match) => {

@@ -4,7 +4,7 @@ backend.storageSize = function () {
 
     const SETTINGS_KEY = 'np_settings';
     const RESERVED_MB = 1;
-    const MAX_ALLOWED_MB = 21;
+    const MAX_ALLOWED_MB = 101;
 
     function getSettings() {
         const settings = localStorage.getItem(SETTINGS_KEY);
@@ -107,5 +107,5 @@ backend.storageSize = function () {
     };
 }();
 
-//backend.storageSize.setMaxStorage(20); //Hard Set maxStorage without Checking if its posible !!!
+//backend.storageSize.setMaxStorage(50); //Hard Set maxStorage without Checking if its posible !!!
 //backend.storageSize.clearStorage(false);
