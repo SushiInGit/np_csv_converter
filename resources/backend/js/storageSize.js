@@ -4,7 +4,7 @@ backend.storageSize = function () {
 
     const SETTINGS_KEY = 'np_settings';
     const RESERVED_MB = 1;
-    const MAX_ALLOWED_MB = 101;
+    const MAX_ALLOWED_MB = 11;
 
     function getSettings() {
         const settings = localStorage.getItem(SETTINGS_KEY);
@@ -41,6 +41,7 @@ backend.storageSize = function () {
                 maxBytes += testValue.length * 2;
             }
         } catch (e) {
+            console.log(e);
         }
 
         localStorage.removeItem(testKey);
@@ -103,7 +104,8 @@ backend.storageSize = function () {
         getMaxStorage: getMaxStorage,
         setMaxStorage: setMaxStorage,
         calculateLocalStorageSize: calculateLocalStorageSize,
-        clearStorage: clearStorage
+        clearStorage: clearStorage,
+        estimateMaxStorageSize: estimateMaxStorageSize
     };
 }();
 
