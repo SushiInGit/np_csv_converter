@@ -129,6 +129,7 @@ frontend.popupUpload= (function () {
 
             const fileInput = document.querySelector('#file-input');
             const dropZone = document.querySelector('#drop-zone');
+            const maxStorageSize = 3 * 1024 * 1024; 
 
             dropZone.addEventListener('dragover', (event) => {
                 event.preventDefault();
@@ -149,7 +150,25 @@ frontend.popupUpload= (function () {
                     }
                 }
             });
-            fileInput.addEventListener('change', () => backend.fileProcessor.processFiles(fileInput.files));
+            //fileInput.addEventListener('change', () => backend.fileProcessor.processFiles(fileInput.files));
+            fileInput.addEventListener("change", function (event) {
+                const file = event.target.files[0];
+                let filesizeLeft = backend.storageSize.getMaxStorage() - backend.storageManager.getStorageUsage().usedMB
+                if (file) {
+                  const fileSize = file.size; 
+                  const fileSizeInMB = fileSize / (1024 * 1024);
+                  if (fileSizeInMB > filesizeLeft) {
+                    global.alertsystem('warning', 'Storage has reached its limit. Remove old or unnecessary data to free up space.', 7);
+                    return;
+                }
+                  if (fileSize <= maxStorageSize) {
+                    backend.fileProcessor.processFiles(fileInput.files)
+                  } else {
+                    global.alertsystem('warning', 'The file is too large. Only files up to ~3MB are supported.', 7);
+                    return;
+                  }
+                }
+              });
         }, 50);
     }
 
