@@ -192,7 +192,13 @@ frontend.renderBank = (function () {
             loadedRows += chunk.length;
 
             if (loadedRows > previousLoadedRows) {
-                statusMessage.textContent = `Display ${loadedRows} of ${totalRows} transactions`;
+                if (totalRows === 1){
+                    statusMessage.textContent = `Display 1 transaction`;
+                } else if (totalRows <= chunkSize){
+                    statusMessage.textContent = `Display ${loadedRows} transactions`;
+                } else {
+                    statusMessage.textContent = `Display ${loadedRows} of ${totalRows} transactions`;
+                }
                 statusMessage.style.opacity = "1";
                 setTimeout(() => {
                     statusMessage.style.opacity = "0";
