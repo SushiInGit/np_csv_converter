@@ -6,76 +6,63 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>NP Converter</title>
-  <link rel="icon" href="resources/frontend/favicon/favicon.ico" sizes="32x32">
-  <link rel="icon" href="resources/frontend/favicon/icon.svg" type="image/svg+xml">
-  <link rel="apple-touch-icon" href="resources/frontend/favicon/apple-touch-icon.png">
+  <link rel="icon" href="resources/bank/frontend/global/favicon/favicon.ico" sizes="32x32">
+  <link rel="icon" href="resources/bank/frontend/global/favicon/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="resources/bank/frontend/global/favicon/apple-touch-icon.png">
 
   <!-- CSS -->
-  <link rel="preload" href="resources/frontend/css/global/loader.css" as="style" onload="this.rel='stylesheet'">
-  <link rel="preload" href="resources/frontend/css/global/alertsystem.css" as="style" onload="this.rel='stylesheet'">
-  <link rel="preload" href="resources/frontend/css/bank/main.css" as="style" onload="this.rel='stylesheet'">
-  <link rel="preload" href="resources/frontend/css/bank/bankTable.css" as="style" onload="this.rel='stylesheet'">
-  <link rel="preload" href="resources/frontend/css/bank/popup.css" as="style" onload="this.rel='stylesheet'">
-  <link rel="preload" href="resources/backend/vendors/vue-treeselect.min.css" as="style" onload="this.rel='stylesheet'">
-  <script defer src="https://umami.sushilocal.ddnss.de/script.js" data-website-id="a80bf748-bb51-4947-8e0f-2a5a3acc2cc8"></script>
+  <link rel="preload" href="resources/bank/global/css/loader.css" as="style" onload="this.rel='stylesheet'">
+  <link rel="preload" href="resources/bank/global/css/alertsystem.css" as="style" onload="this.rel='stylesheet'">
+  <link rel="preload" href="resources/bank/frontend/bank/css/main.css" as="style" onload="this.rel='stylesheet'">
+  <link rel="preload" href="resources/bank/frontend/bank/css/bankTable.css" as="style" onload="this.rel='stylesheet'">
+  <link rel="preload" href="resources/bank/frontend/bank/css/popup.css" as="style" onload="this.rel='stylesheet'">
+  <link rel="preload" href="resources/bank/global/css/progressbar.css" as="style" onload="this.rel='stylesheet'">
+
   <!-- JS Core -->
-  <script defer src="resources/backend/js/regex.js"></script>
-  <script defer src="resources/backend/js/storageSize.js"></script>
-  <script defer src="resources/backend/js/storageSelector.js"></script>
-  <script defer src="resources/backend/js/storageManager.js"></script>
-  <script defer src="resources/backend/js/storageShow.js"></script>
-  <script defer src="resources/frontend/js/global/gitVersion.js"></script>
-  <script defer src="resources/frontend/js/bank/loader.js"></script>
-  <script defer src="resources/frontend/js/global/alertsystem.js"></script>
-  <script defer src="resources/frontend/js/global/markdownReader.js"></script>
-  <script src="resources/backend/vendors/marked.min.js"></script>
-  <!-- JS BANK -->
-  <script defer src="resources/middleman/global/umami.js"></script>
-  <script defer src="resources/middleman/global/fileupload.js"></script>
-  <script defer src="resources/middleman/global/bugHelper.js"></script>
-  <script src="resources/backend/js/timeConverterOffset.js"></script>
-  <script src="resources/backend/js/timeConverter.js"></script>
-  <script defer src="resources/backend/js/helpers.js"></script>
-  <script defer src="resources/backend/js/dataController.js"></script>
-  <script defer src="resources/backend/js/fileProcessor.js"></script>
-  <script defer src="resources/backend/js/bankRecordsHelper.js"></script>
-  <script src="resources/backend/vendors/xlsx.full.min.js"></script>
-  <script defer src="resources/frontend/js/phone/alerts.js"></script>
-  <script defer src="resources/frontend/js/bank/popupLoader.js"></script>
-  <script defer src="resources/middleman/bank/bankData.js"></script>
-  <script defer src="resources/middleman/bank/stateAccounts.js"></script>
-  <script defer src="resources/frontend/js/bank/renderViews.js"></script>
-  <script defer src="resources/middleman/global/popupModel.js"></script>
-  <script defer src="resources/middleman/global/popupHelp.js"></script>
-  <script defer src="resources/middleman/bank/printJob.js"></script>
-    <!-- Popups from popupLoader.js -->
+  <script defer src="resources/bank/global/js/alertsystem.js"></script>
+  <script defer src="resources/bank/global/js/progessbar.js"></script>
+  <script defer src="resources/bank/global/js/loader.js"></script>
+  <script defer src="resources/bank/global/js/timeConverter.js"></script>
+  <script defer src="resources/bank/global/js/markdownReader.js"></script>
+
+
+  <!-- JS Backend -->
+  <script defer src="resources/bank/indexedDB/bank/indexedDBHelper.js"></script>
+  <script defer src="resources/bank/backend/bank/js/bankRecordsHelper.js"></script>
+  <script defer src="resources/bank/backend/bank/js/stateAccounts.js"></script>
+  <script defer src="resources/bank/backend/bank/js/fileUploader.js"></script>
+  <script defer src="resources/bank/backend/bank/js/bugReportHelper.js"></script>
+  <script defer src="resources/bank/backend/bank/js/markdownHelper.js"></script>
+
+  <!-- JS Frontend -->
+  <script defer src="resources/bank/frontend/bank/js/renderBank.js"></script>
+  <script defer src="resources/bank/frontend/bank/js/renderModel.js"></script>
+  <script defer src="resources/bank/frontend/bank/js/popup/popupUpload.js"></script>
+  <script defer src="resources/bank/frontend/bank/js/popup/popupBug.js"></script>
+  <script defer src="resources/bank/frontend/bank/js/popup/popupHelp.js"></script>
+  <script defer src="resources/bank/frontend/bank/js/popup/popupSettings.js"></script>
+ 
+  <!-- initation -->
+  <script defer src="resources/bank/frontend/bank/js/init.js"></script>
+
+  <!-- Public -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js" integrity="sha512-r22gChDnGvBylk90+2e/ycr3RVrDi8DIOkIGNhJlKfuyQM4tIRAI062MaV8sfjQKYVGjOBaZBOA87z+IhZE9DA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/15.0.2/marked.min.js" integrity="sha512-vPkiMkaP5f2AJPT3P+YO9vIdK4NaasmmiCJGIg+aLJEHOU6W6uyEZasR9i0UWk63MyU13C4bfbNB9epomXKUAQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+</head>
+
 <body>
   <!-- Alert System -->
   <div id="alert-container" class="noselect"></div>
+  <!-- Progressbar -->
+  <div class="progressbar"></div>
+  <!-- Loader -->
+  <div class="loader active"></div>
   <!-- PopUp -->
   <popup id="popup" class="noselect hide"></popup>
   <!-- Help -->
   <help id="help" class="noselect hide"></help>
-  <!-- Loader -->
-  <div class="loader active"></div>
-<!-- progressBar -->
-<div id="progressbar" class="progressbar">
-  <div class="card">
-    <div class="box">
-      <div class="percent">
-        <svg>
-          <circle cx="70" cy="70" r="70"></circle>
-          <circle cx="70" cy="70" r="70"></circle>
-          <svg>
-            <div class="num">
-              <h2>0<span>%</span></h2>
-            </div>
-      </div>
-          <h2 class="text">Loading...</h2>
-    </div>
-  </div>
-</div> 
-
   <!-- Container -->
   <container>
     <div class="grid-wrapper">
@@ -111,7 +98,7 @@
       </div>
       <div class="banner">
         <div class="left noselect">
-          <h3>NP CONVERTER<br />&nbsp;</h3>
+          <h3>NP CONVERTER<br />Ver. 20241125</h3>
         </div>
         <div class="center noselect">
         </div>
@@ -133,10 +120,12 @@
         </div>
         <div class="messages" id="messagesBox">
           <div class="filter">
-            <div id="treeselect"></div>
+            <div class="treeselect" id="treeselect"></div>
           </div>
           <div class="table">
-            <table id="bankRecordsTable"></table>
+            <div class="bankoutput">
+              <!-- output area -->
+            </div>
           </div>
         </div>
       </div>
@@ -151,12 +140,11 @@
     - Join us on <a target="_blank" href="https://discord.gg/e3t8EHKGp3">Discord</a>.
   </footer>
 
-  <!-- Vue.js and Treeselect JS (UMD-Bundle) -->
-  <script src="resources/backend/vendors/vue.min.js"></script>
-  <script src="resources/backend/vendors/vue-treeselect.umd.min.js"></script>
-  <script src="resources/frontend/js/bank/vueTreeselect.js" defer></script>
-  <script src="resources/frontend/js/bank/renderTable.js" defer></script>
-  <script src="resources/frontend/js/bank/injectData.js" defer></script>
+     <!-- Vue.js and Treeselect JS (UMD-Bundle) -->
+     <script src="resources/bank/backend/bank/vendor/vue.min.js"></script>
+     <script src="resources/bank/backend/bank/vendor/vue-treeselect.umd.min.js"></script>
+     <link rel="stylesheet" href="resources/bank/backend/bank/vendor/vue-treeselect.min.css">
+     <script src="resources/bank/frontend/bank/js/vueTreeselect.js" defer></script>
 </body>
 </head>
 

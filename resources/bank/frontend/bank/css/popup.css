@@ -1,0 +1,811 @@
+:root {
+    --popup-size-width: 400px;
+}
+
+popup {
+    background: var(--body-bg-color);
+    background: linear-gradient(315deg, var(--body-gradient-start) 0%, var(--body-gradient-end) 100%);
+    position: absolute;
+    display: block;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    margin: 0px;
+    padding: 0;
+    height: auto;
+    width: var(--popup-size-width);
+    border: solid var(--global-border-size) var(--global-border-color);
+    z-index: 10001;
+    opacity: 1;
+    font-family: "Poppins", sans-serif;
+}
+
+popup .model {
+    position: relative;
+    display: flex;
+    height: 100%;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+popup .footer {
+    height: auto;
+    padding-bottom: 20px;
+}
+
+popup .footer span.fileslist.active {
+    color: var(--global-hover) !important;
+}
+
+popup.show {
+    width: var(--popup-size-width);
+    opacity: 0.99 !important;
+    box-shadow: 0 4px 10px var(--global-border-color);
+    backdrop-filter: blur(310px);
+    -webkit-backdrop-filter: blur(310px);
+}
+
+popup.hide {
+    opacity: 0 !important;
+    width: 0px !important;
+}
+
+popup .close {
+    cursor: pointer;
+    padding: 8px 14px;
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    z-index: 1;
+}
+
+popup .close:hover {
+    background-color: #eb5b4b;
+}
+
+popup .risk {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #ae2727;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+popup .risk:hover {
+    background-color: #d85252;
+}
+
+popup .del {
+    right: 0;
+    margin-right: 10px;
+    margin-bottom: 5px;
+    padding: 5px 10px;
+    background-color: #ae2727;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+popup .del:hover {
+    background-color: #d85252;
+}
+
+popup upload .uploadList {
+    max-height: 150px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    padding-left: 10px;
+    padding-right: 10px;
+    scroll-behavior: smooth;
+    scroll-snap-type: y mandatory;
+}
+
+popup upload .simownerName,
+popup upload .ownerItemEntry {
+    scroll-behavior: smooth;
+    scroll-snap-type: y mandatory;
+    scroll-snap-align: 'end';
+}
+
+popup upload .listEntry {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+popup upload .listEntry {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+popup upload .simownerDiv:not(:last-child) {
+    padding-bottom: 10px;
+    border-bottom: 1px solid #ffffff18;
+    margin-bottom: -10px;
+}
+
+popup upload .listEntry:first-child {
+    margin-top: 10px;
+}
+
+popup upload .listEntry .delDiv {
+    width: 30px;
+    padding-left: 10px;
+}
+
+popup upload .listEntry .nameDiv {
+    padding-left: 10px;
+    margin-left: 0px;
+    font-size: small;
+    height: 100%;
+    width: 300px;
+}
+
+popup upload .listEntry .nameDiv {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
+}
+
+popup upload .listEntry .nameDiv:before {
+    font-family: 'Material Icons Outlined';
+    content: "description";
+    margin-right: 3px;
+    color: #c9c9c9;
+    display: inline-flex;
+    vertical-align: middle;
+    font-size: 20px;
+}
+
+popup upload .uploadList .simownerDiv:not(:first-child) .simownerName {
+    margin-top: 25px;
+}
+
+popup upload .simownerName:hover {
+    cursor: pointer;
+    color: var(--text-color) !important;
+    opacity: 0.6;
+}
+
+popup upload .nameDiv:hover {
+    cursor: pointer;
+    color: var(--text-color) !important;
+    opacity: 0.6;
+}
+
+popup upload .simownerName.active {
+    color: var(--global-hover) !important;
+}
+
+popup upload .listEntry.active {
+    color: var(--global-hover) !important;
+
+    .nameDiv:before {
+        color: var(--global-hover);
+    }
+}
+
+popup upload .error-message {
+    color: #e74d3cc0;
+    margin-top: 8px;
+    display: none;
+    flex-direction: column;
+}
+
+popup upload input {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 4px;
+    color: var(--text-color);
+    border: 1px solid var(--global-border-color);
+    background: var(--bg-shade-light);
+    outline: none;
+    font-family: "Poppins", sans-serif;
+}
+
+popup upload .errorList {
+    font-size: small;
+    margin: 0;
+    padding: 0;
+    padding-left: 25px;
+}
+
+popup upload input::placeholder {
+    color: var(--bg-shade-mid);
+}
+
+popup .head {
+    width: 100%;
+    height: auto;
+    align-items: center;
+    justify-content: center;
+}
+
+popup .head h2 {
+    position: relative;
+    left: 10px;
+    top: 10px;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+popup .element {
+    height: auto;
+    padding-top: 20px;
+    left: 10px;
+    width: calc(100% - 20px);
+}
+
+popup .element .confirmation-content.noselect {
+    overflow-wrap: break-word;
+}
+
+popup .footer {
+    height: auto;
+    padding-bottom: 20px;
+}
+
+popup .ok {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #27ae60;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+popup .ok:hover {
+    background-color: #2ecc71;
+}
+
+
+/* --------Start of Fileupload---------  */
+popup .upload-button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    color: #fff;
+    transition: color 0.3s ease;
+}
+
+popup .upload-button:hover {
+    color: #f5f5f5;
+}
+
+popup .drop-zone {
+    border: 2px dashed #ccc;
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    color: #aaa;
+    cursor: pointer;
+}
+
+popup .drop-zone.dragover {
+    border-color: #000;
+    background-color: #f0f0f0;
+}
+
+popup .error-message {
+    color: red;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+popup .dropZoneError {
+    border: 1px solid;
+    border-color: #ff1a1a;
+    box-shadow: 0 0 15px 5px rgba(252, 20, 20, 0.7);
+}
+
+popup .h2 {
+    text-align: center;
+}
+
+/* --------End of Fileupload---------  */
+
+/* --------Start of Settings ---------  */
+popup.settings #timezoneDiv {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    vertical-align: middle;
+}
+
+popup.settings #dateformatDiv {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    vertical-align: middle;
+}
+
+popup.settings #use12hClockDiv {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    vertical-align: middle;
+    ;
+}
+
+popup.settings #timeFirstDiv {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    vertical-align: middle;
+}
+
+popup.settings #offsetDiv {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    vertical-align: middle;
+    ;
+}
+
+popup.settings label {
+    display: table-cell;
+    color: #ffffff;
+    vertical-align: middle;
+    padding-right: 15px;
+}
+
+popup.settings select {
+    width: 100%;
+    padding: 10px;
+    background-color: #333333;
+    color: #ffffff;
+    border: 1px solid #555555;
+    border-radius: 5px;
+    text-align: center;
+    text-align-last: center;
+}
+
+popup.settings select option {
+    text-align: left;
+}
+
+popup.settings select:hover {
+    background-color: #444444;
+}
+
+popup.settings select:focus {
+    outline: none;
+    border-color: #777777;
+}
+
+popup.settings select::after {
+    content: '\25BC';
+    position: absolute;
+    right: 10px;
+    color: #ffffff;
+    pointer-events: none;
+}
+
+
+/* --------End of Settings---------  */
+
+popup.bug {
+    max-width: 535px;
+    width: 100%;
+}
+
+popup.bug .element #issueForm .reportDiv {
+    margin-bottom: 15px;
+}
+
+popup.bug .element #issueForm label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    width: 100%;
+}
+
+popup.bug .element #issueForm .input-field,
+select,
+textarea {
+    width: 100%;
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid var(--global-border-color);
+    background-color: var(--bg-shade-mid);
+    color: #ffffff;
+    box-sizing: border-box;
+}
+
+popup.bug .element #issueForm .input-field:required,
+popup.bug .element #issueForm select:required,
+popup.bug .element #issueForm textarea:required {
+    border-color: var(--global-border-color);
+}
+
+popup.bug .element #issueForm .tag-container {
+    display: flex;
+    gap: 5px;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    flex-direction: row;
+    align-content: center;
+}
+
+popup.bug .element #issueForm .tag {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 7px;
+    border-radius: 16px;
+    background-color: var(--bg-shade-light);
+    border: 1px solid var(--global-border-color);
+    color: #ccc;
+    cursor: pointer;
+    opacity: 0.4;
+    font-weight: bold;
+}
+
+popup.bug .element #issueForm .tag.selected {
+    opacity: 1;
+    background-color: var(--bg-shade-mid);
+    color: #fff;
+}
+
+popup.bug .element #issueForm .tag:hover,
+popup.bug .element #issueForm .tag.selected:hover {
+    opacity: 0.8;
+    background-color: var(--bg-shade-mid);
+    color: #fff;
+}
+
+popup.bug .element #issueForm textarea {
+    height: 100px;
+    resize: none;
+}
+
+popup.bug .element #issueForm .error-message {
+    margin-top: 10px;
+    color: #ff4d4d;
+    margin-bottom: 10px;
+    font-size: 0.9em;
+    justify-content: center;
+}
+
+popup.bug .element #issueForm .disclaimer {
+    font-size: 0.8em;
+    color: #b9bbbe;
+    margin-top: 10px;
+}
+
+popup.bug .element #issueForm .button {
+    padding-top: 10px;
+    display: flex;
+    width: 100%;
+    justify-content: center;
+}
+
+popup.bug .element #issueForm button {
+    padding: 12px 20px;
+    background-color: #27ae60;
+    color: #ffffff;
+    font-weight: bold;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+popup.bug .element #issueForm button:hover {
+    background-color: #2ecc71;
+}
+
+/* --------End of Bugreport --------  */
+
+
+popup.help .element #markdownContent {
+    border: 1px solid var(--bg-shade-light);
+    background-color: hsla(0, 0%, 0%, 0.2);
+    transition: background-color 0.3s, border-color 0.3s;
+    height: 320px;
+    position: relative;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+popup.help .element #markdownContent a,
+popup.help .element #markdownContent a:visited {
+    color: var(--text-color);
+    text-decoration: underline;
+}
+
+popup.help .element #markdownContent a:hover {
+    color: var(--global-hover);
+    text-decoration: underline;
+}
+
+popup.help .element #errorMessage {
+    color: red;
+    font-weight: bold;
+}
+
+help .element #markdownContent a,
+help .element #markdownContent a:visited {
+    color: var(--text-color);
+    text-decoration: underline;
+}
+
+help .element #markdownContent a:hover {
+    color: var(--global-hover);
+    text-decoration: underline;
+}
+
+help .element #errorMessage {
+    color: red;
+    font-weight: bold;
+}
+
+/* --------End of Help --------  */
+
+
+/* -------- Help-System V2 ---------  */
+#help {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80vw;
+    height: auto;
+    max-height: 80vh;
+    padding: 20px;
+    z-index: 10001;
+    font-family: "Poppins", sans-serif;
+    color: #fff;
+    border: solid var(--global-border-size) var(--global-border-color);
+    background: var(--body-bg-color);
+    background: linear-gradient(315deg, var(--body-gradient-start) 0%, var(--body-gradient-end) 100%);
+}
+
+help.show {
+    display: flex !important;
+}
+
+help.hide {
+    display: none !important;
+}
+
+help .head {
+    width: calc(100% - 20px);
+    position: absolute;
+    top: 10px;
+}
+
+help .head h2 {
+    position: relative;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+help .model .close {
+    cursor: pointer;
+    padding: 8px 14px;
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    position: absolute;
+    right: 10px;
+    z-index: 1;
+}
+
+help .element {
+    width: 80vw !important;
+    top: 30px;
+    bottom: 10px;
+    position: relative;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    max-height: calc(80vh - 30px);
+}
+
+help .element .md {
+    height: auto;
+    width: calc(100% - 20px);
+    display: flex;
+    overflow-y: auto;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+help .element #tocBody {
+    position: relative;
+    width: 200px;
+    height: calc(80vh - 30px);
+    overflow-y: hidden;
+}
+
+help .element #toc {
+    width: 100%;
+    padding-right: 10px;
+    height: 100%;
+    border-right: 1px solid #000000ab;
+    overflow-y: auto;
+}
+
+help .element #markdownContent {
+    width: calc(100% - 210px);
+    padding: 0 20px;
+    overflow-y: auto;
+}
+
+#markdownContent img {
+    max-height: 400px;
+    max-width: 400px;
+    height: auto;
+    margin: 10px;
+}
+
+help .element .toc-item {
+    margin: 5px 0;
+    cursor: pointer;
+    color: #fff;
+    text-decoration: none;
+}
+
+help .element .toc-item:hover,
+help .element .toc-subitem:hover {
+    opacity: 0.6;
+}
+
+help .element .toc-item:not(:first-child) {
+    border-top: 1px solid #ffffff4f;
+    padding-top: 5px;
+}
+
+help .element .toc-subitem {
+    margin: 2px 0 2px 5px;
+    font-size: 0.9em;
+    cursor: pointer;
+    color: #ccc;
+
+}
+
+help .element .toc-subitem::before {
+    content: "•";
+    margin-right: 8px;
+    color: #ccc;
+}
+
+help hr {
+    margin-top: 40px;
+    margin-bottom: 40px;
+    opacity: 0.7;
+    width: 100%;
+    height: 3px;
+    border: none;
+    background: linear-gradient(to right, transparent, rgba(0, 0, 0, 0.5), transparent);
+}
+
+
+help code {
+    background-color: rgba(0, 0, 0, 0.5);
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
+
+/* ProgressBar */
+#progressbar {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 9999;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Arial', sans-serif;
+    color: white;
+    font-weight: bold;
+}
+
+.progressbar {
+    position: relative;
+    width: auto;
+    display: flex;
+    justify-content: space-around;
+
+    .card {
+        position: relative;
+        width: 250px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 300px;
+        border-radius: 4px;
+        text-align: center;
+        overflow: hidden;
+        transition: 0.5s;
+    }
+
+    .percent {
+        position: relative;
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        box-shadow: inset 0 0 50px #000;
+        background: #222;
+        z-index: 1000;
+    }
+
+    .percent .num {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 50%;
+    }
+
+    .percent .num h2 {
+        color: #ccc;
+        font-weight: 700;
+        font-size: 40px;
+        transition: 0.5s;
+    }
+
+    .percent .num h2 span {
+        color: #ccc;
+        font-size: 24px;
+        transition: 0.5s;
+    }
+
+    .text {
+        position: relative;
+        color: #ccc;
+        margin-top: 20px;
+        font-weight: 700;
+        font-size: 18px;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        transition: 0.5s;
+    }
+
+    svg {
+        position: relative;
+        width: 150px;
+        height: 150px;
+        z-index: 1000;
+    }
+
+    svg circle {
+        width: 100%;
+        height: 100%;
+        fill: none;
+        stroke: #191919;
+        stroke-width: 10;
+        stroke-linecap: round;
+        transform: translate(5px, 5px);
+    }
+
+    svg circle:nth-child(2) {
+        stroke-dasharray: 440;
+        stroke-dashoffset: 440;
+    }
+
+    .card:nth-child(1) svg circle:nth-child(2) {
+        stroke-dashoffset: calc(440 - (440 * 0) / 100);
+        stroke: var(--global-hover)
+    }
+}

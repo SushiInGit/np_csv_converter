@@ -1,0 +1,148 @@
+
+.bankoutput {
+    height: calc(100% - 55px); 
+    width: 100%;
+    overflow-y: scroll;
+}
+.table {
+    padding-left: 5px;
+    width: calc(100% - 5px) !important;
+    height: 95%;
+}
+table {
+    width: calc(100% - 5px);
+    border-collapse: collapse;
+    font-size: 14px;
+    text-align: left;
+    border: 1px solid var(--global-border-color);
+    th, td {
+        padding: 3px 6px;
+        border: 1px solid var(--global-border-color);
+    }
+
+    thead {
+        position: sticky;
+        padding: 3px 6px;
+        top: -1px;
+        background-color: #1f1f1f;
+        border: 1px solid var(--global-border-color) !important;
+
+        th {
+            border: 1px solid var(--global-border-color);
+            font-weight: bold;
+        }
+    }
+
+    tbody {
+        tr:nth-child(even) {
+            background-color: #0000006e;
+        }
+
+        tr:hover {
+            background-color: #000000ad;
+        }
+    }
+    .in, .amount-in, .amount-in:not(:first-child)::before {
+        color: #81fd92c4; 
+        content: "+$";
+    }
+    .out, .amount-out, .amount-out:not(:first-child)::before {
+        color: #ff7474d2; 
+        content: "-$";
+    }
+     .amount-zero-in, .amount-zero-in:not(:first-child)::before {
+        color: #81fd92c4;
+        content: "+$";
+    }
+    .amount-zero-out, .amount-zero-out:not(:first-child)::before {
+        color: #ff7474d2; 
+        content: "-$";
+    }
+}
+.filter {
+    padding-top: 2px;
+    padding-bottom: 2px;
+    padding-left: 5px;
+    width: calc(100% - 10px);
+}
+.status-message {
+    font-family: "Poppins", sans-serif;
+    position: fixed;
+    bottom: 65px;
+    right: 27px;
+    padding: 8px;
+    background: #16131C;
+    color: var(--text-color);
+    border-radius: 5px;
+    border-width: 1px;
+    border: solid var(--global-border-size) var(--global-border-color);
+    font-size: 14px;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+    pointer-events: none;
+    z-index: 100;
+}
+
+.treeselect {
+width: 100%;
+}
+
+table .comment {
+    max-width: 300px !important;
+}
+.hidden {
+    display: none;
+}
+.vue-treeselect {
+    background: var(--bg-shade-light)!important;
+    border: 0px !important;
+}
+.vue-treeselect-container {
+    background: var(--bg-shade-light) !important;
+    border: 0px !important;
+}
+
+.vue-treeselect__control {
+    background: var(--bg-shade-light) !important;
+    border: 1px solid var(--global-border-color) !important;
+    color: var(--text-color) !important;
+}
+
+.vue-treeselect__placeholder {
+    color: var(--text-color) !important;
+}
+
+.vue-treeselect__option {
+    background: #1e1e1e !important;
+
+    color: var(--text-color) !important;
+}
+.vue-treeselect__menu {
+    background: #1e1e1e !important;
+    border: 1px solid var(--global-border-color) !important;
+    color: var(--text-color) !important;
+}
+
+.vue-treeselect__option:hover {
+    background-color: #333 !important;
+}
+
+.vue-treeselect__multi-value {
+    background-color: #2a2a2a;
+    color: var(--text-color) !important;
+}
+
+.vue-treeselect__multi-value-item{
+    background: var(--global-border-color) !important;
+    border: 1px solid var(--global-border-color) !important;
+    color: var(--text-color) !important;
+}
+.vue-treeselect__icon {
+ color: var(--global-hover) !important;
+}
+.vue-treeselect__checkbox--checked{
+    background-color: darkslateblue !important;
+    border-color: darkslateblue !important;
+
+}
+
