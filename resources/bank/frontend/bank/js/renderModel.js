@@ -41,13 +41,19 @@ frontend.renderModel = (function () {
         if (dbName) {
             console.log(dbName)
             indexedDBHelper.removeDatabank("BANK_" + dbName);
-            frontend.renderModel.closePopupDiv(); 
+            frontend.renderModel.closePopupDiv();
             clearOldData();
             frontend.popupUpload.render();
             global.alertsystem('success', `Databank: '${dbName}' is removed.`, 5);
+            /* UMAMI */
+            try {
+                global.helperUserinfo.trackDel("BANK", dbName);
+            } catch (error) {
+                console.error("An error occurred while tracking settings changes:", error.message);
+            }
         }
     }
-       
+
     function clearOldData() { // Clears all old shown data
         const bannerRight = document.querySelector(".banner .right.noselect");
         const bannerCenter = document.querySelector(".banner .center.noselect");
@@ -72,7 +78,7 @@ frontend.renderModel = (function () {
             popupDiv.classList.remove(className);
         });
         loader.classList.remove('active');
-        popupDiv.classList.add("hide");   
+        popupDiv.classList.add("hide");
     }
 
 

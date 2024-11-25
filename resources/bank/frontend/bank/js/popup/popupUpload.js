@@ -9,7 +9,13 @@ frontend.popupUpload = (function () {
         localStorage.setItem('lastBankDB', "BANK_" + databank);
         frontend.renderModel.clear();
         indexedDBHelper.loadLastDB();
-        frontend.renderModel.closePopupDiv(); 
+        frontend.renderModel.closePopupDiv();
+        /* UMAMI */
+        try {
+            global.helperUserinfo.trackSwap("BANK", databank);
+        } catch (error) {
+            console.error("An error occurred while tracking settings changes:", error.message);
+        }
     }
 
     /**
@@ -17,18 +23,19 @@ frontend.popupUpload = (function () {
      * @param {*} databank 
      */
     function del(databank) {
-            const popupDivName = "confirm-delete";
-            const content = `
+        const popupDivName = "confirm-delete";
+        const content = `
                 <div class="confirmation-content noselect ">
                     <p>Are you sure you want to delete this file? <br><br><b>Filename:</b> <br>${databank}</p>
                 </div>
             `;
 
-            const footer = `
+        const footer = `
                     <button class="risk" onclick="frontend.renderModel.delBank('${databank}')">Delete</button>
             `;
-            frontend.renderModel.createPopup(popupDivName, 'Delete Confirmation', content, footer);
+        frontend.renderModel.createPopup(popupDivName, 'Delete Confirmation', content, footer);
     }
+    
     /**
     * Render Upload-Popup
     **/
