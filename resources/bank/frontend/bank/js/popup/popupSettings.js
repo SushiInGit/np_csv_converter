@@ -122,7 +122,7 @@ frontend.popupSettings = (function () {
     }
 
     function removeSettingsTrigger() {
-        const npSettings = localStorage.getItem("np_settings");
+        const npSettings = localStorage.getItem("settings");
         if (npSettings) {
             const settingsObj = JSON.parse(npSettings);
             const defaultSettings = {
@@ -151,12 +151,12 @@ frontend.popupSettings = (function () {
             setSettingSelectedValue('timeFirst', `${(defaultSettings.displayOrder)}`);
             setSettingSelectedValue('dlsset', `${(defaultSettings.isDaylightSavingTime)}`);
 
-            localStorage.setItem("np_settings", JSON.stringify(settingsObj));
-            console.log("localStorage.np_settings has been removed.");
+            localStorage.setItem("settings", JSON.stringify(settingsObj));
+            console.log("localStorage.settings has been removed.");
             global.alertsystem('success', `Settings reset successfully.`, 4);
 
         } else {
-            console.log("localStorage.np_settings does not exist.");
+            console.log("localStorage.settings does not exist.");
         }
     }
 
