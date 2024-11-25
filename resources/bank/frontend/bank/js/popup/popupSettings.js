@@ -170,14 +170,14 @@ frontend.popupSettings = (function () {
             offsetBySettings: dlsset.value
         };
         
-        /* UMAMI
+        /* UMAMI */
         try {
-            middleman.umami.trackSettingsTimezone(loadSettings().timeZone, timezone.value);
-            middleman.umami.trackSettingsDLS(loadSettings().isDaylightSavingTime, dlsset.value);
+            global.helperUserinfo.trackSettingsTimezone(loadSettings().timeZone, timezone.value);
+            global.helperUserinfo.trackSettingsDLS(loadSettings().isDaylightSavingTime, dlsset.value);
         } catch (error) {
             console.error("An error occurred while tracking settings changes:", error.message);
         }
-        */
+        
 
         frontend.renderModel.closePopupDiv();
         global.timeConverter.saveSettings(newSettingsData);
