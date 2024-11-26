@@ -31,7 +31,6 @@ body {
     background-color: transparent;
     background: var(--body-bg-color);
     background: linear-gradient(315deg, var(--body-gradient-start) 0%, var(--body-gradient-end) 100%);
-    color: var(--text-color) !important;
 }
 
 .buttons {
@@ -143,9 +142,138 @@ body {
     grid-row-gap: 10px;
 }
 
-.table #bankRecordsTable {
-    font-family: "Poppins", sans-serif;
-    font-size: 14px;
+.output .messages .commOutput .call {
+    text-align: center;
+    background-color: var(--speechbubble-color);
+    color: var(--speechbubble-text);
+    font-size: .8em;
+    line-height: 1.75;
+    padding: 5px 15px;
+    border: 1px solid var(--speechbubble-border-color);
+    scroll-snap-align: end;
+}
+
+.output .messages .commOutput .call.callIn {
+    border-left: 5px solid var(--speechbubble-call-incoming) !important;
+    border-right: 5px solid var(--speechbubble-call-incoming) !important;
+}
+
+.output .messages .commOutput .call.callOut {
+    border-left: 5px solid var(--speechbubble-call-outgoing) !important;
+    border-right: 5px solid var(--speechbubble-call-outgoing) !important;
+}
+
+.output .messages .commOutput .call.callFail {
+    border-left: 5px solid var(--speechbubble-call-cancel) !important;
+    border-right: 5px solid var(--speechbubble-call-cancel) !important;
+}
+
+.output .messages .commOutput .call.callIn .callindicator.callIn {
+    position: absolute;
+    margin-top: 10px !important;
+
+    svg,
+    svg * {
+        fill: var(--speechbubble-call-incoming);
+    }
+}
+
+.output .messages .commOutput .call.callOut .callindicator.callOut {
+    position: absolute;
+    margin-top: 10px !important;
+
+    ssvg,
+    svg * {
+        fill: var(--speechbubble-call-outgoing);
+    }
+}
+
+.output .messages .commOutput .call.callFail .callindicator.callFail {
+    position: absolute;
+    margin-top: 10px !important;
+
+    svg,
+    svg * {
+        fill: var(--speechbubble-call-cancel);
+    }
+}
+
+.output .messages .commOutput .date-marker {
+    height: 20px;
+    text-align: center;
+    background-color: var(--speechbubble-color);
+    color: var(--speechbubble-text);
+    font-size: .8em;
+    line-height: 1.75;
+    padding: 5px 15px;
+    border: 1px solid var(--speechbubble-border-color);
+    border-left: 5px solid var(--speechbubble-highlight-datemarker);
+    border-right: 5px solid var(--speechbubble-highlight-datemarker);
+    scroll-snap-align: end;
+}
+
+.output .messages .commOutput .message {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: normal;
+}
+
+.output .messages .commOutput .message.to {
+    text-align: right;
+    background-color: var(--speechbubble-color);
+    color: var(--speechbubble-text);
+    font-size: .8em;
+    line-height: 1.75;
+    padding: 15px 25px;
+    border: 1px solid var(--speechbubble-border-color);
+    border-right: 5px solid var(--speechbubble-highlight-to);
+    scroll-snap-align: end;
+}
+
+.output .messages .commOutput .message.from {
+    text-align: left;
+    background-color: var(--speechbubble-color);
+    color: var(--speechbubble-text);
+    font-size: .8em;
+    line-height: 1.75;
+    padding: 15px 25px;
+    border: 1px solid var(--speechbubble-border-color);
+    border-left: 5px solid var(--speechbubble-highlight-from);
+    scroll-snap-align: end;
+}
+
+.output .messages .commOutput .message .number {
+    color: var(--speechbubble-text-color-italic);
+    padding-bottom: 5px;
+    font-style: italic;
+    font-size: smaller;
+}
+
+.output .messages .commOutput .message .timestamp {
+    color: var(--speechbubble-text-color-italic);
+    padding-top: 10px;
+    font-style: italic;
+    font-size: smaller;
+}
+
+.output .messages .commOutput .message .embedbody .embed {
+    padding-top: 15px;
+
+}
+
+.output .messages .commOutput .message .embedbody .embed img {
+    height: 200px !important;
+    padding-right: 15px;
+    filter: blur(0);
+    transition: all 0.3s ease;
+}
+
+.output .messages .commOutput .message .embedbody .embed img:not([src]) {
+    filter: blur(0);
+}
+
+.output .messages .commOutput .message .embedbody .embed img:hover {
+    filter: blur(0);
 }
 
 footer {
@@ -292,8 +420,4 @@ footer a:hover::after {
     padding: 20px; 
     z-index: 1000; 
     display: none;
-}
-
-#alert-container {
-    top: 25px !important;
 }
