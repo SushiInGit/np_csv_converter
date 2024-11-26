@@ -242,6 +242,7 @@ frontend.popupSettings = (function () {
         const savedPreferences = localStorage.getItem(SETTINGS_KEY);
         return savedPreferences ? JSON.parse(savedPreferences) : defaultSettings;
     }
+    
     /**
     * Get settings.value based of HTML-Element
     * @param {*} selectId 
@@ -252,16 +253,19 @@ frontend.popupSettings = (function () {
         selectElement.value = value;
     }
 
+    /**
+    * Check if the settings are not corrupted or missing
+    **/
     function checkSettings() {
         const settings = JSON.parse(localStorage.getItem('settings'));
 
         if (settings && (
-            !settings.chunkSize  || settings.chunkSize === '' || 
-            !settings.dateFormat || settings.dateFormat === '' || 
-            !settings.displayOrder || settings.displayOrder === '' || 
-            !settings.offsetBySettings || settings.offsetBySettings === '' || 
-            !settings.offsetShow || settings.offsetShow === '' || 
-            !settings.timeFormat || settings.timeFormat === '' || 
+            !settings.chunkSize || settings.chunkSize === '' ||
+            !settings.dateFormat || settings.dateFormat === '' ||
+            !settings.displayOrder || settings.displayOrder === '' ||
+            !settings.offsetBySettings || settings.offsetBySettings === '' ||
+            !settings.offsetShow || settings.offsetShow === '' ||
+            !settings.timeFormat || settings.timeFormat === '' ||
             !settings.timeZone || settings.timeZone === ''
         )) {
             global.alertsystem('error', `Your settings seem to be corrupted or something went wrong. <br>Please reset or change them.`, 14);

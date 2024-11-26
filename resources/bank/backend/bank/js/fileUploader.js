@@ -22,6 +22,7 @@ backend.fileUploader = (function () {
             <p>Drag & drop a .xlsx file here, or click to upload</p>
             <input type="file" class="file-input" accept=".xlsx" multiple style="display: none;" />
         `;
+        
         dropinContainer.appendChild(dropArea);
 
         const fileInput = dropArea.querySelector(".file-input");
@@ -69,7 +70,6 @@ backend.fileUploader = (function () {
         await global.progressbar.updateProgress("Reading File", 0);
         await global.progressbar.updateProgress("Normalizing", 0);
 
-
         for (const file of validFiles) {
             await global.progressbar.updateProgress("Reading File", 10);
             let parsedData = [];
@@ -88,7 +88,6 @@ backend.fileUploader = (function () {
                 }, 10);
             }
         }
-
     }
 
     /**
@@ -126,7 +125,6 @@ backend.fileUploader = (function () {
     function lastfilename(filename) {
         return filename;
     }
-
 
     return {
         initUploader,

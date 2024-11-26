@@ -2,29 +2,30 @@
 var backend = backend ?? {};
 
 /**
- * Fixes "null" civ_name / account_name
- */
+* Fixes "null" civ_name / account_name based on Server
+* Options: server('whitelist', 'blue', 'green')
+**/
 backend.stateAccounts = (function () {
     let npserver = localStorage.getItem('npserver');
     let maxStatAccountID = 100;
     let minUserAccountID = 1000;
     
     /**
-     * Set AccountName to StateAccount
-     * @param {*} input to_account_id / from_account_id
-     * @param {*} accountName  to_account_name / from_account_name
-     * @returns Fixed account_name ['State Account' or 'Original Account_Name']
-     */
+    * Set AccountName to StateAccount
+    * @param {*} input to_account_id / from_account_id
+    * @param {*} accountName  to_account_name / from_account_name
+    * @returns Fixed account_name ['State Account' or 'Original Account_Name']
+    **/
     function AccountName(input, accountName) {
         return input <= maxStatAccountID ? "State Account" : accountName;
     };
 
     /**
-     * Set AccountName to StateAccount
-     * @param {*} input to_account_id / from_account_id
-     * @param {*} accountName  to_civ_name / from_civ_name
-     * @returns Fixed civ_name ['Forced Civ_Name based of Array' or 'Original Civ_Name']
-     */
+    * Set AccountName to StateAccount
+    * @param {*} input to_account_id / from_account_id
+    * @param {*} accountName  to_civ_name / from_civ_name
+    * @returns Fixed civ_name ['Forced Civ_Name based of Array' or 'Original Civ_Name']
+    **/
     function CivName(input, accountName) {
         const whitelistAccountNames = {
             2: "Mayor Account",
