@@ -43,6 +43,7 @@ backend.markdownHelper = (function () {
 
             setTimeout(() => {
                 backend.markdownHelper.fetchMarkdown(file);
+                window.dispatchEvent(new Event('unload'));
             }, 10);
         }, 50);
 

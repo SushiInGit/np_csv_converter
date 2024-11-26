@@ -3,24 +3,29 @@
     // Trigger if no error popup
     document.addEventListener("DOMContentLoaded", function (e) {
         deactivateLoader()
+        
     });
 
     window.addEventListener('load', function (e) {
         activateLoader();
+       
     });
 
     window.addEventListener('unload', function (e) {
         deactivateLoader();
     });
-
+    
     // Effect
     function activateLoader() {
+        document.querySelector('body').style.cursor = 'wait';
         loader.className = ('loader active');
     }
 
     function deactivateLoader() {
+        document.querySelector('body').style.cursor = 'default';
+         setTimeout(function () {
+            document.querySelector('body').style.cursor = 'default';
 
-        setTimeout(function () {
             deactivate();
         }, 1000);
 

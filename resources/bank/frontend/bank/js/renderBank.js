@@ -7,12 +7,15 @@ frontend.renderBank = (function () {
     * @returns html-object
     **/
     async function renderTransactions(dbName) {
+        window.dispatchEvent(new Event('load'));
         const data = await indexedDBHelper.loadData(dbName, 'transactions');
 
         if (!data || Object.keys(data).length === 0) {
             console.error("No data loaded from IndexedDB.");
+            window.dispatchEvent(new Event('unload'));
             return;
         }
+        window.dispatchEvent(new Event('unload'));
         const viewsDiv = document.querySelector(".menu .list.noselect .pov");
         viewsDiv.innerHTML = ``;
 
@@ -36,6 +39,7 @@ frontend.renderBank = (function () {
 
             var table = document.querySelector(".output .bankoutput");
             table.innerHTML = ``;
+            window.dispatchEvent(new Event('load'));
             frontend.renderBank.renderHeaderInfo(dbName, (-1), "ALL");
             frontend.renderBank.renderBankByID(dbName, (-1));
         });
@@ -62,13 +66,15 @@ frontend.renderBank = (function () {
 
                 var table = document.querySelector(".output .bankoutput");
                 table.innerHTML = ``;
+                window.dispatchEvent(new Event('load'));
                 frontend.renderBank.renderHeaderInfo(dbName, entry.bankID, entry.value?.owner);
                 frontend.renderBank.renderBankByID(dbName, entry.bankID);
             });
 
             viewsDiv.appendChild(divforEach);
-        });
 
+        });
+        window.dispatchEvent(new Event('unload'));
     }
 
     /**
@@ -172,6 +178,7 @@ frontend.renderBank = (function () {
         async function loadChunk() {
             if (loadedRows >= totalRows) return;
             previousLoadedRows = loadedRows;
+            window.dispatchEvent(new Event('load'));
 
             const chunk = filteredData.slice(loadedRows, loadedRows + chunkSize);
             const dateIndex = Array.from(tableHeaderMap.entries()).find(([index, key]) => key === "date")?.[0];
@@ -217,19 +224,21 @@ frontend.renderBank = (function () {
 
             loadedRows += chunk.length;
             frontend.treeselect();
+            window.dispatchEvent(new Event('unload'));
 
         }
-
+        window.dispatchEvent(new Event('load'));
         await loadChunk();
 
 
         outputContainer.addEventListener('scroll', async () => {
             if (outputContainer.scrollTop + outputContainer.clientHeight >= outputContainer.scrollHeight) {
+                window.dispatchEvent(new Event('load'));
                 await loadChunk();
                 
             }
         });
-        
+        window.dispatchEvent(new Event('unload'));
     }
 
     /**
@@ -340,6 +349,7 @@ frontend.renderBank = (function () {
     * @returns last active Transaction
     **/
     function reopenActiveTransfer() {
+        window.dispatchEvent(new Event('load'));
         const outputContainer = document.querySelector(".output .bankoutput");
         outputContainer.innerHTML = ``;
 
