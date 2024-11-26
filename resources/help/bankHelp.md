@@ -33,7 +33,7 @@
   Press the "[X]" button to delete older subpoenas.
 
 
- ![Subpoena Upload](https://sushiingit.github.io/np_csv_converter/resources/frontend/image/help/bankUpload.png "Subpoena Upload")
+ ![Subpoena Upload](https://sushiingit.github.io/np_csv_converter/resources/public/image/help/bankUpload.png "Subpoena Upload")
 
 ---
 
@@ -41,7 +41,7 @@
 
   You can hide or disable additional bank transfer details by opening the dropdown menu and selecting specific information.
 
-![Subpoena Select](https://sushiingit.github.io/np_csv_converter/resources/frontend/image/help/bankTableview.png "Subpoena Select")
+![Subpoena Select](https://sushiingit.github.io/np_csv_converter/resources/public/image/help/bankTableview.png "Subpoena Select")
 
 ---
 
@@ -67,5 +67,5 @@
 - **Daylight Savings**:  
   You can manually adjust the daylight saving setting if needed. Typically, it's best to keep "Dynamic" selected. However, if issues arise after the daylight saving time change, you can set the tool to specific modes: "Summer Time" or "Winter Time."
 
-![Add Number](https://sushiingit.github.io/np_csv_converter/resources/frontend/image/help/settings2.png "Add Number")
+![Add Number](https://sushiingit.github.io/np_csv_converter/resources/public/image/help/settings2.png "Add Number")
 

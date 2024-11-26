@@ -44,7 +44,7 @@
 - **Removing Subpoena**:  
   Press the "[X]" button to delete older subpoenas.
 
-![Subpoena Upload](https://sushiingit.github.io/np_csv_converter/resources/frontend/image/help/phoneUpload.png "Subpoena Upload")
+![Subpoena Upload](https://sushiingit.github.io/np_csv_converter/resources/public/image/help/phoneUpload.png "Subpoena Upload")
 
 ---
 
@@ -55,7 +55,7 @@
 - **Right-Click Menu**:  
   By right-clicking on the Log Header or bold numbers in the text messages, you can check if you recognize that number or add it directly from there.
 
-![Add Number](https://sushiingit.github.io/np_csv_converter/resources/frontend/image/help/phoneAddnumber.png "Add Number")![Add Number](https://sushiingit.github.io/np_csv_converter/resources/frontend/image/help/phoneAddnumber2.png "Add Number")
+![Add Number](https://sushiingit.github.io/np_csv_converter/resources/public/image/help/phoneAddnumber.png "Add Number")![Add Number](https://sushiingit.github.io/np_csv_converter/resources/public/image/help/phoneAddnumber2.png "Add Number")
 
 ---
 ### Contact Import
@@ -122,5 +122,5 @@
 - **Daylight Savings**:  
   You can manually adjust the daylight saving setting if needed. Typically, it's best to keep "Dynamic" selected. However, if issues arise after the daylight saving time change, you can set the tool to specific modes: "Summer Time" or "Winter Time."
 
-![Add Number](https://sushiingit.github.io/np_csv_converter/resources/frontend/image/help/settings2.png "Add Number")
+![Add Number](https://sushiingit.github.io/np_csv_converter/resources/public/image/help/settings2.png "Add Number")
 

@@ -70,11 +70,11 @@ frontend.renderBank = (function () {
                 frontend.renderBank.renderHeaderInfo(dbName, entry.bankID, entry.value?.owner);
                 frontend.renderBank.renderBankByID(dbName, entry.bankID);
             });
-
+            window.dispatchEvent(new Event('unload'));
             viewsDiv.appendChild(divforEach);
 
         });
-        window.dispatchEvent(new Event('unload'));
+        
     }
 
     /**
