@@ -2,7 +2,7 @@ var indexedDBHelper = indexedDBHelper ?? {};
 
 indexedDBHelper = {
     dbName: '',
-
+    
     /**
      * Ensures max two decimal places
      * @param {*} amount 
@@ -215,13 +215,13 @@ indexedDBHelper = {
 
             transaction.oncomplete = () => {
                 console.log(`Data "${this.normalizeFilename(dbName)}" successfully saved to IndexedDB.`);
-                global.alertsystem('success', `Uploaded Databank: ${this.normalizeFilename(dbName).slice(5)}`, 5);
+                middleman.alertsystem('success', `Uploaded Databank: ${this.normalizeFilename(dbName).slice(5)}`, 5);
                 frontend.renderModel.clear();
                 this.saveLastDB(dbName);
 
                 /* UMAMI */
                 try {
-                    global.helperUserinfo.trackUpload("BANK", this.normalizeFilename(dbName).slice(5));
+                    middleman.helperUserinfo.trackUpload("BANK", this.normalizeFilename(dbName).slice(5));
                 } catch (error) {
                     console.error("An error occurred while tracking changes:", error.message);
                 }
@@ -308,7 +308,7 @@ indexedDBHelper = {
     saveLastDB: async function () {
         const normalizedFilename = this.dbName;
         localStorage.setItem('lastBankDB', normalizedFilename);
-        global.progressbar.resetProgress();
+        middleman.progressbar.resetProgress();
         this.loadLastDB(normalizedFilename);
     },
 
@@ -323,7 +323,7 @@ indexedDBHelper = {
             indexedDBHelper.loadData(dbname, 'data')
                 .then(data => {
                     //console.log(`Loaded data from IndexedDB: "${dbname}" Total entries: ${data.length}`);
-                    global.alertsystem('info', `Loading Databank: ${dbname.slice(5)} ...`, 5);
+                    middleman.alertsystem('info', `Loading Databank: ${dbname.slice(5)} ...`, 5);
                     frontend.renderBank.renderMetadata(dbname).then(data => {
 
                         frontend.renderBank.renderTransactions(dbname)
@@ -434,4 +434,5 @@ indexedDBHelper = {
             };
         });
     }
+    
 };

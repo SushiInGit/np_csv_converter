@@ -233,14 +233,14 @@ backend.bugReportHelper = (function () {
         })
             .then(response => {
                 if (response.ok) {
-                    global.alertsystem('success', `Report has been sent successfully.`, 5);
+                    middleman.alertsystem('success', `Report has been sent successfully.`, 5);
                     frontend.renderModel.closePopupDiv();
                 } else {
-                    global.alertsystem('warning', `Error: Report could not be sent. Try again later.`, 5);
+                    middleman.alertsystem('warning', `Error: Report could not be sent. Try again later.`, 5);
                 }
             })
             .catch(error => {
-                global.alertsystem('warning', `Error: Report could not be sent. Try again later.`, 5);
+                middleman.alertsystem('warning', `Error: Report could not be sent. Try again later.`, 5);
             });
     }
 

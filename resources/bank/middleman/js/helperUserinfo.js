@@ -1,6 +1,6 @@
-var global = global ?? {};
+var middleman = middleman ?? {};
 
-global.helperUserinfo = (function () {
+middleman.helperUserinfo = (function () {
     
     function trackEvent(eventName, eventDetails) {
         if (window.umami) {

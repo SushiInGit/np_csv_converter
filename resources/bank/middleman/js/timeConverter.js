@@ -1,44 +1,6 @@
-var global = global ?? {};
+var middleman = middleman ?? {};
 
-global.timeConverter = (function () {
-    /**
-    * Save and Update Settings to localStorage('np_settings')
-    * @param {*} newPreferences 
-    **/
-    function saveSettings(newPreferences) {
-        const SETTINGS_KEY = 'settings';
-        const existingSettings = localStorage.getItem(SETTINGS_KEY);
-        let settings = existingSettings ? JSON.parse(existingSettings) : {};
-
-        // Only update the settings if there's a change or it's a new key.
-        Object.keys(newPreferences).forEach(key => {
-            if (key !== 'MAX_STORAGE_MB' || !(key in settings)) {
-                settings[key] = newPreferences[key];
-            }
-        });
-
-        localStorage.setItem(SETTINGS_KEY, JSON.stringify(settings));
-    }
-
-    /**
-    * Load Settings or swap to defaultSettings
-    * @returns Loaded Settings
-    **/
-    function loadSettings() {
-        const SETTINGS_KEY = 'settings';
-        const savedPreferences = localStorage.getItem(SETTINGS_KEY);
-
-        const defaultSettings = {
-            timeZone: 'utc',
-            timeFormat: '24Hour',
-            offsetShow: 'on',
-            dateFormat: 'YYYY-MM-DD',
-            displayOrder: 'dateAndTime',
-            offsetBySettings: '0'
-        };
-        //saveSettings(savedPreferences ? JSON.parse(savedPreferences) : defaultSettings);
-        return savedPreferences ? JSON.parse(savedPreferences) : defaultSettings;
-    }
+middleman.timeConverter = (function () {
 
     /**
     * Offset Time based on Settings
@@ -48,7 +10,7 @@ global.timeConverter = (function () {
     function offsetTime(timestemp) {
         const date = new Date(timestemp);
         let useOffset = "";
-        const npSettings = loadSettings();
+        let npSettings = middleman.settings.getSettings();
 
         if (npSettings) {
             offset = parseInt(npSettings.offsetBySettings, 10) || 0;
@@ -64,7 +26,7 @@ global.timeConverter = (function () {
     * @returns Time Converted based on 'Settings'
     */
     function processTimestamp(timestamp) {
-        const preferences = loadSettings();
+        const preferences = middleman.settings.getSettings();
 
         const formats = {
             dateFormats: [
@@ -164,8 +126,6 @@ global.timeConverter = (function () {
     }
 
     return {
-        saveSettings,
-        loadSettings,
         processTimestamp,
         convertedTimestamp: (timestemp) => { return processTimestamp(offsetTime(timestemp)) }
     };
