@@ -256,13 +256,13 @@ frontend.popupSettings = (function () {
         const settings = JSON.parse(localStorage.getItem('settings'));
 
         if (settings && (
-            !settings.chunkSize || 
-            !settings.dateFormat || 
-            !settings.displayOrder || 
-            !settings.offsetBySettings || 
-            !settings.offsetShow || 
-            !settings.timeFormat || 
-            !settings.timeZone
+            !settings.chunkSize  || settings.chunkSize === '' || 
+            !settings.dateFormat || settings.dateFormat === '' || 
+            !settings.displayOrder || settings.displayOrder === '' || 
+            !settings.offsetBySettings || settings.offsetBySettings === '' || 
+            !settings.offsetShow || settings.offsetShow === '' || 
+            !settings.timeFormat || settings.timeFormat === '' || 
+            !settings.timeZone || settings.timeZone === ''
         )) {
             global.alertsystem('error', `Your settings seem to be corrupted or something went wrong. <br>Please reset or change them.`, 14);
             console.error('Error: Settings are missing or currpted in localStorage');
