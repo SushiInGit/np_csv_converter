@@ -54,10 +54,10 @@ frontend.renderModel = (function () {
             frontend.renderModel.closePopupDiv();
             clearOldData();
             frontend.popupUpload.render();
-            global.alertsystem('success', `Databank: '${dbName}' is removed.`, 5);
+            middleman.alertsystem('success', `Databank: '${dbName}' is removed.`, 5);
             /* UMAMI */
             try {
-                global.helperUserinfo.trackDel("BANK", dbName);
+                middleman.helperUserinfo.trackDel("BANK", dbName);
             } catch (error) {
                 console.error("An error occurred while tracking changes:", error.message);
             }

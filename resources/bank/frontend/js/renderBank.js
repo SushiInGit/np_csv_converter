@@ -149,7 +149,7 @@ frontend.renderBank = (function () {
             13: `Tax %`,
             14: `Tax-Type`,
             15: `Tax-ID`,
-            16: `Date (${global.timeConverter.processTimestamp(Date.now()).timeZone})`,
+            16: `Date (${middleman.timeConverter.processTimestamp(Date.now()).timeZone})`,
             17: `Databank-ID`
         };
 
@@ -170,7 +170,7 @@ frontend.renderBank = (function () {
         document.body.appendChild(statusMessage);
 
         const totalRows = filteredData.length;
-        const chunkSize = Number(frontend.popupSettings.load().chunkSize);
+        const chunkSize = Number(middleman.settings.getSettings().chunkSize);
         let loadedRows = 0;
         let previousLoadedRows = loadedRows;
         let resetTimeout;
@@ -182,14 +182,14 @@ frontend.renderBank = (function () {
 
             const chunk = filteredData.slice(loadedRows, loadedRows + chunkSize);
             const dateIndex = Array.from(tableHeaderMap.entries()).find(([index, key]) => key === "date")?.[0];
-
             chunk.forEach((row) => {
+
                 const tr = document.createElement("tr");
 
                 Object.values(row).forEach((value, key) => {
                     const td = document.createElement("td");
                     if (key === dateIndex) {
-                        td.textContent = global.timeConverter.convertedTimestamp(value).fullDateAndTime;
+                        td.textContent = middleman.timeConverter.convertedTimestamp(value).fullDateAndTime;
                     } else {
                         td.textContent = value;
                     }
@@ -322,8 +322,8 @@ frontend.renderBank = (function () {
         time.firstTransactions = await indexedDBHelper.loadMetadata(dbName, 'firstTransactions') || "Unknown Date";
         time.lastTransactions = await indexedDBHelper.loadMetadata(dbName, 'lastTransactions') || "Unknown Date";
 
-        time.first = global.timeConverter.convertedTimestamp(time.firstTransactions).date;
-        time.last = global.timeConverter.convertedTimestamp(time.lastTransactions).date;
+        time.first = middleman.timeConverter.convertedTimestamp(time.firstTransactions).date;
+        time.last = middleman.timeConverter.convertedTimestamp(time.lastTransactions).date;
 
         if (bannerCenter) {
             bannerCenter.innerHTML = `

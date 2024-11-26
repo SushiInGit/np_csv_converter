@@ -1,19 +1,19 @@
-var global = global ?? {};
-global.alertCooldowns = new Map();
+var middleman = middleman ?? {};
+middleman.alertCooldowns = new Map();
 
-global.alertsystem = function (type, message, duration) {
+middleman.alertsystem = function (type, message, duration) {
 
     const currentTime = Date.now();
 
     // Check if the message is already in the cooldown period
-    if (global.alertCooldowns.has(message)) {
-        const lastTriggeredTime = global.alertCooldowns.get(message);
+    if (middleman.alertCooldowns.has(message)) {
+        const lastTriggeredTime = middleman.alertCooldowns.get(message);
         if (currentTime - lastTriggeredTime < 1000) {
             return;
         }
     }
 
-    global.alertCooldowns.set(message, currentTime);
+    middleman.alertCooldowns.set(message, currentTime);
 
     const alertContainer = document.getElementById('alert-container');
     const alert = document.createElement('div');
@@ -79,11 +79,3 @@ global.alertsystem = function (type, message, duration) {
     });
 };
 
-// Capture Error from Console.log 
-/*
-window.onerror = function (message, source, lineno, colno, error) {
-    if (message.startsWith("Uncaught Error: ")) {
-      global.alertsystem('error', `${message}.`, 7);
-    } 
-  };
-*/

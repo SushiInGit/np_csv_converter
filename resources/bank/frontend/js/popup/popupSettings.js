@@ -58,59 +58,43 @@ frontend.popupSettings = (function () {
             <div id="timeFirstDiv">
                 <label for="timeFirst">Date/Time order</label>
                 <select id="timeFirst">
-                    <option value="dateAndTime">${(global.timeConverter.loadSettings().dateFormat)} (Date) HH:MM (Time)</option>
-                    <option value="timeAndDate">HH:MM (Time) ${(global.timeConverter.loadSettings().dateFormat)} (Date)</option>
+                    <option value="dateAndTime">Date then Time</option>
+                    <option value="timeAndDate">Time then Date</option>
                 </select>
             </div>  
-            <div id="dlsDiv">
-                <label for="dlsset">Daylight Savings: <!-- (${global.timeConverter.processTimestamp(Date.now()).isDaylightSavingTime ? "Summer Time " : "Winter Time"}) --></label>
-                <select id="dlsset">
+            <div id="offsetBySettingsDiv">
+                <label for="offsetBySettings">Daylight Savings: <!-- (${middleman.timeConverter.processTimestamp(Date.now()).isDaylightSavingTime ? "Summer Time " : "Winter Time"}) --></label>
+                <select id="offsetBySettings">
                     <option value="0">Dynamic Time Offset</option>
                     <option value="-1">Force Winter Time (-1h)</option>
                     <option value="+1">Force Summer Time (+1h)</option>
                 </select>
             </div>
-            <div id="offsetDiv"  style="display: none">
-                <label for="showoffset">Force use Time Offset (${global.timeConverter.processTimestamp(Date.now()).offsettimeZoneHours}):</label>
-                <select id="showoffset">
-                    <option value="on">Yes</option>
-                    <option value="off">No</option>
-                </select>
-            </div>  
-
         `;
-        const footer = `<button class="ok" onclick="frontend.popupSettings.save(); frontend.popupSettings.removeBank();">Save</button> <button class="risk" onclick="frontend.popupSettings.reset(); frontend.popupSettings.removeBank();">Reset</button>`;
+        const footer = `<button class="ok" onclick="frontend.popupSettings.save(); frontend.popupSettings.removeBank(); ">Save</button> <button class="risk" onclick="frontend.popupSettings.reset(); frontend.popupSettings.removeBank();">Reset</button>`;
 
         frontend.renderModel.createPopup(popupDivName, 'Settings', content, footer);
 
+        
         setTimeout(() => {
-            const chunkSize = document.getElementById('chunkSize').value;
-            const timezone = document.getElementById('timezone').value;
-            const dateformat = (document.getElementById('dateformat').value);
-            const use12hClock = document.getElementById('use12hClock').value;
-            const showoffset = document.getElementById('showoffset').value;
-            const timeFirst = document.getElementById('timeFirst').value;
-            const showDLS = document.getElementById('dlsset').value;
+            (async () => {
+                try {
+                    const settings = middleman.settings.getSettings();
+                    const getsettings = settings; 
 
-            setSettingSelectedValue('chunkSize', `${(frontend.popupSettings.load().chunkSize)}`);
-            setSettingSelectedValue('timezone', `${(frontend.popupSettings.load().timeZone)}`);
-            setSettingSelectedValue('dateformat', `${(frontend.popupSettings.load().dateFormat)}`);
-            setSettingSelectedValue('use12hClock', `${(frontend.popupSettings.load().timeFormat)}`);
-            setSettingSelectedValue('showoffset', `${(frontend.popupSettings.load().offsetShow)}`);
-            setSettingSelectedValue('timeFirst', `${(frontend.popupSettings.load().displayOrder)}`);
-            setSettingSelectedValue('dlsset', `${(frontend.popupSettings.load().offsetBySettings)}`);
+                    setSettingSelectedValue('chunkSize', `${(getsettings.chunkSize)}`);
+                    setSettingSelectedValue('timezone', `${(getsettings.timeZone)}`);
+                    setSettingSelectedValue('dateformat', `${(getsettings.dateFormat)}`);
+                    setSettingSelectedValue('use12hClock', `${(getsettings.timeFormat)}`);
+                    setSettingSelectedValue('timeFirst', `${(getsettings.displayOrder)}`);
+                    setSettingSelectedValue('offsetBySettings', `${(getsettings.offsetBySettings)}`);
+
+                } catch (error) {
+                    console.error("Error retrieving settings:", error);
+                }
+            })();
         }, 50);
     }
-
-    const defaultSettings = {
-        chunkSize: '50',
-        timeZone: 'utc',
-        timeFormat: '24Hour',
-        offsetShow: 'on',
-        dateFormat: 'YYYY-MM-DD',
-        displayOrder: 'dateAndTime',
-        offsetBySettings: '0',
-    };
 
     /**
     * Reopen last active Transfer
@@ -158,34 +142,13 @@ frontend.popupSettings = (function () {
     * Reset to default settings
     **/
     function resetSettingsTrigger(defaultSettings) {
-        const npSettings = localStorage.getItem("settings");
+        const npSettings = defaultSettings;
         if (npSettings) {
-            const settingsObj = JSON.parse(npSettings);
-            // Remove the specified keys
-            delete settingsObj.MAX_STORAGE_MB;
-
-            settingsObj.chunkSize = defaultSettings.chunkSize;
-            settingsObj.timeZone = defaultSettings.timeZone;
-            settingsObj.dateFormat = defaultSettings.dateFormat;
-            settingsObj.timeFormat = defaultSettings.timeFormat;
-            settingsObj.offsetShow = defaultSettings.offsetShow;
-            settingsObj.displayOrder = defaultSettings.displayOrder;
-            settingsObj.offsetBySettings = defaultSettings.offsetBySettings;
-
-            setSettingSelectedValue('chunkSize', `${(defaultSettings.chunkSize)}`);
-            setSettingSelectedValue('timezone', `${(defaultSettings.timeZone)}`);
-            setSettingSelectedValue('dateformat', `${(defaultSettings.dateFormat)}`);
-            setSettingSelectedValue('use12hClock', `${(defaultSettings.timeFormat)}`);
-            setSettingSelectedValue('showoffset', `${(defaultSettings.offsetShow)}`);
-            setSettingSelectedValue('timeFirst', `${(defaultSettings.displayOrder)}`);
-            setSettingSelectedValue('dlsset', `${(defaultSettings.offsetBySettings)}`);
-
-            localStorage.setItem("settings", JSON.stringify(settingsObj));
-            console.log("localStorage.settings has been set to default.");
-            global.alertsystem('success', `Settings reset successfully.`, 4);
-
+            middleman.settings.updateSettings(npSettings)
+            frontend.popupSettings.render();
+            window.dispatchEvent(new Event('unload'));
         } else {
-            console.log("localStorage.settings does not exist.");
+            console.log("Settings-DB does not exist.");
         }
     }
 
@@ -212,37 +175,33 @@ frontend.popupSettings = (function () {
             timeZone: timezone.value,
             dateFormat: dateformat.value,
             timeFormat: use12hClock.value,
-            offsetShow: showoffset.value,
             displayOrder: timeFirst.value,
-            offsetBySettings: dlsset.value
+            offsetBySettings: offsetBySettings.value
         };
 
         /* UMAMI */
         try {
-            global.helperUserinfo.trackSettingsTimezone(frontend.popupSettings.load().timeZone, timezone.value);
-            global.helperUserinfo.trackSettingsDLS(frontend.popupSettings.load().offsetBySettings, dlsset.value);
+            middleman.helperUserinfo.trackSettingsTimezone(frontend.popupSettings.load().timeZone, timezone.value);
+            middleman.helperUserinfo.trackSettingsDLS(frontend.popupSettings.load().offsetBySettings, offsetBySettings.value);
         } catch (error) {
             console.error("An error occurred while tracking changes:", error.message);
         }
-
-        frontend.renderModel.closePopupDiv();
-        global.timeConverter.saveSettings(newSettingsData);
+        middleman.settings.updateSettings(newSettingsData)
         frontend.renderBank.renderMetadata(localStorage.getItem('lastBankDB'));
-        frontend.renderBank.reopenActiveTransfer();
-        global.alertsystem('success', `Settings saved successfully.`, 4);
         frontend.popupSettings.active();
+        frontend.renderModel.closePopupDiv();
+        frontend.renderBank.reopenActiveTransfer();
+        window.dispatchEvent(new Event('unload'));
     }
 
     /**
     * Load Settings or swap to defaultSettings
     * @returns Loaded Settings
     **/
-    function loadSettingsTrigger(defaultSettings) {
-        const SETTINGS_KEY = 'settings';
-        const savedPreferences = localStorage.getItem(SETTINGS_KEY);
-        return savedPreferences ? JSON.parse(savedPreferences) : defaultSettings;
+    function loadSettingsTrigger() {
+        return  middleman.settings.getSettings();
     }
-    
+
     /**
     * Get settings.value based of HTML-Element
     * @param {*} selectId 
@@ -257,19 +216,18 @@ frontend.popupSettings = (function () {
     * Check if the settings are not corrupted or missing
     **/
     function checkSettings() {
-        const settings = JSON.parse(localStorage.getItem('settings'));
+        const settings = middleman.settings.settings();
 
         if (settings && (
             !settings.chunkSize || settings.chunkSize === '' ||
             !settings.dateFormat || settings.dateFormat === '' ||
             !settings.displayOrder || settings.displayOrder === '' ||
             !settings.offsetBySettings || settings.offsetBySettings === '' ||
-            !settings.offsetShow || settings.offsetShow === '' ||
             !settings.timeFormat || settings.timeFormat === '' ||
             !settings.timeZone || settings.timeZone === ''
         )) {
-            global.alertsystem('error', `Your settings seem to be corrupted or something went wrong. <br>Please reset or change them.`, 14);
-            console.error('Error: Settings are missing or currpted in localStorage');
+            middleman.alertsystem('error', `Your settings seem to be corrupted or something went wrong. <br>Please reset or change them.`, 14);
+            console.error('Error: Settings are missing or currpted in indexedDB');
         }
     }
     return {
@@ -278,8 +236,8 @@ frontend.popupSettings = (function () {
         save: saveSettingsTrigger,
         removeBank: removeOldBankRecords,
         checkSettings: checkSettings,
-        load: () => { return loadSettingsTrigger(defaultSettings) },
-        reset: () => { return resetSettingsTrigger(defaultSettings) }
+        load: () => { return loadSettingsTrigger(middleman.settings.settings()) },
+        reset: () => { return resetSettingsTrigger(middleman.settings.settings()) }
     };
 })();
 

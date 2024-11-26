@@ -1,11 +1,11 @@
-var global = global ?? {};
+var middleman = middleman ?? {};
 
-global.progressbar = (function () {
+middleman.progressbar = (function () {
     const progressBarContainerSelector = ".progressbar";
 
     document.addEventListener("keydown", function (event) {
         if (event.key === "Escape") {
-            global.progressbar.resetProgress()
+            middleman.progressbar.resetProgress()
         }
     });
 

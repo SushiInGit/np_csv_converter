@@ -67,22 +67,22 @@ backend.fileUploader = (function () {
         }
 
         frontend.renderModel.closePopupDiv();
-        await global.progressbar.updateProgress("Reading File", 0);
-        await global.progressbar.updateProgress("Normalizing", 0);
+        await middleman.progressbar.updateProgress("Reading File", 0);
+        await middleman.progressbar.updateProgress("Normalizing", 0);
 
         for (const file of validFiles) {
-            await global.progressbar.updateProgress("Reading File", 10);
+            await middleman.progressbar.updateProgress("Reading File", 10);
             let parsedData = [];
             if (file.name.endsWith(".xlsx")) {
-                await global.progressbar.updateProgress("Reading File", 30);
+                await middleman.progressbar.updateProgress("Reading File", 30);
                 parsedData = await parseXLSX(file);
             }
-            await global.progressbar.updateProgress("Reading File", 100);
+            await middleman.progressbar.updateProgress("Reading File", 100);
             const normalizedData = await normalizeData(file.name, parsedData);
 
             //onFileUploaded(normalizedData);
             if (typeof onFileUploaded === "function") {
-                await global.progressbar.updateProgress("Normalizing", 100);
+                await middleman.progressbar.updateProgress("Normalizing", 100);
                 setTimeout(() => {
                     onFileUploaded(normalizedData);
                 }, 10);
@@ -116,9 +116,9 @@ backend.fileUploader = (function () {
     * @returns {Promise<Object[]>}
     **/
     async function normalizeData(filename, data) {
-        await global.progressbar.updateProgress("Normalizing", 25);
+        await middleman.progressbar.updateProgress("Normalizing", 25);
         const normalizedData = backend.bankRecordsHelper.normalizeBankRecords(filename, data);
-        await global.progressbar.updateProgress("Normalizing", 75);
+        await middleman.progressbar.updateProgress("Normalizing", 75);
         return normalizedData;
     }
 

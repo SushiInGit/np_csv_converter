@@ -13,7 +13,7 @@ frontend.popupUpload = (function () {
         frontend.renderModel.closePopupDiv();
         /* UMAMI */
         try {
-            global.helperUserinfo.trackSwap("BANK", databank);
+            middleman.helperUserinfo.trackSwap("BANK", databank);
         } catch (error) {
             console.error("An error occurred while tracking changes:", error.message);
         }
