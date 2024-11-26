@@ -168,7 +168,7 @@ backend.bugReportHelper = (function () {
 
     /**
     * Output all Browser-Informations
-    * @returns 
+    * @returns browserinfos
     **/
     async function browserInfo() {
         const output = await new Promise(resolve => browserInfoOutput(resolve));
@@ -244,7 +244,6 @@ backend.bugReportHelper = (function () {
             });
     }
 
-    ////////////////// Send Form
     /**
     * Form for BUG-Report
     * @param {*} source 
@@ -303,7 +302,6 @@ backend.bugReportHelper = (function () {
                 discordUser: document.getElementById('discordUser').value || null
             };
 
-            //console.log(formData, source);
             (async () => {
                 const results = await browserInfo();
                 backend.bugReportHelper.sendToDiscord(formData, results, source);

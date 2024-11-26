@@ -12,13 +12,19 @@ backend.markdownHelper = (function () {
         }
     });
 
+    /**
+    * Create Help popup
+    * @param {*} popupDivName </> name
+    * @param {*} title Header-title
+    * @param {*} file md-filename
+    **/
     function createPopup(popupDivName, title, file) {
-        frontend.renderModel.closePopupDiv(); // Cloth other popups first
-        
+        frontend.renderModel.closePopupDiv();
+
         setTimeout(() => {
             showHelp();
             window.dispatchEvent(new Event('load'));
-            loader.classList.add("active"); // Activate loader
+            loader.classList.add("active");
             helpDiv.classList.add(popupDivName);
             const helpDivHead = document.createElement(popupDivName);
             helpDivHead.innerHTML = `
@@ -49,6 +55,9 @@ backend.markdownHelper = (function () {
 
     }
 
+    /**
+    * Open help popup
+    **/
     function showHelp() {
         helpDiv.innerHTML = '';
         loader.classList.add('active');
@@ -56,6 +65,9 @@ backend.markdownHelper = (function () {
         helpDiv.classList.add("show");
     }
 
+    /**
+    * Close help popup
+    **/
     function closeHelp() {
         helpDiv.innerHTML = '';
         const classesToRemove = ["hide", "show", "help"];
@@ -66,6 +78,10 @@ backend.markdownHelper = (function () {
         helpDiv.classList.add("hide");
     }
 
+    /**
+    * Load md-file from URL
+    * @param {*} file filename
+    **/
     async function fetchMarkdown(file) {
         const apiUrl = `https://api.github.com/repos/SushiInGit/np_csv_converter/contents/resources/help/${file}`;
 
@@ -84,12 +100,18 @@ backend.markdownHelper = (function () {
         }
     }
 
+    /**
+    * Render markdown-file in div('markdownContent')
+    **/
     function renderMD(content) {
         const contentDiv = document.getElementById('markdownContent');
         contentDiv.innerHTML = marked.parse(content);
         generateTOC();
     }
 
+    /**
+    * Create Sidemenu in div ('toc')
+    **/
     function generateTOC() {
         const tocContainer = document.getElementById('toc');
         tocContainer.innerHTML = '';
@@ -116,7 +138,6 @@ backend.markdownHelper = (function () {
         createPopup: createPopup,
         closeHelp: closeHelp,
         fetchMarkdown: fetchMarkdown
-
     };
 
 })();

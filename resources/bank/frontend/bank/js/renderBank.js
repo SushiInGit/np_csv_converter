@@ -74,7 +74,7 @@ frontend.renderBank = (function () {
             viewsDiv.appendChild(divforEach);
 
         });
-        
+
     }
 
     /**
@@ -182,7 +182,7 @@ frontend.renderBank = (function () {
 
             const chunk = filteredData.slice(loadedRows, loadedRows + chunkSize);
             const dateIndex = Array.from(tableHeaderMap.entries()).find(([index, key]) => key === "date")?.[0];
-            
+
             chunk.forEach((row) => {
                 const tr = document.createElement("tr");
 
@@ -201,7 +201,7 @@ frontend.renderBank = (function () {
                 });
                 tbody.appendChild(tr);
 
-                
+
                 if ((loadedRows + chunkSize) > previousLoadedRows) {
                     setTimeout(() => {
                         statusMessage.style.opacity = "1";
@@ -227,18 +227,17 @@ frontend.renderBank = (function () {
             window.dispatchEvent(new Event('unload'));
 
         }
-        window.dispatchEvent(new Event('load'));
+
         await loadChunk();
-
-
-        outputContainer.addEventListener('scroll', async () => {
-            if (outputContainer.scrollTop + outputContainer.clientHeight >= outputContainer.scrollHeight) {
-                window.dispatchEvent(new Event('load'));
-                await loadChunk();
-                
-            }
-        });
         window.dispatchEvent(new Event('unload'));
+
+        if (loadedRows > previousLoadedRows) {
+            outputContainer.addEventListener('scroll', async () => {
+                if (outputContainer.scrollTop + outputContainer.clientHeight >= outputContainer.scrollHeight) {
+                    await loadChunk();
+                }
+            });
+        } 
     }
 
     /**
@@ -300,7 +299,6 @@ frontend.renderBank = (function () {
 
                 return totalDifference >= 0 ? `+$${totalDifference}` : `-$${Math.abs(totalDifference)}`;
             } else {
-                ///throw new Error('???');
                 return;
             }
         }
@@ -372,7 +370,7 @@ frontend.renderBank = (function () {
         const removeStatusMessage = document.querySelectorAll(".status-message");
         removeStatusMessage.forEach((element) => element.remove());
 
-        frontend.renderBank.renderBankByID(dataDB, Number(activeID)); // Reopen last transcation
+        frontend.renderBank.renderBankByID(dataDB, Number(activeID));
     }
 
     return {

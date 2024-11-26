@@ -14,6 +14,13 @@ frontend.renderModel = (function () {
         }
     });
 
+    /**
+    * Popup Model render
+    * @param {*} popupDivName Name for </>
+    * @param {*} title Title of the popup
+    * @param {*} content Main content
+    * @param {*} footer optional: footer (like for buttons)
+    **/
     function createPopup(popupDivName, title, content, footer = '') {
 
         frontend.renderModel.closePopupDiv(); // Cloth other popups first
@@ -36,7 +43,10 @@ frontend.renderModel = (function () {
         }, 50);
     }
 
-
+    /**
+    * Delete function for Bank-Databank
+    * @param {*} dbName 
+    **/
     function delBank(dbName) {
         if (dbName) {
             console.log(dbName)
@@ -54,6 +64,9 @@ frontend.renderModel = (function () {
         }
     }
 
+    /**
+    * Remove old innerHTMl Data 
+    **/
     function clearOldData() { // Clears all old shown data
         const bannerRight = document.querySelector(".banner .right.noselect");
         const bannerCenter = document.querySelector(".banner .center.noselect");
@@ -71,6 +84,9 @@ frontend.renderModel = (function () {
         outputMessagesFilter.innerHTML = ``;
     }
 
+    /**
+    * Closes all popupModel's
+    **/
     function closePopupDiv() {
         popupDiv.innerHTML = '';
         const classesToRemove = ["hide", "show", "upload", "bug", "settings", "help", "import", "activity", "confirm-delete", "phonebook", "import_np"];
@@ -81,7 +97,9 @@ frontend.renderModel = (function () {
         popupDiv.classList.add("hide");
     }
 
-
+    /**
+    * Open popupModel and give class show
+    **/
     function showPopup() {
         loader.classList.add('active');
         popupDiv.classList.remove("hide");
