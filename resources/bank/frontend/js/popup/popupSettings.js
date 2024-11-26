@@ -212,31 +212,13 @@ frontend.popupSettings = (function () {
         selectElement.value = value;
     }
 
-    /**
-    * Check if the settings are not corrupted or missing
-    **/
-    function checkSettings() {
-        const settings = middleman.settings.settings();
 
-        if (settings && (
-            !settings.chunkSize || settings.chunkSize === '' ||
-            !settings.dateFormat || settings.dateFormat === '' ||
-            !settings.displayOrder || settings.displayOrder === '' ||
-            !settings.offsetBySettings || settings.offsetBySettings === '' ||
-            !settings.timeFormat || settings.timeFormat === '' ||
-            !settings.timeZone || settings.timeZone === ''
-        )) {
-            middleman.alertsystem('error', `Your settings seem to be corrupted or something went wrong. <br>Please reset or change them.`, 14);
-            console.error('Error: Settings are missing or currpted in indexedDB');
-        }
-    }
     return {
         render: settingsEvent,
         active: lastActiveReload,
         save: saveSettingsTrigger,
         removeBank: removeOldBankRecords,
-        checkSettings: checkSettings,
-        load: () => { return loadSettingsTrigger(middleman.settings.settings()) },
+        load: () => { return loadSettingsTrigger() },
         reset: () => { return resetSettingsTrigger(middleman.settings.settings()) }
     };
 })();

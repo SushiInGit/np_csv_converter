@@ -59,9 +59,28 @@ middleman.settings = (function () {
         }
     }
 
+    /**
+    * Check if the settings are not corrupted or missing
+    **/
+    function checkSettings() {
+        const settings = middleman.settings.getSettings();
+
+        if (settings && (
+            !settings.chunkSize || settings.chunkSize === '' ||
+            !settings.dateFormat || settings.dateFormat === '' ||
+            !settings.displayOrder || settings.displayOrder === '' ||
+            !settings.offsetBySettings || settings.offsetBySettings === '' ||
+            !settings.timeFormat || settings.timeFormat === '' ||
+            !settings.timeZone || settings.timeZone === ''
+        )) {
+            middleman.alertsystem('error', `Your settings seem to be corrupted or something went wrong. <br>Please reset or change them.`, 14);
+            console.error('Error: Settings are missing or currpted in indexedDB');
+        }
+    }
     return {
         settings: () => { return defaultSettings; },
         getSettings: () => { return getSettings(storageDB); },
-        updateSettings: (newSettings) => { return updateSettings(storageDB, newSettings); }
+        updateSettings: (newSettings) => { return updateSettings(storageDB, newSettings); },
+        checkSettings: checkSettings
     }
 })();
