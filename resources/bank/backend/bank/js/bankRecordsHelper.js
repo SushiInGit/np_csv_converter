@@ -18,11 +18,11 @@ backend.bankRecordsHelper = function () {
     }
 
     /**
-     * Fixing Bank Record Breaks
-     * @param {*} filename  file.name from xlxs file
-     * @param {*} dataArray Data-Array from xlxs file
-     * @returns 
-     */
+    * Fixing Bank Record Breaks
+    * @param {*} filename  file.name from xlxs file
+    * @param {*} dataArray Data-Array from xlxs file
+    * @returns 
+    **/
     function normalizeBankRecords(filename, dataArray) {
         var bankRecordsArray = [];
         var defaultBankRecordLine = {

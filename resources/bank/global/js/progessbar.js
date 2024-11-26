@@ -3,7 +3,7 @@ var global = global ?? {};
 global.progressbar = (function () {
     const progressBarContainerSelector = ".progressbar";
 
-    document.addEventListener("keydown", function (event) {   // Close Popups
+    document.addEventListener("keydown", function (event) {
         if (event.key === "Escape") {
             global.progressbar.resetProgress()
         }

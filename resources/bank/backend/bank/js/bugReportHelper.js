@@ -2,7 +2,10 @@ var backend = backend ?? {};
 
 backend.bugReportHelper = (function () {
 
-
+    /**
+    * Filtered Browserinformations 
+    * @returns 
+    **/
     function getBrowserEngine() {
         const userAgent = navigator.userAgent;
         let browser, version;
@@ -30,6 +33,10 @@ backend.bugReportHelper = (function () {
 
     const screenResolution = `${window.screen.width}x${window.screen.height}`;
 
+    /**
+    * Get LocalStorage Size
+    * @returns 
+    **/
     function getLocalStorageSize() {
         let totalSize = 0;
         for (let item in localStorage) {
@@ -41,6 +48,10 @@ backend.bugReportHelper = (function () {
         return (totalSize / (1024 * 1024)).toFixed(2);
     }
 
+    /**
+    * Get SessionStorage Size
+    * @returns 
+    **/
     function getSessionStorageSize() {
         let totalSize = 0;
         for (let item in sessionStorage) {
@@ -52,16 +63,124 @@ backend.bugReportHelper = (function () {
         return (totalSize / (1024 * 1024)).toFixed(2);
     }
 
-    function browserInfoOutput() {
-        return output = [
-            `Browser Engine: ${getBrowserEngine()}`,
-            `Screen Resolution: ${screenResolution}`,
-            `Local Storage Size: ${getLocalStorageSize()} MB`,
-            `Session Storage Size: ${getSessionStorageSize()} MB`
-        ].join("\n");
+    /**
+    * Gather informations of indexDB
+    * @param {*} callback 
+    * @returns indexDB total number in MB
+    **/
+    function getIndexedDBSizeInMB(callback) {
+        if (!window.indexedDB) {
+            console.warn("IndexedDB is not supported in this browser.");
+            callback(0);
+            return;
+        }
+
+        const totalSize = { bytes: 0 };
+        const databasesRequest = indexedDB.databases();
+
+        databasesRequest.then(dbs => {
+            let pendingDBs = dbs.length;
+
+            if (pendingDBs === 0) {
+                callback(0);
+                return;
+            }
+
+            dbs.forEach(dbInfo => {
+                if (!dbInfo.name) {
+                    pendingDBs--;
+                    if (pendingDBs === 0) callback(totalSize.bytes / (1024 * 1024));
+                    return;
+                }
+
+                const openRequest = indexedDB.open(dbInfo.name);
+
+                openRequest.onsuccess = function (event) {
+                    const db = event.target.result;
+                    const objectStoreNames = Array.from(db.objectStoreNames);
+                    const transaction = db.transaction(objectStoreNames, "readonly");
+                    let pendingStores = objectStoreNames.length;
+
+                    objectStoreNames.forEach(storeName => {
+                        const store = transaction.objectStore(storeName);
+                        const getAllRequest = store.getAll();
+
+                        getAllRequest.onsuccess = function (event) {
+                            const allData = event.target.result;
+                            const dataSize = allData.reduce((sum, item) => sum + JSON.stringify(item).length, 0);
+                            totalSize.bytes += dataSize;
+
+                            pendingStores--;
+                            if (pendingStores === 0) {
+                                db.close();
+                                pendingDBs--;
+                                if (pendingDBs === 0) {
+                                    callback(totalSize.bytes / (1024 * 1024));
+                                }
+                            }
+                        };
+
+                        getAllRequest.onerror = function () {
+                            console.error(`Failed to get data from store: ${storeName}`);
+                            pendingStores--;
+                            if (pendingStores === 0) {
+                                db.close();
+                                pendingDBs--;
+                                if (pendingDBs === 0) {
+                                    callback(totalSize.bytes / (1024 * 1024));
+                                }
+                            }
+                        };
+                    });
+                };
+
+                openRequest.onerror = function () {
+                    console.error(`Failed to open database: ${dbInfo.name}`);
+                    pendingDBs--;
+                    if (pendingDBs === 0) {
+                        callback(totalSize.bytes / (1024 * 1024));
+                    }
+                };
+            });
+        }).catch(() => {
+            console.warn("Failed to retrieve database list.");
+            callback(0);
+        });
     }
 
-    ////////////////// Discord Part
+    /**
+    * Preperation all Browser-Informations
+    * @param {*} callback 
+    **/
+    function browserInfoOutput(callback) {
+        getIndexedDBSizeInMB(size => {
+            const output = [
+                `Browser Engine: ${getBrowserEngine()}`,
+                `Screen Resolution: ${screenResolution}`,
+                `Local Storage Size: ${getLocalStorageSize()} MB`,
+                `Session Storage Size: ${getSessionStorageSize()} MB`,
+                `IndexedDB Storage Size: ${size.toFixed(2)} MB`
+            ].join("\n");
+
+            callback(output);
+        });
+    }
+
+    /**
+    * Output all Browser-Informations
+    * @returns 
+    **/
+    async function browserInfo() {
+        const output = await new Promise(resolve => browserInfoOutput(resolve));
+        return output;
+    }
+
+    /**
+    * Webhook for Embed-Discord-Message
+    * @param {*} formData html-formular data
+    * @param {*} browserInfo send string with browserinformation data
+    * @param {*} toolsite send string with name "Phone" / "Bank"
+    **/
     function sendToDiscord(formData, browserInfo, toolsite) {
         const webhookUrl = "https://discord.com/api/webhooks/1284930571440750602/mZyS4CHamGlq_AUw1CambBH5s0010rLi_6A37vR5sJoPL3liAQSkM_qDR9HeJ3YGyNHp";
         const payload = {
@@ -126,6 +245,10 @@ backend.bugReportHelper = (function () {
     }
 
     ////////////////// Send Form
+    /**
+    * Form for BUG-Report
+    * @param {*} source 
+    **/
     function send(source) {
         const tagContainer = document.getElementById('tagContainer');
         let selectedTags = [];
@@ -155,9 +278,9 @@ backend.bugReportHelper = (function () {
         }
 
         document.getElementById('issueForm').addEventListener('submit', (e) => {
-            e.preventDefault(); 
+            e.preventDefault();
             const errorMessage = document.getElementById('errorMessage');
-            errorMessage.style.display = 'none'; 
+            errorMessage.style.display = 'none';
 
             if (selectedTags.length === 0) {
                 errorMessage.textContent = "Please select at least one tag.";
@@ -181,13 +304,19 @@ backend.bugReportHelper = (function () {
             };
 
             //console.log(formData, source);
-            backend.bugReportHelper.sendToDiscord(formData, backend.bugReportHelper.output(), source);
+            (async () => {
+                const results = await browserInfo();
+                backend.bugReportHelper.sendToDiscord(formData, results, source);
+            })();
+
+
         });
     }
 
     return {
         output: browserInfoOutput,
         sendToDiscord: sendToDiscord,
+        info: browserInfo,
         send: send
     };
 })()

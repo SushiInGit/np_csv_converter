@@ -1,6 +1,7 @@
 var global = global ?? {};
 
 global.helperUserinfo = (function () {
+    
     function trackEvent(eventName, eventDetails) {
         if (window.umami) {
             try {
