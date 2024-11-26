@@ -72,6 +72,7 @@ frontend.renderBank = (function () {
     }
 
     /**
+    * Render bank Output with filter
     * Filter data based on bankID
     * @param {*} dbName 
     * @param {*} bankID 
@@ -95,15 +96,17 @@ frontend.renderBank = (function () {
         const mFA_bankid = await indexedDBHelper.loadMetadata(dbName, 'mostFrequentAccount_bankID');
         let filteredData = "";
 
-        if (bankID === (-1)) { // ALL
+        /**
+        * bankID -1 === ALL | if bankID is positive filter by bankID
+        **/
+        if (bankID === (-1)) {
             filteredData = data;
-        } else { // By ID
+        } else {
             filteredData = data.filter(row =>
                 (row.to_account_id === bankID && row.from_account_id === mFA_bankid) ||
                 (row.to_account_id === mFA_bankid && row.from_account_id === bankID)
             );
         }
-
 
         if (filteredData.length === 0) {
             console.warn("No matching data found for the specified filter.");
@@ -143,6 +146,7 @@ frontend.renderBank = (function () {
             16: `Date (${global.timeConverter.processTimestamp(Date.now()).timeZone})`,
             17: `Databank-ID`
         };
+
         const tableHeaderMap = new Map();
         Object.keys(filteredData[0]).forEach((key, index) => {
             const th = document.createElement("th");
@@ -160,16 +164,18 @@ frontend.renderBank = (function () {
         document.body.appendChild(statusMessage);
 
         const totalRows = filteredData.length;
-        const chunkSize = 200;
+        const chunkSize = Number(frontend.popupSettings.load().chunkSize);
         let loadedRows = 0;
         let previousLoadedRows = loadedRows;
+        let resetTimeout;
+
         async function loadChunk() {
             if (loadedRows >= totalRows) return;
             previousLoadedRows = loadedRows;
 
             const chunk = filteredData.slice(loadedRows, loadedRows + chunkSize);
             const dateIndex = Array.from(tableHeaderMap.entries()).find(([index, key]) => key === "date")?.[0];
-
+            
             chunk.forEach((row) => {
                 const tr = document.createElement("tr");
 
@@ -187,42 +193,61 @@ frontend.renderBank = (function () {
                     tr.appendChild(td);
                 });
                 tbody.appendChild(tr);
+
+                
+                if ((loadedRows + chunkSize) > previousLoadedRows) {
+                    setTimeout(() => {
+                        statusMessage.style.opacity = "1";
+                        if (totalRows === 1) {
+                            statusMessage.textContent = `Display 1 transaction`;
+                        } else if (totalRows <= chunkSize) {
+                            statusMessage.textContent = `Display ${loadedRows} transactions`;
+                        } else {
+                            statusMessage.textContent = `Display ${loadedRows} of ${totalRows} transactions`;
+                        }
+                        if (resetTimeout) {
+                            clearTimeout(resetTimeout);
+                        }
+                        resetTimeout = setTimeout(() => {
+                            statusMessage.style.opacity = "0";
+                        }, 3000);
+                    }, 10);
+                }
             });
 
             loadedRows += chunk.length;
+            frontend.treeselect();
 
-            if (loadedRows > previousLoadedRows) {
-                if (totalRows === 1){
-                    statusMessage.textContent = `Display 1 transaction`;
-                } else if (totalRows <= chunkSize){
-                    statusMessage.textContent = `Display ${loadedRows} transactions`;
-                } else {
-                    statusMessage.textContent = `Display ${loadedRows} of ${totalRows} transactions`;
-                }
-                statusMessage.style.opacity = "1";
-                setTimeout(() => {
-                    statusMessage.style.opacity = "0";
-                }, 3000);
-            }
         }
 
         await loadChunk();
-        frontend.treeselect();
+
 
         outputContainer.addEventListener('scroll', async () => {
             if (outputContainer.scrollTop + outputContainer.clientHeight >= outputContainer.scrollHeight) {
                 await loadChunk();
-                frontend.treeselect();
+                
             }
         });
+        
     }
 
+    /**
+    * Render Head infos for Bank-Render
+    * @param {*} dbName 
+    * @param {*} transferID 
+    * @param {*} transferName 
+    **/
     async function renderHeaderInfo(dbName, transferID, transferName) {
         const tableHeaderLeft = document.querySelector(".output .header.noselect .left");
         const tableHeaderRight = document.querySelector(".output .header.noselect .right");
         tableHeaderLeft.innerHTML = ``;
         tableHeaderRight.innerHTML = ``;
-        if (transferID === (-1)) { // ALL
+
+        /**
+        * ALL POV
+        **/
+        if (transferID === (-1)) {
             tableHeaderLeft.innerHTML = `All Transactions`;
             const totalIn = await indexedDBHelper.loadMetadata(dbName, 'totalIn');
             const totalOut = await indexedDBHelper.loadMetadata(dbName, 'totalOut');
@@ -231,36 +256,25 @@ frontend.renderBank = (function () {
                 [ Outgoing: $${totalOut.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")} | 
                 Incoming: $${totalIn.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")} ] 
             `;
-            /* EXPORT WIP
-            const mFA_bankID = await indexedDBHelper.loadMetadata(dbName, 'mostFrequentAccount_bankID');
-            const mFA_bankName = await indexedDBHelper.loadMetadata(dbName, 'mostFrequentAccount_owner');
-            const mFA_bankType = await indexedDBHelper.loadMetadata(dbName, 'mostFrequentAccount_accountType');
-            tableHeaderRight.innerHTML = `
-                <button class="print" onclick="(() => middleman.printJob.printJob(
-                '${mFA_bankID}', 
-                '${mFA_bankType} of ${mFA_bankName}', 
-                '', 
-                '', 
-                'all'
-                ))()">Export</button>
-            `;
-            */
 
-        } else { // By ID
+            /**
+            * Filtered output by bankID
+            **/
+        } else {
             tableHeaderLeft.innerHTML = `${transferName} ( ID: ${transferID} )`;
             tableHeaderRight.innerHTML = `
                 [ Loading Data ... ] 
             `;
             indexedDBHelper.totalAmountByID(transferID)
-            .then(({ totalIn, totalOut }) => {
-                tableHeaderRight.innerHTML = `
+                .then(({ totalIn, totalOut }) => {
+                    tableHeaderRight.innerHTML = `
                 [ Outgoing: $${totalOut.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")} | 
                 Incoming: $${totalIn.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")} ] 
             `;
-            })
-            .catch((err) => {
-                console.error(err);
-            });
+                })
+                .catch((err) => {
+                    console.error(err);
+                });
 
         }
     };
@@ -312,6 +326,7 @@ frontend.renderBank = (function () {
         `;
         }
     }
+
     /**
     * Clear Metdaten  in Banner (right)
     **/
@@ -346,7 +361,6 @@ frontend.renderBank = (function () {
 
         const removeStatusMessage = document.querySelectorAll(".status-message");
         removeStatusMessage.forEach((element) => element.remove());
-        
 
         frontend.renderBank.renderBankByID(dataDB, Number(activeID)); // Reopen last transcation
     }

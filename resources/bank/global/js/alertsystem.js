@@ -80,13 +80,10 @@ global.alertsystem = function (type, message, duration) {
 };
 
 // Capture Error from Console.log 
+/*
 window.onerror = function (message, source, lineno, colno, error) {
     if (message.startsWith("Uncaught Error: ")) {
       global.alertsystem('error', `${message}.`, 7);
-    } else if (message.startsWith("Uncaught TypeError: Cannot read properties of undefined")) {
-      global.alertsystem('error', `Error: This File is not a spreadsheet or corrupted.`, 7);
-    } else if (message.startsWith("localStorage.bankRecords.Empty")) {
-      global.alertsystem('info', `It seems that you have not uploaded an XLSX file.`, 7);
-    }
-    //return true;  //silence errors in console on active
+    } 
   };
+*/

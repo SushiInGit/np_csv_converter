@@ -218,6 +218,13 @@ indexedDBHelper = {
                 global.alertsystem('success', `Uploaded Databank: ${this.normalizeFilename(dbName).slice(5)}`, 5);
                 frontend.renderModel.clear();
                 this.saveLastDB(dbName);
+
+                /* UMAMI */
+                try {
+                    global.helperUserinfo.trackUpload("BANK", this.normalizeFilename(dbName).slice(5));
+                } catch (error) {
+                    console.error("An error occurred while tracking changes:", error.message);
+                }
             };
 
             transaction.onerror = (e) => {
@@ -253,7 +260,6 @@ indexedDBHelper = {
     /**
     * Removes DB 
     **/
-    // Clear all data from IndexedDB
     clearData: async function () {
         const db = await this.openDB();
         const transaction = db.transaction(['data', 'metadata', 'transactions'], 'readwrite');
@@ -272,6 +278,10 @@ indexedDBHelper = {
         };
     },
 
+    /**
+     * Remove Databank by name
+     * @param {*} dbname 
+     */
     removeDatabank: async function (dbname) {
         if (dbname && dbname.startsWith('BANK_')) {
             const request = indexedDB.deleteDatabase(dbname);  // Delete the database by name
@@ -291,6 +301,7 @@ indexedDBHelper = {
             console.log('Invalid database name or name does not start with "BANK_".');
         }
     },
+
     /**
     * Saves last Upload to localStorage
     **/
@@ -327,6 +338,12 @@ indexedDBHelper = {
         }
     },
 
+    /**
+    * Pointer for Metadata-Object inside Databank
+    * @param {*} dbName 
+    * @param {*} fieldName 
+    * @returns 
+    */
     loadMetadata: async function (dbName, fieldName) {
         const data = await this.loadData(dbName, 'metadata');
         if (data) {
@@ -340,6 +357,10 @@ indexedDBHelper = {
         }
     },
 
+    /**
+    * Create a Object with all Databank that start with "BANK_"
+    * @returns 
+    **/
     listBankDB: async function () {
         if ('databases' in indexedDB) {
             try {
@@ -363,6 +384,12 @@ indexedDBHelper = {
             return [];
         }
     },
+
+    /**
+    * Pointer for Total IN/OUT based in BankID
+    * @param {*} bankID 
+    * @returns 
+    **/
     totalAmountByID: async function (bankID) {
         const dbname = localStorage.getItem('lastBankDB');
         return new Promise((resolve, reject) => {
@@ -373,8 +400,8 @@ indexedDBHelper = {
 
             dbRequest.onsuccess = (event) => {
                 const db = event.target.result;
-                const transaction = db.transaction('data', 'readonly'); 
-                const objectStore = transaction.objectStore('data');   
+                const transaction = db.transaction('data', 'readonly');
+                const objectStore = transaction.objectStore('data');
 
                 let totalIn = 0;
                 let totalOut = 0;
@@ -395,7 +422,7 @@ indexedDBHelper = {
                                 totalOut += record.amount;
                             }
                         }
-                        cursor.continue(); 
+                        cursor.continue();
                     } else {
                         resolve({ totalIn, totalOut });
                     }

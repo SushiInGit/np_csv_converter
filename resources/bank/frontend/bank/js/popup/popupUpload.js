@@ -1,6 +1,7 @@
 var frontend = frontend ?? {};
 
 frontend.popupUpload = (function () {
+
     /**
     * Swap to other Databank
     * @param {*} `databank` 
@@ -14,14 +15,14 @@ frontend.popupUpload = (function () {
         try {
             global.helperUserinfo.trackSwap("BANK", databank);
         } catch (error) {
-            console.error("An error occurred while tracking settings changes:", error.message);
+            console.error("An error occurred while tracking changes:", error.message);
         }
     }
 
     /**
-     * Remove Databank
-     * @param {*} databank 
-     */
+    * Remove Databank
+    * @param {*} databank 
+    **/
     function del(databank) {
         const popupDivName = "confirm-delete";
         const content = `

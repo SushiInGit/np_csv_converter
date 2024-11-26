@@ -29,7 +29,7 @@ global.timeConverter = (function () {
         const savedPreferences = localStorage.getItem(SETTINGS_KEY);
 
         const defaultSettings = {
-            timeZone: 'gmt',
+            timeZone: 'utc',
             timeFormat: '24Hour',
             offsetShow: 'on',
             dateFormat: 'YYYY-MM-DD',

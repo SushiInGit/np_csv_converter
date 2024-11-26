@@ -1,6 +1,9 @@
 var frontend = frontend ?? {};
 
 frontend.popupHelp = (function () {
+    /**
+    * Create Help-Window 
+    **/
     function helpEvent() {
         showHelp();
         const popupDivName = "help";

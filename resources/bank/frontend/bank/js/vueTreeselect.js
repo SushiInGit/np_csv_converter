@@ -1,12 +1,15 @@
 var frontend = frontend ?? {};
 
 frontend.treeselect = function () {
-
+    /**
+    * Render Bankrecords from vue + treeselect
+    **/
     new Vue({
         el: '#treeselect',
         components: {
             'treeselect': VueTreeselect.Treeselect
         },
+
         data: {
             options: [],
             selection: [],
@@ -14,6 +17,7 @@ frontend.treeselect = function () {
             treeselectKey: 0,
             exceptions: ['comment', 'type', 'from_civ_name', 'to_civ_name', 'amount', 'date'],
         },
+
         mounted() {
             this.loadColumns();
             this.loadSelectedColumns();
@@ -22,6 +26,7 @@ frontend.treeselect = function () {
             this.highlightAmountsNoTax();
             this.highlightTaxAmount();
         },
+
         methods: {
             loadSelectedColumns() {
                 const storedColumns = sessionStorage.getItem('selectedColumns');
@@ -29,12 +34,15 @@ frontend.treeselect = function () {
                     this.selectedColumns = JSON.parse(storedColumns);
                 }
             },
+
             saveSelectedColumns() {
                 sessionStorage.setItem('selectedColumns', JSON.stringify(this.selectedColumns));
             },
+
             clearSelection() {
                 this.selection = [];
             },
+
             loadColumns() {
                 const tableHeaders = document.querySelectorAll('#bankRecordsTable thead th');
                 this.options = [];
@@ -50,6 +58,7 @@ frontend.treeselect = function () {
 
                 this.toggleColumns(this.selectedColumns);
             },
+
             toggleColumns(selectedColumns) {
                 const allColumns = document.querySelectorAll('th, td');
 
@@ -67,6 +76,7 @@ frontend.treeselect = function () {
                     columnsToShow.forEach(col => col.classList.remove('hidden'));
                 });
             },
+
             highlightDirections() {
                 const directionCells = document.querySelectorAll('#bankRecordsTable .direction');
                 directionCells.forEach(cell => {
@@ -77,18 +87,20 @@ frontend.treeselect = function () {
                     }
                 });
             },
+
             highlightAmounts() {
                 const amountCells = document.querySelectorAll('#bankRecordsTable .amount');
                 amountCells.forEach((cell, index) => {
                     const directionCell = document.querySelectorAll('#bankRecordsTable .direction')[index];
                     const direction = directionCell.textContent.trim();
-                    const rawAmount = parseFloat(cell.textContent.trim());
+                    const rawAmount = parseFloat(cell.textContent.trim().replace(/,/g, ''));
+
                     if (!isNaN(rawAmount)) {
-                        const formattedAmount = rawAmount.toFixed(2); 
-                        const amount = `${formattedAmount.replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`; 
+                        const formattedAmount = rawAmount.toFixed(2);
+                        const amount = `${formattedAmount.replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`;
                         cell.innerHTML = amount;
                     }
-                    
+
                     if (direction === 'in') {
                         cell.classList.add('amount-in');
                     } else if (direction === 'out') {
@@ -96,15 +108,16 @@ frontend.treeselect = function () {
                     }
                 });
             },
+
             highlightAmountsNoTax() {
                 const amountCells = document.querySelectorAll('#bankRecordsTable .netAmount');
                 amountCells.forEach((cell, index) => {
                     const directionCell = document.querySelectorAll('#bankRecordsTable .direction')[index];
                     const direction = directionCell.textContent.trim();
-                    const rawAmount = parseFloat(cell.textContent.trim());
+                    const rawAmount = parseFloat(cell.textContent.trim().replace(/,/g, ''));
                     if (!isNaN(rawAmount)) {
-                        const formattedAmount = rawAmount.toFixed(2); 
-                        const amount = `${formattedAmount.replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`; 
+                        const formattedAmount = rawAmount.toFixed(2);
+                        const amount = `${formattedAmount.replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`;
                         cell.innerHTML = amount;
                     }
                     if (direction === 'in') {
@@ -114,29 +127,31 @@ frontend.treeselect = function () {
                     }
                 });
             },
+
             highlightTaxAmount() {
                 const amountCells = document.querySelectorAll('#bankRecordsTable .taxAmount');
                 amountCells.forEach((cell, index) => {
                     const directionCell = document.querySelectorAll('#bankRecordsTable .direction')[index];
                     const direction = directionCell.textContent.trim();
-                    const rawAmount = parseFloat(cell.textContent.trim());
+                    const rawAmount = parseFloat(cell.textContent.trim().replace(/,/g, ''));
                     if (!isNaN(rawAmount)) {
-                        const formattedAmount = rawAmount.toFixed(2); 
-                        const amount = `${formattedAmount.replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`; 
+                        const formattedAmount = rawAmount.toFixed(2);
+                        const amount = `${formattedAmount.replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`;
                         cell.innerHTML = amount;
                     }
 
-                    if (direction === 'in'  && rawAmount !== 0) {
+                    if (direction === 'in' && rawAmount !== 0) {
                         cell.classList.add('amount-in');
-                    } else if (direction === 'in'  && rawAmount === 0) {
+                    } else if (direction === 'in' && rawAmount === 0) {
                         cell.classList.add('amount-zero-in');
                     } else if (direction === 'out' && rawAmount !== 0) {
                         cell.classList.add('amount-out');
-                    } else if (direction === 'out'  && rawAmount === 0) {
+                    } else if (direction === 'out' && rawAmount === 0) {
                         cell.classList.add('amount-zero-out');
                     }
                 });
             },
+
             loadNewData(newData) {
                 const sortedData = this.sortData(newData);
                 this.updateTable(sortedData);
@@ -148,6 +163,7 @@ frontend.treeselect = function () {
                 this.highlightAmountsNoTax();
                 this.highlightTaxAmount();
             },
+
             updateTable(newData) {
                 const tableBody = document.querySelector('#bankRecordsTable tbody');
                 tableBody.innerHTML = '';
@@ -169,12 +185,14 @@ frontend.treeselect = function () {
                 this.toggleColumns(this.selectedColumns);
             }
         },
+
         watch: {
             selectedColumns(newSelection) {
                 this.toggleColumns(newSelection);
                 this.saveSelectedColumns();
             }
         },
+
         template: `
             <div class="treeselect" id="treeselect">
                 <treeselect v-model="selectedColumns" :multiple="true" :options="options" :key="treeselectKey"></treeselect>

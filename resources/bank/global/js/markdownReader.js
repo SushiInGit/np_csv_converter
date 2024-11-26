@@ -1,5 +1,9 @@
 var global = global ?? {};
 
+/**
+* Loads Markdown-File based on filename on git-respo
+* @param {*} fileName 
+**/
 global.markdownReader = function (fileName) {
     const baseUrl = 'https://raw.githubusercontent.com/SushiInGit/np_csv_converter/refs/heads/main/resources/help/';
     const markdownUrl = `${baseUrl}${fileName}`;

@@ -49,7 +49,7 @@ frontend.renderModel = (function () {
             try {
                 global.helperUserinfo.trackDel("BANK", dbName);
             } catch (error) {
-                console.error("An error occurred while tracking settings changes:", error.message);
+                console.error("An error occurred while tracking changes:", error.message);
             }
         }
     }
