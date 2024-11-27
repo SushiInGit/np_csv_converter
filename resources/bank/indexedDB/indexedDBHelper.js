@@ -106,14 +106,24 @@ indexedDBHelper = {
                 record.to_account_name = backend.stateAccounts.AccountName(record.to_account_id, record.to_account_name);
 
                 // Calculate tax and net amounts + add two decimals
+                //Brutto => Netto
                 if (record.amount !== undefined && record.tax_percentage !== undefined) {
-                    const taxAmount = (record.amount * record.tax_percentage) / 100;
-                    const netAmount = record.amount - taxAmount;
+                    const amount = parseFloat(record.amount);
+                    const taxPercentage = parseFloat(record.tax_percentage);
+                
+                    if (isNaN(amount) || isNaN(taxPercentage)) {
+                        console.error("Invalid amount or tax_percentage value");
+                        return;
+                    }
+                
+                    const netAmount = amount / (1 + taxPercentage / 100);
+                    const taxAmount = amount - netAmount;
                     record.taxAmount = this.formatAmount(taxAmount);
                     record.netAmount = this.formatAmount(netAmount);
-                    record.amount = this.formatAmount(record.amount);
+                    record.amount = this.formatAmount(amount); 
+                } else {
+                    console.error("Amount or tax_percentage is undefined");
                 }
-
                 /**
                 * Hardcoded sorting of Databank
                 **/

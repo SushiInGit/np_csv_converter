@@ -181,7 +181,15 @@ frontend.renderBank = (function () {
             window.dispatchEvent(new Event('load'));
 
             const chunk = filteredData.slice(loadedRows, loadedRows + chunkSize);
+
             const dateIndex = Array.from(tableHeaderMap.entries()).find(([index, key]) => key === "date")?.[0];
+            const dateValues = Array.from(new Set(chunk.map(row => Object.values(row)[dateIndex])));
+
+            const convertedDates = dateValues.reduce((acc, date) => {
+                acc[date] = middleman.timeConverter.convertedTimestamp(date).fullDateAndTime;
+                return acc;
+            }, {});
+
             chunk.forEach((row) => {
 
                 const tr = document.createElement("tr");
@@ -189,13 +197,13 @@ frontend.renderBank = (function () {
                 Object.values(row).forEach((value, key) => {
                     const td = document.createElement("td");
                     if (key === dateIndex) {
-                        td.textContent = middleman.timeConverter.convertedTimestamp(value).fullDateAndTime;
+                        td.textContent = convertedDates[value];
                     } else {
                         td.textContent = value;
                     }
 
                     const dataID = key;
-                    const dataIndex = Array.from(tableHeaderMap.entries()).find(([index, key]) => index === dataID)?.[1];
+                    const dataIndex = tableHeaderMap.get(dataID);
                     td.className = dataIndex;
                     tr.appendChild(td);
                 });
@@ -237,7 +245,7 @@ frontend.renderBank = (function () {
                     await loadChunk();
                 }
             });
-        } 
+        }
     }
 
     /**
