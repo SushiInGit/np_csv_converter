@@ -4,30 +4,25 @@ middleman.timeConverter = (function () {
 
     /**
     * Offset Time based on Settings
-    * @param {*} timestemp in UTC-Format
-    * @returns offsetTime in UTC
+    * @param {*} timestamps Array of UTC timestamps
+    * @returns Array of offset times in UTC
     **/
-    function offsetTime(timestemp) {
-        const date = new Date(timestemp);
-        let useOffset = "";
-        let npSettings = middleman.settings.getSettings();
-
-        if (npSettings) {
-            offset = parseInt(npSettings.offsetBySettings, 10) || 0;
-        }
-        date.setHours(date.getHours() + offset);
-
-        return date.toISOString();
+    function offsetTimes(timestamps) {
+        const offset = parseInt(middleman.settings.getSettings()?.offsetBySettings || 0, 10);
+        return timestamps.map(timestamp => {
+            const date = new Date(timestamp);
+            date.setHours(date.getHours() + offset);
+            return date.toISOString();
+        });
     }
 
     /**
-    * Convert Timestamp 
+    * Convert Single Timestamp
     * @param {*} timestamp (in UTC)
     * @returns Time Converted based on 'Settings'
     */
-    function processTimestamp(timestamp) {
+    function processSingleTimestamp(timestamp) {
         const preferences = middleman.settings.getSettings();
-
         const formats = {
             dateFormats: [
                 'MM/DD/YYYY',
@@ -51,14 +46,8 @@ middleman.timeConverter = (function () {
                 aest: 'Australia/Sydney',
                 cest: 'Europe/Berlin',
                 bst: 'Europe/London'
-            },
-            offsetShow: {
-                on: 'ON',
-                off: 'OFF'
             }
         };
-
-        const checkValidISO = (timestamp) => !isNaN(new Date(timestamp).getTime());
 
         const formatDate = (date, format) => {
             const day = String(date.getDate()).padStart(2, '0');
@@ -77,7 +66,7 @@ middleman.timeConverter = (function () {
             }
         };
 
-        const formatTime = (date, is24Hour = true) => {
+        const formatTime = (date, is24Hour) => {
             let hours = date.getHours();
             const minutes = String(date.getMinutes()).padStart(2, '0');
             let ampm = '';
@@ -97,21 +86,13 @@ middleman.timeConverter = (function () {
             return currentOffset < winterOffset;
         };
 
-        if (!checkValidISO(timestamp)) {
-            return 'Invalid ISO timestamp';
-        }
-
-        const date = new Date(timestamp);
-
         const selectedTimeZone = formats.timeZones[preferences.timeZone.toLowerCase()] || formats.timeZones.gmt;
-        const localDate = convertToTimezone(date, selectedTimeZone);
+        const localDate = convertToTimezone(new Date(timestamp), selectedTimeZone);
+        const isInDST = isDST(new Date(timestamp), selectedTimeZone);
 
-        const selectedDateFormat = preferences.dateFormat;
-        const use24HourFormat = preferences.timeFormat === '24Hour';
-        const isInDST = isDST(date, selectedTimeZone);
+        const formattedDate = formatDate(localDate, preferences.dateFormat);
+        const formattedTime = formatTime(localDate, preferences.timeFormat === '24Hour');
 
-        const formattedDate = formatDate(localDate, selectedDateFormat);
-        const formattedTime = formatTime(localDate, use24HourFormat);
 
         return {
             timeZone: preferences.timeZone.toUpperCase(),
@@ -125,8 +106,19 @@ middleman.timeConverter = (function () {
         };
     }
 
+    /**
+     * Process Multiple Timestamps in Batch
+     * @param {*} timestamps Array of UTC timestamps
+     * @returns Array of Converted Timestamps
+     */
+    function processTimestampsBatch(timestamps) {
+        const offsetTimestamps = offsetTimes(timestamps);
+        return offsetTimestamps.map(processSingleTimestamp);
+    }
+
     return {
-        processTimestamp,
-        convertedTimestamp: (timestemp) => { return processTimestamp(offsetTime(timestemp)) }
+        processTimestamp: processSingleTimestamp,
+        convertedTimestamp: (timestamp) => processSingleTimestamp(offsetTimes([timestamp])[0]),
+        processTimestampsBatch
     };
 })();
