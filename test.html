@@ -1,0 +1,31 @@
+<script src="https://cdn.jsdelivr.net/npm/ag-grid-community/styles/ag-grid.css"></script>
+<script src="https://cdn.jsdelivr.net/npm/ag-grid-community/styles/ag-theme-alpine.css"></script>
+<div id="myGrid" class="ag-theme-alpine" style="height: 400px; width: 100%;"></div>
+<script>
+  const columnDefs = [
+    { headerName: "Name", field: "name" },
+    { headerName: "Age", field: "age" },
+    { headerName: "Country", field: "country" },
+    { headerName: "Action", field: "action", cellRenderer: "agGroupCellRenderer" }
+  ];
+
+  const gridOptions = {
+    columnDefs: columnDefs,
+    rowData: null, // Data will be loaded dynamically
+    paginationPageSize: 100, // Pagination for large data sets
+    cacheBlockSize: 100, // Virtual scrolling for large data sets
+    domLayout: 'autoHeight'
+  };
+
+  new agGrid.Grid(document.getElementById('myGrid'), gridOptions);
+
+  // Simulate loading data
+  setTimeout(() => {
+    const rowData = Array.from({ length: 200000 }, (_, index) => ({
+      name: `Name ${index}`,
+      age: Math.floor(Math.random() * 100),
+      country: 'USA',
+    }));
+    gridOptions.api.setRowData(rowData);
+  }, 1000);
+</script>
