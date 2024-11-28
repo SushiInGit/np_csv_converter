@@ -41,11 +41,50 @@ table {
         }
     }
 
+    #id,
+    #comment {
+        max-width: 300px !important;
+        word-wrap: break-word;
+    }
+
+    #id {
+        word-wrap: break-word;
+    }
+
+    thead th {
+        white-space: normal;
+        text-align: center;
+        vertical-align: top;
+    }
+
+    td#from_civ_name,
+    td#to_civ_name,
+    td#from_account_id,
+    td#to_account_id,
+    td#date,
+    td#type,
+    td#direction,
+    td#tax_percentage,
+    td#tax_type,
+    td#tax_id {
+        text-align: center; 
+    }
+
+    td#date {
+        min-width: 130px;
+    }
+
+    #tax_type,
+    #tax_percentage {
+        white-space: nowrap;
+    }
+
     .in,
     .amount-in,
     .amount-in:not(:first-child)::before {
         color: #81fd92c4;
         content: "+$";
+        text-align: right;
     }
 
     .out,
@@ -53,18 +92,21 @@ table {
     .amount-out:not(:first-child)::before {
         color: #ff7474d2;
         content: "-$";
+        text-align: right;
     }
 
     .amount-zero-in,
     .amount-zero-in:not(:first-child)::before {
         color: #81fd92c4;
         content: "+$";
+        text-align: right;
     }
 
     .amount-zero-out,
     .amount-zero-out:not(:first-child)::before {
         color: #ff7474d2;
         content: "-$";
+        text-align: right;
     }
 }
 
@@ -95,10 +137,6 @@ table {
 
 .treeselect {
     width: 100%;
-}
-
-table #comment {
-    max-width: 300px !important;
 }
 
 .hidden {

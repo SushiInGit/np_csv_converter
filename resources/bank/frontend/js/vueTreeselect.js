@@ -16,6 +16,7 @@ frontend.treeselect = function () {
             selectedColumns: [],
             treeselectKey: 0,
             exceptions: ['comment', 'type', 'from_civ_name', 'to_civ_name', 'amount', 'date'],
+            alwayshide: ['indexID'],
         },
 
         mounted() {
@@ -47,13 +48,15 @@ frontend.treeselect = function () {
             loadColumns() {
                 const tableHeaders = document.querySelectorAll('#bankRecordsTable thead th');
                 this.options = [];
-                
+
                 tableHeaders.forEach((th) => {
-                    if (!this.exceptions.includes(th.className)) {
-                        this.options.push({
-                            id: th.id,
-                            label: th.textContent
-                        });
+                    if (!this.exceptions.includes(th.id)) {
+                        if (!this.alwayshide.includes(th.id)) {
+                            this.options.push({
+                                id: th.id,
+                                label: th.textContent
+                            });
+                        }
                     }
                 });
 
@@ -67,15 +70,19 @@ frontend.treeselect = function () {
                     col.classList.add('hidden');
                 });
 
-                this.exceptions.forEach(exceptionClass => {
-                    const columnsToShow = document.querySelectorAll(`#${exceptionClass}`);
-                    columnsToShow.forEach(col => col.classList.remove('hidden'));
-                });
+                const columnsToShow = selectedColumns.filter(columnClass => !this.alwayshide.includes(columnClass));
 
-                selectedColumns.forEach(columnClass => {
+                columnsToShow.forEach(columnClass => {
                     const columnsToShow = document.querySelectorAll(`#${columnClass}`);
                     columnsToShow.forEach(col => col.classList.remove('hidden'));
                 });
+
+                this.exceptions.forEach(exceptionClass => {
+                    const columnsToShow = document.querySelectorAll(`#${exceptionClass}`);
+                    //columnsToShow.forEach(col => console.log(col.classList));
+                    columnsToShow.forEach(col => col.classList.remove('hidden'));
+                });
+
             },
 
             highlightDirections() {

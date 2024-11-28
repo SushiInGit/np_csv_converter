@@ -145,7 +145,7 @@ frontend.renderBank = (function () {
             9: `Direction`,
             10: `Amount`,
             11: `Tax Amount`,
-            12: `Amount without Tax`,
+            12: `Net Amount`,
             13: `Tax %`,
             14: `Tax-Type`,
             15: `Tax-ID`,

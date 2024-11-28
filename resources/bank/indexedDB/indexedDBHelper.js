@@ -337,9 +337,11 @@ indexedDBHelper = {
                 .then(data => {
                     //console.log(`Loaded data from IndexedDB: "${dbname}" Total entries: ${data.length}`);
                     middleman.alertsystem('info', `Loading Databank: ${dbname.slice(5)} ...`, 5);
+
                     frontend.renderBank.renderMetadata(dbname).then(data => {
 
-                        frontend.renderBank.renderTransactions(dbname)
+                        frontend.renderBank.renderTransactions(dbname);
+                        window.dispatchEvent(new Event('finishload'));
 
                     })
                 })
