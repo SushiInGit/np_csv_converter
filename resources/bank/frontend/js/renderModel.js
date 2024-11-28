@@ -57,7 +57,7 @@ frontend.renderModel = (function () {
             indexedDBHelper.removeDatabank("BANK_" + dbName);
             frontend.renderModel.closePopupDiv();
             clearOldData();
-            frontend.popupUpload.render();
+            setTimeout(() => { frontend.popupUpload.render(); }, 100);
             middleman.alertsystem('success', `Databank: '${dbName}' is removed.`, 5);
             /* UMAMI */
             try {
