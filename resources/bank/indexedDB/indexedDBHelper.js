@@ -2,7 +2,7 @@ var indexedDBHelper = indexedDBHelper ?? {};
 
 indexedDBHelper = {
     dbName: '',
-    
+
     /**
      * Ensures max two decimal places
      * @param {*} amount 
@@ -112,17 +112,17 @@ indexedDBHelper = {
                 if (record.amount !== undefined && record.tax_percentage !== undefined) {
                     const amount = parseFloat(record.amount);
                     const taxPercentage = parseFloat(record.tax_percentage);
-                
+
                     if (isNaN(amount) || isNaN(taxPercentage)) {
                         console.error("Invalid amount or tax_percentage value");
                         return;
                     }
-                
+
                     const netAmount = amount / (1 + taxPercentage / 100);
                     const taxAmount = amount - netAmount;
                     record.taxAmount = this.formatAmount(taxAmount);
                     record.netAmount = this.formatAmount(netAmount);
-                    record.amount = this.formatAmount(amount); 
+                    record.amount = this.formatAmount(amount);
                 } else {
                     console.error("Amount or tax_percentage is undefined");
                 }
@@ -297,19 +297,32 @@ indexedDBHelper = {
      */
     removeDatabank: async function (dbname) {
         if (dbname && dbname.startsWith('BANK_')) {
-            const request = indexedDB.deleteDatabase(dbname); 
+            const openRequest = indexedDB.open(dbname);
 
-            request.onsuccess = function () {
-                console.log(`Database "${dbname}" deleted successfully.`);
-            };
+            openRequest.onsuccess = function (event) {
+                const db = event.target.result;
+                db.close();
+                console.log(`Database "${dbname}" connection closed. Proceeding with deletion.`);
 
-            request.onerror = function (event) {
-                console.error(`Error deleting database "${dbname}":`, event.target.error);
-            };
+                const request = indexedDB.deleteDatabase(dbname);
 
-            request.onblocked = function () {
-                console.log(`Deletion of database "${dbname}" is blocked. Close all tabs using the database.`);
+                request.onsuccess = function () {
+                    console.log(`Database "${dbname}" deleted successfully.`);
+                };
+
+                request.onerror = function (event) {
+                    console.error(`Error deleting database "${dbname}":`, event.target.error);
+                };
+
+                request.onblocked = function () {
+                    console.log(`Deletion of database "${dbname}" is blocked. Close all tabs using the database.`);
+                };
+            }
+
+            openRequest.onerror = function () {
+                console.error(`Failed to open database "${dbname}".`);
             };
+            
         } else {
             console.log('Invalid database name or name does not start with "BANK_".');
         }
@@ -450,5 +463,5 @@ indexedDBHelper = {
             };
         });
     }
-    
+
 };
