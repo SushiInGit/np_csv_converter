@@ -349,6 +349,7 @@ indexedDBHelper = {
                     console.error('Error loading data from IndexedDB:', err);
                 });
         } else {
+            window.dispatchEvent(new Event('finishload'));
             console.log('No file has been selected before.');
         }
     },

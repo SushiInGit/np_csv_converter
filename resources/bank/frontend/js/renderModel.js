@@ -49,7 +49,11 @@ frontend.renderModel = (function () {
     **/
     function delBank(dbName) {
         if (dbName) {
-            console.log(dbName)
+            let savedDB = localStorage.getItem('lastBankDB');
+            if(("BANK_" + dbName) === savedDB) {
+                localStorage.setItem('lastBankDB', "");
+            }
+
             indexedDBHelper.removeDatabank("BANK_" + dbName);
             frontend.renderModel.closePopupDiv();
             clearOldData();
