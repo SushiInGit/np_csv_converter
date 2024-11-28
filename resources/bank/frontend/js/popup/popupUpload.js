@@ -53,6 +53,7 @@ frontend.popupUpload = (function () {
         setTimeout(() => {
             backend.fileUploader.initUploader()
             let databanks = [];
+            let getActiveName = localStorage.getItem('lastBankDB')
 
             indexedDBHelper.listBankDB().then(names => {
                 databanks.push(...names);
@@ -78,7 +79,9 @@ frontend.popupUpload = (function () {
                 databanks.forEach(item => {
                     const itemDiv = document.createElement('div');
                     itemDiv.className = 'itemDiv';
-
+                    if(getActiveName === ("BANK_" + item)) {
+                        itemDiv.id = "active";
+                    }
                     const formattedItem = item.replace(/_/g, ' ');
                     const listEntry = document.createElement('div');
                     listEntry.className = 'listEntry';

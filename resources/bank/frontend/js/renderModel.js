@@ -86,6 +86,7 @@ frontend.renderModel = (function () {
         outputHeadRight.innerHTML = ``;
         outputMessages.innerHTML = ``;
         outputMessagesFilter.innerHTML = ``;
+        window.dispatchEvent(new Event('finishload'));
     }
 
     /**

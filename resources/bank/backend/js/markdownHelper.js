@@ -23,7 +23,6 @@ backend.markdownHelper = (function () {
 
         setTimeout(() => {
             showHelp();
-            window.dispatchEvent(new Event('load'));
             loader.classList.add("active");
             helpDiv.classList.add(popupDivName);
             const helpDivHead = document.createElement(popupDivName);

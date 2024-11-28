@@ -326,6 +326,7 @@ indexedDBHelper = {
         } else {
             console.log('Invalid database name or name does not start with "BANK_".');
         }
+        window.dispatchEvent(new Event('finishload'));
     },
 
     /**

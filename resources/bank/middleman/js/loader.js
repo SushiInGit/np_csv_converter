@@ -26,9 +26,10 @@
         
         setTimeout(function () {
             document.querySelector('body').style.cursor = 'default';
-        }, 10);
+        }, 100);
 
         setTimeout(function () {
+            document.querySelector('body').style.cursor = 'default';
             deactivate();
         }, 1000);
 
