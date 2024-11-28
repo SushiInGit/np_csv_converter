@@ -8,7 +8,7 @@ backend.markdownHelper = (function () {
     document.addEventListener("keydown", function (event) {   // Close Popups
         if (event.key === "Escape") {
             backend.markdownHelper.closeHelp();
-            window.dispatchEvent(new Event('unload'));
+            window.dispatchEvent(new Event('finishload'));
         }
     });
 
@@ -30,7 +30,7 @@ backend.markdownHelper = (function () {
             helpDivHead.innerHTML = `
             <div class="model">
                 <div class="head">
-                    <button class="close" onclick="backend.markdownHelper.closeHelp(), window.dispatchEvent(new Event('unload'));">X</button>
+                    <button class="close" onclick="backend.markdownHelper.closeHelp(), window.dispatchEvent(new Event('finishload'));">X</button>
                     <!-- <div class="icon-container help"><span class="icon">question_mark</span></div> -->
                     <h2>${title}</h2>
                 </div>
@@ -49,7 +49,7 @@ backend.markdownHelper = (function () {
 
             setTimeout(() => {
                 backend.markdownHelper.fetchMarkdown(file);
-                window.dispatchEvent(new Event('unload'));
+                window.dispatchEvent(new Event('finishload'));
             }, 10);
         }, 50);
 

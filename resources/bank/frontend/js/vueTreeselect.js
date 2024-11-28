@@ -29,14 +29,15 @@ frontend.treeselect = function () {
 
         methods: {
             loadSelectedColumns() {
-                const storedColumns = sessionStorage.getItem('selectedColumns');
+                const storedColumns = JSON.parse(sessionStorage.getItem('selectedColumns'));
                 if (storedColumns) {
-                    this.selectedColumns = JSON.parse(storedColumns);
+                    this.selectedColumns = storedColumns;
                 }
             },
 
             saveSelectedColumns() {
-                sessionStorage.setItem('selectedColumns', JSON.stringify(this.selectedColumns));
+                let data = this.selectedColumns;
+                sessionStorage.setItem('selectedColumns', JSON.stringify(data));
             },
 
             clearSelection() {
@@ -46,11 +47,11 @@ frontend.treeselect = function () {
             loadColumns() {
                 const tableHeaders = document.querySelectorAll('#bankRecordsTable thead th');
                 this.options = [];
-
+                
                 tableHeaders.forEach((th) => {
                     if (!this.exceptions.includes(th.className)) {
                         this.options.push({
-                            id: th.className,
+                            id: th.id,
                             label: th.textContent
                         });
                     }
@@ -67,18 +68,18 @@ frontend.treeselect = function () {
                 });
 
                 this.exceptions.forEach(exceptionClass => {
-                    const columnsToShow = document.querySelectorAll(`.${exceptionClass}`);
+                    const columnsToShow = document.querySelectorAll(`#${exceptionClass}`);
                     columnsToShow.forEach(col => col.classList.remove('hidden'));
                 });
 
                 selectedColumns.forEach(columnClass => {
-                    const columnsToShow = document.querySelectorAll(`.${columnClass}`);
+                    const columnsToShow = document.querySelectorAll(`#${columnClass}`);
                     columnsToShow.forEach(col => col.classList.remove('hidden'));
                 });
             },
 
             highlightDirections() {
-                const directionCells = document.querySelectorAll('#bankRecordsTable .direction');
+                const directionCells = document.querySelectorAll('#bankRecordsTable #direction');
                 directionCells.forEach(cell => {
                     if (cell.textContent.trim() === 'in') {
                         cell.classList.add('in');
@@ -89,9 +90,9 @@ frontend.treeselect = function () {
             },
 
             highlightAmounts() {
-                const amountCells = document.querySelectorAll('#bankRecordsTable .amount');
+                const amountCells = document.querySelectorAll('#bankRecordsTable #amount');
                 amountCells.forEach((cell, index) => {
-                    const directionCell = document.querySelectorAll('#bankRecordsTable .direction')[index];
+                    const directionCell = document.querySelectorAll('#bankRecordsTable #direction')[index];
                     const direction = directionCell.textContent.trim();
                     const rawAmount = parseFloat(cell.textContent.trim().replace(/,/g, ''));
 
@@ -110,9 +111,9 @@ frontend.treeselect = function () {
             },
 
             highlightAmountsNoTax() {
-                const amountCells = document.querySelectorAll('#bankRecordsTable .netAmount');
+                const amountCells = document.querySelectorAll('#bankRecordsTable #netAmount');
                 amountCells.forEach((cell, index) => {
-                    const directionCell = document.querySelectorAll('#bankRecordsTable .direction')[index];
+                    const directionCell = document.querySelectorAll('#bankRecordsTable #direction')[index];
                     const direction = directionCell.textContent.trim();
                     const rawAmount = parseFloat(cell.textContent.trim().replace(/,/g, ''));
                     if (!isNaN(rawAmount)) {
@@ -129,9 +130,9 @@ frontend.treeselect = function () {
             },
 
             highlightTaxAmount() {
-                const amountCells = document.querySelectorAll('#bankRecordsTable .taxAmount');
+                const amountCells = document.querySelectorAll('#bankRecordsTable #taxAmount');
                 amountCells.forEach((cell, index) => {
-                    const directionCell = document.querySelectorAll('#bankRecordsTable .direction')[index];
+                    const directionCell = document.querySelectorAll('#bankRecordsTable #direction')[index];
                     const direction = directionCell.textContent.trim();
                     const rawAmount = parseFloat(cell.textContent.trim().replace(/,/g, ''));
                     if (!isNaN(rawAmount)) {

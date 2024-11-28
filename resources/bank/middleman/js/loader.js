@@ -11,7 +11,7 @@
 
     });
 
-    window.addEventListener('unload', function (e) {
+    window.addEventListener('finishload', function (e) {
         deactivateLoader();
     });
 

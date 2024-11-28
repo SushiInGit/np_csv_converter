@@ -102,7 +102,7 @@ middleman.progressbar = (function () {
             container.style.display = "none";
             container.innerHTML = "";
         }
-        window.dispatchEvent(new Event('unload'));
+        window.dispatchEvent(new Event('finishload'));
     }
 
     return {

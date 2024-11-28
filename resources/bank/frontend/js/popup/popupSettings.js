@@ -146,7 +146,7 @@ frontend.popupSettings = (function () {
         if (npSettings) {
             middleman.settings.updateSettings(npSettings)
             frontend.popupSettings.render();
-            window.dispatchEvent(new Event('unload'));
+            window.dispatchEvent(new Event('finishload'));
         } else {
             console.log("Settings-DB does not exist.");
         }
@@ -191,7 +191,7 @@ frontend.popupSettings = (function () {
         frontend.popupSettings.active();
         frontend.renderModel.closePopupDiv();
         frontend.renderBank.reopenActiveTransfer();
-        window.dispatchEvent(new Event('unload'));
+        window.dispatchEvent(new Event('finishload'));
     }
 
     /**

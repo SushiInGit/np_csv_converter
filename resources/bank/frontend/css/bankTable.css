@@ -1,21 +1,19 @@
-
 .bankoutput {
-    height: calc(100% - 55px); 
+    height: 100%;
+    max-height: 100%;
     width: 100%;
     overflow-y: scroll;
 }
-.table {
-    padding-left: 5px;
-    width: calc(100% - 5px) !important;
-    height: 95%;
-}
+
 table {
     width: calc(100% - 5px);
     border-collapse: collapse;
     font-size: 14px;
     text-align: left;
     border: 1px solid var(--global-border-color);
-    th, td {
+
+    th,
+    td {
         padding: 3px 6px;
         border: 1px solid var(--global-border-color);
     }
@@ -42,29 +40,41 @@ table {
             background-color: #000000ad;
         }
     }
-    .in, .amount-in, .amount-in:not(:first-child)::before {
-        color: #81fd92c4; 
-        content: "+$";
-    }
-    .out, .amount-out, .amount-out:not(:first-child)::before {
-        color: #ff7474d2; 
-        content: "-$";
-    }
-     .amount-zero-in, .amount-zero-in:not(:first-child)::before {
+
+    .in,
+    .amount-in,
+    .amount-in:not(:first-child)::before {
         color: #81fd92c4;
         content: "+$";
     }
-    .amount-zero-out, .amount-zero-out:not(:first-child)::before {
-        color: #ff7474d2; 
+
+    .out,
+    .amount-out,
+    .amount-out:not(:first-child)::before {
+        color: #ff7474d2;
+        content: "-$";
+    }
+
+    .amount-zero-in,
+    .amount-zero-in:not(:first-child)::before {
+        color: #81fd92c4;
+        content: "+$";
+    }
+
+    .amount-zero-out,
+    .amount-zero-out:not(:first-child)::before {
+        color: #ff7474d2;
         content: "-$";
     }
 }
+
 .filter {
     padding-top: 2px;
     padding-bottom: 2px;
     padding-left: 5px;
     width: calc(100% - 10px);
 }
+
 .status-message {
     font-family: "Poppins", sans-serif;
     position: fixed;
@@ -84,19 +94,22 @@ table {
 }
 
 .treeselect {
-width: 100%;
+    width: 100%;
 }
 
-table .comment {
+table #comment {
     max-width: 300px !important;
 }
+
 .hidden {
     display: none;
 }
+
 .vue-treeselect {
-    background: var(--bg-shade-light)!important;
+    background: var(--bg-shade-light) !important;
     border: 0px !important;
 }
+
 .vue-treeselect-container {
     background: var(--bg-shade-light) !important;
     border: 0px !important;
@@ -117,6 +130,7 @@ table .comment {
 
     color: var(--text-color) !important;
 }
+
 .vue-treeselect__menu {
     background: #1e1e1e !important;
     border: 1px solid var(--global-border-color) !important;
@@ -132,17 +146,18 @@ table .comment {
     color: var(--text-color) !important;
 }
 
-.vue-treeselect__multi-value-item{
+.vue-treeselect__multi-value-item {
     background: var(--global-border-color) !important;
     border: 1px solid var(--global-border-color) !important;
     color: var(--text-color) !important;
 }
+
 .vue-treeselect__icon {
- color: var(--global-hover) !important;
+    color: var(--global-hover) !important;
 }
-.vue-treeselect__checkbox--checked{
+
+.vue-treeselect__checkbox--checked {
     background-color: darkslateblue !important;
     border-color: darkslateblue !important;
 
 }
-

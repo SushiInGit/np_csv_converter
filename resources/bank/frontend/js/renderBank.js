@@ -12,10 +12,10 @@ frontend.renderBank = (function () {
 
         if (!data || Object.keys(data).length === 0) {
             console.error("No data loaded from IndexedDB.");
-            window.dispatchEvent(new Event('unload'));
+            window.dispatchEvent(new Event('finishload'));
             return;
         }
-        window.dispatchEvent(new Event('unload'));
+        window.dispatchEvent(new Event('finishload'));
         const viewsDiv = document.querySelector(".menu .list.noselect .pov");
         viewsDiv.innerHTML = ``;
 
@@ -70,7 +70,7 @@ frontend.renderBank = (function () {
                 frontend.renderBank.renderHeaderInfo(dbName, entry.bankID, entry.value?.owner);
                 frontend.renderBank.renderBankByID(dbName, entry.bankID);
             });
-            window.dispatchEvent(new Event('unload'));
+            window.dispatchEvent(new Event('finishload'));
             viewsDiv.appendChild(divforEach);
 
         });
@@ -156,7 +156,7 @@ frontend.renderBank = (function () {
         const tableHeaderMap = new Map();
         Object.keys(filteredData[0]).forEach((key, index) => {
             const th = document.createElement("th");
-            th.className = key;
+            th.id = key;
             th.textContent = headerRename[index];
             headerRow.appendChild(th);
             tableHeaderMap.set(index, key);
@@ -204,7 +204,7 @@ frontend.renderBank = (function () {
 
                     const dataID = key;
                     const dataIndex = tableHeaderMap.get(dataID);
-                    td.className = dataIndex;
+                    td.id = dataIndex;
                     tr.appendChild(td);
                 });
                 tbody.appendChild(tr);
@@ -232,12 +232,12 @@ frontend.renderBank = (function () {
 
             loadedRows += chunk.length;
             frontend.treeselect();
-            window.dispatchEvent(new Event('unload'));
+            window.dispatchEvent(new Event('finishload'));
 
         }
 
         await loadChunk();
-        window.dispatchEvent(new Event('unload'));
+        window.dispatchEvent(new Event('finishload'));
 
         if (loadedRows > previousLoadedRows) {
             outputContainer.addEventListener('scroll', async () => {

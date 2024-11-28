@@ -105,8 +105,10 @@ indexedDBHelper = {
                 record.from_account_name = backend.stateAccounts.AccountName(record.from_account_id, record.from_account_name);
                 record.to_account_name = backend.stateAccounts.AccountName(record.to_account_id, record.to_account_name);
 
-                // Calculate tax and net amounts + add two decimals
-                //Brutto => Netto
+                /**
+                * Brutto => Netto
+                * Calculate tax and net amounts + add two decimals
+                **/
                 if (record.amount !== undefined && record.tax_percentage !== undefined) {
                     const amount = parseFloat(record.amount);
                     const taxPercentage = parseFloat(record.tax_percentage);
@@ -124,6 +126,7 @@ indexedDBHelper = {
                 } else {
                     console.error("Amount or tax_percentage is undefined");
                 }
+
                 /**
                 * Hardcoded sorting of Databank
                 **/
@@ -246,7 +249,7 @@ indexedDBHelper = {
     },
 
     /**
-    *  Load Data from IndexedDB
+    * Load Data from IndexedDB
     **/
     loadData: async function (dbName, objectname) {
         this.dbName = dbName;
@@ -294,7 +297,7 @@ indexedDBHelper = {
      */
     removeDatabank: async function (dbname) {
         if (dbname && dbname.startsWith('BANK_')) {
-            const request = indexedDB.deleteDatabase(dbname);  // Delete the database by name
+            const request = indexedDB.deleteDatabase(dbname); 
 
             request.onsuccess = function () {
                 console.log(`Database "${dbname}" deleted successfully.`);

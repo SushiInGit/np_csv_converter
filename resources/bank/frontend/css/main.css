@@ -484,8 +484,10 @@ container {
 }
 
 .output .messages .table {
-    height: 100%;
-    width: 100%;
+    max-height: calc(100% - 60px) !important;
+    height: calc(100% - 60px) !important;
+    width: calc(100% - 5px);
+    padding-left: 5px;
 }
 
 
