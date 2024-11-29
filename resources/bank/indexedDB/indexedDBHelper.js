@@ -295,19 +295,22 @@ indexedDBHelper = {
      * Remove Databank by name
      * @param {*} dbname 
      */
-    removeDatabank: async function (dbname) {
+    removeDatabank: async function (dbname,  onSuccessCallback, onBlockedCallback) {
         if (dbname && dbname.startsWith('BANK_')) {
             const openRequest = indexedDB.open(dbname);
 
             openRequest.onsuccess = function (event) {
                 const db = event.target.result;
                 db.close();
-                console.log(`Database "${dbname}" connection closed. Proceeding with deletion.`);
+                //console.log(`Database "${dbname}" connection closed. Proceeding with deletion.`);
 
                 const request = indexedDB.deleteDatabase(dbname);
 
                 request.onsuccess = function () {
-                    console.log(`Database "${dbname}" deleted successfully.`);
+                    //console.log(`Database "${dbname}" deleted successfully.`);
+                    if (typeof onSuccessCallback  === 'function') {
+                        onSuccessCallback();
+                    }
                 };
 
                 request.onerror = function (event) {
@@ -316,6 +319,9 @@ indexedDBHelper = {
 
                 request.onblocked = function () {
                     console.log(`Deletion of database "${dbname}" is blocked. Close all tabs using the database.`);
+                    if (typeof onBlockedCallback === 'function') {
+                        onBlockedCallback();
+                    }
                 };
             }
 
@@ -335,7 +341,7 @@ indexedDBHelper = {
     saveLastDB: async function () {
         const normalizedFilename = this.dbName;
         localStorage.setItem('lastBankDB', normalizedFilename);
-        middleman.progressbar.resetProgress();
+        //middleman.progressbar.resetProgress();
         this.loadLastDB(normalizedFilename);
     },
 

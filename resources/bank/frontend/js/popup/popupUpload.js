@@ -79,9 +79,7 @@ frontend.popupUpload = (function () {
                 databanks.forEach(item => {
                     const itemDiv = document.createElement('div');
                     itemDiv.className = 'itemDiv';
-                    if(getActiveName === ("BANK_" + item)) {
-                        itemDiv.id = "active";
-                    }
+
                     const formattedItem = item.replace(/_/g, ' ');
                     const listEntry = document.createElement('div');
                     listEntry.className = 'listEntry';
@@ -100,6 +98,11 @@ frontend.popupUpload = (function () {
                     deleteButton.textContent = 'X';
                     deleteButton.className = 'del';
                     deleteButton.onclick = () => del(item);
+
+                    if(getActiveName === ("BANK_" + item)) {
+                        itemDiv.id = "active";
+                        nameContainer.id  = "active";
+                    }
 
                     delContainer.appendChild(deleteButton);
                     nameContainer.appendChild(itemNameSpan);

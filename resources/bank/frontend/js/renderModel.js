@@ -50,15 +50,28 @@ frontend.renderModel = (function () {
     function delBank(dbName) {
         if (dbName) {
             let savedDB = localStorage.getItem('lastBankDB');
+
             if(("BANK_" + dbName) === savedDB) {
                 localStorage.setItem('lastBankDB', "");
+                clearOldData();
             }
-
-            indexedDBHelper.removeDatabank("BANK_" + dbName);
             frontend.renderModel.closePopupDiv();
-            clearOldData();
-            setTimeout(() => { frontend.popupUpload.render(); }, 100);
-            middleman.alertsystem('success', `Databank: '${dbName}' is removed.`, 5);
+
+
+            indexedDBHelper.removeDatabank(
+                "BANK_" + dbName,
+                function () {
+                    // Success callback
+                    frontend.renderModel.closePopupDiv();
+                    middleman.alertsystem('success', `Databank: '${dbName}' is removed.`, 5);
+                    setTimeout(() => { frontend.popupUpload.render(); }, 100);
+                },
+                function () {
+                    // Blocked callback
+                    middleman.alertsystem('info', `Closing connection to Databank: '${dbName}'  please wait...`, 5);
+                    frontend.renderModel.closePopupDiv();
+                }
+            );            
             /* UMAMI */
             try {
                 middleman.helperUserinfo.trackDel("BANK", dbName);

@@ -67,27 +67,37 @@ backend.fileUploader = (function () {
         }
 
         frontend.renderModel.closePopupDiv();
-        await middleman.progressbar.updateProgress("Reading File", 0);
-        await middleman.progressbar.updateProgress("Normalizing", 0);
 
         for (const file of validFiles) {
-            await middleman.progressbar.updateProgress("Reading File", 10);
+            let progressBarName = file.name.toLowerCase().replace(".xlsx", "");
+
+            await middleman.progressbar.createProgress(`Reading File: ${progressBarName}`);
+            await middleman.progressbar.createProgress(`Normalizing: ${progressBarName}`);
+            await middleman.progressbar.updateProgress(`Normalizing: ${progressBarName}`, 0);
+            await middleman.progressbar.updateProgress(`Reading File: ${progressBarName}`, 10);
+
             let parsedData = [];
+
             if (file.name.endsWith(".xlsx")) {
-                await middleman.progressbar.updateProgress("Reading File", 30);
+                await middleman.progressbar.updateProgress(`Reading File: ${progressBarName}`, 30);
                 parsedData = await parseXLSX(file);
             }
-            await middleman.progressbar.updateProgress("Reading File", 100);
-            const normalizedData = await normalizeData(file.name, parsedData);
 
-            //onFileUploaded(normalizedData);
+            await middleman.progressbar.updateProgress(`Reading File: ${progressBarName}`, 100);
+            const normalizedData = await normalizeData(file.name, parsedData, progressBarName);
+
+            if(normalizeData) {
+                await middleman.progressbar.updateProgress(`Normalizing: ${progressBarName}`, 100);
+            }
+
             if (typeof onFileUploaded === "function") {
-                await middleman.progressbar.updateProgress("Normalizing", 100);
+                await middleman.progressbar.updateProgress(`Normalizing: ${progressBarName}`, 100);
                 setTimeout(() => {
-                    onFileUploaded(normalizedData);
+                    onFileUploaded(normalizedData, progressBarName);
                 }, 10);
             }
         }
+        middleman.progressbar.resetProgress();
     }
 
     /**
@@ -115,10 +125,10 @@ backend.fileUploader = (function () {
     * @param {Object[]} data - The parsed data array.
     * @returns {Promise<Object[]>}
     **/
-    async function normalizeData(filename, data) {
-        await middleman.progressbar.updateProgress("Normalizing", 25);
+    async function normalizeData(filename, data, progressBarName) {
+        await middleman.progressbar.updateProgress(`Normalizing: ${progressBarName}`, 30);
         const normalizedData = backend.bankRecordsHelper.normalizeBankRecords(filename, data);
-        await middleman.progressbar.updateProgress("Normalizing", 75);
+        await middleman.progressbar.updateProgress(`Normalizing: ${progressBarName}`, 75);
         return normalizedData;
     }
 

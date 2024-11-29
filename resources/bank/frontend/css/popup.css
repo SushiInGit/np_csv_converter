@@ -145,9 +145,12 @@ popup upload .listEntry .delDiv {
     width: 30px;
     padding-left: 10px;
 }
-popup upload .itemDiv#active {
+
+popup upload .itemDiv#active,
+popup upload .nameDiv#active::before {
     color: var(--global-hover) !important;
 }
+
 popup upload .listEntry .nameDiv {
     padding-left: 10px;
     margin-left: 0px;
