@@ -108,7 +108,13 @@ frontend.popupPhonebookOverview = (function () {
                         <button class="risk" onclick="frontend.popupPhonebookOverview.confirmEdit(false)">Cancel</button>
                     </div>
                 </div>
-
+                <!-- Search Contact -->
+                <div id="search-dialog" style="display:none;">
+                    <div id="confirm-content">
+                        <div id="search-result"> </div>
+                          <button class="risk" onclick="frontend.popupPhonebookOverview.closeSearch()">Close</button>
+                    </div>
+                </div>
                 <!-- Add New Contact -->
                 <div id="add-contact" class="modal" style="display: none;">
                     <div class="contact">
@@ -193,6 +199,7 @@ frontend.popupPhonebookOverview = (function () {
                     <div class="contact-number">${phoneOutput(contact.number)}</div>
                 </div>
                 <div class="buttonbox">
+                    <button class="check" onclick="frontend.popupPhonebookOverview.check(${contact.index})"><span class="material-icons">search</span></button>
                     <button class="edit" onclick="frontend.popupPhonebookOverview.edit(${contact.index})"><span class="material-icons">edit</span></button>
                     <button class="del" onclick="frontend.popupPhonebookOverview.del(${contact.index})"><span class="material-icons">delete</span></button>
                 </div>
@@ -292,12 +299,25 @@ frontend.popupPhonebookOverview = (function () {
         document.body.removeChild(link);
     }
 
+    
+    function showCheck(index) {
+        const contact = middleman.findNames.phoneArray[index];
+        const getNBR = frontend.popupPhonebook_New.solo(contact.number, contact.name);
+
+        document.getElementById("edit-input").value = (contact.name && contact.name.trim() !== "") ? contact.name : "Unknown Contact";
+        document.getElementById("search-dialog").style.display = "flex";
+    }
+
     function showEdit(index) {
         const contact = middleman.findNames.phoneArray[index];
         contactToEdit = index;
 
         document.getElementById("edit-input").value = (contact.name && contact.name.trim() !== "") ? contact.name : "Unknown Contact";
         document.getElementById("edit-dialog").style.display = "flex";
+    }
+
+    function closeSearch() {
+        document.getElementById("search-dialog").style.display = "none";
     }
 
     function confirmEdit(confirm) {
@@ -360,6 +380,8 @@ frontend.popupPhonebookOverview = (function () {
         filter: filterContacts,
         del: deleteContact,
         edit: showEdit,
+        check: showCheck,
+        closeSearch: closeSearch,
         confirmEdit: confirmEdit,
         delConfirm: confirmDelete,
         showAddContact: showAddContact,
