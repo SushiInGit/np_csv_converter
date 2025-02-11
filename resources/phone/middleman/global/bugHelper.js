@@ -61,9 +61,31 @@ global.bugHelper = (function () {
         ].join("\n");
     }
 
+
+    function webhook() {
+        url = webhookdecrypt("TmtSMk9HSnFRamhXV2xaTGFsSnFZWGhZYjJ0WFZuaFdTRVYyaHR0cHM6Ly9kaXNjb3JkLmNvbS9hcGkvd2ViaG9va3MvMTMzODg0MDY4NzMxNTI1OTQyNC9WTHBxV28xNHFNZzZhY1hZTEE4bWYzTnZJalZmWTVZQ09WUF9HUHJmLTNqRUxGM2tmME1IYWhJbllEUjVIQ3VsQllBeQ==")
+        return url;
+    }
+
+    /*
+    function webhookencrypt(text) {
+        const passphrase = "6Dv8bjB8VZVKjRjaxXokWVxVHEv";
+        const hashedPassphrase = btoa(passphrase);
+        return btoa(hashedPassphrase + text);
+    }
+    */
+    
+    function webhookdecrypt(text) {
+        const passphrase = "6Dv8bjB8VZVKjRjaxXokWVxVHEv";
+        const hashedPassphrase = btoa(passphrase);
+        const decodedText = atob(text);
+        return decodedText.startsWith(hashedPassphrase) ? decodedText.slice(hashedPassphrase.length) : null;
+    }
+
+
     ////////////////// Discord Part
     function sendToDiscord(formData, browserInfo, toolsite) {
-        const webhookUrl = "https://discord.com/api/webhooks/1284930571440750602/mZyS4CHamGlq_AUw1CambBH5s0010rLi_6A37vR5sJoPL3liAQSkM_qDR9HeJ3YGyNHp";
+        const webhookUrl = webhook();
         const payload = {
             embeds: [
                 {

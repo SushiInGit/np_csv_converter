@@ -28,14 +28,13 @@ frontend.popupPhonebook_NP = (function () {
                 throw new Error("The NP-phone contacts textbox appears to be empty. ");
             }
 
-            var newContactsCount = backend.phonebookHelper.uploadNopixelPhoneData(textarea.value);
-
+            const { countRecords, newRecords } =  backend.phonebookHelper.uploadNopixelPhoneData(textarea.value)
             
             middleman.popupModel.closePopupDiv();
 
-            if (newContactsCount === 0) {
+            if (countRecords === 0) {
                 try {
-                    middleman.umami.trackContact(`NP-Phone`, newContactsCount);
+                    middleman.umami.trackContact(`NP-Phone`, countRecords);
                 } catch (error) {
                     console.error("An error occurred while tracking contact changes:", error.message);
                 }
@@ -43,14 +42,12 @@ frontend.popupPhonebook_NP = (function () {
                 frontend.popupPhonebookOverview.render();
             } else {
                 try {
-                    middleman.umami.trackContact(`NP-Phone`, newContactsCount);
+                    middleman.umami.trackContact(`NP-Phone`, countRecords);
                 } catch (error) {
                     console.error("An error occurred while tracking contact changes:", error.message);
                 }
-                global.alertsystem('success', `Contacts are ready to go!<br> Added ${newContactsCount} new contacts. <br>Loading now—thank you for your patience.`, 4);
-                setTimeout(() => {
-                    window.location.reload();
-                }, 4000);
+                global.alertsystem('success', `Contacts are ready to go!<br> Added ${countRecords} new contacts. <br>Loading now—thank you for your patience.`, 4);
+                frontend.popupPhonebook_New.render(newRecords);
             }
         } catch (error) {
             global.alertsystem('error', error.message, 7);

@@ -3,7 +3,7 @@ var global = global ?? {};
 global.gitVersion = function () {
     const repoUrl = 'https://api.github.com/repos/SushiInGit/np_csv_converter/branches/main';
     const storageKey = 'lastUpdateDate';
-    const fallbackDate = '20241030'; // Fallback date in YYYYMMDD format
+    const fallbackDate = '20250211'; // Fallback date in YYYYMMDD format
 
     const storedDate = sessionStorage.getItem(storageKey);
     if (storedDate) {

@@ -1245,3 +1245,54 @@ popup.phonebook .model .element .uploader .body a:hover {
         color: red;
     }
 }
+
+popup.import_np_new .numberAddList {
+    max-height: 300px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    white-space: normal;
+    line-break: auto;
+    color: var(--speechbubble-text);
+}
+
+popup.import_np_new ul {
+    display: flex;
+    flex-direction: column;
+    gap: 10px; 
+    padding: 0px;
+    list-style: none; 
+}
+
+popup.import_np_new hr {
+    display: block;
+    position: relative;
+    opacity: 0.7;
+    height: 3px;
+    border: none;
+    background: linear-gradient(to right, transparent, rgba(0, 0, 0, 0.5), transparent);
+}
+
+popup.import_np_new li.numberList {
+    margin-right: 4px;
+    padding: 8px;
+
+}
+popup.import_np_new li.numberList:nth-child(odd) {
+    background-color: var(--bg-shade-light);
+    color: var(--speechbubble-text);
+    border: 1px solid var(--speechbubble-border-color);
+}
+
+popup.import_np_new li.numberList:nth-child(even) {
+    background-color: var(--bg-shade-light);
+    
+    color: var(--speechbubble-text);
+    border: 1px solid var(--speechbubble-border-color);
+}
+
+popup.import_np_new ul.recordListFound,
+popup.import_np_new ul.recordListFound li {
+    padding-left: 0px;
+    list-style: circle;
+    margin-left: 10px;
+}

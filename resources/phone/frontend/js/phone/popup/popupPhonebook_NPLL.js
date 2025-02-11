@@ -29,15 +29,14 @@ frontend.popupPhonebook_NPLL = (function () {
             if (!textarea || !textarea.value) {
                 throw new Error("The Lemon-List textbox appears to be empty. ");
             }
-
-            var newContactsCount = backend.phonebookHelper.uploadNopixelLemonListData(textarea.value);
+            const { countRecords, newRecords } =  backend.phonebookHelper.uploadNopixelPhoneData(textarea.value)
 
             middleman.popupModel.closePopupDiv();
             
             
-            if(newContactsCount === 0){
+            if(countRecords === 0){
                 try {
-                    middleman.umami.trackContact(`NP-Lemonlist`, newContactsCount);
+                    middleman.umami.trackContact(`NP-Lemonlist`, countRecords);
                 } catch (error) {
                     console.error("An error occurred while tracking contact changes:", error.message);
                 }
@@ -46,15 +45,14 @@ frontend.popupPhonebook_NPLL = (function () {
                 frontend.popupPhonebookOverview.render();
             } else { 
                 try {
-                    middleman.umami.trackContact(`NP-Lemonlist`, newContactsCount);
+                    middleman.umami.trackContact(`NP-Lemonlist`, countRecords);
                 } catch (error) {
                     console.error("An error occurred while tracking contact changes:", error.message);
                 }
                 
-                global.alertsystem('success', `Lemon-List contacts are exported and added to the contacts! <br> Added ${newContactsCount} new contacts. <br>Loading now—thank you for your patience.`, 4);
-                setTimeout(() => {
-                    window.location.reload();
-                }, 4000);
+                global.alertsystem('success', `Lemon-List contacts are exported and added to the contacts! <br> Added ${countRecords} new contacts. <br>Loading now—thank you for your patience.`, 4);
+                frontend.popupPhonebook_New.render(newRecords);
+
             }
 
         } catch (error) {

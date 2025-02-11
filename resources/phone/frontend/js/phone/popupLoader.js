@@ -9,6 +9,7 @@ frontend.popupLoader = function () {
         'popupBug.js', 
         'popupPhonebook_NP.js', 
         'popupPhonebook_NPLL.js', 
+        'popupPhonebookNew.js', 
         'popupPhonebook.js', 
         'popupPhonebookOverview.js', 
         'popupSettings.js'
