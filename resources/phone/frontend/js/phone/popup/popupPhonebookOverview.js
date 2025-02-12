@@ -242,6 +242,7 @@ frontend.popupPhonebookOverview = (function () {
                 <div class="contact-number">${phoneOutput(contact.number)}</div>
             </div>
             <div class="buttonbox">
+                <button class="check" onclick="frontend.popupPhonebookOverview.check(${contact.index})"><span class="material-icons">search</span></button>
                 <button class="edit" onclick="frontend.popupPhonebookOverview.edit(${contact.index})"><span class="material-icons">edit</span></button>
                 <button class="del" onclick="frontend.popupPhonebookOverview.del(${contact.index})"><span class="material-icons">delete</span></button>
             </div>
