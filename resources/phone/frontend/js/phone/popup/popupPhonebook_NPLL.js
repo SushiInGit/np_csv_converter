@@ -29,7 +29,7 @@ frontend.popupPhonebook_NPLL = (function () {
             if (!textarea || !textarea.value) {
                 throw new Error("The Lemon-List textbox appears to be empty. ");
             }
-            const { countRecords, newRecords } =  backend.phonebookHelper.uploadNopixelPhoneData(textarea.value)
+            const { countRecords, newRecords } =  backend.phonebookHelper.uploadNopixelLemonListData(textarea.value)
 
             middleman.popupModel.closePopupDiv();
             
