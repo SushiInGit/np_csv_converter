@@ -144,6 +144,11 @@ frontend.renderBank = (function () {
             filteredData = filteredData.filter(x => x.direction == bankDirectionFilter);
         }
 
+        var hideSmallValues = Number(middleman.settings.getSettings().hideSmallValues);
+        if (hideSmallValues > 0) {
+            filteredData = filteredData.filter(x => x.amount >= hideSmallValues);
+        }
+
         if (filteredData.length === 0) {
             console.warn("No matching data found for the specified filter.");
             outputContainer.innerHTML = "No data matching the criteria.";
@@ -290,11 +295,13 @@ frontend.renderBank = (function () {
         tableHeaderLeft.innerHTML = ``;
         tableHeaderRight.innerHTML = ``;
 
+        var hideSmallValues = Number(middleman.settings.getSettings().hideSmallValues);
+
         /**
         * ALL POV
         **/
         if (transferID === (-1)) {
-            tableHeaderLeft.innerHTML = `All Transactions`;
+            tableHeaderLeft.innerHTML = `All Transactions &nbsp;${hideSmallValues > 0 ? "<span class='warning'>[ EXPERIMENTAL SETTING! Hiding rows with less than $" + hideSmallValues + " ]" : ""}`;
             const totalIn = await indexedDBHelper.loadMetadata(dbName, 'totalIn');
             const totalOut = await indexedDBHelper.loadMetadata(dbName, 'totalOut');
 
@@ -309,7 +316,7 @@ frontend.renderBank = (function () {
             * Filtered output by bankID
             **/
         } else {
-            tableHeaderLeft.innerHTML = `${transferName} ( ID: ${transferID} )`;
+            tableHeaderLeft.innerHTML = `${transferName} ( ID: ${transferID} ) &nbsp;${hideSmallValues > 0 ? "<span class='warning'>[ EXPERIMENTAL SETTING! Hiding rows with less than $" + hideSmallValues + " ]" : ""}`;
             tableHeaderRight.innerHTML = `
                 [ Loading Data ... ] 
             `;

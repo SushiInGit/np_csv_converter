@@ -1,4 +1,7 @@
 
+.header .left .warning {
+    color: hsla(37, 90%, 51%, 0.85);
+}
 
 .header .right .out,
 .header .right .in {

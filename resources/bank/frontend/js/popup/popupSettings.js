@@ -19,6 +19,19 @@ frontend.popupSettings = (function () {
                     <option value="300">300</option>                    
                 </select>
             </div>
+            <div id="hideSmallValuesDiv">
+                <label for="hideSmallValues">Hide Amounts Below: EXPERIMENTAL!</label>
+                <select id="hideSmallValues">
+                    <option value="0">Disabled</option>
+                    <option value="100">$100</option>
+                    <option value="1000">$1.000</option>
+                    <option value="10000">$10.000</option>
+                    <option value="100000">$100.000</option>
+                    <option value="250000">$250.000</option>
+                    <option value="500000">$500.000</option>
+                    <option value="1000000">$1.000.000</option>
+                </select>
+            </div>
             <div id="timezoneDiv">
                 <label for="timezone">Timezone:</label>
                 <select id="timezone">
@@ -82,6 +95,7 @@ frontend.popupSettings = (function () {
                     const settings = middleman.settings.getSettings();
                     const getsettings = settings; 
 
+                    setSettingSelectedValue('hideSmallValues', `${(getsettings.hideSmallValues)}`);
                     setSettingSelectedValue('chunkSize', `${(getsettings.chunkSize)}`);
                     setSettingSelectedValue('timezone', `${(getsettings.timeZone)}`);
                     setSettingSelectedValue('dateformat', `${(getsettings.dateFormat)}`);
@@ -171,6 +185,7 @@ frontend.popupSettings = (function () {
     **/
     function saveSettingsTrigger() {
         const newSettingsData = {
+            hideSmallValues: hideSmallValues.value,
             chunkSize: chunkSize.value,
             timeZone: timezone.value,
             dateFormat: dateformat.value,
