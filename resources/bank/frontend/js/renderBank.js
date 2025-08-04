@@ -1,5 +1,31 @@
 var frontend = frontend ?? {};
 
+
+var bankDirectionFilter = false;
+document.querySelector(".output .header .right").addEventListener("click", function (e) {
+    if (e.target.classList.contains("active")) {
+        e.target.classList.remove("active");
+        bankDirectionFilter = false;
+    }
+    else {
+        if (e.target.parentElement.querySelector(".active")) {
+            e.target.parentElement.querySelector(".active").classList.remove("active");
+        }
+
+        if (e.target.classList.contains("in")) {
+            bankDirectionFilter = "in";
+            e.target.classList.add("active");
+        }
+        else if (e.target.classList.contains("out")) {
+            bankDirectionFilter = "out";
+            e.target.classList.add("active");
+        }
+    }
+
+    frontend.renderBank.reopenActiveTransfer();
+});
+
+
 frontend.renderBank = (function () {
     /**
     * Render for Transaction-List
@@ -112,6 +138,10 @@ frontend.renderBank = (function () {
                 (row.to_account_id === bankID && row.from_account_id === mFA_bankid) ||
                 (row.to_account_id === mFA_bankid && row.from_account_id === bankID)
             );
+        }
+
+        if (!!bankDirectionFilter) {
+            filteredData = filteredData.filter(x => x.direction == bankDirectionFilter);
         }
 
         if (filteredData.length === 0) {
@@ -269,9 +299,11 @@ frontend.renderBank = (function () {
             const totalOut = await indexedDBHelper.loadMetadata(dbName, 'totalOut');
 
             tableHeaderRight.innerHTML = `
-                [ Outgoing: $${totalOut.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")} | 
-                Incoming: $${totalIn.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")} ] 
-            `;
+                [&nbsp;
+                    <span class="out ${bankDirectionFilter == "out" ? "active" : ""}">Outgoing: $${totalOut.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}</span>
+                &nbsp;|&nbsp; 
+                    <span class="in ${bankDirectionFilter == "in" ? "active" : ""}">Incoming: $${totalIn.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}</span>
+                &nbsp;]`;
 
             /**
             * Filtered output by bankID
@@ -284,9 +316,11 @@ frontend.renderBank = (function () {
             indexedDBHelper.totalAmountByID(transferID)
                 .then(({ totalIn, totalOut }) => {
                     tableHeaderRight.innerHTML = `
-                [ Outgoing: $${totalOut.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")} | 
-                Incoming: $${totalIn.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")} ] 
-            `;
+                    [&nbsp;
+                        <span class="out ${bankDirectionFilter == "out" ? "active" : ""}">Outgoing: $${totalOut.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}</span>
+                    &nbsp;|&nbsp;
+                        <span class="in ${bankDirectionFilter == "in" ? "active" : ""}">Incoming: $${totalIn.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}</span>
+                    &nbsp;]`;
                 })
                 .catch((err) => {
                     console.error(err);

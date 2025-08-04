@@ -1,3 +1,18 @@
+
+
+.header .right .out,
+.header .right .in {
+    cursor: pointer;
+}
+
+.header .right .out.active {
+    color: #ff7474d2;
+}
+
+.header .right .in.active {
+    color: #81fd92c4;
+}
+
 .bankoutput {
     height: 100%;
     max-height: 100%;
