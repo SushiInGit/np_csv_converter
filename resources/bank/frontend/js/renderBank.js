@@ -157,6 +157,18 @@ frontend.renderBank = (function () {
             filteredData = filteredData.filter(x => x.amount <= maxPriceFilter);
         }
 
+        // Apply filter words (exclude items that contain selected filter words)
+        const filterWords = middleman.settings.getSettings().filterWords || [];
+        if (filterWords.length > 0) {
+            filteredData = filteredData.filter(transaction => {
+                // Check if transaction description contains any of the filter words
+                const comment = (transaction.comment || '').toLowerCase();
+                return !filterWords.some(filterWord => 
+                    comment.includes(filterWord.toLowerCase())
+                );
+            });
+        }
+
         if (filteredData.length === 0) {
             console.warn("No matching data found for the specified filter.");
             outputContainer.innerHTML = "No data matching the criteria.";
@@ -305,10 +317,11 @@ frontend.renderBank = (function () {
 
         const minPriceFilter = Number(middleman.settings.getSettings().minPriceFilter || 0);
         const maxPriceFilter = Number(middleman.settings.getSettings().maxPriceFilter || -1);
+        const filterWords = middleman.settings.getSettings().filterWords || [];
         
         // Create filter message
         let filterMessage = "";
-        if (minPriceFilter > 0 || maxPriceFilter > 0) {
+        if (minPriceFilter > 0 || maxPriceFilter > 0 || filterWords.length > 0) {
             filterMessage = `<span class='warning'>[ Warning: Record filtering enabled! ]</span>`;
         }
 

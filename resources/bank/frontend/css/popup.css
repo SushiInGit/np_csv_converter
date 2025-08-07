@@ -397,10 +397,58 @@ popup.settings select::after {
     pointer-events: none;
 }
 
+popup.settings .settingsScroll {
+    max-height: min(400px, 50vh);
+    margin-top: 15px;
+    padding-right: 8px;
+    overflow-y: auto;
+}
 
-/* Price Range Slider */
+/* Filter Words - Pill/Tag Selection */
+popup.settings .filter-tag-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+popup.settings .filter-tag {
+    padding: 8px 16px;
+    background-color: #333333;
+    border: 1px solid #555555;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    user-select: none;
+    color: #ffffff;
+    font-size: 14px;
+}
+
+popup.settings .filter-tag:hover {
+    background-color: #444444;
+    border-color: #777777;
+    transform: translateY(-1px);
+}
+
+popup.settings .filter-tag.selected {
+    background-color: #5d3f9f;
+    border-color: #7d5fc7;
+}
+
+popup.settings .filter-tag.selected:hover {
+    background-color: #6d4faf;
+    border-color: #8d6fd7;
+}
+
+popup.settings .filter-tag.selected::after {
+    content: ' ✓';
+    margin-left: 5px;
+    font-weight: bold;
+}
+
+/* Price Range Filter */
 popup.settings #priceRangeDiv {
-    padding: 15px 0;
+    padding: 10px 0px;
 }
 
 popup.settings #priceRangeDiv label {
@@ -429,14 +477,12 @@ popup.settings #priceRangeDiv input[type="number"]:focus {
     border-color: #777777;
 }
 
-/* Chrome, Safari, Edge, Opera */
 popup.settings #priceRangeDiv input[type="number"]::-webkit-outer-spin-button,
 popup.settings #priceRangeDiv input[type="number"]::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
 }
 
-/* Firefox */
 popup.settings #priceRangeDiv input[type="number"] {
     -moz-appearance: textfield;
 }

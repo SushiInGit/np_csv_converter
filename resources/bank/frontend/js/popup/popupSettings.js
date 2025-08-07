@@ -7,19 +7,70 @@ frontend.popupSettings = (function () {
     function settingsEvent() {
         const popupDivName = "settings";
         const content = `
-            <div id="chunkSizeDiv">
-                <label for="chunkSize">Display Transfers Amount:</label>
-                <select id="chunkSize">
-                    <option value="20">20</option>
-                    <option value="50">50 (Default)</option>
-                    <option value="100">100</option>
-                    <option value="150">150</option>
-                    <option value="200">200</option>
-                    <option value="250">250</option>
-                    <option value="300">300</option>                    
-                </select>
-            </div>
-            <div id="here">
+            <div class="settingsScroll">
+                <div id="chunkSizeDiv">
+                    <label for="chunkSize">Display Transfers Amount:</label>
+                    <select id="chunkSize">
+                        <option value="20">20</option>
+                        <option value="50">50 (Default)</option>
+                        <option value="100">100</option>
+                        <option value="150">150</option>
+                        <option value="200">200</option>
+                        <option value="250">250</option>
+                        <option value="300">300</option>                    
+                    </select>
+                </div>
+                <div id="timezoneDiv">
+                    <label for="timezone">Timezone:</label>
+                    <select id="timezone">
+                        <option value="utc">Coordinated Universal Time (UTC)</option>
+                        <option value="gmt">Greenwich Mean Time (GMT)</option>
+                        <option value="est">Eastern Standard Time (EST)</option>
+                        <option value="pt">Pacific Time (PT)</option>
+                        <option value="ast">Arabia Standard Time (AST)</option>
+                        <option value="jst">Japan Standard Time (JST)</option>
+                        <option value="cst">China Standart Time (CST)</option>
+                        <option value="ist">Indian Standard Time (IST)</option>
+                        <option value="pst">America/Los_Angeles (PST/PDT)</option>
+                        <option value="edt">America/New_York (EDT)</option>
+                        <option value="aest">Australia/Sydney (AEST/AEDT)</option>
+                        <option value="cest">Europe/Berlin (CEST)</option>
+                        <option value="bst">Europe/London (BST)</option>
+                    </select>
+                </div>
+                <div id="dateformatDiv">
+                    <label for="dateformat">Dateformat:</label>
+                    <select id="dateformat">
+                        <option value="MM/DD/YYYY">MM/DD/YYYY</option>
+                        <option value="DD/MM/YYYY">DD/MM/YYYY</option>
+                        <option value="DD.MM.YYYY">DD.MM.YYYY</option>
+                        <option value="YYYY-MM-DD">YYYY-MM-DD</option>
+                        <option value="MMMM DD, YYYY">MMMM DD, YYYY</option>
+                        <option value="DD MMMM YYYY">DD MMMM YYYY</option>
+                    </select>
+                </div>
+                <div id="use12hClockDiv">
+                    <label for="use12hClock">12h or 24h clock:</label>
+                    <select id="use12hClock">
+                        <option value="12Hour">12Hour</option>
+                        <option value="24Hour">24Hour</option>
+                    </select>
+                </div>
+                <div id="timeFirstDiv">
+                    <label for="timeFirst">Date/Time order</label>
+                    <select id="timeFirst">
+                        <option value="dateAndTime">Date then Time</option>
+                        <option value="timeAndDate">Time then Date</option>
+                    </select>
+                </div>  
+                <div id="offsetBySettingsDiv">
+                    <label for="offsetBySettings">Daylight Savings: <!-- (${middleman.timeConverter.processTimestamp(Date.now()).isDaylightSavingTime ? "Summer Time " : "Winter Time"}) --></label>
+                    <select id="offsetBySettings">
+                        <option value="0">Dynamic Time Offset</option>
+                        <option value="-1">Force Winter Time (-1h)</option>
+                        <option value="+1">Force Summer Time (+1h)</option>
+                    </select>
+                </div>
                 <div id="priceRangeDiv">
                     <label>Price Range Filter:</label>
                     <div class="price-range-container">
@@ -36,57 +87,19 @@ frontend.popupSettings = (function () {
                         <span id="rangeDisplay">$0 - Unlimited</span>
                     </div>
                 </div>
-            </div>
-            <div id="timezoneDiv">
-                <label for="timezone">Timezone:</label>
-                <select id="timezone">
-                    <option value="utc">Coordinated Universal Time (UTC)</option>
-                    <option value="gmt">Greenwich Mean Time (GMT)</option>
-                    <option value="est">Eastern Standard Time (EST)</option>
-                    <option value="pt">Pacific Time (PT)</option>
-                    <option value="ast">Arabia Standard Time (AST)</option>
-                    <option value="jst">Japan Standard Time (JST)</option>
-                    <option value="cst">China Standart Time (CST)</option>
-                    <option value="ist">Indian Standard Time (IST)</option>
-                    <option value="pst">America/Los_Angeles (PST/PDT)</option>
-                    <option value="edt">America/New_York (EDT)</option>
-                    <option value="aest">Australia/Sydney (AEST/AEDT)</option>
-                    <option value="cest">Europe/Berlin (CEST)</option>
-                    <option value="bst">Europe/London (BST)</option>
-                </select>
-            </div>
-            <div id="dateformatDiv">
-                <label for="dateformat">Dateformat:</label>
-                <select id="dateformat">
-                    <option value="MM/DD/YYYY">MM/DD/YYYY</option>
-                    <option value="DD/MM/YYYY">DD/MM/YYYY</option>
-                    <option value="DD.MM.YYYY">DD.MM.YYYY</option>
-                    <option value="YYYY-MM-DD">YYYY-MM-DD</option>
-                    <option value="MMMM DD, YYYY">MMMM DD, YYYY</option>
-                    <option value="DD MMMM YYYY">DD MMMM YYYY</option>
-                </select>
-            </div>
-            <div id="use12hClockDiv">
-                <label for="use12hClock">12h or 24h clock:</label>
-                <select id="use12hClock">
-                    <option value="12Hour">12Hour</option>
-                    <option value="24Hour">24Hour</option>
-                </select>
-            </div>
-            <div id="timeFirstDiv">
-                <label for="timeFirst">Date/Time order</label>
-                <select id="timeFirst">
-                    <option value="dateAndTime">Date then Time</option>
-                    <option value="timeAndDate">Time then Date</option>
-                </select>
-            </div>  
-            <div id="offsetBySettingsDiv">
-                <label for="offsetBySettings">Daylight Savings: <!-- (${middleman.timeConverter.processTimestamp(Date.now()).isDaylightSavingTime ? "Summer Time " : "Winter Time"}) --></label>
-                <select id="offsetBySettings">
-                    <option value="0">Dynamic Time Offset</option>
-                    <option value="-1">Force Winter Time (-1h)</option>
-                    <option value="+1">Force Summer Time (+1h)</option>
-                </select>
+                <div id="filterWords">
+                    <label>Filter Words:</label>
+                    <div class="filter-tag-container">
+                        <span class="filter-tag" data-value="Stock Sold">Stock Sold</span>
+                        <span class="filter-tag" data-value="Type: Tax">Type: Tax</span>
+                        <span class="filter-tag" data-value="Job:">Job:</span>
+                        <span class="filter-tag" data-value="Store Purchase">Store Purchase</span>
+                        <span class="filter-tag" data-value="Clothing Store">Clothing Store</span>
+                        <span class="filter-tag" data-value="Payment: Fuel purchase">Payment: Fuel purchase</span>
+                        <span class="filter-tag" data-value="Reimbursement: Fuel purchase">Reimbursement: Fuel purchase</span>
+                        <span class="filter-tag" data-value="Asset Bill Payment:">Asset Bill Payment:</span>
+                    </div>
+                </div>
             </div>
         `;
         const footer = `<button class="ok" onclick="frontend.popupSettings.save(); frontend.popupSettings.removeBank(); ">Save</button> <button class="risk" onclick="frontend.popupSettings.reset(); frontend.popupSettings.removeBank();">Reset</button>`;
@@ -250,6 +263,9 @@ frontend.popupSettings = (function () {
                     // Initial visual update
                     updateRangeVisuals();
 
+                    // Initialize filter words UI
+                    initializeFilterWords(getsettings.filterWords || []);
+
                 } catch (error) {
                     console.error("Error retrieving settings:", error);
                 }
@@ -331,6 +347,8 @@ frontend.popupSettings = (function () {
     * Saves Settings
     **/
     function saveSettingsTrigger() {
+        const selectedFilterWords = getSelectedFilterWords();
+        
         const newSettingsData = {
             chunkSize: chunkSize.value,
             timeZone: timezone.value,
@@ -339,7 +357,8 @@ frontend.popupSettings = (function () {
             displayOrder: timeFirst.value,
             offsetBySettings: offsetBySettings.value,
             minPriceFilter: parseInt(document.getElementById('minPrice').value) || 0,
-            maxPriceFilter: parseInt(document.getElementById('maxPrice').value) || (document.getElementById('maxPrice').placeholder === 'Unlimited' ? -1 : 500000000)
+            maxPriceFilter: parseInt(document.getElementById('maxPrice').value) || (document.getElementById('maxPrice').placeholder === 'Unlimited' ? -1 : 500000000),
+            filterWords: selectedFilterWords
         };
 
         /* UMAMI */
@@ -375,6 +394,31 @@ frontend.popupSettings = (function () {
         selectElement.value = value;
     }
 
+    /**
+    * Initialize filter words UI with saved values
+    **/
+    function initializeFilterWords(savedWords) {
+        // Pill/Tag Selection
+        document.querySelectorAll('.filter-tag').forEach(tag => {
+            const value = tag.getAttribute('data-value');
+            
+            if (savedWords.includes(value)) {
+                tag.classList.add('selected');
+            }
+            
+            tag.addEventListener('click', () => {
+                tag.classList.toggle('selected');
+            });
+        });
+    }
+
+    /**
+    * Get selected filter words
+    **/
+    function getSelectedFilterWords() {
+        return Array.from(document.querySelectorAll('.filter-tag.selected'))
+            .map(tag => tag.getAttribute('data-value'));
+    }
 
     return {
         render: settingsEvent,
