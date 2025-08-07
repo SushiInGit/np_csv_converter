@@ -5,7 +5,8 @@ middleman.settings = (function () {
     * defaultSettings => used in localStorage
     **/
     const defaultSettings = {
-        hideSmallValues: '0',
+        minPriceFilter: '0',
+        maxPriceFilter: '-1', // -1 means unlimited
         chunkSize: '50',
         timeZone: 'utc',
         timeFormat: '24Hour',
@@ -67,7 +68,6 @@ middleman.settings = (function () {
         const settings = middleman.settings.getSettings();
 
         if (settings && (
-            !settings.hideSmallValues || settings.hideSmallValues === '' ||
             !settings.chunkSize || settings.chunkSize === '' ||
             !settings.dateFormat || settings.dateFormat === '' ||
             !settings.displayOrder || settings.displayOrder === '' ||

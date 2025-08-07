@@ -144,9 +144,17 @@ frontend.renderBank = (function () {
             filteredData = filteredData.filter(x => x.direction == bankDirectionFilter);
         }
 
-        var hideSmallValues = Number(middleman.settings.getSettings().hideSmallValues);
-        if (hideSmallValues > 0) {
-            filteredData = filteredData.filter(x => x.amount >= hideSmallValues);
+        const minPriceFilter = Number(middleman.settings.getSettings().minPriceFilter || 0);
+        const maxPriceFilter = Number(middleman.settings.getSettings().maxPriceFilter || -1);
+        
+        // Apply min price filter
+        if (minPriceFilter > 0) {
+            filteredData = filteredData.filter(x => x.amount >= minPriceFilter);
+        }
+        
+        // Apply max price filter (only if not set to unlimited which is -1)
+        if (maxPriceFilter > 0) {
+            filteredData = filteredData.filter(x => x.amount <= maxPriceFilter);
         }
 
         if (filteredData.length === 0) {
@@ -295,13 +303,20 @@ frontend.renderBank = (function () {
         tableHeaderLeft.innerHTML = ``;
         tableHeaderRight.innerHTML = ``;
 
-        var hideSmallValues = Number(middleman.settings.getSettings().hideSmallValues);
+        const minPriceFilter = Number(middleman.settings.getSettings().minPriceFilter || 0);
+        const maxPriceFilter = Number(middleman.settings.getSettings().maxPriceFilter || -1);
+        
+        // Create filter message
+        let filterMessage = "";
+        if (minPriceFilter > 0 || maxPriceFilter > 0) {
+            filterMessage = `<span class='warning'>[ Warning: Record filtering enabled! ]</span>`;
+        }
 
         /**
         * ALL POV
         **/
         if (transferID === (-1)) {
-            tableHeaderLeft.innerHTML = `All Transactions &nbsp;${hideSmallValues > 0 ? "<span class='warning'>[ EXPERIMENTAL SETTING! Hiding rows with less than $" + hideSmallValues + " ]" : ""}`;
+            tableHeaderLeft.innerHTML = `All Transactions &nbsp;${filterMessage}`;
             const totalIn = await indexedDBHelper.loadMetadata(dbName, 'totalIn');
             const totalOut = await indexedDBHelper.loadMetadata(dbName, 'totalOut');
 
@@ -316,7 +331,7 @@ frontend.renderBank = (function () {
             * Filtered output by bankID
             **/
         } else {
-            tableHeaderLeft.innerHTML = `${transferName} ( ID: ${transferID} ) &nbsp;${hideSmallValues > 0 ? "<span class='warning'>[ EXPERIMENTAL SETTING! Hiding rows with less than $" + hideSmallValues + " ]" : ""}`;
+            tableHeaderLeft.innerHTML = `${transferName} ( ID: ${transferID} ) &nbsp;${filterMessage}`;
             tableHeaderRight.innerHTML = `
                 [ Loading Data ... ] 
             `;
