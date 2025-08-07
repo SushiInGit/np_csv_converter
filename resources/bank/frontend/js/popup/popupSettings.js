@@ -88,16 +88,30 @@ frontend.popupSettings = (function () {
                     </div>
                 </div>
                 <div id="filterWords">
-                    <label>Filter Words:</label>
+                    <label>Hide Records Containing:</label>
                     <div class="filter-tag-container">
                         <span class="filter-tag" data-value="Stock Sold">Stock Sold</span>
                         <span class="filter-tag" data-value="Type: Tax">Type: Tax</span>
                         <span class="filter-tag" data-value="Job:">Job:</span>
                         <span class="filter-tag" data-value="Store Purchase">Store Purchase</span>
                         <span class="filter-tag" data-value="Clothing Store">Clothing Store</span>
+                        <span class="filter-tag" data-value="Parking spot purchase">Parking spot purchase</span>
+                        <span class="filter-tag" data-value="Gas">Gas</span>
                         <span class="filter-tag" data-value="Payment: Fuel purchase">Payment: Fuel purchase</span>
                         <span class="filter-tag" data-value="Reimbursement: Fuel purchase">Reimbursement: Fuel purchase</span>
+                        <span class="filter-tag" data-value="Impound Release Fee">Impound Release Fee</span>
+                        <span class="filter-tag" data-value="Rental - Damage Fee">Rental - Damage Fee</span>
+                        <span class="filter-tag" data-value="Rental Purchase">Rental Purchase</span>
                         <span class="filter-tag" data-value="Asset Bill Payment:">Asset Bill Payment:</span>
+                        <span class="filter-tag" data-value="Property Bid:">Property Bid:</span>
+                        <span class="filter-tag" data-value="Property Bid Withdrawal:">Property Bid Withdrawal:</span>
+                        <span class="filter-tag" data-value="Scraps Production Fee">Scraps Production Fee</span>
+                        <span class="filter-tag" data-value="Showroom Purchase">Showroom Purchase</span>
+                        <span class="filter-tag" data-value="Showroom Sale">Showroom Sale</span>
+                        <span class="filter-tag" data-value="Physical payslip cashout">Physical payslip cashout</span>
+                        <span class="filter-tag" data-value="Blaine County Paycheck">Blaine County Paycheck</span>
+                        <span class="filter-tag" data-value="Los Santos Paycheck">Los Santos Paycheck</span>
+                        <span class="filter-tag" data-value="Financial Administrative Costs">Financial Administrative Costs</span>
                     </div>
                 </div>
             </div>

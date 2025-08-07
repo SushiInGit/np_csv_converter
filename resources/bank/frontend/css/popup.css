@@ -408,12 +408,12 @@ popup.settings .settingsScroll {
 popup.settings .filter-tag-container {
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
-    margin-top: 10px;
+    gap: 4px;
+    margin-top: 4px;
 }
 
 popup.settings .filter-tag {
-    padding: 8px 16px;
+    padding: 4px 10px;
     background-color: #333333;
     border: 1px solid #555555;
     border-radius: 20px;
@@ -421,7 +421,7 @@ popup.settings .filter-tag {
     transition: all 0.3s ease;
     user-select: none;
     color: #ffffff;
-    font-size: 14px;
+    font-size: 12px;
 }
 
 popup.settings .filter-tag:hover {
