@@ -153,8 +153,8 @@ frontend.popupUpload = (function () {
         const content = `
             <form id="upload-form">
                 <div class="drop-zone" id="drop-zone">
-                    Drag & Drop or click to Upload an Excel-File
-                    <input type="file" id="file-input" accept=".xlsx, .xls" style="display: none;" required>
+                    Drag & Drop or click to Upload an Excel/CSV-File
+                    <input type="file" id="file-input" accept=".xlsx, .xls, .csv" style="display: none;" required>
                 </div>
             </form>
         `;
@@ -167,7 +167,8 @@ frontend.popupUpload = (function () {
             renderList();
             const excelMimeTypes = [
                 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',  // .xlsx
-                'application/vnd.ms-excel'                                            // .xls
+                'application/vnd.ms-excel',                                           // .xls
+                'text/csv'                                                            // .csv
             ];
 
             function isExcelFile(file) {
@@ -192,7 +193,7 @@ frontend.popupUpload = (function () {
                 if (files.length) {
                     var type = backend.fileProcessor.processFiles(files);
                     if (!isExcelFile(type)) {
-                        global.alertsystem('warning', 'Warning: Unsupported file type. Please upload an Excel file.', 7);
+                        global.alertsystem('warning', 'Warning: Unsupported file type. Please upload an Excel or CSV file.', 7);
                         return;
                     }
                 }

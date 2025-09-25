@@ -19,8 +19,8 @@ backend.fileUploader = (function () {
         const dropArea = document.createElement("div");
         dropArea.className = "drop-area";
         dropArea.innerHTML = `
-            <p>Drag & drop a .xlsx file here, or click to upload</p>
-            <input type="file" class="file-input" accept=".xlsx" multiple style="display: none;" />
+            <p>Drag & drop a .xlsx or .csv file here, or click to upload</p>
+            <input type="file" class="file-input" accept=".xlsx, .csv" multiple style="display: none;" />
         `;
         
         dropinContainer.appendChild(dropArea);
@@ -58,18 +58,18 @@ backend.fileUploader = (function () {
     **/
     async function handleFiles(files, onFileUploaded) {
         const validFiles = files.filter((file) =>
-            /\.(xlsx)$/i.test(file.name)
+            /\.(xlsx|csv)$/i.test(file.name)
         );
 
         if (validFiles.length === 0) {
-            alert("Only .xlsx files are allowed.");
+            alert("Only .xlsx and .csv files are allowed.");
             return;
         }
 
         frontend.renderModel.closePopupDiv();
 
         for (const file of validFiles) {
-            let progressBarName = file.name.toLowerCase().replace(".xlsx", "");
+            let progressBarName = file.name.toLowerCase().replace(/\.(xlsx|csv)$/i, "");
 
             await middleman.progressbar.createProgress(`Reading File: ${progressBarName}`);
             await middleman.progressbar.createProgress(`Normalizing: ${progressBarName}`);
@@ -78,7 +78,7 @@ backend.fileUploader = (function () {
 
             let parsedData = [];
 
-            if (file.name.endsWith(".xlsx")) {
+            if (file.name.endsWith(".xlsx") || file.name.endsWith(".csv")) {
                 await middleman.progressbar.updateProgress(`Reading File: ${progressBarName}`, 30);
                 parsedData = await parseXLSX(file);
             }
@@ -101,8 +101,8 @@ backend.fileUploader = (function () {
     }
 
     /**
-    * Parses an XLSX file into an array of objects.
-    * @param {File} file - The XLSX file to parse.
+    * Parses an XLSX or CSV file into an array of objects.
+    * @param {File} file - The XLSX or CSV file to parse.
     * @returns {Promise<Object[]>}
     **/
     async function parseXLSX(file) {

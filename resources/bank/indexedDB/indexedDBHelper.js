@@ -18,10 +18,8 @@ indexedDBHelper = {
     * @returns Normalized Filename
     **/
     normalizeFilename(dbName) {
-        // Remove the ".xlsx" extension if it exists
-        const dbNameWithoutExtension = dbName.endsWith('.xlsx')
-            ? dbName.slice(0, -5)
-            : dbName;
+        // Remove the ".xlsx" or ".csv" extension if it exists
+        const dbNameWithoutExtension = dbName.replace(/\.(xlsx|csv)$/i, '');
 
         // Now normalize the dbName
         return "BANK_" + dbNameWithoutExtension.replace(/[^a-zA-Z0-9]/g, " ");

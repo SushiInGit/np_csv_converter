@@ -53,7 +53,7 @@ global.fileupload = (function () {
             middleman.popupHelp.closeHelp();
             popupDiv.innerHTML = ``;
             const popupDivBody = document.createElement(`upload`);
-            const fileName = filename.replace(/\.xlsx$/, '');
+            const fileName = filename.replace(/\.(xlsx|csv)$/i, '');
             popupDivBody.innerHTML = `
             <div class="model">
                 <div class="head">
